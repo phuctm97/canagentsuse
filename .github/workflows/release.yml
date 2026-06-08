@@ -78,7 +78,6 @@ jobs:
       - name: Publish CLI package
         if: steps.plan.outputs.cli == 'true'
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_ACCESS: public
           NPM_CONFIG_PROVENANCE: "true"
         run: bun run changeset:publish
