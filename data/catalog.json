@@ -1,7 +1,7 @@
 {
   "$schema": "./catalog.schema.json",
   "generatedAt": "2026-06-08T07:33:59.554Z",
-  "source": "Can Agents Use source catalog export before database removal",
+  "source": "Can Agents Use file-backed catalog",
   "categories": [
     {
       "slug": "billing-payments",

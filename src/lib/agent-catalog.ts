@@ -50,7 +50,7 @@ export type AgentCatalog = {
     description: string
     url: string
     interfaceVersion: string
-    source: "database" | "sample"
+    source: "catalog-json" | "sample"
     guidance: string[]
     scoreModel: typeof agentScoreWeights
     endpoints: Record<string, string>
@@ -315,6 +315,70 @@ export function openApiDocument(catalog: AgentCatalog) {
           },
         },
       },
+      "/api/mcp": {
+        post: {
+          summary: "Call the read-only MCP-style JSON-RPC endpoint",
+          operationId: "callMcpEndpoint",
+          description:
+            "Supports initialize, ping, tools/list, tools/call, resources/list, and resources/read for the Can Agents Use catalog.",
+          requestBody: {
+            required: true,
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/JsonRpcRequest" },
+                examples: {
+                  listTools: {
+                    summary: "List MCP tools",
+                    value: {
+                      jsonrpc: "2.0",
+                      id: 1,
+                      method: "tools/list",
+                      params: {},
+                    },
+                  },
+                  searchTools: {
+                    summary: "Search agent-friendly tools",
+                    value: {
+                      jsonrpc: "2.0",
+                      id: 2,
+                      method: "tools/call",
+                      params: {
+                        name: "search_agent_tools",
+                        arguments: {
+                          query: "stripe",
+                          page: 1,
+                          limit: 10,
+                        },
+                      },
+                    },
+                  },
+                  readCatalog: {
+                    summary: "Read the full catalog resource",
+                    value: {
+                      jsonrpc: "2.0",
+                      id: 3,
+                      method: "resources/read",
+                      params: {
+                        uri: "canagentsuse://catalog",
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          responses: {
+            "200": {
+              description: "JSON-RPC result or JSON-RPC error envelope.",
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/JsonRpcResponse" },
+                },
+              },
+            },
+          },
+        },
+      },
     },
     components: {
       schemas: {
@@ -412,6 +476,57 @@ export function openApiDocument(catalog: AgentCatalog) {
             capabilities: { type: "array", items: { type: "object" } },
           },
         },
+        JsonRpcRequest: {
+          type: "object",
+          required: ["jsonrpc", "method"],
+          additionalProperties: true,
+          properties: {
+            jsonrpc: { type: "string", const: "2.0" },
+            id: {
+              oneOf: [
+                { type: "string" },
+                { type: "number" },
+                { type: "null" },
+              ],
+            },
+            method: {
+              type: "string",
+              enum: [
+                "initialize",
+                "ping",
+                "tools/list",
+                "tools/call",
+                "resources/list",
+                "resources/read",
+              ],
+            },
+            params: { type: "object", additionalProperties: true },
+          },
+        },
+        JsonRpcResponse: {
+          type: "object",
+          required: ["jsonrpc", "id"],
+          additionalProperties: true,
+          properties: {
+            jsonrpc: { type: "string", const: "2.0" },
+            id: {
+              oneOf: [
+                { type: "string" },
+                { type: "number" },
+                { type: "null" },
+              ],
+            },
+            result: { type: "object", additionalProperties: true },
+            error: {
+              type: "object",
+              required: ["code", "message"],
+              properties: {
+                code: { type: "integer" },
+                message: { type: "string" },
+              },
+            },
+          },
+        },
       },
     },
   }
@@ -424,7 +539,7 @@ function toAgentCatalog(data: DirectoryData): AgentCatalog {
       description: SITE_DESCRIPTION,
       url: SITE_URL,
       interfaceVersion: agentInterfaceVersion,
-      source: data.isFallback ? "sample" : "database",
+      source: data.isFallback ? "sample" : "catalog-json",
       guidance: [
         "Use public read-only endpoints instead of database access.",
         "For bulk context, fetch /api/agent/catalog or /llms-full.txt once and search locally.",
