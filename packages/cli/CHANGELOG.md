@@ -1,5 +1,11 @@
 # canagentsuse
 
+## 0.2.2
+
+### Patch Changes
+
+- f7c8f57: Add CLI setup guidance to the Can Agents Use skill and sync skills.sh metadata.
+
 ## 0.2.1
 
 ### Patch Changes
