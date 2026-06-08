@@ -1,0 +1,117 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".changeset/**"
+      - "packages/**"
+      - "data/**"
+      - "skills/**"
+      - "package.json"
+      - "bun.lock"
+      - ".github/workflows/release.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Version, Publish, And Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+          package-manager-cache: false
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Read release plan
+        id: plan
+        run: bun run release:plan
+
+      - name: Stop when no changeset packages are planned
+        if: steps.plan.outputs.has_plan != 'true'
+        run: echo "No package release plan found in .changeset/*.md."
+
+      - name: Version packages from changesets
+        if: steps.plan.outputs.has_plan == 'true'
+        run: bun run changeset:version
+
+      - name: Run release checks
+        if: steps.plan.outputs.has_plan == 'true'
+        run: bun run check && bun run cli:pack
+
+      - name: Configure git author
+        if: steps.plan.outputs.has_plan == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit versioned packages
+        if: steps.plan.outputs.has_plan == 'true'
+        run: |
+          git add .changeset packages package.json bun.lock
+          git commit -m "Version packages"
+
+      - name: Publish CLI package
+        if: steps.plan.outputs.cli == 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_ACCESS: public
+          NPM_CONFIG_PROVENANCE: "true"
+        run: bun run changeset:publish
+
+      - name: Check Vercel secrets
+        if: steps.plan.outputs.website == 'true'
+        id: vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          if [ -n "$VERCEL_TOKEN" ] && [ -n "$VERCEL_ORG_ID" ] && [ -n "$VERCEL_PROJECT_ID" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "Vercel secrets are not fully configured. The pushed version commit can still deploy through Vercel Git integration."
+          fi
+
+      - name: Deploy website to Vercel
+        if: steps.plan.outputs.website == 'true' && steps.vercel.outputs.configured == 'true'
+        working-directory: packages/website
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          bunx vercel pull --yes --environment=production --token "$VERCEL_TOKEN"
+          bunx vercel build --prod --token "$VERCEL_TOKEN"
+          bunx vercel deploy --prebuilt --prod --token "$VERCEL_TOKEN"
+
+      - name: Push version commit and tags
+        if: steps.plan.outputs.has_plan == 'true'
+        run: |
+          git push origin HEAD:main
+          git push origin --tags

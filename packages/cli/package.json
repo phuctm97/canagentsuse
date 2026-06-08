@@ -1,0 +1,48 @@
+{
+  "name": "canagentsuse",
+  "version": "0.1.0",
+  "description": "CLI for finding APIs, CLIs, MCP servers, and browser tools that AI agents can actually use.",
+  "type": "module",
+  "bin": {
+    "canagentsuse": "./dist/index.js",
+    "cau": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "skills"
+  ],
+  "scripts": {
+    "sync:skills": "bun run scripts/sync-skills.ts",
+    "build": "bun run sync:skills && bun run scripts/build.ts",
+    "test": "bun run scripts/test.ts",
+    "pack:dry-run": "bun run build && npm pack --dry-run",
+    "prepack": "bun run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "ai-agents",
+    "agents",
+    "mcp",
+    "cli",
+    "api",
+    "tool-discovery",
+    "canagentsuse"
+  ],
+  "homepage": "https://canagentsuse.com",
+  "bugs": {
+    "url": "https://github.com/phuctm97/canagentsuse/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phuctm97/canagentsuse.git",
+    "directory": "packages/cli"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "license": "MIT"
+}

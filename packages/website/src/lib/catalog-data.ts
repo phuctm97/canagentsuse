@@ -1,4 +1,4 @@
-import catalog from "../../data/catalog.json"
+import catalog from "../../../../data/catalog.json"
 
 export type CatalogCategory = {
   slug: string

@@ -80,6 +80,7 @@ surfaces are enough.
 | If You Can... | Use This | Best For |
 | --- | --- | --- |
 | Install skills | `npx skills add phuctm97/canagentsuse` | Persistent agent instructions and focused discovery skills. |
+| Run the CLI | `npx canagentsuse search stripe` | Terminal discovery, scripts, and quick agent prompts. |
 | Use MCP | `https://canagentsuse.com/api/mcp` | Tool calls from Cursor, Claude Code, Codex, OpenCode, Gemini CLI, and other MCP-aware agents. |
 | Fetch HTTP JSON | `https://canagentsuse.com/api/agent/search?q=stripe&page=1&limit=10` | Direct search from scripts, agents, and workflows. |
 | Read one big context file | `https://canagentsuse.com/llms-full.txt` | Long-context comparison across many tools. |
@@ -141,6 +142,66 @@ curl -fsSL https://canagentsuse.com/skill.md \
 
 The `/skill.md` fallback exposes the umbrella skill. Use skills.sh when you want
 the full multi-skill folder.
+
+## Use The CLI
+
+Use the CLI when you want one-command agent setup or terminal-first discovery
+without installing the repo. It calls the same public read-only API that agents
+use.
+
+```bash
+npx canagentsuse@latest setup
+npx canagentsuse@latest setup --claude --codex --yes
+npx canagentsuse@latest setup --all-agents --project --dry-run
+npx canagentsuse search stripe
+npx canagentsuse search "email api" --capability api --limit 5
+npx canagentsuse search --capability mcp --json
+npx canagentsuse tool stripe
+npx canagentsuse mcp-config
+```
+
+| Command | Use It For |
+| --- | --- |
+| `canagentsuse setup` | Install Can Agents Use MCP config and bundled skills for detected agents. |
+| `canagentsuse remove` | Remove the MCP config and installed Can Agents Use skills. |
+| `canagentsuse status` | Show installed MCP and skill status by agent. |
+| `canagentsuse doctor` | Test the public API, MCP endpoint, and local setup. |
+| `canagentsuse skills list` | List bundled skills that can be installed locally. |
+| `canagentsuse skills install <skill>` | Install one bundled skill into an agent skill directory. |
+| `canagentsuse search [query]` | Find tools by query, category, capability, page, and limit. |
+| `canagentsuse tool <slug>` | Inspect one complete tool record before recommending it. |
+| `canagentsuse catalog --json` | Fetch the full catalog once for local agent-side comparison. |
+| `canagentsuse mcp-config` | Print copyable MCP config for agent clients. |
+| `canagentsuse score-model` | Inspect how the agent-readiness score is weighted. |
+| `canagentsuse docs` | List the website, skill, MCP, OpenAPI, and Markdown surfaces. |
+
+Setup targets:
+
+```bash
+canagentsuse setup --claude
+canagentsuse setup --cursor
+canagentsuse setup --codex
+canagentsuse setup --opencode
+canagentsuse setup --gemini
+canagentsuse setup --universal
+```
+
+Setup defaults to global user config. Use `--project` to write project-local
+config such as `.cursor/mcp.json`, `.codex/config.toml`, `.gemini/settings.json`,
+or `opencode.json`. Use `--dry-run` before writing; the CLI backs up existing
+config files before editing and only updates the `canagentsuse` MCP entry.
+
+For scripts and agents, prefer `--json`:
+
+```bash
+npx canagentsuse search "billing api" --capability api --limit 10 --json
+```
+
+The default site is `https://canagentsuse.com`. Override it for previews:
+
+```bash
+CANAGENTSUSE_SITE_URL=https://www.canagentsuse.com npx canagentsuse catalog --json
+```
 
 ## Use MCP
 
@@ -289,6 +350,23 @@ build, or contribute.
 JSON is used because it is native to Next.js, TypeScript, APIs, MCP responses,
 and LLM-facing exports. Markdown is kept for documentation.
 
+## Repository Layout
+
+This repo is a Bun workspace monorepo with two packages:
+
+| Path | Package | Purpose |
+| --- | --- | --- |
+| [`packages/website`](packages/website) | `@canagentsuse/website` | Next.js website, API routes, MCP endpoint, shadcn UI, and catalog audit script. |
+| [`packages/cli`](packages/cli) | `canagentsuse` | Publishable npm CLI with the `canagentsuse` and `cau` binaries. |
+
+Project assets stay at the root so GitHub readers and agents can find them
+quickly:
+
+- [`data/catalog.json`](data/catalog.json): canonical catalog data.
+- [`skills/`](skills): skills.sh-discoverable skills.
+- [`skills.sh.json`](skills.sh.json): skills.sh metadata.
+- [`.github/PULL_REQUEST_TEMPLATE/add-tool.md`](.github/PULL_REQUEST_TEMPLATE/add-tool.md): contribution template.
+
 ## Example Tool Shape
 
 ```json
@@ -320,12 +398,86 @@ bun run dev
 
 Open `http://localhost:60139`.
 
+Website-specific env examples live in
+[`packages/website/.env.example`](packages/website/.env.example). Put local
+website env in `packages/website/.env.local`.
+
 Useful checks:
 
 ```bash
 bun run catalog:audit
+bun run cli:test
+bun run cli:pack
 bun run build
 ```
+
+Run every main repo check:
+
+```bash
+bun run check
+```
+
+## Deploy The Website
+
+The Vercel project should deploy the website package from this monorepo:
+
+| Vercel Setting | Value |
+| --- | --- |
+| Root Directory | `packages/website` |
+| Framework Preset | `Next.js` |
+| Install Command | Auto-detected Bun install, or `bun install --frozen-lockfile` |
+| Build Command | `bun run build` |
+| Output Directory | Auto-detected `.next` |
+
+Keep these env vars on the Vercel website project:
+
+```bash
+NEXT_PUBLIC_SITE_URL="https://canagentsuse.com"
+NEXT_PUBLIC_OG_ASSET_URL="https://canagentsuse.vercel.app"
+```
+
+## Release With Changesets
+
+Releases are driven by committed Changesets in [`.changeset`](.changeset). A
+changeset is the version plan file for one or both packages.
+
+Create a release plan:
+
+```bash
+bun run changeset
+```
+
+Use these package names:
+
+| Package | Release Target |
+| --- | --- |
+| `canagentsuse` | Publishes the public npm CLI package. |
+| `@canagentsuse/website` | Versions the website package and deploys the website. |
+
+When a commit lands on `main` with `.changeset/*.md`, the `Release` workflow:
+
+1. Reads the changeset files and detects which packages need release.
+2. Runs `changeset version` to update package versions and changelogs.
+3. Syncs the CLI runtime version constant from `packages/cli/package.json`.
+4. Runs catalog, CLI, package, and website build checks.
+5. Publishes `canagentsuse` to npm if the CLI package is in the plan.
+6. Deploys `@canagentsuse/website` if the website package is in the plan.
+7. Pushes the version commit and tags back to `main`.
+
+The CLI publish path is set up for npm Trusted Publishing through GitHub Actions
+OIDC, so no long-lived npm token is required when npm trusted publishing is
+configured. An optional `NPM_TOKEN` secret is still supported as a fallback.
+
+Optional Vercel secrets for explicit GitHub Actions deploys:
+
+```bash
+VERCEL_TOKEN
+VERCEL_ORG_ID
+VERCEL_PROJECT_ID
+```
+
+If those Vercel secrets are not set, the workflow still pushes the version
+commit; a connected Vercel Git integration can deploy that commit normally.
 
 ## Contributing
 
@@ -334,8 +486,9 @@ The best contribution is a well-evidenced catalog record.
 1. Edit [`data/catalog.json`](data/catalog.json).
 2. Add evidence URLs for important API, CLI, MCP, pricing, docs, sandbox, or account setup claims.
 3. Include limitation notes for anything that affects money, production data, infrastructure, or users.
-4. Run `bun run catalog:audit`.
-5. Open a pull request.
+4. Add a changeset when the change should release the website or CLI.
+5. Run `bun run catalog:audit`.
+6. Open a pull request.
 
 If you are not ready to edit JSON, use the website submit flow to open a
 prefilled GitHub pull request or copy a ready-to-run agent prompt.

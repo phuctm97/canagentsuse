@@ -65,6 +65,7 @@ Not provided
 - [ ] Filled required fields from `data/catalog.schema.json`
 - [ ] Added evidence URLs for important API, CLI, MCP, docs, pricing, sandbox, browser, and account setup claims
 - [ ] Included limitation/caution notes for money, production data, infrastructure, compliance, user accounts, browser-only flows, or brittle automation
+- [ ] Added a changeset if this should trigger a website or CLI release
 - [ ] Did not add secrets, database credentials, Docker/Neon setup, generated build output, or unrelated files
 
 ## Validation

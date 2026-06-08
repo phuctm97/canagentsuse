@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/packages/*/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -17,9 +18,12 @@
 # next.js
 /.next/
 /out/
+/packages/*/.next/
+/packages/*/out/
 
 # production
 /build
+/packages/*/dist/
 
 # misc
 .DS_Store
@@ -34,6 +38,7 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 !.env.example
+.github-secrets.local
 
 # vercel
 .vercel
