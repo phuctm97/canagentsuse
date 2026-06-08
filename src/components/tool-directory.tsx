@@ -1,0 +1,1017 @@
+"use client"
+
+import * as React from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import {
+  ArrowRightIcon,
+  ArrowUpRightIcon,
+  BadgeCheckIcon,
+  BotIcon,
+  BookOpenIcon,
+  BracesIcon,
+  CheckCircle2Icon,
+  ChevronDownIcon,
+  CircleDashedIcon,
+  Code2Icon,
+  CreditCardIcon,
+  DatabaseIcon,
+  ExternalLinkIcon,
+  FileTextIcon,
+  FilterIcon,
+  Globe2Icon,
+  PlugIcon,
+  SearchIcon,
+  ShieldCheckIcon,
+  TerminalIcon,
+  type LucideIcon,
+} from "lucide-react"
+
+import type {
+  DirectoryCapability,
+  DirectoryCategory,
+  DirectoryListTool,
+} from "@/lib/directory"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from "@/components/ui/command"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group"
+import { Separator } from "@/components/ui/separator"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { ToolLogo } from "@/components/tool-logo"
+
+const capabilityIcons = {
+  cli: TerminalIcon,
+  api: Code2Icon,
+  mcp: BotIcon,
+  browser: Globe2Icon,
+  "account-creation": BadgeCheckIcon,
+  "pricing-clarity": CreditCardIcon,
+  "docs-quality": ShieldCheckIcon,
+  sandbox: DatabaseIcon,
+}
+
+const highSignalCapabilitySlugs = [
+  "cli",
+  "api",
+  "mcp",
+  "browser",
+  "pricing-clarity",
+]
+const scoreWeights = [
+  {
+    label: "Machine operability",
+    value: 25,
+    description: "API, CLI, MCP, and browser fallback.",
+  },
+  {
+    label: "Agent safety",
+    value: 25,
+    description: "Sandbox, scoped auth, dry-runs, and review guardrails.",
+  },
+  {
+    label: "Agent readability",
+    value: 20,
+    description: "Docs, pricing clarity, and evidence links.",
+  },
+  {
+    label: "Auth and setup",
+    value: 15,
+    description: "Self-serve signup and clear auth model.",
+  },
+  {
+    label: "Production reliability",
+    value: 15,
+    description: "Webhooks, logs, versioning, and rate-limit clarity.",
+  },
+]
+const toolsBatchSize = 10
+const maxCommandToolResults = 24
+const maxCommandCategoryResults = 10
+
+type ToolDirectoryProps = {
+  tools: DirectoryListTool[]
+  categories: DirectoryCategory[]
+  capabilities: DirectoryCapability[]
+  isFallback: boolean
+}
+
+export function ToolDirectory({
+  tools,
+  categories,
+  capabilities,
+}: ToolDirectoryProps) {
+  const router = useRouter()
+  const [commandOpen, setCommandOpen] = React.useState(false)
+  const [category, setCategory] = React.useState("all")
+  const [categoryMenuOpen, setCategoryMenuOpen] = React.useState(false)
+  const [categorySearch, setCategorySearch] = React.useState("")
+  const [selectedCapabilities, setSelectedCapabilities] = React.useState<string[]>([])
+  const [visibleCount, setVisibleCount] = React.useState(toolsBatchSize)
+  const loadMoreRef = React.useRef<HTMLDivElement | null>(null)
+  const categorySearchInputRef = React.useRef<HTMLInputElement | null>(null)
+
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key.toLowerCase() === "k" && (event.metaKey || event.ctrlKey)) {
+        event.preventDefault()
+        setCommandOpen((open) => !open)
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown)
+    return () => document.removeEventListener("keydown", handleKeyDown)
+  }, [])
+
+  const filteredTools = React.useMemo(() => {
+    return tools.filter((tool) => {
+      const matchesCategory =
+        category === "all" ||
+        tool.categories.some((item) => item.slug === category)
+      const capabilitySlugs = tool.capabilities.map((item) => item.slug)
+      const matchesCapabilities = selectedCapabilities.every((slug) =>
+        capabilitySlugs.includes(slug)
+      )
+
+      return matchesCategory && matchesCapabilities
+    })
+  }, [category, selectedCapabilities, tools])
+
+  React.useEffect(() => {
+    setVisibleCount(toolsBatchSize)
+  }, [category, selectedCapabilities])
+
+  React.useEffect(() => {
+    if (!categoryMenuOpen) return
+
+    requestAnimationFrame(() => categorySearchInputRef.current?.focus())
+  }, [categoryMenuOpen])
+
+  const visibleTools = filteredTools.slice(0, visibleCount)
+  const visibleEnd = Math.min(visibleCount, filteredTools.length)
+  const hasMoreTools = visibleEnd < filteredTools.length
+
+  const loadMoreTools = React.useCallback(() => {
+    setVisibleCount((current) =>
+      Math.min(current + toolsBatchSize, filteredTools.length)
+    )
+  }, [filteredTools.length])
+
+  React.useEffect(() => {
+    const node = loadMoreRef.current
+
+    if (!node || !hasMoreTools) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          loadMoreTools()
+        }
+      },
+      { rootMargin: "260px 0px" }
+    )
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [hasMoreTools, loadMoreTools])
+
+  const selectedCategoryName =
+    category === "all"
+      ? "All categories"
+      : categories.find((item) => item.slug === category)?.name ?? "Category"
+
+  const categoryCounts = React.useMemo(() => {
+    const counts = new Map(categories.map((item) => [item.slug, 0]))
+
+    for (const tool of tools) {
+      for (const item of tool.categories) {
+        counts.set(item.slug, (counts.get(item.slug) ?? 0) + 1)
+      }
+    }
+
+    return counts
+  }, [categories, tools])
+
+  const categoryOptions = React.useMemo(() => {
+    return [
+      {
+        slug: "all",
+        name: "All categories",
+        description: `${tools.length} tools`,
+      },
+      ...categories.map((item) => {
+        const count = categoryCounts.get(item.slug) ?? 0
+
+        return {
+          slug: item.slug,
+          name: item.name,
+          description: `${count} tools`,
+        }
+      }),
+    ]
+  }, [categories, categoryCounts, tools.length])
+
+  const filteredCategoryOptions = React.useMemo(() => {
+    const query = categorySearch.trim().toLowerCase()
+
+    if (!query) return categoryOptions
+
+    return categoryOptions.filter((item) =>
+      [item.name, item.description, item.slug]
+        .join(" ")
+        .toLowerCase()
+        .includes(query)
+    )
+  }, [categoryOptions, categorySearch])
+
+  function setCategoryMenu(open: boolean) {
+    setCategoryMenuOpen(open)
+
+    if (!open) {
+      setCategorySearch("")
+    }
+  }
+
+  function toggleCapability(slug: string) {
+    setSelectedCapabilities((current) =>
+      current.includes(slug)
+        ? current.filter((item) => item !== slug)
+        : [...current, slug]
+    )
+  }
+
+  const openTool = React.useCallback((tool: DirectoryListTool) => {
+    setCommandOpen(false)
+    router.push(`/tools/${tool.slug}`)
+  }, [router])
+
+  const chooseCategory = React.useCallback((slug: string) => {
+    setCommandOpen(false)
+    setCategory(slug)
+  }, [])
+
+  const chooseCapability = React.useCallback((slug: string) => {
+    setCommandOpen(false)
+    setSelectedCapabilities((current) =>
+      current.includes(slug)
+        ? current.filter((item) => item !== slug)
+        : [...current, slug]
+    )
+  }, [])
+
+  const goToSubmit = React.useCallback(() => {
+    setCommandOpen(false)
+    router.push("/submit")
+  }, [router])
+
+  return (
+    <main className="min-h-svh bg-background text-foreground">
+      <ToolCommandDialog
+        open={commandOpen}
+        onOpenChange={setCommandOpen}
+        tools={tools}
+        categories={categories}
+        capabilities={capabilities}
+        selectedCapabilities={selectedCapabilities}
+        onOpenTool={openTool}
+        onChooseCategory={chooseCategory}
+        onChooseCapability={chooseCapability}
+        onSubmitTool={goToSubmit}
+      />
+
+      <section className="border-b bg-background">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 py-5 sm:px-6 lg:px-8">
+          <header className="flex items-center justify-between gap-4">
+            <Link href="/" className="flex min-w-0 items-center gap-3">
+              <span className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-card">
+                <img
+                  src="/brand/can-agents-use-icon.png"
+                  alt=""
+                  className="size-full object-cover"
+                  aria-hidden="true"
+                />
+              </span>
+              <span className="truncate text-sm font-semibold">Can Agents Use</span>
+            </Link>
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/submit">Submit</Link>
+              </Button>
+            </div>
+          </header>
+
+          <div className="grid gap-8 py-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
+            <div className="flex max-w-4xl flex-col gap-6">
+              <h1 className="max-w-3xl text-4xl font-semibold tracking-normal text-balance sm:text-5xl lg:text-6xl">
+                Find tools an agent can actually use.
+              </h1>
+              <p className="max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
+                Search by CLI, API, MCP, browser support, account setup, pricing,
+                and documentation quality. Fast enough for builders, structured
+                enough for agents.
+              </p>
+              <button
+                type="button"
+                onClick={() => setCommandOpen(true)}
+                className="group flex w-full max-w-2xl items-center justify-between overflow-hidden rounded-md border bg-card px-4 py-3 text-left shadow-xs transition-colors hover:bg-muted/50"
+                aria-keyshortcuts="Meta+K Control+K"
+              >
+                <span className="flex min-w-0 items-center gap-3">
+                  <SearchIcon className="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+                  <span className="truncate text-sm text-muted-foreground sm:hidden">
+                    Search tools
+                  </span>
+                  <span className="hidden truncate text-sm text-muted-foreground sm:inline">
+                    Search tools, categories, and agent capabilities
+                  </span>
+                </span>
+                <span className="hidden shrink-0 items-center gap-1 rounded-sm border bg-muted px-2 py-1 font-mono text-xs text-muted-foreground sm:flex">
+                  ⌘K / Ctrl K
+                </span>
+              </button>
+              <div className="grid max-w-2xl grid-cols-3 gap-4 text-sm">
+                <Stat value={tools.length.toString()} label="tools" />
+                <Stat value={categories.length.toString()} label="categories" />
+                <Stat value={capabilities.length.toString()} label="signals" />
+              </div>
+            </div>
+            <aside className="rounded-md border bg-card p-4">
+              <div className="text-sm font-medium">Agent access</div>
+              <div className="mt-3 grid gap-2 text-sm">
+                <HeroLink href="/agents" icon={BookOpenIcon} label="Instructions" />
+                <HeroLink href="/skill.md" icon={FileTextIcon} label="Skill.md" />
+                <HeroLink href="/llms.txt" icon={BracesIcon} label="llms.txt" />
+                <HeroLink href="/api/mcp" icon={PlugIcon} label="MCP endpoint" />
+                <HeroLink href="/openapi.json" icon={Code2Icon} label="OpenAPI" />
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-col gap-1">
+            <h2 className="text-xl font-semibold">Tool index</h2>
+            <p className="text-sm text-muted-foreground">
+              {filteredTools.length} results in {selectedCategoryName.toLowerCase()}
+              {selectedCapabilities.length > 0
+                ? ` with ${selectedCapabilities.length} active filters`
+                : ""}
+            </p>
+          </div>
+          {selectedCapabilities.length > 0 || category !== "all" ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                setCategory("all")
+                setSelectedCapabilities([])
+              }}
+            >
+              Clear filters
+            </Button>
+          ) : null}
+        </div>
+
+        <DropdownMenu open={categoryMenuOpen} onOpenChange={setCategoryMenu}>
+          <DropdownMenuTrigger asChild>
+            <Button
+              type="button"
+              variant="outline"
+              size="lg"
+              className="w-full justify-between sm:w-80"
+              aria-label={`Category: ${selectedCategoryName}`}
+            >
+              <span className="flex min-w-0 items-center gap-2">
+                <FilterIcon data-icon="inline-start" aria-hidden="true" />
+                <span className="truncate">{selectedCategoryName}</span>
+              </span>
+              <ChevronDownIcon
+                data-icon="inline-end"
+                className={cn("transition-transform", categoryMenuOpen ? "rotate-180" : "")}
+                aria-hidden="true"
+              />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            align="start"
+            className="w-[min(22rem,calc(100vw-2rem))] p-2"
+          >
+            <InputGroup className="h-9">
+              <InputGroupAddon>
+                <SearchIcon aria-hidden="true" />
+              </InputGroupAddon>
+              <InputGroupInput
+                ref={categorySearchInputRef}
+                value={categorySearch}
+                onChange={(event) => setCategorySearch(event.target.value)}
+                onKeyDown={(event) => {
+                  event.stopPropagation()
+
+                  if (event.key === "Escape") {
+                    setCategoryMenu(false)
+                  }
+                }}
+                placeholder="Search categories"
+              />
+            </InputGroup>
+            <DropdownMenuGroup className="mt-2 max-h-72 overflow-y-auto">
+              {filteredCategoryOptions.length > 0 ? (
+                filteredCategoryOptions.map((item) => {
+                  const selected = item.slug === category
+
+                  return (
+                    <DropdownMenuItem
+                      key={item.slug}
+                      className="items-start gap-3 py-2"
+                      onSelect={() => {
+                        setCategory(item.slug)
+                        setCategoryMenu(false)
+                      }}
+                    >
+                      <FolderDot />
+                      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                        <span className="truncate font-medium">{item.name}</span>
+                        <span className="text-xs text-muted-foreground">
+                          {item.description}
+                        </span>
+                      </span>
+                      {selected ? (
+                        <CheckCircle2Icon className="mt-0.5 size-4 text-muted-foreground" aria-hidden="true" />
+                      ) : null}
+                    </DropdownMenuItem>
+                  )
+                })
+              ) : (
+                <div className="px-2 py-6 text-center text-sm text-muted-foreground">
+                  No matching category.
+                </div>
+              )}
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <div className="grid gap-5 lg:grid-cols-[260px_minmax(0,1fr)]">
+          <aside className="rounded-md border bg-card p-3 lg:sticky lg:top-4 lg:self-start">
+            <div className="flex items-center gap-2 px-1 py-2 text-sm font-medium">
+              <FilterIcon className="size-4" aria-hidden="true" />
+              Agent signals
+            </div>
+            <div className="flex flex-col gap-1">
+              {capabilities.map((capability) => {
+                const Icon =
+                  capabilityIcons[capability.slug as keyof typeof capabilityIcons] ??
+                  CircleDashedIcon
+                const selected = selectedCapabilities.includes(capability.slug)
+
+                return (
+                  <button
+                    key={capability.slug}
+                    type="button"
+                    className={cn(
+                      "flex items-center justify-between gap-2 rounded-md px-2 py-2 text-left text-sm transition-colors hover:bg-muted",
+                      selected ? "bg-muted text-foreground" : "text-muted-foreground"
+                    )}
+                    onClick={() => toggleCapability(capability.slug)}
+                  >
+                    <span className="flex min-w-0 items-center gap-2">
+                      <Icon className="size-4 shrink-0" aria-hidden="true" />
+                      <span className="truncate">{capability.name}</span>
+                    </span>
+                    {selected ? (
+                      <CheckCircle2Icon className="size-4 shrink-0" aria-hidden="true" />
+                    ) : null}
+                  </button>
+                )
+              })}
+            </div>
+            <Separator className="my-3" />
+            <div className="px-1">
+              <div className="flex flex-col gap-1">
+                <div>
+                  <div className="text-sm font-medium">100-point agent score</div>
+                  <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                    Higher means an agent can operate the tool with less manual
+                    setup and safer production guardrails.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-3 flex flex-col gap-3">
+                {scoreWeights.map((weight) => (
+                  <WeightRow key={weight.label} {...weight} />
+                ))}
+              </div>
+            </div>
+          </aside>
+
+          <div className="flex min-w-0 flex-col gap-3">
+            <div className="overflow-hidden rounded-md border bg-card">
+              <div className="grid grid-cols-[48px_minmax(0,1fr)_76px] gap-3 border-b bg-muted/50 px-3 py-2 text-xs font-medium uppercase text-muted-foreground sm:grid-cols-[56px_minmax(0,1fr)_210px_82px]">
+                <div>#</div>
+                <div>Tool</div>
+                <div className="hidden sm:block">Agent access</div>
+                <div className="text-right">Score</div>
+              </div>
+              {filteredTools.length > 0 ? (
+                visibleTools.map((tool, index) => (
+                  <ToolRow key={tool.slug} tool={tool} rank={index + 1} />
+                ))
+              ) : (
+                <div className="px-4 py-12 text-center text-sm text-muted-foreground">
+                  No tools match those filters yet.
+                </div>
+              )}
+            </div>
+            {hasMoreTools ? (
+              <div
+                ref={loadMoreRef}
+                className="flex items-center justify-center rounded-md border bg-card px-3 py-3"
+              >
+                <Button variant="outline" size="sm" onClick={loadMoreTools}>
+                  Load more
+                </Button>
+              </div>
+            ) : null}
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
+
+const ToolCommandDialog = React.memo(function ToolCommandDialog({
+  open,
+  onOpenChange,
+  tools,
+  categories,
+  capabilities,
+  selectedCapabilities,
+  onOpenTool,
+  onChooseCategory,
+  onChooseCapability,
+  onSubmitTool,
+}: {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  tools: DirectoryListTool[]
+  categories: DirectoryCategory[]
+  capabilities: DirectoryCapability[]
+  selectedCapabilities: string[]
+  onOpenTool: (tool: DirectoryListTool) => void
+  onChooseCategory: (slug: string) => void
+  onChooseCapability: (slug: string) => void
+  onSubmitTool: () => void
+}) {
+  const [query, setQuery] = React.useState("")
+  const deferredQuery = React.useDeferredValue(query)
+  const commandListRef = React.useRef<HTMLDivElement | null>(null)
+  const normalizedQuery = normalizeSearchText(deferredQuery)
+  const queryTerms = React.useMemo(
+    () => normalizedQuery.split(" ").filter(Boolean),
+    [normalizedQuery]
+  )
+
+  const toolIndex = React.useMemo(
+    () =>
+      tools.map((tool, index) => ({
+        tool,
+        index,
+        searchText: normalizeSearchText(toolSearchValue(tool)),
+      })),
+    [tools]
+  )
+  const categoryIndex = React.useMemo(
+    () =>
+      [
+        {
+          category: {
+            slug: "all",
+            name: "All categories",
+            description: "Every tool in the catalog",
+          },
+          searchText: "all categories every tool catalog",
+        },
+        ...categories.map((category) => ({
+          category,
+          searchText: normalizeSearchText(
+            `${category.name} ${category.slug} ${category.description} category`
+          ),
+        })),
+      ],
+    [categories]
+  )
+  const capabilityIndex = React.useMemo(
+    () =>
+      capabilities.map((capability) => ({
+        capability,
+        searchText: normalizeSearchText(
+          `${capability.name} ${capability.slug} ${capability.description} ${capability.group} capability`
+        ),
+      })),
+    [capabilities]
+  )
+
+  const toolResults = React.useMemo(() => {
+    if (queryTerms.length === 0) {
+      return tools.slice(0, maxCommandToolResults)
+    }
+
+    return toolIndex
+      .map((item) => ({
+        ...item,
+        rank: rankSearchText(item.searchText, item.tool.name, queryTerms, normalizedQuery),
+      }))
+      .filter((item) => item.rank > 0)
+      .sort((a, b) => b.rank - a.rank || b.tool.agentScore - a.tool.agentScore || a.index - b.index)
+      .slice(0, maxCommandToolResults)
+      .map((item) => item.tool)
+  }, [normalizedQuery, queryTerms, toolIndex, tools])
+
+  const categoryResults = React.useMemo(() => {
+    if (queryTerms.length === 0) {
+      return categoryIndex.slice(0, maxCommandCategoryResults).map((item) => item.category)
+    }
+
+    return categoryIndex
+      .map((item, index) => ({
+        ...item,
+        index,
+        rank: rankSearchText(item.searchText, item.category.name, queryTerms, normalizedQuery),
+      }))
+      .filter((item) => item.rank > 0)
+      .sort((a, b) => b.rank - a.rank || a.index - b.index)
+      .slice(0, maxCommandCategoryResults)
+      .map((item) => item.category)
+  }, [categoryIndex, normalizedQuery, queryTerms])
+
+  const capabilityResults = React.useMemo(() => {
+    if (queryTerms.length === 0) {
+      return capabilities
+    }
+
+    return capabilityIndex
+      .map((item, index) => ({
+        ...item,
+        index,
+        rank: rankSearchText(item.searchText, item.capability.name, queryTerms, normalizedQuery),
+      }))
+      .filter((item) => item.rank > 0)
+      .sort((a, b) => b.rank - a.rank || a.index - b.index)
+      .map((item) => item.capability)
+  }, [capabilities, capabilityIndex, normalizedQuery, queryTerms])
+
+  const isSearching = query !== deferredQuery
+  const hasResults =
+    toolResults.length > 0 ||
+    categoryResults.length > 0 ||
+    capabilityResults.length > 0
+
+  React.useEffect(() => {
+    if (!open) {
+      setQuery("")
+      return
+    }
+
+    requestAnimationFrame(() => {
+      commandListRef.current?.scrollTo({ top: 0 })
+    })
+  }, [open])
+
+  React.useEffect(() => {
+    commandListRef.current?.scrollTo({ top: 0 })
+  }, [deferredQuery])
+
+  return (
+    <CommandDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      title="Search Can Agents Use"
+      description="Search tools, categories, and agent capabilities."
+      className="sm:max-w-2xl"
+    >
+      <Command loop shouldFilter={false}>
+        <CommandInput
+          value={query}
+          onValueChange={setQuery}
+          placeholder="Search Stripe, scraping, social media, MCP, CLI..."
+        />
+        <CommandList ref={commandListRef} className="max-h-[520px] scroll-pt-2">
+          {!hasResults ? (
+            <CommandEmpty>No matching tool or filter found.</CommandEmpty>
+          ) : null}
+          {isSearching ? (
+            <div className="px-3 py-2 text-xs text-muted-foreground">
+              Updating results...
+            </div>
+          ) : null}
+          {toolResults.length > 0 ? (
+            <CommandGroup heading="Tools">
+              {toolResults.map((tool) => (
+                <CommandItem
+                  key={tool.slug}
+                  value={`tool-${tool.slug}`}
+                  onSelect={() => onOpenTool(tool)}
+                  className="items-start gap-3 py-3"
+                >
+                  <CommandToolMark tool={tool} />
+                  <span className="flex min-w-0 flex-1 flex-col gap-1">
+                    <span className="truncate font-medium">{tool.name}</span>
+                    <span className="line-clamp-2 text-xs leading-5 text-muted-foreground">
+                      {tool.tagline}
+                    </span>
+                  </span>
+                  <CommandShortcut>{tool.agentScore}</CommandShortcut>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          ) : null}
+          {categoryResults.length > 0 ? (
+            <>
+              <CommandSeparator />
+              <CommandGroup heading="Categories">
+                {categoryResults.map((item) => (
+                  <CommandItem
+                    key={item.slug}
+                    value={`category-${item.slug}`}
+                    onSelect={() => onChooseCategory(item.slug)}
+                  >
+                    <FolderDot />
+                    {item.name}
+                    {item.slug === "all" ? (
+                      <CommandShortcut>{tools.length}</CommandShortcut>
+                    ) : null}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </>
+          ) : null}
+          {capabilityResults.length > 0 ? (
+            <>
+              <CommandSeparator />
+              <CommandGroup heading="Capabilities">
+                {capabilityResults.map((capability) => {
+                  const Icon =
+                    capabilityIcons[capability.slug as keyof typeof capabilityIcons] ??
+                    CircleDashedIcon
+                  const active = selectedCapabilities.includes(capability.slug)
+
+                  return (
+                    <CommandItem
+                      key={capability.slug}
+                      value={`capability-${capability.slug}`}
+                      onSelect={() => onChooseCapability(capability.slug)}
+                      data-checked={active}
+                    >
+                      <Icon />
+                      {capability.name}
+                      {active ? <CommandShortcut>On</CommandShortcut> : null}
+                    </CommandItem>
+                  )
+                })}
+              </CommandGroup>
+            </>
+          ) : null}
+          <CommandSeparator />
+          <CommandGroup heading="Actions">
+            <CommandItem value="submit-tool" onSelect={onSubmitTool}>
+              <ArrowRightIcon />
+              Submit a tool
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </Command>
+    </CommandDialog>
+  )
+})
+
+function Stat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex flex-col gap-1 border-l pl-3">
+      <div className="text-2xl font-semibold">{value}</div>
+      <div className="text-xs uppercase text-muted-foreground">{label}</div>
+    </div>
+  )
+}
+
+function HeroLink({
+  href,
+  icon: Icon,
+  label,
+}: {
+  href: string
+  icon: LucideIcon
+  label: string
+}) {
+  return (
+    <a
+      href={href}
+      className="flex items-center justify-between gap-3 rounded-md border bg-background px-3 py-2.5 font-medium transition-colors hover:bg-muted"
+    >
+      <span className="flex min-w-0 items-center gap-2">
+        <Icon className="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+        <span className="truncate">{label}</span>
+      </span>
+      <ArrowUpRightIcon className="size-3.5 shrink-0 text-muted-foreground" aria-hidden="true" />
+    </a>
+  )
+}
+
+function ToolRow({ tool, rank }: { tool: DirectoryListTool; rank: number }) {
+  const accessSignals = tool.capabilities
+    .filter((capability) => highSignalCapabilitySlugs.includes(capability.slug))
+    .slice(0, 4)
+
+  return (
+    <div className="grid grid-cols-[48px_minmax(0,1fr)_76px] gap-3 border-b px-3 py-4 last:border-b-0 sm:grid-cols-[56px_minmax(0,1fr)_210px_82px]">
+      <div className="pt-1 text-sm tabular-nums text-muted-foreground">{rank}</div>
+      <div className="flex min-w-0 flex-col gap-2">
+        <div className="flex min-w-0 items-center gap-2">
+          <ToolMark tool={tool} />
+          <Link
+            href={`/tools/${tool.slug}`}
+            className="truncate text-base font-semibold hover:underline"
+          >
+            {tool.name}
+          </Link>
+        </div>
+        <p className="max-w-3xl text-sm leading-6 text-muted-foreground">
+          {tool.shortDescription}
+        </p>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+          <span>{tool.categories.map((item) => item.name).join(", ")}</span>
+          <span>{tool.pricingSummary}</span>
+        </div>
+      </div>
+      <div className="hidden flex-col gap-2 sm:flex">
+        <div className="flex flex-wrap gap-1.5">
+          {accessSignals.map((capability) => (
+            <CapabilitySignal key={capability.slug} capability={capability} />
+          ))}
+        </div>
+        <span className="line-clamp-2 text-xs leading-5 text-muted-foreground">
+          {tool.scoreSummary}
+        </span>
+      </div>
+      <div className="flex flex-col items-end gap-1.5">
+        <div className="text-xl font-semibold tabular-nums">{tool.agentScore}</div>
+        <div className="max-w-20 text-right text-[11px] leading-4 text-muted-foreground">
+          {tool.agentTier}
+        </div>
+        <Button asChild variant="ghost" size="icon" className="size-8">
+          <a href={tool.websiteUrl} target="_blank" rel="noreferrer">
+            <span className="sr-only">Open {tool.name}</span>
+            <ExternalLinkIcon className="size-4" aria-hidden="true" />
+          </a>
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+function toolSearchValue(tool: DirectoryListTool) {
+  return [
+    tool.name,
+    tool.slug,
+    tool.tagline,
+    tool.shortDescription,
+    tool.pricingSummary,
+    tool.authModel,
+    tool.accountCreation,
+    tool.agentTier,
+    tool.scoreSummary,
+    ...tool.categories.map((item) => item.name),
+    ...tool.capabilities.map((item) => item.name),
+  ].join(" ")
+}
+
+function normalizeSearchText(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim()
+}
+
+function rankSearchText(
+  searchText: string,
+  label: string,
+  terms: string[],
+  normalizedQuery: string
+) {
+  if (terms.length === 0) return 1
+  if (!terms.every((term) => searchText.includes(term))) return 0
+
+  const normalizedLabel = normalizeSearchText(label)
+  let rank = 10
+
+  if (normalizedLabel === normalizedQuery) rank += 100
+  if (normalizedLabel.startsWith(normalizedQuery)) rank += 60
+  if (searchText.startsWith(normalizedQuery)) rank += 35
+
+  rank += terms.reduce((score, term) => {
+    const index = searchText.indexOf(term)
+    return score + Math.max(0, 20 - Math.min(index, 20))
+  }, 0)
+
+  return rank
+}
+
+function WeightRow({
+  description,
+  label,
+  value,
+}: {
+  description: string
+  label: string
+  value: number
+}) {
+  return (
+    <div className="space-y-1.5">
+      <div className="flex items-center justify-between gap-3 text-xs">
+        <span className="font-medium">{label}</span>
+        <span className="shrink-0 tabular-nums text-muted-foreground">
+          {value} pts
+        </span>
+      </div>
+      <p className="text-xs leading-5 text-muted-foreground">{description}</p>
+    </div>
+  )
+}
+
+function ToolMark({ tool }: { tool: DirectoryListTool }) {
+  return <ToolLogo tool={tool} />
+}
+
+function CommandToolMark({ tool }: { tool: DirectoryListTool }) {
+  const initials = tool.name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase()
+
+  return (
+    <span
+      className="flex size-8 shrink-0 items-center justify-center rounded-md border bg-muted text-[11px] font-semibold text-muted-foreground"
+      aria-hidden="true"
+    >
+      {initials}
+    </span>
+  )
+}
+
+function CapabilitySignal({
+  capability,
+}: {
+  capability: DirectoryListTool["capabilities"][number]
+}) {
+  const Icon =
+    capabilityIcons[capability.slug as keyof typeof capabilityIcons] ??
+    CheckCircle2Icon
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <span className="inline-flex items-center gap-1 rounded-sm border bg-background px-1.5 py-0.5 text-xs font-medium">
+          <Icon className="size-3" aria-hidden="true" />
+          {capability.name}
+        </span>
+      </TooltipTrigger>
+      <TooltipContent className="max-w-xs">
+        <p className="font-medium capitalize">{capability.supportLevel}</p>
+        <p>{capability.name} support is available for agent discovery.</p>
+      </TooltipContent>
+    </Tooltip>
+  )
+}
+
+function FolderDot() {
+  return (
+    <span className="flex size-4 items-center justify-center rounded-sm border" aria-hidden="true">
+      <span className="size-1.5 rounded-full bg-primary" />
+    </span>
+  )
+}

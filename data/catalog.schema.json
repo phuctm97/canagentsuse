@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canagentsuse.com/catalog.schema.json",
+  "title": "Can Agents Use catalog",
+  "type": "object",
+  "required": ["categories", "capabilities", "useCases", "tools"],
+  "additionalProperties": true,
+  "properties": {
+    "generatedAt": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/category"
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/capability"
+      }
+    },
+    "useCases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/useCase"
+      }
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tool"
+      }
+    }
+  },
+  "$defs": {
+    "category": {
+      "type": "object",
+      "required": ["slug", "name", "description", "sortOrder"],
+      "additionalProperties": false,
+      "properties": {
+        "slug": { "$ref": "#/$defs/slug" },
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "sortOrder": { "type": "number" }
+      }
+    },
+    "capability": {
+      "type": "object",
+      "required": ["slug", "name", "group", "description", "sortOrder"],
+      "additionalProperties": false,
+      "properties": {
+        "slug": { "$ref": "#/$defs/slug" },
+        "name": { "type": "string", "minLength": 1 },
+        "group": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "sortOrder": { "type": "number" }
+      }
+    },
+    "useCase": {
+      "type": "object",
+      "required": ["slug", "name", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "slug": { "$ref": "#/$defs/slug" },
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "tool": {
+      "type": "object",
+      "required": [
+        "slug",
+        "name",
+        "tagline",
+        "websiteUrl",
+        "shortDescription",
+        "agentSummary",
+        "bestFor",
+        "cautionNotes",
+        "pricingSummary",
+        "authModel",
+        "accountCreation",
+        "browserSupport",
+        "agentScore",
+        "launchScore",
+        "categorySlugs",
+        "useCaseSlugs",
+        "capabilities"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "slug": { "$ref": "#/$defs/slug" },
+        "name": { "type": "string", "minLength": 1 },
+        "tagline": { "type": "string", "minLength": 1 },
+        "websiteUrl": { "$ref": "#/$defs/url" },
+        "docsUrl": { "anyOf": [{ "$ref": "#/$defs/url" }, { "type": "null" }] },
+        "githubUrl": { "anyOf": [{ "$ref": "#/$defs/url" }, { "type": "null" }] },
+        "shortDescription": { "type": "string", "minLength": 1 },
+        "agentSummary": { "type": "string", "minLength": 1 },
+        "bestFor": { "type": "string", "minLength": 1 },
+        "cautionNotes": { "type": ["string", "null"] },
+        "pricingSummary": { "type": "string", "minLength": 1 },
+        "authModel": { "type": "string", "minLength": 1 },
+        "accountCreation": { "type": "string", "minLength": 1 },
+        "browserSupport": { "type": "string", "minLength": 1 },
+        "cliPackage": { "type": ["string", "null"] },
+        "apiBaseUrl": { "type": ["string", "null"] },
+        "mcpServer": { "type": ["string", "null"] },
+        "agentScore": { "type": "number", "minimum": 0, "maximum": 100 },
+        "launchScore": { "type": "number", "minimum": 0 },
+        "isFeatured": { "type": "boolean" },
+        "submittedBy": { "type": "string" },
+        "categorySlugs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/slug" }
+        },
+        "useCaseSlugs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/slug" }
+        },
+        "capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/toolCapability"
+          }
+        }
+      }
+    },
+    "toolCapability": {
+      "type": "object",
+      "required": ["slug", "supportLevel", "detail"],
+      "additionalProperties": false,
+      "properties": {
+        "slug": { "$ref": "#/$defs/slug" },
+        "supportLevel": {
+          "type": "string",
+          "enum": ["native", "strong", "partial", "manual", "unknown"]
+        },
+        "detail": { "type": "string", "minLength": 1 },
+        "evidenceUrl": { "type": ["string", "null"] }
+      }
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "url": {
+      "type": "string",
+      "pattern": "^https?://"
+    }
+  }
+}
