@@ -6,6 +6,7 @@
     "dev": "next dev -p 60139",
     "build": "next build",
     "start": "next start -p 60139",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
     "catalog:audit": "tsx scripts/audit-catalog-metadata.ts"
   },
   "dependencies": {

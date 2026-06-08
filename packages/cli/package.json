@@ -15,6 +15,7 @@
   "scripts": {
     "sync:skills": "bun run scripts/sync-skills.ts",
     "build": "bun run sync:skills && bun run scripts/build.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "bun run scripts/test.ts",
     "pack:dry-run": "bun run build && npm pack --dry-run",
     "prepack": "bun run build"

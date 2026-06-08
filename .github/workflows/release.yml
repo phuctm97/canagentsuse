@@ -59,6 +59,10 @@ jobs:
         if: steps.plan.outputs.has_plan == 'true'
         run: bun run changeset:version
 
+      - name: Validate main branch
+        if: steps.plan.outputs.has_plan == 'true'
+        run: bun run validate
+
       - name: Run release checks
         if: steps.plan.outputs.has_plan == 'true'
         run: bun run check && bun run cli:pack

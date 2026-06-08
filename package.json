@@ -14,8 +14,10 @@
     "website:dev": "cd packages/website && bun run dev",
     "website:build": "cd packages/website && bun run build",
     "website:start": "cd packages/website && bun run start",
+    "website:typecheck": "cd packages/website && bun run typecheck",
     "cli:build": "cd packages/cli && bun run build",
     "cli:test": "cd packages/cli && bun run test",
+    "cli:typecheck": "cd packages/cli && bun run typecheck",
     "cli:pack": "cd packages/cli && bun run pack:dry-run",
     "release:cli:check": "bun run catalog:audit && bun run cli:test && bun run cli:pack",
     "release:plan": "node scripts/release-plan.mjs",
@@ -24,6 +26,8 @@
     "changeset:status": "changeset status --verbose",
     "changeset:version": "changeset version && bun run release:sync-cli-version",
     "changeset:publish": "changeset publish",
+    "typecheck": "bun run website:typecheck && bun run cli:typecheck",
+    "validate": "bun run typecheck && git diff --check",
     "check": "bun run catalog:audit && bun run cli:test && bun run build"
   },
   "ignoreScripts": [
