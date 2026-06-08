@@ -7,6 +7,7 @@ export const agentInstallLinks = {
   skillsSh: "https://skills.sh/phuctm97/canagentsuse",
   llms: `${SITE_URL}/llms.txt`,
   llmsFull: `${SITE_URL}/llms-full.txt`,
+  install: `${SITE_URL}/api/agent/install`,
   mcp: `${SITE_URL}/api/mcp`,
   catalog: `${SITE_URL}/api/agent/catalog`,
   search: `${SITE_URL}/api/agent/search`,
@@ -59,6 +60,90 @@ ${cliInstallDryRunExample}
 ${cliInstallExample}
 ${cliDoctorExample}`
 
+export function agentInstallGuide() {
+  return {
+    site: {
+      name: SITE_NAME,
+      url: SITE_URL,
+      purpose:
+        "Find tools that AI agents can operate safely through APIs, CLIs, MCP servers, browser workflows, docs, pricing clarity, account setup, and sandbox support.",
+    },
+    recommendation:
+      "Use the CLI when shell access is available because it can install the read-only MCP endpoint and bundled skills together. Use MCP or HTTP JSON directly when the agent cannot write local config.",
+    cli: {
+      package: "canagentsuse",
+      help: cliHelpExample,
+      defaultSetup: `npx canagentsuse@latest setup`,
+      fullSetup: cliInstallExample,
+      dryRun: cliInstallDryRunExample,
+      mcpOnly: cliMcpInstallExample,
+      skillsOnly: cliSkillsOnlyInstallExample,
+      doctor: cliDoctorExample,
+      installOneSkill: cliSkillInstallExample,
+      targets: cliAgentInstallExamples,
+      bestPractices: [
+        "Run the dry-run command before writing config in an unfamiliar machine or repository.",
+        "Use explicit target flags such as --claude, --cursor, --codex, --opencode, --gemini, or --universal in scripted setup.",
+        "Use --project when the user wants config inside the current repository only.",
+        "Use --global for user-level setup; it is the default.",
+        "Run doctor after setup and report failed checks before relying on MCP or skills.",
+      ],
+    },
+    mcp: {
+      endpoint: agentInstallLinks.mcp,
+      configExample: mcpInstallExample,
+      smokeTest: mcpSmokeTest,
+      tools: [
+        "search_agent_tools",
+        "get_agent_catalog",
+        "get_agent_tool",
+        "list_agent_categories",
+        "list_agent_capabilities",
+        "get_agent_score_model",
+        "get_agent_install_guide",
+      ],
+      resources: [
+        "canagentsuse://catalog",
+        "canagentsuse://llms-full",
+        "canagentsuse://install",
+      ],
+    },
+    skills: {
+      primarySkill: "can-agents-use",
+      skillMarkdown: agentInstallLinks.skill,
+      skillSource: agentInstallLinks.skillSource,
+      skillsSh: agentInstallLinks.skillsSh,
+      skillsShInstall: skillsShInstallExample,
+      manualInstall: skillManualInstallExample,
+    },
+    api: {
+      install: agentInstallLinks.install,
+      catalog: agentInstallLinks.catalog,
+      search: `${agentInstallLinks.search}?q=stripe&page=1&limit=10`,
+      tool: agentInstallLinks.tool,
+      openapi: agentInstallLinks.openapi,
+      recommendedFlow: [
+        "Fetch /api/agent/install once to choose a setup path.",
+        "Use /api/agent/search for focused discovery.",
+        "Use /api/agent/tools/{slug} before recommending or operating a tool.",
+        "Fetch /api/agent/catalog once for broad comparisons instead of paging through every search result.",
+      ],
+    },
+    markdown: {
+      llms: agentInstallLinks.llms,
+      llmsFull: agentInstallLinks.llmsFull,
+      humanGuide: agentInstallLinks.guide,
+    },
+    guardrails: [
+      "Do not request database credentials; all agent surfaces are public, cached, and read-only.",
+      "Do not scrape the HTML page when JSON, MCP, OpenAPI, skill, or Markdown surfaces are enough.",
+      "Cache catalog or search results inside the agent session for multi-tool comparisons.",
+      "Treat scores as discovery signals, not legal, security, purchasing, or compliance approval.",
+      "Require human review before live payments, customer data changes, account creation, production infrastructure changes, or irreversible actions.",
+    ],
+  } as const
+}
+
 export function canAgentsUseSkillMarkdown() {
   return `---
 name: can-agents-use
@@ -82,6 +167,7 @@ Discovery keywords: agent-friendly tools, AI agent tools, MCP server catalog, AP
 - skills.sh fallback for this skill: \`${skillsShInstallExample}\`
 - Skill source: ${agentInstallLinks.skillSource}
 - Install guide: ${agentInstallLinks.guide}
+- Install JSON: ${agentInstallLinks.install}
 - MCP endpoint: ${agentInstallLinks.mcp}
 - Catalog JSON: ${agentInstallLinks.catalog}
 - Search JSON: ${agentInstallLinks.search}?q=stripe&page=1&limit=10
@@ -137,6 +223,7 @@ Useful CLI operations:
 - \`canagentsuse tool <slug> --json\`: inspect one full tool record.
 - \`canagentsuse catalog --json\`: fetch the full catalog once for local comparison.
 - \`canagentsuse mcp-config\`: print copyable MCP config.
+- \`canagentsuse install-guide --json\`: fetch the structured setup guide for CLI, MCP, skills, API, and Markdown use.
 
 Use MCP or JSON directly when shell commands are unavailable.
 
@@ -152,13 +239,14 @@ Use MCP or JSON directly when shell commands are unavailable.
 
 ## Workflow
 
-1. Search first with MCP tool \`search_agent_tools\` or HTTP \`${agentInstallLinks.search}?q=<query>&page=1&limit=10\`.
-2. For broad research or complete information, call MCP \`get_agent_catalog\`, read MCP resource \`canagentsuse://catalog\`, fetch \`${agentInstallLinks.catalog}\`, or fetch \`${agentInstallLinks.llmsFull}\` once and search inside your own context.
-3. Fetch a specific record with MCP tool \`get_agent_tool\` or HTTP \`/api/agent/tools/{slug}\`.
-4. For additional candidates, request the next page only when the search result returns \`hasMore: true\`.
-5. Compare the weighted score model: machine operability 25%, agent safety 25%, readability 20%, auth/setup 15%, and production reliability 15%.
-6. Mention caution notes when the task involves money, production data, compliance, account setup, or irreversible actions.
-7. Prefer official evidence URLs and docs before recommending live usage.
+1. If you need setup guidance, call MCP \`get_agent_install_guide\`, read MCP resource \`canagentsuse://install\`, run \`canagentsuse install-guide --json\`, or fetch \`${agentInstallLinks.install}\`.
+2. Search first with MCP tool \`search_agent_tools\` or HTTP \`${agentInstallLinks.search}?q=<query>&page=1&limit=10\`.
+3. For broad research or complete information, call MCP \`get_agent_catalog\`, read MCP resource \`canagentsuse://catalog\`, fetch \`${agentInstallLinks.catalog}\`, or fetch \`${agentInstallLinks.llmsFull}\` once and search inside your own context.
+4. Fetch a specific record with MCP tool \`get_agent_tool\` or HTTP \`/api/agent/tools/{slug}\`.
+5. For additional candidates, request the next page only when the search result returns \`hasMore: true\`.
+6. Compare the weighted score model: machine operability 25%, agent safety 25%, readability 20%, auth/setup 15%, and production reliability 15%.
+7. Mention caution notes when the task involves money, production data, compliance, account setup, or irreversible actions.
+8. Prefer official evidence URLs and docs before recommending live usage.
 
 ## MCP Tools
 
@@ -168,11 +256,13 @@ Use MCP or JSON directly when shell commands are unavailable.
 - \`list_agent_categories\`: List supported category slugs.
 - \`list_agent_capabilities\`: List supported agent-readiness signals.
 - \`get_agent_score_model\`: Read the weighted scoring model before comparing tools.
+- \`get_agent_install_guide\`: Read CLI, MCP, skills, API, and Markdown setup paths.
 
 ## Direct API Examples
 
 \`\`\`bash
 curl -fsS '${agentInstallLinks.search}?q=stripe&page=1&limit=10'
+curl -fsS '${agentInstallLinks.install}'
 curl -fsS '${agentInstallLinks.catalog}'
 curl -fsS '${SITE_URL}/api/agent/tools/stripe'
 \`\`\`

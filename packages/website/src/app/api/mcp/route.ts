@@ -6,7 +6,7 @@ import {
   getAgentToolBySlug,
   searchAgentTools,
 } from "@/lib/agent-catalog"
-import { agentInstallLinks, mcpInstallExample } from "@/lib/agent-install"
+import { agentInstallGuide, agentInstallLinks, mcpInstallExample } from "@/lib/agent-install"
 import { agentScoreWeights } from "@/lib/agent-scoring"
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site"
 
@@ -144,6 +144,20 @@ const mcpTools = [
       readOnlyHint: true,
     },
   },
+  {
+    name: "get_agent_install_guide",
+    title: "Get Agent Install Guide",
+    description:
+      "Return CLI, MCP, skill, HTTP API, Markdown, and guardrail setup paths for connecting Can Agents Use to an AI agent.",
+    inputSchema: {
+      type: "object",
+      properties: {},
+    },
+    annotations: {
+      readOnlyHint: true,
+      openWorldHint: true,
+    },
+  },
 ]
 
 const resources = [
@@ -159,6 +173,12 @@ const resources = [
     description: "Expanded Markdown context for long-context agents.",
     mimeType: "text/markdown",
   },
+  {
+    uri: "canagentsuse://install",
+    name: "Can Agents Use install guide",
+    description: "Structured CLI, MCP, skill, API, and Markdown setup guide.",
+    mimeType: "application/json",
+  },
 ]
 
 export async function GET() {
@@ -171,6 +191,7 @@ export async function GET() {
       transport: "HTTP JSON-RPC",
       install: {
         guide: agentInstallLinks.guide,
+        guideJson: agentInstallLinks.install,
         skill: agentInstallLinks.skill,
         configExample: mcpInstallExample,
       },
@@ -209,6 +230,15 @@ export async function GET() {
           method: "tools/call",
           params: {
             name: "get_agent_catalog",
+            arguments: {},
+          },
+        },
+        installGuide: {
+          jsonrpc: "2.0",
+          id: 4,
+          method: "tools/call",
+          params: {
+            name: "get_agent_install_guide",
             arguments: {},
           },
         },
@@ -286,7 +316,7 @@ export async function POST(request: Request) {
             version: agentInterfaceVersion,
           },
           instructions:
-            "Use these read-only, cached catalog tools instead of direct database access. Scores are weighted by machine operability, agent safety, readability, setup, and reliability. Search defaults to page 1 with 10 results; request the next page only when hasMore is true. For broad comparison or all records, call get_agent_catalog or read canagentsuse://catalog once instead of paging through search. Keep search queries under 120 characters, request at most 50 results per page, and avoid polling loops. Verify official evidence URLs before irreversible actions.",
+            "Use these read-only, cached catalog tools instead of direct database access. For setup guidance, call get_agent_install_guide or read canagentsuse://install. Scores are weighted by machine operability, agent safety, readability, setup, and reliability. Search defaults to page 1 with 10 results; request the next page only when hasMore is true. For broad comparison or all records, call get_agent_catalog or read canagentsuse://catalog once instead of paging through search. Keep search queries under 120 characters, request at most 50 results per page, and avoid polling loops. Verify official evidence URLs before irreversible actions.",
         })
       case "ping":
         return jsonRpcResult(body.id ?? null, {})
@@ -362,6 +392,9 @@ async function handleToolCall(id: JsonRpcId, params: unknown) {
     case "get_agent_score_model": {
       return jsonRpcResult(id, toolResult({ scoreModel: agentScoreWeights }))
     }
+    case "get_agent_install_guide": {
+      return jsonRpcResult(id, toolResult(agentInstallGuide()))
+    }
     default:
       return jsonRpcError(id, -32602, `Unknown tool: ${name ?? "missing"}`)
   }
@@ -372,9 +405,9 @@ async function handleResourceRead(id: JsonRpcId, params: unknown) {
     typeof params === "object" && params !== null && "uri" in params
       ? asString((params as { uri?: unknown }).uri)
       : ""
-  const catalog = await getAgentCatalog()
-
   if (uri === "canagentsuse://catalog") {
+    const catalog = await getAgentCatalog()
+
     return jsonRpcResult(id, {
       contents: [
         {
@@ -387,12 +420,26 @@ async function handleResourceRead(id: JsonRpcId, params: unknown) {
   }
 
   if (uri === "canagentsuse://llms-full") {
+    const catalog = await getAgentCatalog()
+
     return jsonRpcResult(id, {
       contents: [
         {
           uri,
           mimeType: "text/markdown",
           text: catalogToMarkdown(catalog, { full: true }),
+        },
+      ],
+    })
+  }
+
+  if (uri === "canagentsuse://install") {
+    return jsonRpcResult(id, {
+      contents: [
+        {
+          uri,
+          mimeType: "application/json",
+          text: JSON.stringify(agentInstallGuide(), null, 2),
         },
       ],
     })

@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start -p 60139",
     "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test:agent-surfaces": "tsx scripts/test-agent-surfaces.ts",
     "catalog:audit": "tsx scripts/audit-catalog-metadata.ts"
   },
   "dependencies": {

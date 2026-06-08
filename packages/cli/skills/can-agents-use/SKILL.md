@@ -20,6 +20,7 @@ Discovery keywords: agent-friendly tools, AI agent tools, MCP server catalog, AP
 - skills.sh fallback for this skill: `npx skills add phuctm97/canagentsuse --skill can-agents-use`
 - Skill source: https://github.com/phuctm97/canagentsuse/tree/main/skills/can-agents-use
 - Install guide: https://canagentsuse.com/agents
+- Install JSON: https://canagentsuse.com/api/agent/install
 - MCP endpoint: https://canagentsuse.com/api/mcp
 - Catalog JSON: https://canagentsuse.com/api/agent/catalog
 - Search JSON: https://canagentsuse.com/api/agent/search?q=stripe&page=1&limit=10
@@ -75,6 +76,7 @@ Useful CLI operations:
 - `canagentsuse tool <slug> --json`: inspect one full tool record.
 - `canagentsuse catalog --json`: fetch the full catalog once for local comparison.
 - `canagentsuse mcp-config`: print copyable MCP config.
+- `canagentsuse install-guide --json`: fetch the structured setup guide for CLI, MCP, skills, API, and Markdown use.
 
 Use MCP or JSON directly when shell commands are unavailable.
 
@@ -90,13 +92,14 @@ Use MCP or JSON directly when shell commands are unavailable.
 
 ## Workflow
 
-1. Search first with MCP tool `search_agent_tools` or HTTP `https://canagentsuse.com/api/agent/search?q=<query>&page=1&limit=10`.
-2. For broad research or complete information, call MCP `get_agent_catalog`, read MCP resource `canagentsuse://catalog`, fetch `https://canagentsuse.com/api/agent/catalog`, or fetch `https://canagentsuse.com/llms-full.txt` once and search inside your own context.
-3. Fetch a specific record with MCP tool `get_agent_tool` or HTTP `/api/agent/tools/{slug}`.
-4. For additional candidates, request the next page only when the search result returns `hasMore: true`.
-5. Compare the weighted score model: machine operability 25%, agent safety 25%, readability 20%, auth/setup 15%, and production reliability 15%.
-6. Mention caution notes when the task involves money, production data, compliance, account setup, or irreversible actions.
-7. Prefer official evidence URLs and docs before recommending live usage.
+1. If you need setup guidance, call MCP `get_agent_install_guide`, read MCP resource `canagentsuse://install`, run `canagentsuse install-guide --json`, or fetch `https://canagentsuse.com/api/agent/install`.
+2. Search first with MCP tool `search_agent_tools` or HTTP `https://canagentsuse.com/api/agent/search?q=<query>&page=1&limit=10`.
+3. For broad research or complete information, call MCP `get_agent_catalog`, read MCP resource `canagentsuse://catalog`, fetch `https://canagentsuse.com/api/agent/catalog`, or fetch `https://canagentsuse.com/llms-full.txt` once and search inside your own context.
+4. Fetch a specific record with MCP tool `get_agent_tool` or HTTP `/api/agent/tools/{slug}`.
+5. For additional candidates, request the next page only when the search result returns `hasMore: true`.
+6. Compare the weighted score model: machine operability 25%, agent safety 25%, readability 20%, auth/setup 15%, and production reliability 15%.
+7. Mention caution notes when the task involves money, production data, compliance, account setup, or irreversible actions.
+8. Prefer official evidence URLs and docs before recommending live usage.
 
 ## MCP Tools
 
@@ -106,11 +109,13 @@ Use MCP or JSON directly when shell commands are unavailable.
 - `list_agent_categories`: List supported category slugs.
 - `list_agent_capabilities`: List supported agent-readiness signals.
 - `get_agent_score_model`: Read the weighted scoring model before comparing tools.
+- `get_agent_install_guide`: Read CLI, MCP, skills, API, and Markdown setup paths.
 
 ## Direct API Examples
 
 ```bash
 curl -fsS 'https://canagentsuse.com/api/agent/search?q=stripe&page=1&limit=10'
+curl -fsS 'https://canagentsuse.com/api/agent/install'
 curl -fsS 'https://canagentsuse.com/api/agent/catalog'
 curl -fsS 'https://canagentsuse.com/api/agent/tools/stripe'
 ```

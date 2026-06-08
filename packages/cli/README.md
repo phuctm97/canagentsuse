@@ -10,6 +10,7 @@ npx canagentsuse search stripe
 npx canagentsuse search --capability mcp --json
 npx canagentsuse tool stripe
 npx canagentsuse mcp-config
+npx canagentsuse install-guide --json
 ```
 
 The CLI reads the public Can Agents Use surfaces. It does not require database
@@ -29,6 +30,7 @@ credentials, local setup, or write access.
 | `canagentsuse tool <slug>` | Fetch one complete tool record. |
 | `canagentsuse catalog` | Show catalog counts or print the full JSON catalog with `--json`. |
 | `canagentsuse mcp-config` | Print copyable MCP config for agents. |
+| `canagentsuse install-guide` | Fetch structured setup guidance for CLI, MCP, skills, API, and Markdown use. |
 | `canagentsuse score-model` | Print the score model used for ranking. |
 | `canagentsuse docs` | List all agent-facing surfaces. |
 

@@ -13,7 +13,7 @@ import {
 } from "@/lib/agent-scoring"
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site"
 
-export const agentInterfaceVersion = "2026-06-07"
+export const agentInterfaceVersion = "2026-06-08"
 
 export type AgentTool = {
   slug: string
@@ -142,6 +142,7 @@ export function catalogToMarkdown(catalog: AgentCatalog, options?: { full?: bool
     "## Agent Interfaces",
     "",
     `- [Install guide](${agentInstallLinks.guide}): Human-readable guide for adding Can Agents Use to an agent with the CLI, MCP, skills, or direct JSON APIs.`,
+    `- [Install JSON](${agentInstallLinks.install}): Structured setup contract for agents choosing between CLI, MCP, skills, API, and Markdown surfaces.`,
     `- [CLI installer](https://www.npmjs.com/package/canagentsuse): Run \`npx canagentsuse@latest setup --all-agents --yes\` to install MCP config plus bundled skills for supported agents.`,
     `- [skills.sh skill](${agentInstallLinks.skillSource}): Fallback install path with \`npx skills add phuctm97/canagentsuse --skill can-agents-use\`.`,
     `- [Skill Markdown](${agentInstallLinks.skill}): Copyable SKILL.md-style fallback for agents that support persistent skills.`,
@@ -154,6 +155,7 @@ export function catalogToMarkdown(catalog: AgentCatalog, options?: { full?: bool
     "",
     "## How To Use This Site As An Agent",
     "",
+    "- Fetch `/api/agent/install`, call MCP `get_agent_install_guide`, or read `canagentsuse://install` when you need setup instructions.",
     "- Use `search_agent_tools` over MCP or `/api/agent/search` to discover candidates.",
     "- Search results are paginated; default to `limit=10` and request the next `page` only when `hasMore` is true.",
     "- For complete information, call MCP `get_agent_catalog`, read MCP resource `canagentsuse://catalog`, or fetch `/api/agent/catalog` once per session.",
@@ -266,6 +268,15 @@ export function openApiDocument(catalog: AgentCatalog) {
           responses: successResponse("AgentCatalog"),
         },
       },
+      "/api/agent/install": {
+        get: {
+          summary: "Get structured install and setup guidance for agents",
+          operationId: "getAgentInstallGuide",
+          description:
+            "Returns CLI, MCP, skill, HTTP API, Markdown, and guardrail setup paths for connecting Can Agents Use to an AI agent.",
+          responses: successResponse("AgentInstallGuide"),
+        },
+      },
       "/api/agent/search": {
         get: {
           summary: "Search agent-friendly tools",
@@ -364,6 +375,17 @@ export function openApiDocument(catalog: AgentCatalog) {
                       },
                     },
                   },
+                  readInstallGuide: {
+                    summary: "Read the install guide resource",
+                    value: {
+                      jsonrpc: "2.0",
+                      id: 4,
+                      method: "resources/read",
+                      params: {
+                        uri: "canagentsuse://install",
+                      },
+                    },
+                  },
                 },
               },
             },
@@ -419,6 +441,21 @@ export function openApiDocument(catalog: AgentCatalog) {
             totalPages: { type: "integer" },
             hasMore: { type: "boolean" },
             tools: { type: "array", items: { $ref: "#/components/schemas/AgentTool" } },
+          },
+        },
+        AgentInstallGuide: {
+          type: "object",
+          required: ["site", "recommendation", "cli", "mcp", "skills", "api", "markdown", "guardrails"],
+          additionalProperties: true,
+          properties: {
+            site: { type: "object", additionalProperties: true },
+            recommendation: { type: "string" },
+            cli: { type: "object", additionalProperties: true },
+            mcp: { type: "object", additionalProperties: true },
+            skills: { type: "object", additionalProperties: true },
+            api: { type: "object", additionalProperties: true },
+            markdown: { type: "object", additionalProperties: true },
+            guardrails: { type: "array", items: { type: "string" } },
           },
         },
         AgentToolEnvelope: {
@@ -553,6 +590,7 @@ function toAgentCatalog(data: DirectoryData): AgentCatalog {
         llms: `${SITE_URL}/llms.txt`,
         llmsFull: `${SITE_URL}/llms-full.txt`,
         installGuide: agentInstallLinks.guide,
+        installJson: agentInstallLinks.install,
         skill: agentInstallLinks.skill,
         catalog: `${SITE_URL}/api/agent/catalog`,
         search: `${SITE_URL}/api/agent/search`,

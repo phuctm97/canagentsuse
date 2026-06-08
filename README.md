@@ -80,6 +80,7 @@ surfaces are enough.
 | If You Can... | Use This | Best For |
 | --- | --- | --- |
 | Run the CLI | `npx canagentsuse@latest setup --all-agents --yes` | One-command MCP plus bundled skill setup for Claude Code, Cursor, Codex, OpenCode, Gemini CLI, and universal agent folders. |
+| Ask how to connect | `https://canagentsuse.com/api/agent/install` | Structured setup guide for CLI, MCP, skills, API, and Markdown surfaces. |
 | Use MCP | `https://canagentsuse.com/api/mcp` | Tool calls from Cursor, Claude Code, Codex, OpenCode, Gemini CLI, and other MCP-aware agents. |
 | Install only skills | `npx canagentsuse@latest skills install can-agents-use --all-agents --yes` | Persistent agent instructions and focused discovery skills. |
 | Fetch HTTP JSON | `https://canagentsuse.com/api/agent/search?q=stripe&page=1&limit=10` | Direct search from scripts, agents, and workflows. |
@@ -116,6 +117,7 @@ npx canagentsuse@latest search "email api" --capability api --limit 5
 npx canagentsuse@latest search --capability mcp --json
 npx canagentsuse@latest tool stripe
 npx canagentsuse@latest mcp-config
+npx canagentsuse@latest install-guide --json
 ```
 
 | Command | Use It For |
@@ -135,6 +137,7 @@ npx canagentsuse@latest mcp-config
 | `canagentsuse tool <slug>` | Inspect one complete tool record before recommending it. |
 | `canagentsuse catalog --json` | Fetch the full catalog once for local agent-side comparison. |
 | `canagentsuse mcp-config` | Print copyable MCP config for agent clients. |
+| `canagentsuse install-guide` | Fetch the structured setup guide for CLI, MCP, skills, API, and Markdown use. |
 | `canagentsuse score-model` | Inspect how the agent-readiness score is weighted. |
 | `canagentsuse docs` | List the website, skill, MCP, OpenAPI, and Markdown surfaces. |
 
@@ -319,6 +322,7 @@ Use these endpoints when an agent or script prefers plain HTTP JSON.
 
 | Endpoint | Purpose |
 | --- | --- |
+| [`/api/agent/install`](https://canagentsuse.com/api/agent/install) | Structured setup guide for CLI, MCP, skills, API, Markdown, and guardrails. |
 | [`/api/agent/search?q=stripe&page=1&limit=10`](https://canagentsuse.com/api/agent/search?q=stripe&page=1&limit=10) | Paginated search. |
 | [`/api/agent/catalog`](https://canagentsuse.com/api/agent/catalog) | Full structured catalog. |
 | [`/api/agent/tools/stripe`](https://canagentsuse.com/api/agent/tools/stripe) | One tool by slug. |
@@ -337,6 +341,7 @@ Search parameters:
 Examples:
 
 ```bash
+curl -fsS 'https://canagentsuse.com/api/agent/install'
 curl -fsS 'https://canagentsuse.com/api/agent/search?q=stripe&page=1&limit=10'
 curl -fsS 'https://canagentsuse.com/api/agent/search?capability=mcp&limit=20'
 curl -fsS 'https://canagentsuse.com/api/agent/catalog'

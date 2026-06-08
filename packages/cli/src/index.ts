@@ -96,6 +96,37 @@ type AgentCatalogResponse = {
   capabilities?: { slug: string; name: string; description?: string }[]
 }
 
+type AgentInstallGuideResponse = {
+  site?: {
+    name?: string
+    url?: string
+    purpose?: string
+  }
+  recommendation?: string
+  cli?: {
+    fullSetup?: string
+    dryRun?: string
+    mcpOnly?: string
+    skillsOnly?: string
+    doctor?: string
+    installOneSkill?: string
+    bestPractices?: string[]
+  }
+  mcp?: {
+    endpoint?: string
+    tools?: string[]
+    resources?: string[]
+  }
+  skills?: {
+    primarySkill?: string
+    skillMarkdown?: string
+    skillsShInstall?: string
+  }
+  api?: Record<string, unknown>
+  markdown?: Record<string, unknown>
+  guardrails?: string[]
+}
+
 type SetupOptions = {
   dryRun: boolean
   mode: InstallMode
@@ -155,6 +186,9 @@ async function main() {
       break
     case "mcp-config":
       mcpConfig(parsed)
+      break
+    case "install-guide":
+      await installGuide(parsed)
       break
     case "score-model":
       await scoreModel(parsed)
@@ -273,6 +307,40 @@ function mcpConfig(parsed: ParsedArgs) {
   console.log(JSON.stringify(config, null, 2))
 }
 
+async function installGuide(parsed: ParsedArgs) {
+  const data = await fetchJson<AgentInstallGuideResponse>(
+    new URL("/api/agent/install", siteUrl(parsed))
+  )
+
+  if (parsed.flags.json) {
+    printJson(data)
+    return
+  }
+
+  console.log(`${data.site?.name ?? "Can Agents Use"} install guide`)
+  console.log(data.recommendation ?? "Use CLI, MCP, skills, API, or Markdown surfaces.")
+  console.log("")
+  console.log("CLI")
+  printField("Full setup", data.cli?.fullSetup)
+  printField("Dry run", data.cli?.dryRun)
+  printField("MCP only", data.cli?.mcpOnly)
+  printField("Skills only", data.cli?.skillsOnly)
+  printField("Doctor", data.cli?.doctor)
+  console.log("")
+  console.log("MCP")
+  printField("Endpoint", data.mcp?.endpoint)
+  if (data.mcp?.tools?.length) console.log(`Tools: ${data.mcp.tools.join(", ")}`)
+  if (data.mcp?.resources?.length) console.log(`Resources: ${data.mcp.resources.join(", ")}`)
+  console.log("")
+  console.log("Skills")
+  printField("Primary skill", data.skills?.primarySkill)
+  printField("Skill.md", data.skills?.skillMarkdown)
+  printField("skills.sh", data.skills?.skillsShInstall)
+  console.log("")
+  console.log("For scripts and agents:")
+  console.log("canagentsuse install-guide --json")
+}
+
 async function scoreModel(parsed: ParsedArgs) {
   const data = await fetchJson<AgentCatalogResponse>(
     new URL("/api/agent/catalog", siteUrl(parsed))
@@ -297,6 +365,7 @@ function docs(parsed: ParsedArgs) {
     ["Skill.md", new URL("/skill.md", site).toString()],
     ["llms.txt", new URL("/llms.txt", site).toString()],
     ["llms-full.txt", new URL("/llms-full.txt", site).toString()],
+    ["Install API", new URL("/api/agent/install", site).toString()],
     ["Catalog API", new URL("/api/agent/catalog", site).toString()],
     ["Search API", new URL("/api/agent/search?q=stripe&page=1&limit=10", site).toString()],
     ["MCP endpoint", new URL("/api/mcp", site).toString()],
@@ -1274,6 +1343,7 @@ Usage:
   canagentsuse tool <slug> [--json]
   canagentsuse catalog [--json]
   canagentsuse mcp-config [--json]
+  canagentsuse install-guide [--json]
   canagentsuse score-model [--json]
   canagentsuse docs [--json]
 
@@ -1303,6 +1373,7 @@ Examples:
   canagentsuse setup --claude --codex --yes
   canagentsuse setup --all-agents --project --dry-run
   canagentsuse doctor
+  canagentsuse install-guide --json
   canagentsuse skills install find-mcp-tools --claude --yes
   canagentsuse search stripe
   canagentsuse tool stripe
@@ -1313,7 +1384,8 @@ Agent best practices:
   3. Use "canagentsuse setup --mcp --<agent> --yes" when the agent only needs tools.
   4. Use "canagentsuse setup --cli --<agent> --yes" when MCP is unavailable.
   5. Run "canagentsuse doctor --json" after setup and report failed checks.
-  6. Prefer "search --json", "tool --json", or "catalog --json" in scripts.
-  7. Never ask for database credentials; the CLI uses public read-only surfaces.
+  6. Use "canagentsuse install-guide --json" when choosing setup paths programmatically.
+  7. Prefer "search --json", "tool --json", or "catalog --json" in scripts.
+  8. Never ask for database credentials; the CLI uses public read-only surfaces.
 `)
 }
