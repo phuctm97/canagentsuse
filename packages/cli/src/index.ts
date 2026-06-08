@@ -487,7 +487,7 @@ async function skills(parsed: ParsedArgs) {
 }
 
 async function setupOptions(parsed: ParsedArgs): Promise<SetupOptions> {
-  return {
+  const options = {
     dryRun: Boolean(parsed.flags.dryRun),
     mode: selectedMode(parsed),
     scope: selectedScope(parsed),
@@ -495,15 +495,25 @@ async function setupOptions(parsed: ParsedArgs): Promise<SetupOptions> {
     targets: selectedTargets(parsed),
     yes: Boolean(parsed.flags.yes || parsed.flags.dryRun),
   }
+
+  if (shouldPromptSetup(parsed)) {
+    return promptSetupOptions(options)
+  }
+
+  return options
 }
 
 function selectedMode(parsed: ParsedArgs): InstallMode {
-  if (parsed.flags.mcp && !parsed.flags.skill && !parsed.flags.all) return "mcp"
-  if (parsed.flags.skill && !parsed.flags.mcp && !parsed.flags.all) return "skill"
+  const skillMode = Boolean(parsed.flags.skill || parsed.flags.cli)
+  if (parsed.flags.mcp && !skillMode && !parsed.flags.all) return "mcp"
+  if (skillMode && !parsed.flags.mcp && !parsed.flags.all) return "skill"
   return "both"
 }
 
 function selectedScope(parsed: ParsedArgs): InstallScope {
+  if (parsed.flags.project && parsed.flags.global) {
+    throw new Error("Choose either --project or --global, not both.")
+  }
   return parsed.flags.project ? "project" : "global"
 }
 
@@ -526,6 +536,99 @@ function autoDetectTargets(): AgentTarget[] {
   if (commandExists("gemini") || pathLikelyExists(join(homedir(), ".gemini"))) detected.push("gemini")
   if (pathLikelyExists(join(homedir(), ".agents")) || pathLikelyExists(join(process.cwd(), ".agents"))) detected.push("universal")
   return detected
+}
+
+function shouldPromptSetup(parsed: ParsedArgs) {
+  if (!(parsed.command === "setup" || parsed.command === "install")) return false
+  if (!process.stdin.isTTY || parsed.flags.yes || parsed.flags.dryRun || parsed.flags.json) return false
+  return !hasModeFlag(parsed) && !hasTargetFlag(parsed) && !hasScopeFlag(parsed)
+}
+
+function hasModeFlag(parsed: ParsedArgs) {
+  return Boolean(parsed.flags.mcp || parsed.flags.skill || parsed.flags.cli || parsed.flags.all)
+}
+
+function hasTargetFlag(parsed: ParsedArgs) {
+  return Boolean(parsed.flags.allAgents || agentTargets.some((target) => parsed.flags[target]))
+}
+
+function hasScopeFlag(parsed: ParsedArgs) {
+  return Boolean(parsed.flags.project || parsed.flags.global)
+}
+
+async function promptSetupOptions(options: SetupOptions): Promise<SetupOptions> {
+  const detected = autoDetectTargets()
+  const rl = createInterface({ input, output })
+
+  try {
+    console.log("Can Agents Use setup")
+    console.log("Pick what to install. Press Enter to use the recommended option.")
+    console.log("")
+
+    const mode = await promptSelect(rl, "Install mode", [
+      { label: "MCP + Skills (recommended)", value: "both" as const },
+      { label: "MCP only", value: "mcp" as const },
+      { label: "CLI skills only", value: "skill" as const },
+    ])
+
+    const targetChoices: Array<{ label: string; value: AgentTarget[] }> = []
+    if (detected.length > 0) {
+      targetChoices.push({
+        label: `Detected agents (${detected.join(", ")})`,
+        value: detected,
+      })
+    }
+    targetChoices.push(
+      { label: "All supported agents", value: agentTargets },
+      { label: "Claude Code", value: ["claude"] },
+      { label: "Cursor", value: ["cursor"] },
+      { label: "Codex", value: ["codex"] },
+      { label: "OpenCode", value: ["opencode"] },
+      { label: "Gemini CLI", value: ["gemini"] },
+      { label: "Universal .agents skills folder", value: ["universal"] }
+    )
+
+    const targets = await promptSelect(rl, "Agent target", targetChoices)
+    const scope = await promptSelect(rl, "Install location", [
+      { label: "Global user config (recommended)", value: "global" as const },
+      { label: "Current project only", value: "project" as const },
+    ])
+
+    return {
+      ...options,
+      mode,
+      scope,
+      targets,
+    }
+  } finally {
+    rl.close()
+  }
+}
+
+async function promptSelect<T>(
+  rl: ReturnType<typeof createInterface>,
+  question: string,
+  choices: Array<{ label: string; value: T }>
+) {
+  for (;;) {
+    console.log(question)
+    choices.forEach((choice, index) => {
+      const suffix = index === 0 ? " (default)" : ""
+      console.log(`  ${index + 1}. ${choice.label}${suffix}`)
+    })
+    const answer = await rl.question("> ")
+    const trimmed = answer.trim()
+    if (!trimmed) {
+      console.log("")
+      return choices[0].value
+    }
+    const index = Number.parseInt(trimmed, 10) - 1
+    if (Number.isInteger(index) && choices[index]) {
+      console.log("")
+      return choices[index].value
+    }
+    console.log(`Choose 1-${choices.length}.`)
+  }
 }
 
 async function installMcp(target: AgentTarget, options: SetupOptions) {
@@ -1090,6 +1193,7 @@ function isBooleanFlag(name: string) {
     "all",
     "allAgents",
     "claude",
+    "cli",
     "codex",
     "cursor",
     "dryRun",
@@ -1158,14 +1262,14 @@ function printHelp() {
 Find tools an AI agent can actually use.
 
 Usage:
-  canagentsuse install [--mcp|--skill|--all] [--claude|--cursor|--codex|--opencode|--gemini|--universal] [--project] [--yes] [--dry-run]
-  canagentsuse setup [--mcp|--skill|--all] [--claude|--cursor|--codex|--opencode|--gemini|--universal] [--project] [--yes] [--dry-run]
-  canagentsuse remove [--mcp|--skill|--all] [--project] [--yes] [--dry-run]
+  canagentsuse install [--mcp|--cli|--skill|--all] [--claude|--cursor|--codex|--opencode|--gemini|--universal] [--global|--project] [--yes] [--dry-run]
+  canagentsuse setup [--mcp|--cli|--skill|--all] [--claude|--cursor|--codex|--opencode|--gemini|--universal] [--global|--project] [--yes] [--dry-run]
+  canagentsuse remove [--mcp|--cli|--skill|--all] [--global|--project] [--yes] [--dry-run]
   canagentsuse status [--json]
   canagentsuse doctor [--json]
   canagentsuse skills list [--json]
-  canagentsuse skills install [skill] [--all] [--claude|--cursor|--codex|--opencode|--gemini|--universal] [--project] [--yes] [--dry-run]
-  canagentsuse skills remove [skill] [--all] [--project] [--yes] [--dry-run]
+  canagentsuse skills install [skill] [--all] [--claude|--cursor|--codex|--opencode|--gemini|--universal] [--global|--project] [--yes] [--dry-run]
+  canagentsuse skills remove [skill] [--all] [--global|--project] [--yes] [--dry-run]
   canagentsuse search [query] [--capability slug] [--category slug] [--limit n] [--page n] [--json]
   canagentsuse tool <slug> [--json]
   canagentsuse catalog [--json]
@@ -1175,6 +1279,11 @@ Usage:
 
 Options:
   --site <url>       Override site URL. Defaults to ${DEFAULT_SITE_URL}
+  --mcp              Install or remove only the MCP config.
+  --cli              Install or remove only CLI skills. Alias for --skill.
+  --skill            Install or remove only bundled skills.
+  --all              Install/remove both setup modes; for skills, select all bundled skills.
+  --global           Install into global user config. This is the default.
   --project          Install into the current project instead of global user config.
   --all-agents       Target every supported agent.
   --yes              Skip confirmation prompts.
@@ -1187,13 +1296,24 @@ Environment:
   CANAGENTSUSE_SITE_URL  Override the default site URL.
 
 Examples:
-  canagentsuse install --all-agents --yes
   canagentsuse setup
+  canagentsuse setup --mcp --claude --yes
+  canagentsuse setup --cli --cursor --yes
+  canagentsuse install --all-agents --yes
   canagentsuse setup --claude --codex --yes
   canagentsuse setup --all-agents --project --dry-run
   canagentsuse doctor
   canagentsuse skills install find-mcp-tools --claude --yes
   canagentsuse search stripe
   canagentsuse tool stripe
+
+Agent best practices:
+  1. Run "canagentsuse setup --dry-run" before writing config.
+  2. Use "canagentsuse setup --all-agents --yes" for a full local install.
+  3. Use "canagentsuse setup --mcp --<agent> --yes" when the agent only needs tools.
+  4. Use "canagentsuse setup --cli --<agent> --yes" when MCP is unavailable.
+  5. Run "canagentsuse doctor --json" after setup and report failed checks.
+  6. Prefer "search --json", "tool --json", or "catalog --json" in scripts.
+  7. Never ask for database credentials; the CLI uses public read-only surfaces.
 `)
 }

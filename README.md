@@ -104,8 +104,12 @@ without installing the repo. It calls the same public read-only API that agents
 use and can replace the older `npx skills` flow for supported local agents.
 
 ```bash
+npx canagentsuse@latest --help
+npx canagentsuse@latest setup
 npx canagentsuse@latest setup --all-agents --dry-run
 npx canagentsuse@latest setup --all-agents --yes
+npx canagentsuse@latest setup --mcp --claude --yes
+npx canagentsuse@latest setup --cli --cursor --yes
 npx canagentsuse@latest doctor
 npx canagentsuse@latest search stripe
 npx canagentsuse@latest search "email api" --capability api --limit 5
@@ -118,6 +122,10 @@ npx canagentsuse@latest mcp-config
 | --- | --- |
 | `canagentsuse install` | Alias for setup; useful as the direct mental replacement for `npx skills add`. |
 | `canagentsuse setup` | Install Can Agents Use MCP config and bundled skills for detected or selected agents. |
+| `canagentsuse setup --mcp` | Install only MCP tool access. |
+| `canagentsuse setup --cli` | Install only CLI skills; alias for `--skill`. |
+| `canagentsuse setup --global` | Install into global user config; this is the default. |
+| `canagentsuse setup --project` | Install into the current project only. |
 | `canagentsuse remove` | Remove the MCP config and installed Can Agents Use skills. |
 | `canagentsuse status` | Show installed MCP and skill status by agent. |
 | `canagentsuse doctor` | Test the public API, MCP endpoint, and local setup. |
@@ -133,19 +141,23 @@ npx canagentsuse@latest mcp-config
 Setup targets:
 
 ```bash
-canagentsuse setup --claude
-canagentsuse setup --cursor
-canagentsuse setup --codex
-canagentsuse setup --opencode
-canagentsuse setup --gemini
-canagentsuse setup --universal
+npx canagentsuse@latest setup --claude --yes
+npx canagentsuse@latest setup --cursor --yes
+npx canagentsuse@latest setup --codex --yes
+npx canagentsuse@latest setup --opencode --yes
+npx canagentsuse@latest setup --gemini --yes
+npx canagentsuse@latest setup --universal --yes
 ```
 
-Setup defaults to global user config. Use `--project` to write project-local
-config such as `.mcp.json`, `.cursor/mcp.json`, `.codex/config.toml`,
-`.gemini/settings.json`, or `opencode.json`. Use `--dry-run` before writing; the
-CLI backs up existing config files before editing and only updates the
-`canagentsuse` MCP entry.
+Run bare `npx canagentsuse@latest setup` in an interactive terminal to choose
+mode, target, and install location. Agents and scripts should pass explicit flags
+plus `--yes`.
+
+Setup defaults to global user config. Use `--global` to be explicit, or
+`--project` to write project-local config such as `.mcp.json`,
+`.cursor/mcp.json`, `.codex/config.toml`, `.gemini/settings.json`, or
+`opencode.json`. Use `--dry-run` before writing; the CLI backs up existing config
+files before editing and only updates the `canagentsuse` MCP entry.
 
 For scripts and agents, prefer `--json`:
 

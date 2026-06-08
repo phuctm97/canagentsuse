@@ -18,6 +18,8 @@ import {
   cliDoctorExample,
   cliFullInstallExample,
   cliInstallExample,
+  cliMcpInstallExample,
+  cliSkillsOnlyInstallExample,
   cliSkillInstallExample,
   mcpInstallExample,
   mcpSmokeTest,
@@ -143,6 +145,28 @@ export default function AgentsPage() {
 # skills.sh fallback
 ${skillInstallExample}`}
             note={`The CLI is preferred. skills.sh remains available with ${skillsShInstallExample} for agents that already standardize on it.`}
+          />
+        </section>
+
+        <section className="min-w-0 rounded-md border bg-card p-5">
+          <div className="flex items-center gap-3">
+            <span className="flex size-9 items-center justify-center rounded-md border bg-background">
+              <Code2Icon className="size-4" aria-hidden="true" />
+            </span>
+            <div>
+              <h2 className="text-base font-semibold">Choose install mode</h2>
+              <p className="text-sm text-muted-foreground">
+                Use the default setup for MCP plus skills, or choose a narrower mode for constrained agents.
+              </p>
+            </div>
+          </div>
+          <CodeBlock
+            code={[
+              cliInstallExample,
+              cliMcpInstallExample,
+              cliSkillsOnlyInstallExample,
+              cliDoctorExample,
+            ].join("\n")}
           />
         </section>
 

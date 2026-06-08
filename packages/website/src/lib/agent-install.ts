@@ -28,7 +28,10 @@ export const mcpSmokeTest = `curl -fsS -X POST ${agentInstallLinks.mcp} \\
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'`
 
 export const cliInstallExample = `npx canagentsuse@latest setup --all-agents --yes`
+export const cliHelpExample = `npx canagentsuse@latest --help`
 export const cliInstallDryRunExample = `npx canagentsuse@latest setup --all-agents --dry-run`
+export const cliMcpInstallExample = `npx canagentsuse@latest setup --mcp --all-agents --yes`
+export const cliSkillsOnlyInstallExample = `npx canagentsuse@latest setup --cli --all-agents --yes`
 export const cliDoctorExample = `npx canagentsuse@latest doctor`
 export const cliSkillInstallExample = `npx canagentsuse@latest skills install can-agents-use --all-agents --yes`
 export const cliAgentInstallExamples = {
@@ -51,7 +54,8 @@ export const skillInstallExample = `${skillsShInstallExample}
 # Manual fallback
 ${skillManualInstallExample}`
 
-export const cliFullInstallExample = `${cliInstallDryRunExample}
+export const cliFullInstallExample = `${cliHelpExample}
+${cliInstallDryRunExample}
 ${cliInstallExample}
 ${cliDoctorExample}`
 
@@ -91,9 +95,17 @@ Discovery keywords: agent-friendly tools, AI agent tools, MCP server catalog, AP
 Use the CLI first when the user allows shell commands. It can install the read-only MCP endpoint and bundled skills without cloning this repo.
 
 \`\`\`bash
+${cliHelpExample}
 npx canagentsuse@latest setup --dry-run
 ${cliInstallExample}
 ${cliDoctorExample}
+\`\`\`
+
+Choose the mode explicitly when an agent needs a narrower setup:
+
+\`\`\`bash
+${cliMcpInstallExample}
+${cliSkillsOnlyInstallExample}
 \`\`\`
 
 Use one target when the user names a specific agent or does not want every supported config touched:
@@ -109,8 +121,13 @@ ${cliAgentInstallExamples.universal}
 
 Useful CLI operations:
 
+- \`canagentsuse --help\`: print current commands, setup modes, target flags, and agent best practices.
 - \`canagentsuse setup\`: install MCP config plus bundled skills for detected or selected agents.
 - \`canagentsuse install\`: alias for \`setup\`.
+- \`canagentsuse setup --mcp\`: install only MCP tool access.
+- \`canagentsuse setup --cli\`: install only CLI skills; alias for \`--skill\`.
+- \`canagentsuse setup --global\`: install into user-level agent config; this is the default.
+- \`canagentsuse setup --project\`: install into the current project only.
 - \`canagentsuse status\`: inspect local MCP and skill installation status.
 - \`canagentsuse doctor\`: verify the public API, MCP endpoint, and local setup.
 - \`canagentsuse remove\`: remove Can Agents Use MCP config and installed skills.
