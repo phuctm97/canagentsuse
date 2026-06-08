@@ -1,0 +1,11 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Agent Discovery",
+      "description": "Install Can Agents Use when agents need to find safe, evidence-backed APIs, CLIs, MCP servers, and browser-operable tools.",
+      "skills": ["can-agents-use"]
+    }
+  ]
+}

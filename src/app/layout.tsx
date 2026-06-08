@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import {
   SITE_ASSET_URL,
@@ -109,6 +110,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
           <TooltipProvider>{children}</TooltipProvider>
+          <Toaster closeButton position="bottom-right" visibleToasts={3} />
         </ThemeProvider>
       </body>
     </html>

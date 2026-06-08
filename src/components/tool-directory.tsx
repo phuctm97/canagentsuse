@@ -3,12 +3,11 @@
 import * as React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 import {
   ArrowRightIcon,
-  ArrowUpRightIcon,
   BadgeCheckIcon,
   BotIcon,
-  BookOpenIcon,
   BracesIcon,
   CheckIcon,
   CheckCircle2Icon,
@@ -19,7 +18,6 @@ import {
   CreditCardIcon,
   DatabaseIcon,
   ExternalLinkIcon,
-  FileTextIcon,
   FilterIcon,
   GitPullRequestIcon,
   Globe2Icon,
@@ -27,7 +25,6 @@ import {
   SearchIcon,
   ShieldCheckIcon,
   TerminalIcon,
-  type LucideIcon,
 } from "lucide-react"
 
 import type {
@@ -38,7 +35,8 @@ import type {
 import {
   agentInstallLinks,
   mcpInstallExample,
-  skillInstallExample,
+  skillsShInstallExample,
+  skillsShQuickInstallExample,
 } from "@/lib/agent-install"
 import { GITHUB_REPO_URL } from "@/lib/site"
 import { cn } from "@/lib/utils"
@@ -59,6 +57,8 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
@@ -124,17 +124,40 @@ const maxCommandToolResults = 24
 const maxCommandCategoryResults = 10
 const cursorMcpInstallHref =
   "cursor://anysphere.cursor-deeplink/mcp/install?name=canagentsuse&config=eyJjYW5hZ2VudHN1c2UiOnsidHlwZSI6Imh0dHAiLCJ1cmwiOiJodHRwczovL2NhbmFnZW50c3VzZS5jb20vYXBpL21jcCJ9fQ=="
+const claudeCodeInstallPrompt = [
+  "Please connect Claude Code to Can Agents Use.",
+  "",
+  "Use this read-only MCP server:",
+  mcpInstallExample,
+  "",
+  "Then use it to search agent-friendly tools before recommending APIs, CLIs, MCP servers, browser workflows, or paid software.",
+].join("\n")
+const opencodeInstallPrompt = [
+  "Please connect OpenCode to Can Agents Use.",
+  "",
+  "Use this read-only MCP server config:",
+  mcpInstallExample,
+  "",
+  "Prefer MCP tool calls or the public JSON endpoints over scraping the website.",
+].join("\n")
+const geminiCliInstallPrompt = [
+  "Please connect Gemini CLI to Can Agents Use.",
+  "",
+  "Use this read-only MCP server config:",
+  mcpInstallExample,
+  "",
+  `If MCP is not available, read ${agentInstallLinks.llmsFull} once and search locally in context.`,
+].join("\n")
 const connectAgentPrompt = [
   "Please connect your agent to Can Agents Use.",
   "",
   "Goal: use Can Agents Use as a read-only catalog for finding software that AI agents can safely operate.",
   "",
   "Preferred setup:",
-  "1. If your agent supports MCP, add this server config:",
-  mcpInstallExample,
+  `1. Install the skill: ${skillsShInstallExample}`,
   "",
-  "2. If your agent supports skills or persistent instructions, install or fetch this skill:",
-  skillInstallExample,
+  "2. If your agent supports MCP, add this server config:",
+  mcpInstallExample,
   "",
   `3. Otherwise, read ${agentInstallLinks.llmsFull} once and use ${agentInstallLinks.search}?q=<query>&page=1&limit=10 for focused searches.`,
   "",
@@ -203,7 +226,26 @@ type ToolDirectoryProps = {
   isFallback: boolean
 }
 
-type AgentAccessCopyTarget = "mcp" | "skill" | "prompt" | "submit"
+type AgentAccessCopyTarget =
+  | "mcp"
+  | "skill"
+  | "prompt"
+  | "submit"
+  | "claude-code"
+  | "codex"
+  | "opencode"
+  | "gemini-cli"
+
+const copyToastLabels: Record<AgentAccessCopyTarget, string> = {
+  mcp: "MCP config",
+  skill: "Install command",
+  prompt: "Agent prompt",
+  submit: "Submit prompt",
+  "claude-code": "Claude Code command",
+  codex: "Codex command",
+  opencode: "OpenCode command",
+  "gemini-cli": "Gemini CLI command",
+}
 
 export function ToolDirectory({
   tools,
@@ -390,8 +432,14 @@ export function ToolDirectory({
       try {
         await navigator.clipboard.writeText(text)
         setAgentAccessCopy({ target, status: "copied" })
+        toast.success("Copied", {
+          description: `${copyToastLabels[target]} copied to clipboard.`,
+        })
       } catch {
         setAgentAccessCopy({ target, status: "failed" })
+        toast.error("Clipboard blocked", {
+          description: "Open the install guide for manual setup.",
+        })
       }
     },
     []
@@ -413,7 +461,7 @@ export function ToolDirectory({
       />
 
       <section className="border-b bg-background">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 py-5 sm:px-6 lg:px-8">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-5 sm:px-6 lg:px-8">
           <header className="flex items-center justify-between gap-4">
             <Link href="/" className="flex min-w-0 items-center gap-3">
               <span className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-card">
@@ -466,8 +514,8 @@ export function ToolDirectory({
             </div>
           </header>
 
-          <div className="grid gap-8 py-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
-            <div className="flex max-w-4xl flex-col gap-6">
+          <div className="grid min-w-0 gap-8 pb-7 pt-4 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-start">
+            <div className="flex min-w-0 max-w-4xl flex-col gap-5 pt-3 lg:pt-10">
               <h1 className="max-w-3xl text-4xl font-semibold tracking-normal text-balance sm:text-5xl lg:text-6xl">
                 Find tools an agent can actually use.
               </h1>
@@ -479,7 +527,7 @@ export function ToolDirectory({
               <button
                 type="button"
                 onClick={() => setCommandOpen(true)}
-                className="group flex w-full max-w-2xl items-center justify-between overflow-hidden rounded-md border bg-card px-4 py-3 text-left shadow-xs transition-colors hover:bg-muted/50"
+                className="group flex w-full max-w-2xl items-center justify-between overflow-hidden rounded-md border bg-card px-4 py-3 text-left shadow-sm transition-colors hover:bg-muted/50"
                 aria-keyshortcuts="Meta+K Control+K"
               >
                 <span className="flex min-w-0 items-center gap-3">
@@ -495,66 +543,168 @@ export function ToolDirectory({
                   ⌘K / Ctrl K
                 </span>
               </button>
-              <div className="grid max-w-2xl grid-cols-3 gap-4 text-sm">
+              <div className="grid min-w-0 max-w-2xl grid-cols-3 overflow-hidden rounded-md border bg-card text-sm shadow-xs">
                 <Stat value={tools.length.toString()} label="tools" />
                 <Stat value={categories.length.toString()} label="categories" />
                 <Stat value={capabilities.length.toString()} label="signals" />
               </div>
             </div>
-            <aside className="rounded-md border bg-card p-4">
-              <div className="flex items-start gap-3">
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-md border bg-background">
-                  <BotIcon className="size-4 text-muted-foreground" aria-hidden="true" />
-                </span>
-                <div className="min-w-0">
-                  <div className="text-sm font-medium">Connect your agent</div>
-                  <p className="mt-1 text-sm leading-5 text-muted-foreground">
-                    Install Can Agents Use as MCP, or copy setup text for your
-                    agent.
-                  </p>
+            <aside className="min-w-0 rounded-md border bg-card p-4 shadow-sm">
+              <div className="flex flex-col gap-4">
+                <div className="flex items-start gap-3 border-b pb-4">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-md border bg-background shadow-xs">
+                    <BotIcon className="size-4 text-muted-foreground" aria-hidden="true" />
+                  </span>
+                  <div className="min-w-0">
+                    <div className="text-sm font-medium">Connect your agent</div>
+                    <p className="mt-1 text-sm leading-5 text-muted-foreground">
+                      Add the skill once. Choose agent-specific setup only when needed.
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="mt-4 grid gap-2 text-sm">
+
+                <div className="min-w-0 overflow-hidden rounded-md border bg-background shadow-xs">
+                  <div className="flex items-center justify-between border-b px-3 py-2">
+                    <span className="text-xs font-medium text-muted-foreground">
+                      Add in one command
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => copyAgentAccessText("skill", skillsShQuickInstallExample)}
+                      className="inline-flex size-7 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                      aria-label="Copy skills.sh install command"
+                    >
+                      {agentAccessCopy?.target === "skill" &&
+                      agentAccessCopy.status === "copied" ? (
+                        <CheckIcon className="size-3.5" aria-hidden="true" />
+                      ) : (
+                        <CopyIcon className="size-3.5" aria-hidden="true" />
+                      )}
+                    </button>
+                  </div>
+                  <pre className="max-w-full overflow-x-auto px-3 py-3 text-xs leading-6">
+                    <code className="block min-w-max">{skillsShQuickInstallExample}</code>
+                  </pre>
+                </div>
+
                 <Button asChild className="w-full justify-start">
-                  <a href={cursorMcpInstallHref}>
-                    <PlugIcon data-icon="inline-start" aria-hidden="true" />
-                    Add to Cursor
+                  <a href="/agents" target="_blank" rel="noopener noreferrer">
+                    <ExternalLinkIcon data-icon="inline-start" aria-hidden="true" />
+                    Read docs
                   </a>
                 </Button>
-                <AgentAccessCopyButton
-                  copied={agentAccessCopy}
-                  icon={PlugIcon}
-                  label="Copy MCP config"
-                  onClick={() => copyAgentAccessText("mcp", mcpInstallExample)}
-                  target="mcp"
-                />
-                <AgentAccessCopyButton
-                  copied={agentAccessCopy}
-                  icon={FileTextIcon}
-                  label="Copy Codex skill"
-                  onClick={() => copyAgentAccessText("skill", skillInstallExample)}
-                  target="skill"
-                />
-                <AgentAccessCopyButton
-                  copied={agentAccessCopy}
-                  icon={CopyIcon}
-                  label="Copy agent prompt"
-                  onClick={() => copyAgentAccessText("prompt", connectAgentPrompt)}
-                  target="prompt"
-                />
-              </div>
-              <div aria-live="polite" className="mt-3 min-h-5 text-xs text-muted-foreground">
-                {agentAccessCopy?.status === "failed"
-                  ? "Clipboard blocked. Open the install guide for manual setup."
-                  : agentAccessCopy?.status === "copied"
-                    ? "Copied."
-                    : "No database credentials needed."}
-              </div>
-              <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
-                <HeroLink href="/agents" icon={BookOpenIcon} label="Guide" />
-                <HeroLink href="/skill.md" icon={FileTextIcon} label="Skill.md" />
-                <HeroLink href="/llms.txt" icon={BracesIcon} label="llms.txt" />
-                <HeroLink href="/openapi.json" icon={Code2Icon} label="OpenAPI" />
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button type="button" variant="outline" className="w-full justify-start">
+                      <BotIcon data-icon="inline-start" aria-hidden="true" />
+                      Pick your agent
+                      <ChevronDownIcon data-icon="inline-end" aria-hidden="true" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-72">
+                    <DropdownMenuLabel>Install for</DropdownMenuLabel>
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem asChild>
+                        <a href={cursorMcpInstallHref}>
+                          <PlugIcon />
+                          <span className="flex min-w-0 flex-col">
+                            <span>Cursor</span>
+                            <span className="text-xs text-muted-foreground">
+                              Open direct MCP install
+                            </span>
+                          </span>
+                        </a>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onSelect={() => {
+                          void copyAgentAccessText(
+                            "claude-code",
+                            claudeCodeInstallPrompt
+                          )
+                        }}
+                      >
+                        <TerminalIcon />
+                        <span className="flex min-w-0 flex-col">
+                          <span>Claude Code</span>
+                          <span className="text-xs text-muted-foreground">
+                            Copy MCP setup prompt
+                          </span>
+                        </span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onSelect={() => {
+                          void copyAgentAccessText("codex", skillsShInstallExample)
+                        }}
+                      >
+                        <BotIcon />
+                        <span className="flex min-w-0 flex-col">
+                          <span>Codex</span>
+                          <span className="text-xs text-muted-foreground">
+                            Copy skills.sh command
+                          </span>
+                        </span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onSelect={() => {
+                          void copyAgentAccessText("opencode", opencodeInstallPrompt)
+                        }}
+                      >
+                        <Code2Icon />
+                        <span className="flex min-w-0 flex-col">
+                          <span>OpenCode</span>
+                          <span className="text-xs text-muted-foreground">
+                            Copy MCP setup prompt
+                          </span>
+                        </span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onSelect={() => {
+                          void copyAgentAccessText(
+                            "gemini-cli",
+                            geminiCliInstallPrompt
+                          )
+                        }}
+                      >
+                        <CircleDashedIcon />
+                        <span className="flex min-w-0 flex-col">
+                          <span>Gemini CLI</span>
+                          <span className="text-xs text-muted-foreground">
+                            Copy MCP setup prompt
+                          </span>
+                        </span>
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem
+                        onSelect={() => {
+                          void copyAgentAccessText("mcp", mcpInstallExample)
+                        }}
+                      >
+                        <BracesIcon />
+                        Copy MCP config
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onSelect={() => {
+                          void copyAgentAccessText("prompt", connectAgentPrompt)
+                        }}
+                      >
+                        <CopyIcon />
+                        Copy full agent prompt
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <div
+                  aria-live="polite"
+                  className="min-h-5 text-xs text-muted-foreground"
+                >
+                  {agentAccessCopy?.status === "failed"
+                    ? "Clipboard blocked. Open the install guide for manual setup."
+                    : "Uses skills.sh, MCP, and public read-only endpoints."}
+                </div>
               </div>
             </aside>
           </div>
@@ -999,68 +1149,10 @@ const ToolCommandDialog = React.memo(function ToolCommandDialog({
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col gap-1 border-l pl-3">
+    <div className="flex min-w-0 flex-col gap-1 border-l px-4 py-3 first:border-l-0">
       <div className="text-2xl font-semibold">{value}</div>
       <div className="text-xs uppercase text-muted-foreground">{label}</div>
     </div>
-  )
-}
-
-function HeroLink({
-  href,
-  icon: Icon,
-  label,
-}: {
-  href: string
-  icon: LucideIcon
-  label: string
-}) {
-  return (
-    <a
-      href={href}
-      className="flex items-center justify-between gap-3 rounded-md border bg-background px-3 py-2.5 font-medium transition-colors hover:bg-muted"
-    >
-      <span className="flex min-w-0 items-center gap-2">
-        <Icon className="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
-        <span className="truncate">{label}</span>
-      </span>
-      <ArrowUpRightIcon className="size-3.5 shrink-0 text-muted-foreground" aria-hidden="true" />
-    </a>
-  )
-}
-
-function AgentAccessCopyButton({
-  copied,
-  icon: Icon,
-  label,
-  onClick,
-  target,
-}: {
-  copied: {
-    target: AgentAccessCopyTarget
-    status: "copied" | "failed"
-  } | null
-  icon: LucideIcon
-  label: string
-  onClick: () => void
-  target: AgentAccessCopyTarget
-}) {
-  const isCopied = copied?.target === target && copied.status === "copied"
-
-  return (
-    <Button
-      type="button"
-      variant="outline"
-      className="w-full justify-start"
-      onClick={onClick}
-    >
-      {isCopied ? (
-        <CheckIcon data-icon="inline-start" aria-hidden="true" />
-      ) : (
-        <Icon data-icon="inline-start" aria-hidden="true" />
-      )}
-      {isCopied ? "Copied" : label}
-    </Button>
   )
 }
 

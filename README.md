@@ -1,5 +1,7 @@
 # Can Agents Use
 
+[![skills.sh](https://skills.sh/b/phuctm97/canagentsuse)](https://skills.sh/phuctm97/canagentsuse)
+
 Find tools an AI agent can actually use.
 
 [Can Agents Use](https://canagentsuse.com) is a public, file-backed directory of
@@ -69,23 +71,195 @@ Scores are out of 100 and are derived from the evidence in each tool record.
 The website keeps the score compact. Agent surfaces expose the detailed
 `scoreBreakdown` object.
 
-## Public Surfaces
+## Agent Quick Start
+
+Agents should use these read-only public surfaces. Do not ask for database
+credentials and do not scrape HTML when skill, MCP, API, OpenAPI, or Markdown
+surfaces are enough.
+
+| If You Can... | Use This | Best For |
+| --- | --- | --- |
+| Install skills | `npx skills add phuctm97/canagentsuse --skill can-agents-use` | Persistent agent instructions and guardrails. |
+| Use MCP | `https://canagentsuse.com/api/mcp` | Tool calls from Cursor, Claude Code, Codex, OpenCode, Gemini CLI, and other MCP-aware agents. |
+| Fetch HTTP JSON | `https://canagentsuse.com/api/agent/search?q=stripe&page=1&limit=10` | Direct search from scripts, agents, and workflows. |
+| Read one big context file | `https://canagentsuse.com/llms-full.txt` | Long-context comparison across many tools. |
+| Generate a client | `https://canagentsuse.com/openapi.json` | Typed HTTP clients and automation. |
+| Browse as a human | `https://canagentsuse.com` | Visual search, filters, and tool detail pages. |
+
+Recommended agent workflow:
+
+1. Start with the skill or MCP if your agent supports it.
+2. Search for a focused query such as `stripe`, `scraping`, `email`, `browser`, `mcp`, or `billing`.
+3. Inspect one tool by slug before recommending it.
+4. Compare `scoreBreakdown`, `capabilities`, evidence URLs, pricing clarity, sandbox support, and limitations.
+5. For broad comparisons, fetch the full catalog once and search locally.
+6. Mention caution notes before live money movement, production data changes, account creation, infrastructure changes, or irreversible actions.
+7. Treat scores as discovery signals, not legal, security, purchasing, or compliance approval.
+
+## Use The Skill
+
+Can Agents Use ships a skills.sh-discoverable skill at
+[`skills/can-agents-use/SKILL.md`](skills/can-agents-use/SKILL.md). The root
+[`skills.sh.json`](skills.sh.json) groups the skill for the skills.sh repository
+page.
+
+Install with skills.sh:
+
+```bash
+npx skills add phuctm97/canagentsuse --skill can-agents-use
+```
+
+Use the skill as prompt context:
+
+```bash
+npx skills use phuctm97/canagentsuse --skill can-agents-use
+```
+
+Manual fallback for agents that read local skill folders:
+
+```bash
+mkdir -p ~/.codex/skills/can-agents-use
+curl -fsSL https://canagentsuse.com/skill.md \
+  -o ~/.codex/skills/can-agents-use/SKILL.md
+```
+
+The skill tells agents how to search, when to fetch the full catalog, which MCP
+tools exist, and which guardrails to keep.
+
+## Use MCP
+
+Use the read-only MCP endpoint when your agent can call remote MCP tools.
+
+```json
+{
+  "mcpServers": {
+    "canagentsuse": {
+      "type": "http",
+      "url": "https://canagentsuse.com/api/mcp"
+    }
+  }
+}
+```
+
+Available MCP tools:
+
+| Tool | Use It For |
+| --- | --- |
+| `search_agent_tools` | Search by query, category slug, capability slug, page, and limit. |
+| `get_agent_catalog` | Fetch the complete catalog once for broad comparison. |
+| `get_agent_tool` | Fetch one tool by slug, including evidence and limitations. |
+| `list_agent_categories` | Discover category slugs. |
+| `list_agent_capabilities` | Discover capability slugs such as `api`, `cli`, `mcp`, `browser`, and `sandbox`. |
+| `get_agent_score_model` | Understand the weighted score model before ranking tools. |
+
+MCP resources:
+
+| Resource | Purpose |
+| --- | --- |
+| `canagentsuse://catalog` | Full catalog as compact JSON. |
+| `canagentsuse://llms-full` | Expanded Markdown context for long-context agents. |
+
+MCP smoke test:
+
+```bash
+curl -fsS -X POST https://canagentsuse.com/api/mcp \
+  -H 'content-type: application/json' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'
+```
+
+Search over MCP:
+
+```bash
+curl -fsS -X POST https://canagentsuse.com/api/mcp \
+  -H 'content-type: application/json' \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "tools/call",
+    "params": {
+      "name": "search_agent_tools",
+      "arguments": {
+        "query": "stripe",
+        "page": 1,
+        "limit": 10
+      }
+    }
+  }'
+```
+
+Fetch one tool over MCP:
+
+```bash
+curl -fsS -X POST https://canagentsuse.com/api/mcp \
+  -H 'content-type: application/json' \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 3,
+    "method": "tools/call",
+    "params": {
+      "name": "get_agent_tool",
+      "arguments": {
+        "slug": "stripe"
+      }
+    }
+  }'
+```
+
+Search defaults to page `1` and `limit` `10`; `limit` maxes at `50`. Keep
+queries under `120` characters and avoid polling loops.
+
+## Use The HTTP API
+
+Use these endpoints when an agent or script prefers plain HTTP JSON.
+
+| Endpoint | Purpose |
+| --- | --- |
+| [`/api/agent/search?q=stripe&page=1&limit=10`](https://canagentsuse.com/api/agent/search?q=stripe&page=1&limit=10) | Paginated search. |
+| [`/api/agent/catalog`](https://canagentsuse.com/api/agent/catalog) | Full structured catalog. |
+| [`/api/agent/tools/stripe`](https://canagentsuse.com/api/agent/tools/stripe) | One tool by slug. |
+| [`/openapi.json`](https://canagentsuse.com/openapi.json) | Machine-readable HTTP API contract. |
+
+Search parameters:
+
+| Parameter | Meaning |
+| --- | --- |
+| `q` | Free-text query. |
+| `category` | Optional category slug. |
+| `capability` | Optional capability slug. |
+| `page` | 1-based page number. |
+| `limit` | Results per page, default `10`, max `50`. |
+
+Examples:
+
+```bash
+curl -fsS 'https://canagentsuse.com/api/agent/search?q=stripe&page=1&limit=10'
+curl -fsS 'https://canagentsuse.com/api/agent/search?capability=mcp&limit=20'
+curl -fsS 'https://canagentsuse.com/api/agent/catalog'
+curl -fsS 'https://canagentsuse.com/api/agent/tools/github'
+curl -fsS 'https://canagentsuse.com/openapi.json'
+```
+
+For broad comparisons, prefer one `/api/agent/catalog` request over paging
+through every search result.
+
+## Use Markdown Context
+
+Use Markdown surfaces when an agent needs plain text context instead of JSON.
 
 | Surface | Purpose |
 | --- | --- |
-| [`/`](https://canagentsuse.com) | Human directory with local search and filters. |
-| [`/agents`](https://canagentsuse.com/agents) | Instructions for agent usage. |
-| [`/llms.txt`](https://canagentsuse.com/llms.txt) | Short LLM orientation file. |
-| [`/llms-full.txt`](https://canagentsuse.com/llms-full.txt) | Larger Markdown catalog context. |
-| [`/skill.md`](https://canagentsuse.com/skill.md) | Copyable skill-style instructions. |
-| [`/api/agent/catalog`](https://canagentsuse.com/api/agent/catalog) | Full structured JSON catalog. |
-| [`/api/agent/search?q=stripe`](https://canagentsuse.com/api/agent/search?q=stripe) | Paginated agent search. |
-| `/api/agent/tools/{slug}` | Stable JSON record for one tool. |
-| [`/api/mcp`](https://canagentsuse.com/api/mcp) | Read-only MCP-style JSON-RPC endpoint. |
-| [`/openapi.json`](https://canagentsuse.com/openapi.json) | HTTP API contract. |
+| [`/llms.txt`](https://canagentsuse.com/llms.txt) | Short orientation file. |
+| [`/llms-full.txt`](https://canagentsuse.com/llms-full.txt) | Larger catalog context for long-context agents. |
+| [`/skill.md`](https://canagentsuse.com/skill.md) | Copyable skill instructions and guardrails. |
+| [`/agents`](https://canagentsuse.com/agents) | Human-readable install guide. |
 
-For broad comparisons, fetch the full catalog once and search locally. Search
-defaults to 10 results per page and caps `limit` at 50.
+Examples:
+
+```bash
+curl -fsS https://canagentsuse.com/llms.txt
+curl -fsS https://canagentsuse.com/llms-full.txt
+curl -fsS https://canagentsuse.com/skill.md
+```
 
 ## Data Is The Product
 
@@ -128,7 +302,7 @@ bun install
 bun run dev
 ```
 
-Open `http://localhost:3333`.
+Open `http://localhost:60139`.
 
 Useful checks:
 

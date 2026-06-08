@@ -18,20 +18,21 @@ import {
   mcpInstallExample,
   mcpSmokeTest,
   skillInstallExample,
+  skillsShInstallExample,
 } from "@/lib/agent-install"
 import { SITE_ASSET_URL, SITE_NAME, SITE_URL } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Agent install guide for MCP, skill, llms.txt, and API access",
+  title: "Agent install guide for MCP, skills.sh, llms.txt, and API access",
   description:
-    "Install guide for using Can Agents Use through llms.txt, MCP-style tools, OpenAPI, JSON endpoints, and a reusable agent skill.",
+    "Install guide for using Can Agents Use through skills.sh, llms.txt, MCP-style tools, OpenAPI, JSON endpoints, and a reusable agent skill.",
   alternates: {
     canonical: `${SITE_URL}/agents`,
   },
   openGraph: {
     title: `Agent install guide | ${SITE_NAME}`,
     description:
-      "Connect agents to Can Agents Use through MCP, skill Markdown, llms.txt, OpenAPI, and read-only JSON APIs.",
+      "Connect agents to Can Agents Use through skills.sh, MCP, skill Markdown, llms.txt, OpenAPI, and read-only JSON APIs.",
     url: `${SITE_URL}/agents`,
     images: [
       {
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Agent install guide | ${SITE_NAME}`,
     description:
-      "Connect agents to Can Agents Use through MCP, skill Markdown, llms.txt, OpenAPI, and read-only JSON APIs.",
+      "Connect agents to Can Agents Use through skills.sh, MCP, skill Markdown, llms.txt, OpenAPI, and read-only JSON APIs.",
     images: [`${SITE_ASSET_URL}/twitter-image`],
   },
 }
@@ -81,7 +82,7 @@ export default function AgentsPage() {
               <p className="max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">
                 Give agents a clean read-only way to discover tool readiness without
                 database access. Use MCP when your client supports remote HTTP tools,
-                or install the skill Markdown as persistent instructions.
+                or install the skill through skills.sh as persistent instructions.
               </p>
             </div>
 
@@ -93,8 +94,8 @@ export default function AgentsPage() {
               />
               <Surface
                 icon={FileTextIcon}
-                title="Agent skill"
-                body="A portable SKILL.md with workflow, endpoints, and guardrails."
+                title="skills.sh skill"
+                body="A portable SKILL.md with searchable metadata, endpoints, and guardrails."
               />
               <Surface
                 icon={BracesIcon}
@@ -109,6 +110,8 @@ export default function AgentsPage() {
             <Separator className="my-3" />
             <div className="grid gap-2 text-sm">
               <QuickLink href={agentInstallLinks.mcp} label="MCP endpoint" />
+              <QuickLink href={agentInstallLinks.skillsSh} label="skills.sh page" />
+              <QuickLink href={agentInstallLinks.skillSource} label="Skill source" />
               <QuickLink href={agentInstallLinks.skill} label="Skill Markdown" />
               <QuickLink href={agentInstallLinks.llms} label="llms.txt" />
               <QuickLink href={agentInstallLinks.openapi} label="OpenAPI" />
@@ -127,10 +130,10 @@ export default function AgentsPage() {
           />
           <InstallBlock
             icon={BotIcon}
-            title="Install as a skill"
-            description="Use this when your agent supports persistent skills or project instructions."
+            title="Install with skills.sh"
+            description="Use this when your agent supports portable skills or project instructions."
             code={skillInstallExample}
-            note="Agents can also fetch /skill.md directly and add it to their own skill registry."
+            note={`Official command: ${skillsShInstallExample}. Agents can also fetch /skill.md directly as a fallback.`}
           />
         </section>
 

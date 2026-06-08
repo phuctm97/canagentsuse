@@ -3,6 +3,8 @@ import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site"
 export const agentInstallLinks = {
   guide: `${SITE_URL}/agents`,
   skill: `${SITE_URL}/skill.md`,
+  skillSource: "https://github.com/phuctm97/canagentsuse/tree/main/skills/can-agents-use",
+  skillsSh: "https://skills.sh/phuctm97/canagentsuse",
   llms: `${SITE_URL}/llms.txt`,
   llmsFull: `${SITE_URL}/llms-full.txt`,
   mcp: `${SITE_URL}/api/mcp`,
@@ -25,13 +27,22 @@ export const mcpSmokeTest = `curl -fsS -X POST ${agentInstallLinks.mcp} \\
   -H 'content-type: application/json' \\
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'`
 
-export const skillInstallExample = `mkdir -p ~/.codex/skills/can-agents-use
+export const skillsShInstallExample = `npx skills add phuctm97/canagentsuse --skill can-agents-use`
+export const skillsShQuickInstallExample = `npx skills add phuctm97/canagentsuse`
+
+export const skillManualInstallExample = `mkdir -p ~/.codex/skills/can-agents-use
 curl -fsSL ${agentInstallLinks.skill} -o ~/.codex/skills/can-agents-use/SKILL.md`
+
+export const skillInstallExample = `${skillsShInstallExample}
+
+# Manual fallback
+${skillManualInstallExample}`
 
 export function canAgentsUseSkillMarkdown() {
   return `---
 name: can-agents-use
-description: Use when an agent needs to discover whether a product, API, CLI, MCP server, browser workflow, billing tool, social tool, scraping tool, or developer platform is agent-friendly.
+description: Use Can Agents Use, also searchable as canagentsuse, when an agent needs to discover agent-friendly tools, APIs, CLIs, MCP servers, browser workflows, pricing, sandbox support, account setup, and automation guardrails.
+allowed-tools: WebFetch
 ---
 
 # Can Agents Use
@@ -40,8 +51,12 @@ ${SITE_DESCRIPTION}
 
 Use this skill when a user asks whether an agent can operate a tool, wants alternatives for a category, or needs a shortlist of software with strong CLI, API, MCP, browser, pricing, documentation, account setup, or sandbox support.
 
+Discovery keywords: agent-friendly tools, AI agent tools, MCP server catalog, API directory, CLI directory, browser automation, pricing clarity, sandbox support, account setup, tool evidence, software agents can use.
+
 ## Preferred Interfaces
 
+- skills.sh install: ${skillsShInstallExample}
+- Skill source: ${agentInstallLinks.skillSource}
 - Install guide: ${agentInstallLinks.guide}
 - MCP endpoint: ${agentInstallLinks.mcp}
 - Catalog JSON: ${agentInstallLinks.catalog}
