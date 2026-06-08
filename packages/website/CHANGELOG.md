@@ -1,5 +1,11 @@
 # @canagentsuse/website
 
+## 0.1.4
+
+### Patch Changes
+
+- 908c223: Add interactive setup prompts, CLI mode aliases, and agent-facing help guidance.
+
 ## 0.1.3
 
 ### Patch Changes
