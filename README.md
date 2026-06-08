@@ -37,7 +37,7 @@ Every tool record is scored from evidence, not vibes. A good record answers:
 - LLM-friendly Markdown exports.
 - JSON catalog stored directly in the repo.
 - JSON Schema and audit scripts for safer contributions.
-- GitHub issue based submission flow.
+- GitHub pull request and agent-prompt submission flow.
 
 ## Agent-Readiness Signals
 
@@ -135,8 +135,6 @@ Useful checks:
 ```bash
 bun run catalog:audit
 bun run build
-bun run catalog:links
-bun run catalog:logos
 ```
 
 ## Contributing
@@ -149,8 +147,8 @@ The best contribution is a well-evidenced catalog record.
 4. Run `bun run catalog:audit`.
 5. Open a pull request.
 
-If you are not ready to edit JSON, use the website submit flow or open a GitHub
-issue with the tool name, website URL, and evidence links.
+If you are not ready to edit JSON, use the website submit flow to open a
+prefilled GitHub pull request or copy a ready-to-run agent prompt.
 
 ## Tech Stack
 

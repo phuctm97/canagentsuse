@@ -8,7 +8,7 @@ export const SITE_URL = (
 export const SITE_ASSET_URL = (
   process.env.NEXT_PUBLIC_OG_ASSET_URL ?? "https://canagentsuse.vercel.app"
 ).replace(/\/$/, "")
-export const GITHUB_REPO_URL = "https://github.com/khanhduyvt0101/canagentsuse"
+export const GITHUB_REPO_URL = "https://github.com/phuctm97/canagentsuse"
 export const SITE_KEYWORDS = [
   "agent friendly tools",
   "AI agent tools",

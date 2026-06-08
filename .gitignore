@@ -13,7 +13,6 @@
 # testing
 /coverage
 /.playwright-mcp/
-/.neon_local/
 
 # next.js
 /.next/

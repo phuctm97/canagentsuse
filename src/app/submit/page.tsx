@@ -3,13 +3,10 @@ import Link from "next/link"
 import { ArrowLeftIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { SITE_ASSET_URL, SITE_URL } from "@/lib/site"
 
-import { createSubmission } from "./actions"
+import { SubmitToolForm } from "./submit-tool-form"
 
 export const metadata: Metadata = {
   title: "Submit an agent-friendly tool",
@@ -41,15 +38,7 @@ export const metadata: Metadata = {
   },
 }
 
-type SubmitPageProps = {
-  searchParams: Promise<{
-    missing?: string
-  }>
-}
-
-export default async function SubmitPage({ searchParams }: SubmitPageProps) {
-  const params = await searchParams
-
+export default function SubmitPage() {
   return (
     <main className="min-h-svh bg-background text-foreground">
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-6 sm:px-6">
@@ -61,49 +50,15 @@ export default async function SubmitPage({ searchParams }: SubmitPageProps) {
         </Button>
         <Card className="rounded-md">
           <CardHeader>
-            <CardTitle>Submit an agent-friendly tool</CardTitle>
+            <h1
+              data-slot="card-title"
+              className="font-heading text-base leading-snug font-medium"
+            >
+              Submit an agent-friendly tool
+            </h1>
           </CardHeader>
           <CardContent>
-            {params.missing ? (
-              <div className="mb-5 rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-100">
-                Tool name and website URL are required.
-              </div>
-            ) : null}
-            <form action={createSubmission} className="grid gap-5">
-              <div className="grid gap-2">
-                <Label htmlFor="toolName">Tool name</Label>
-                <Input id="toolName" name="toolName" placeholder="Example: Stripe" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="websiteUrl">Website URL</Label>
-                <Input
-                  id="websiteUrl"
-                  name="websiteUrl"
-                  placeholder="https://example.com"
-                  type="url"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="submitter">Submitter</Label>
-                <Input
-                  id="submitter"
-                  name="submitter"
-                  placeholder="Name or email, optional"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="notes">Agent-readiness notes</Label>
-                <Textarea
-                  id="notes"
-                  name="notes"
-                  placeholder="CLI, API, MCP, docs, pricing, account creation, browser support..."
-                  rows={6}
-                />
-              </div>
-              <Button type="submit" className="w-fit">
-                Open GitHub issue
-              </Button>
-            </form>
+            <SubmitToolForm />
           </CardContent>
         </Card>
       </div>

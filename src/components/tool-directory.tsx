@@ -10,15 +10,18 @@ import {
   BotIcon,
   BookOpenIcon,
   BracesIcon,
+  CheckIcon,
   CheckCircle2Icon,
   ChevronDownIcon,
   CircleDashedIcon,
   Code2Icon,
+  CopyIcon,
   CreditCardIcon,
   DatabaseIcon,
   ExternalLinkIcon,
   FileTextIcon,
   FilterIcon,
+  GitPullRequestIcon,
   Globe2Icon,
   PlugIcon,
   SearchIcon,
@@ -32,6 +35,12 @@ import type {
   DirectoryCategory,
   DirectoryListTool,
 } from "@/lib/directory"
+import {
+  agentInstallLinks,
+  mcpInstallExample,
+  skillInstallExample,
+} from "@/lib/agent-install"
+import { GITHUB_REPO_URL } from "@/lib/site"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -113,6 +122,79 @@ const scoreWeights = [
 const toolsBatchSize = 10
 const maxCommandToolResults = 24
 const maxCommandCategoryResults = 10
+const cursorMcpInstallHref =
+  "cursor://anysphere.cursor-deeplink/mcp/install?name=canagentsuse&config=eyJjYW5hZ2VudHN1c2UiOnsidHlwZSI6Imh0dHAiLCJ1cmwiOiJodHRwczovL2NhbmFnZW50c3VzZS5jb20vYXBpL21jcCJ9fQ=="
+const connectAgentPrompt = [
+  "Please connect your agent to Can Agents Use.",
+  "",
+  "Goal: use Can Agents Use as a read-only catalog for finding software that AI agents can safely operate.",
+  "",
+  "Preferred setup:",
+  "1. If your agent supports MCP, add this server config:",
+  mcpInstallExample,
+  "",
+  "2. If your agent supports skills or persistent instructions, install or fetch this skill:",
+  skillInstallExample,
+  "",
+  `3. Otherwise, read ${agentInstallLinks.llmsFull} once and use ${agentInstallLinks.search}?q=<query>&page=1&limit=10 for focused searches.`,
+  "",
+  "Guardrails:",
+  "- Do not request database access.",
+  "- Prefer MCP, JSON, OpenAPI, or Markdown surfaces over scraping the website.",
+  "- Treat scores as discovery signals, not legal, security, purchasing, or compliance approval.",
+].join("\n")
+const submitToolPrBody = [
+  "## Tool",
+  "- Name:",
+  "- Website:",
+  "- Submitted by:",
+  "",
+  "## Catalog Checklist",
+  "- [ ] Added or updated the tool record in `data/catalog.json`",
+  "- [ ] Used a stable slug, category slugs, use case slugs, and capability records",
+  "- [ ] Added evidence URLs for API, CLI, MCP, docs, pricing, sandbox, browser, or account setup claims",
+  "- [ ] Included limitation notes for paid actions, production data, infrastructure, browser-only flows, or brittle automation",
+  "",
+  "## Evidence To Check",
+  "- API docs:",
+  "- CLI docs:",
+  "- MCP server docs:",
+  "- Pricing page:",
+  "- Sandbox or test-mode docs:",
+  "- Account setup docs:",
+  "",
+  "## Submitter Notes",
+  "",
+  "## Validation",
+  "- [ ] `bun run catalog:audit`",
+  "- [ ] `bun run build`",
+].join("\n")
+const submitToolPrUrl = (() => {
+  const url = new URL(`${GITHUB_REPO_URL}/compare/main...catalog/add-new-tool`)
+
+  url.searchParams.set("quick_pull", "1")
+  url.searchParams.set("template", "add-tool.md")
+  url.searchParams.set("title", "Add a tool")
+  url.searchParams.set("body", submitToolPrBody)
+
+  return url.toString()
+})()
+const submitToolAgentPrompt = [
+  `Please add a new agent-friendly tool to ${GITHUB_REPO_URL}.`,
+  "",
+  "Ask me for the tool name, website URL, submitter name, and agent-readiness notes if I have not provided them yet.",
+  "",
+  "Then:",
+  "1. Research official evidence for API, CLI, MCP, docs, pricing, sandbox or test mode, browser support, and account setup.",
+  "2. Edit `data/catalog.json` with a stable slug, category slugs, use case slugs, capability records, score fields, and limitation notes.",
+  "3. Run `bun run catalog:audit` and `bun run build`.",
+  "4. Commit the change, push a branch named `catalog/add-<tool-slug>`, and open a PR using `.github/PULL_REQUEST_TEMPLATE/add-tool.md`.",
+  "",
+  "Guardrails:",
+  "- Do not ask for database credentials.",
+  "- Do not add Docker, Neon, or local database setup.",
+  "- Keep all evidence URLs public and official when possible.",
+].join("\n")
 
 type ToolDirectoryProps = {
   tools: DirectoryListTool[]
@@ -120,6 +202,8 @@ type ToolDirectoryProps = {
   capabilities: DirectoryCapability[]
   isFallback: boolean
 }
+
+type AgentAccessCopyTarget = "mcp" | "skill" | "prompt" | "submit"
 
 export function ToolDirectory({
   tools,
@@ -132,6 +216,10 @@ export function ToolDirectory({
   const [categoryMenuOpen, setCategoryMenuOpen] = React.useState(false)
   const [categorySearch, setCategorySearch] = React.useState("")
   const [selectedCapabilities, setSelectedCapabilities] = React.useState<string[]>([])
+  const [agentAccessCopy, setAgentAccessCopy] = React.useState<{
+    target: AgentAccessCopyTarget
+    status: "copied" | "failed"
+  } | null>(null)
   const [visibleCount, setVisibleCount] = React.useState(toolsBatchSize)
   const loadMoreRef = React.useRef<HTMLDivElement | null>(null)
   const categorySearchInputRef = React.useRef<HTMLInputElement | null>(null)
@@ -171,6 +259,14 @@ export function ToolDirectory({
 
     requestAnimationFrame(() => categorySearchInputRef.current?.focus())
   }, [categoryMenuOpen])
+
+  React.useEffect(() => {
+    if (!agentAccessCopy) return
+
+    const timeout = window.setTimeout(() => setAgentAccessCopy(null), 2200)
+
+    return () => window.clearTimeout(timeout)
+  }, [agentAccessCopy])
 
   const visibleTools = filteredTools.slice(0, visibleCount)
   const visibleEnd = Math.min(visibleCount, filteredTools.length)
@@ -289,6 +385,18 @@ export function ToolDirectory({
     router.push("/submit")
   }, [router])
 
+  const copyAgentAccessText = React.useCallback(
+    async (target: AgentAccessCopyTarget, text: string) => {
+      try {
+        await navigator.clipboard.writeText(text)
+        setAgentAccessCopy({ target, status: "copied" })
+      } catch {
+        setAgentAccessCopy({ target, status: "failed" })
+      }
+    },
+    []
+  )
+
   return (
     <main className="min-h-svh bg-background text-foreground">
       <ToolCommandDialog
@@ -319,9 +427,42 @@ export function ToolDirectory({
               <span className="truncate text-sm font-semibold">Can Agents Use</span>
             </Link>
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" asChild>
-                <Link href="/submit">Submit</Link>
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button size="sm" type="button">
+                    Submit
+                    <ChevronDownIcon data-icon="inline-end" aria-hidden="true" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-64">
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem
+                      onSelect={() => {
+                        window.open(submitToolPrUrl, "_blank", "noopener,noreferrer")
+                      }}
+                    >
+                      <GitPullRequestIcon />
+                      Open new PR template
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onSelect={() => {
+                        void copyAgentAccessText("submit", submitToolAgentPrompt)
+                      }}
+                    >
+                      {agentAccessCopy?.target === "submit" &&
+                      agentAccessCopy.status === "copied" ? (
+                        <CheckIcon />
+                      ) : (
+                        <CopyIcon />
+                      )}
+                      {agentAccessCopy?.target === "submit" &&
+                      agentAccessCopy.status === "copied"
+                        ? "Copied agent prompt"
+                        : "Copy prompt for agent"}
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </header>
 
@@ -361,12 +502,58 @@ export function ToolDirectory({
               </div>
             </div>
             <aside className="rounded-md border bg-card p-4">
-              <div className="text-sm font-medium">Agent access</div>
-              <div className="mt-3 grid gap-2 text-sm">
-                <HeroLink href="/agents" icon={BookOpenIcon} label="Instructions" />
+              <div className="flex items-start gap-3">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-md border bg-background">
+                  <BotIcon className="size-4 text-muted-foreground" aria-hidden="true" />
+                </span>
+                <div className="min-w-0">
+                  <div className="text-sm font-medium">Connect your agent</div>
+                  <p className="mt-1 text-sm leading-5 text-muted-foreground">
+                    Install Can Agents Use as MCP, or copy setup text for your
+                    agent.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4 grid gap-2 text-sm">
+                <Button asChild className="w-full justify-start">
+                  <a href={cursorMcpInstallHref}>
+                    <PlugIcon data-icon="inline-start" aria-hidden="true" />
+                    Add to Cursor
+                  </a>
+                </Button>
+                <AgentAccessCopyButton
+                  copied={agentAccessCopy}
+                  icon={PlugIcon}
+                  label="Copy MCP config"
+                  onClick={() => copyAgentAccessText("mcp", mcpInstallExample)}
+                  target="mcp"
+                />
+                <AgentAccessCopyButton
+                  copied={agentAccessCopy}
+                  icon={FileTextIcon}
+                  label="Copy Codex skill"
+                  onClick={() => copyAgentAccessText("skill", skillInstallExample)}
+                  target="skill"
+                />
+                <AgentAccessCopyButton
+                  copied={agentAccessCopy}
+                  icon={CopyIcon}
+                  label="Copy agent prompt"
+                  onClick={() => copyAgentAccessText("prompt", connectAgentPrompt)}
+                  target="prompt"
+                />
+              </div>
+              <div aria-live="polite" className="mt-3 min-h-5 text-xs text-muted-foreground">
+                {agentAccessCopy?.status === "failed"
+                  ? "Clipboard blocked. Open the install guide for manual setup."
+                  : agentAccessCopy?.status === "copied"
+                    ? "Copied."
+                    : "No database credentials needed."}
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
+                <HeroLink href="/agents" icon={BookOpenIcon} label="Guide" />
                 <HeroLink href="/skill.md" icon={FileTextIcon} label="Skill.md" />
                 <HeroLink href="/llms.txt" icon={BracesIcon} label="llms.txt" />
-                <HeroLink href="/api/mcp" icon={PlugIcon} label="MCP endpoint" />
                 <HeroLink href="/openapi.json" icon={Code2Icon} label="OpenAPI" />
               </div>
             </aside>
@@ -839,6 +1026,41 @@ function HeroLink({
       </span>
       <ArrowUpRightIcon className="size-3.5 shrink-0 text-muted-foreground" aria-hidden="true" />
     </a>
+  )
+}
+
+function AgentAccessCopyButton({
+  copied,
+  icon: Icon,
+  label,
+  onClick,
+  target,
+}: {
+  copied: {
+    target: AgentAccessCopyTarget
+    status: "copied" | "failed"
+  } | null
+  icon: LucideIcon
+  label: string
+  onClick: () => void
+  target: AgentAccessCopyTarget
+}) {
+  const isCopied = copied?.target === target && copied.status === "copied"
+
+  return (
+    <Button
+      type="button"
+      variant="outline"
+      className="w-full justify-start"
+      onClick={onClick}
+    >
+      {isCopied ? (
+        <CheckIcon data-icon="inline-start" aria-hidden="true" />
+      ) : (
+        <Icon data-icon="inline-start" aria-hidden="true" />
+      )}
+      {isCopied ? "Copied" : label}
+    </Button>
   )
 }
 
