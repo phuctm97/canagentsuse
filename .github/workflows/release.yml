@@ -4,14 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - ".changeset/**"
-      - "packages/**"
-      - "data/**"
-      - "skills/**"
-      - "package.json"
-      - "bun.lock"
-      - ".github/workflows/release.yml"
   workflow_dispatch:
 
 permissions:
@@ -23,8 +15,35 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          package-manager-cache: false
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Validate main branch
+        run: bun run validate:ci
+
   release:
     name: Version, Publish, And Deploy
+    needs: validate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -59,7 +78,7 @@ jobs:
         if: steps.plan.outputs.has_plan == 'true'
         run: bun run changeset:version
 
-      - name: Validate main branch
+      - name: Validate versioned packages
         if: steps.plan.outputs.has_plan == 'true'
         run: bun run validate
 

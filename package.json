@@ -28,6 +28,7 @@
     "changeset:publish": "changeset publish",
     "typecheck": "bun run website:typecheck && bun run cli:typecheck",
     "validate": "bun run typecheck && git diff --check",
+    "validate:ci": "bun run typecheck && node scripts/validate-commit.mjs",
     "check": "bun run catalog:audit && bun run cli:test && bun run build"
   },
   "ignoreScripts": [
