@@ -28,6 +28,43 @@ Discovery keywords: agent-friendly tools, AI agent tools, MCP server catalog, AP
 - LLM guide: https://canagentsuse.com/llms.txt
 - Full LLM context: https://canagentsuse.com/llms-full.txt
 
+## CLI Guide
+
+Use the CLI first when the user allows shell commands. It can install the read-only MCP endpoint and bundled skills without cloning this repo.
+
+```bash
+npx canagentsuse@latest setup --dry-run
+npx canagentsuse@latest setup --all-agents --yes
+npx canagentsuse@latest doctor
+```
+
+Use one target when the user names a specific agent or does not want every supported config touched:
+
+```bash
+npx canagentsuse@latest setup --claude --yes
+npx canagentsuse@latest setup --cursor --yes
+npx canagentsuse@latest setup --codex --yes
+npx canagentsuse@latest setup --opencode --yes
+npx canagentsuse@latest setup --gemini --yes
+npx canagentsuse@latest setup --universal --yes
+```
+
+Useful CLI operations:
+
+- `canagentsuse setup`: install MCP config plus bundled skills for detected or selected agents.
+- `canagentsuse install`: alias for `setup`.
+- `canagentsuse status`: inspect local MCP and skill installation status.
+- `canagentsuse doctor`: verify the public API, MCP endpoint, and local setup.
+- `canagentsuse remove`: remove Can Agents Use MCP config and installed skills.
+- `canagentsuse skills list`: list bundled skills.
+- `canagentsuse skills install <skill>`: install one bundled skill.
+- `canagentsuse search <query> --json`: search tools from scripts or agents.
+- `canagentsuse tool <slug> --json`: inspect one full tool record.
+- `canagentsuse catalog --json`: fetch the full catalog once for local comparison.
+- `canagentsuse mcp-config`: print copyable MCP config.
+
+Use MCP or JSON directly when shell commands are unavailable.
+
 ## Focused Skills In This Repo
 
 - `find-agent-friendly-tools`: general search and shortlists.

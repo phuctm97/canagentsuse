@@ -4,7 +4,7 @@
   "groupings": [
     {
       "title": "Start Here",
-      "description": "Install the umbrella skill when an agent needs the full Can Agents Use search, scoring, and safety workflow.",
+      "description": "Install the umbrella skill when an agent needs CLI setup, MCP/API access, search, scoring, and safety workflow.",
       "skills": ["can-agents-use", "find-agent-friendly-tools", "compare-agent-tools"]
     },
     {
