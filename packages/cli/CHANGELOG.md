@@ -1,5 +1,11 @@
 # canagentsuse
 
+## 0.2.1
+
+### Patch Changes
+
+- b348a12: Make the CLI the primary agent setup path, add the install alias, and update website and agent-facing docs.
+
 ## 0.2.0
 
 ### Minor Changes
