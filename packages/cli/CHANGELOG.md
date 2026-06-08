@@ -1,5 +1,11 @@
 # canagentsuse
 
+## 0.2.4
+
+### Patch Changes
+
+- 02a7822: Add structured install-guide surfaces and validation tests for CLI, MCP, skills, API, and OpenAPI agent workflows.
+
 ## 0.2.3
 
 ### Patch Changes
