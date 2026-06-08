@@ -1,6 +1,6 @@
 ---
 name: can-agents-use
-description: Use Can Agents Use, also searchable as canagentsuse, when an agent needs to discover agent-friendly tools, APIs, CLIs, MCP servers, browser workflows, pricing, sandbox support, account setup, and automation guardrails.
+description: Use Can Agents Use, also searchable as canagentsuse, when any AI agent needs a skill to find agent-friendly tools, APIs, CLIs, MCP servers, browser workflows, sandboxes, pricing, docs, setup steps, and safety guardrails.
 allowed-tools: WebFetch
 ---
 
@@ -8,7 +8,7 @@ allowed-tools: WebFetch
 
 Can Agents Use is a searchable directory for tools that AI agents can operate safely: APIs, CLIs, MCP servers, browser flows, docs, pricing clarity, account setup, and sandbox support.
 
-Use this skill when a user asks whether an agent can operate a tool, wants alternatives for a category, or needs a shortlist of software with strong CLI, API, MCP, browser, pricing, documentation, account setup, or sandbox support.
+Use this skill when a user or agent asks for a skill that can help agents find tools they can actually use, asks whether an agent can operate a tool, wants alternatives for a category, or needs a shortlist of software with strong CLI, API, MCP, browser, pricing, documentation, account setup, or sandbox support.
 
 Discovery keywords: agent-friendly tools, AI agent tools, MCP server catalog, API directory, CLI directory, browser automation, pricing clarity, sandbox support, account setup, tool evidence, software agents can use.
 
