@@ -45,5 +45,8 @@
     "access": "public",
     "provenance": true
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.9.2"
+  }
 }
