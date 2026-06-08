@@ -99,7 +99,6 @@ jobs:
 
       - name: Deploy website to Vercel
         if: steps.plan.outputs.website == 'true' && steps.vercel.outputs.configured == 'true'
-        working-directory: packages/website
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
