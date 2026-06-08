@@ -12,112 +12,16 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { GITHUB_REPO_URL } from "@/lib/site"
-
-type SubmitToolFormState = {
-  toolName: string
-  websiteUrl: string
-  submitter: string
-  notes: string
-}
-
-const INITIAL_FORM_STATE: SubmitToolFormState = {
-  toolName: "",
-  websiteUrl: "",
-  submitter: "",
-  notes: "",
-}
-
-function cleanValue(value: string, fallback = "Not provided") {
-  const trimmed = value.trim()
-
-  return trimmed || fallback
-}
-
-function slugify(value: string) {
-  const slug = value
-    .trim()
-    .toLowerCase()
-    .replace(/&/g, " and ")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 80)
-
-  return slug || "new-tool"
-}
-
-function buildBranchName(toolName: string) {
-  return `catalog/add-${slugify(toolName)}`
-}
-
-function buildPullRequestBody(form: SubmitToolFormState) {
-  return [
-    "## Tool",
-    `- Name: ${cleanValue(form.toolName)}`,
-    `- Website: ${cleanValue(form.websiteUrl)}`,
-    `- Submitted by: ${cleanValue(form.submitter)}`,
-    "",
-    "## Catalog Checklist",
-    "- [ ] Added or updated the tool record in `data/catalog.json`",
-    "- [ ] Used a stable slug, category slugs, use case slugs, and capability records",
-    "- [ ] Added evidence URLs for API, CLI, MCP, docs, pricing, sandbox, browser, or account setup claims",
-    "- [ ] Included limitation notes for paid actions, production data, infrastructure, browser-only flows, or brittle automation",
-    "",
-    "## Evidence To Check",
-    "- API docs:",
-    "- CLI docs:",
-    "- MCP server docs:",
-    "- Pricing page:",
-    "- Sandbox or test-mode docs:",
-    "- Account setup docs:",
-    "",
-    "## Submitter Notes",
-    cleanValue(form.notes),
-    "",
-    "## Validation",
-    "- [ ] `bun run catalog:audit`",
-    "- [ ] `bun run build`",
-  ].join("\n")
-}
-
-function buildPullRequestUrl(form: SubmitToolFormState) {
-  const branchName = buildBranchName(form.toolName)
-  const pullRequestUrl = new URL(
-    `${GITHUB_REPO_URL}/compare/main...${branchName}`
-  )
-
-  pullRequestUrl.searchParams.set("quick_pull", "1")
-  pullRequestUrl.searchParams.set("template", "add-tool.md")
-  pullRequestUrl.searchParams.set("title", `Add ${cleanValue(form.toolName)}`)
-  pullRequestUrl.searchParams.set("body", buildPullRequestBody(form))
-
-  return pullRequestUrl.toString()
-}
-
-function buildAgentPrompt(form: SubmitToolFormState) {
-  const branchName = buildBranchName(form.toolName)
-
-  return [
-    `Please add this tool to ${GITHUB_REPO_URL} and open a pull request.`,
-    "",
-    "Tool to add:",
-    `- Name: ${cleanValue(form.toolName)}`,
-    `- Website: ${cleanValue(form.websiteUrl)}`,
-    `- Submitter: ${cleanValue(form.submitter)}`,
-    `- Notes: ${cleanValue(form.notes)}`,
-    "",
-    "Expected workflow:",
-    `1. Create a branch named \`${branchName}\`.`,
-    "2. Edit `data/catalog.json` with a stable slug, category slugs, use case slugs, capability records, pricing/auth/account setup details, and limitation notes.",
-    "3. Research and cite evidence URLs for important API, CLI, MCP, documentation, pricing, sandbox, browser support, and account setup claims.",
-    "4. Keep the catalog entry agent-friendly: describe how an AI agent can operate the tool safely, what setup is required, and what actions need human approval.",
-    "5. Run `bun run catalog:audit` and `bun run build`.",
-    "6. Commit the catalog change, push the branch, and open a pull request to `phuctm97/canagentsuse` using `.github/PULL_REQUEST_TEMPLATE/add-tool.md`.",
-  ].join("\n")
-}
+import {
+  buildSubmitToolAgentPrompt,
+  buildSubmitToolBranchName,
+  buildSubmitToolPrUrl,
+  emptySubmitToolInput,
+  type SubmitToolInput,
+} from "@/lib/submit-tool"
 
 export function SubmitToolForm() {
-  const [form, setForm] = React.useState<SubmitToolFormState>(INITIAL_FORM_STATE)
+  const [form, setForm] = React.useState<SubmitToolInput>(emptySubmitToolInput)
   const [error, setError] = React.useState("")
   const [copyStatus, setCopyStatus] = React.useState<"idle" | "copied" | "failed">(
     "idle"
@@ -125,9 +29,9 @@ export function SubmitToolForm() {
 
   const isReady =
     form.toolName.trim().length > 0 && form.websiteUrl.trim().length > 0
-  const agentPrompt = React.useMemo(() => buildAgentPrompt(form), [form])
+  const agentPrompt = React.useMemo(() => buildSubmitToolAgentPrompt(form), [form])
 
-  function updateField(field: keyof SubmitToolFormState, value: string) {
+  function updateField(field: keyof SubmitToolInput, value: string) {
     setForm((current) => ({ ...current, [field]: value }))
     setError("")
     setCopyStatus("idle")
@@ -148,7 +52,7 @@ export function SubmitToolForm() {
       return
     }
 
-    window.open(buildPullRequestUrl(form), "_blank", "noopener,noreferrer")
+    window.open(buildSubmitToolPrUrl(form), "_blank", "noopener,noreferrer")
   }
 
   async function copyAgentPrompt() {
@@ -223,7 +127,7 @@ export function SubmitToolForm() {
           <p className="text-sm text-muted-foreground">
             Opens a prefilled PR composer for branch{" "}
             <code className="rounded bg-background px-1 py-0.5 text-xs">
-              {buildBranchName(form.toolName)}
+              {buildSubmitToolBranchName(form.toolName)}
             </code>
             .
           </p>

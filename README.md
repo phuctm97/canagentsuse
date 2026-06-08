@@ -79,7 +79,7 @@ surfaces are enough.
 
 | If You Can... | Use This | Best For |
 | --- | --- | --- |
-| Install skills | `npx skills add phuctm97/canagentsuse --skill can-agents-use` | Persistent agent instructions and guardrails. |
+| Install skills | `npx skills add phuctm97/canagentsuse` | Persistent agent instructions and focused discovery skills. |
 | Use MCP | `https://canagentsuse.com/api/mcp` | Tool calls from Cursor, Claude Code, Codex, OpenCode, Gemini CLI, and other MCP-aware agents. |
 | Fetch HTTP JSON | `https://canagentsuse.com/api/agent/search?q=stripe&page=1&limit=10` | Direct search from scripts, agents, and workflows. |
 | Read one big context file | `https://canagentsuse.com/llms-full.txt` | Long-context comparison across many tools. |
@@ -96,24 +96,40 @@ Recommended agent workflow:
 6. Mention caution notes before live money movement, production data changes, account creation, infrastructure changes, or irreversible actions.
 7. Treat scores as discovery signals, not legal, security, purchasing, or compliance approval.
 
-## Use The Skill
+## Use The Skills
 
-Can Agents Use ships a skills.sh-discoverable skill at
-[`skills/can-agents-use/SKILL.md`](skills/can-agents-use/SKILL.md). The root
-[`skills.sh.json`](skills.sh.json) groups the skill for the skills.sh repository
-page.
+Can Agents Use ships skills.sh-discoverable skills in [`skills/`](skills). The
+root [`skills.sh.json`](skills.sh.json) groups them for the skills.sh repository
+page at [skills.sh/phuctm97/canagentsuse](https://skills.sh/phuctm97/canagentsuse).
 
-Install with skills.sh:
-
-```bash
-npx skills add phuctm97/canagentsuse --skill can-agents-use
-```
-
-Use the skill as prompt context:
+List the skills:
 
 ```bash
-npx skills use phuctm97/canagentsuse --skill can-agents-use
+npx skills add phuctm97/canagentsuse --list
 ```
+
+Install all Can Agents Use skills:
+
+```bash
+npx skills add phuctm97/canagentsuse
+```
+
+Install one focused skill:
+
+```bash
+npx skills add phuctm97/canagentsuse --skill find-mcp-tools
+```
+
+| Skill | Use It When |
+| --- | --- |
+| [`can-agents-use`](skills/can-agents-use/SKILL.md) | You want the umbrella skill with all Can Agents Use surfaces and guardrails. |
+| [`find-agent-friendly-tools`](skills/find-agent-friendly-tools/SKILL.md) | You need a general shortlist of tools an agent can actually operate. |
+| [`find-mcp-tools`](skills/find-mcp-tools/SKILL.md) | You need MCP servers or MCP-capable tools. |
+| [`find-api-tools`](skills/find-api-tools/SKILL.md) | You need API-first tools, SDKs, webhooks, OpenAPI specs, or service-account workflows. |
+| [`find-cli-tools`](skills/find-cli-tools/SKILL.md) | You need tools an agent can install and run from a terminal. |
+| [`find-browser-tools`](skills/find-browser-tools/SKILL.md) | You need products an agent can operate through browser automation. |
+| [`compare-agent-tools`](skills/compare-agent-tools/SKILL.md) | You need ranked alternatives, score tradeoffs, and evidence-backed recommendations. |
+| [`submit-agent-friendly-tool`](skills/submit-agent-friendly-tool/SKILL.md) | You want to add or improve a catalog record with a PR. |
 
 Manual fallback for agents that read local skill folders:
 
@@ -123,8 +139,8 @@ curl -fsSL https://canagentsuse.com/skill.md \
   -o ~/.codex/skills/can-agents-use/SKILL.md
 ```
 
-The skill tells agents how to search, when to fetch the full catalog, which MCP
-tools exist, and which guardrails to keep.
+The `/skill.md` fallback exposes the umbrella skill. Use skills.sh when you want
+the full multi-skill folder.
 
 ## Use MCP
 

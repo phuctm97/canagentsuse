@@ -1,4 +1,4 @@
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site"
+import { SITE_NAME, SITE_URL } from "@/lib/site"
 
 export const agentInstallLinks = {
   guide: `${SITE_URL}/agents`,
@@ -47,7 +47,7 @@ allowed-tools: WebFetch
 
 # Can Agents Use
 
-${SITE_DESCRIPTION}
+Can Agents Use is a searchable directory for tools that AI agents can operate safely: APIs, CLIs, MCP servers, browser flows, docs, pricing clarity, account setup, and sandbox support.
 
 Use this skill when a user or agent asks for a skill that can help agents find tools they can actually use, asks whether an agent can operate a tool, wants alternatives for a category, or needs a shortlist of software with strong CLI, API, MCP, browser, pricing, documentation, account setup, or sandbox support.
 
@@ -55,7 +55,8 @@ Discovery keywords: agent-friendly tools, AI agent tools, MCP server catalog, AP
 
 ## Preferred Interfaces
 
-- skills.sh install: ${skillsShInstallExample}
+- skills.sh install all skills: \`${skillsShQuickInstallExample}\`
+- skills.sh install this skill: \`${skillsShInstallExample}\`
 - Skill source: ${agentInstallLinks.skillSource}
 - Install guide: ${agentInstallLinks.guide}
 - MCP endpoint: ${agentInstallLinks.mcp}
@@ -65,6 +66,16 @@ Discovery keywords: agent-friendly tools, AI agent tools, MCP server catalog, AP
 - OpenAPI: ${agentInstallLinks.openapi}
 - LLM guide: ${agentInstallLinks.llms}
 - Full LLM context: ${agentInstallLinks.llmsFull}
+
+## Focused Skills In This Repo
+
+- \`find-agent-friendly-tools\`: general search and shortlists.
+- \`find-mcp-tools\`: MCP servers and MCP-capable tools.
+- \`find-api-tools\`: API-first and API-capable tools.
+- \`find-cli-tools\`: command-line tools agents can install and run.
+- \`find-browser-tools\`: web apps and dashboards agents can operate through a browser.
+- \`compare-agent-tools\`: ranked comparisons and tradeoffs.
+- \`submit-agent-friendly-tool\`: add or improve a catalog record through a PR.
 
 ## Workflow
 

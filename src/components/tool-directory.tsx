@@ -38,7 +38,11 @@ import {
   skillsShInstallExample,
   skillsShQuickInstallExample,
 } from "@/lib/agent-install"
-import { GITHUB_REPO_URL } from "@/lib/site"
+import {
+  buildSubmitToolAgentPrompt,
+  buildSubmitToolPrUrl,
+  emptySubmitToolInput,
+} from "@/lib/submit-tool"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -166,58 +170,8 @@ const connectAgentPrompt = [
   "- Prefer MCP, JSON, OpenAPI, or Markdown surfaces over scraping the website.",
   "- Treat scores as discovery signals, not legal, security, purchasing, or compliance approval.",
 ].join("\n")
-const submitToolPrBody = [
-  "## Tool",
-  "- Name:",
-  "- Website:",
-  "- Submitted by:",
-  "",
-  "## Catalog Checklist",
-  "- [ ] Added or updated the tool record in `data/catalog.json`",
-  "- [ ] Used a stable slug, category slugs, use case slugs, and capability records",
-  "- [ ] Added evidence URLs for API, CLI, MCP, docs, pricing, sandbox, browser, or account setup claims",
-  "- [ ] Included limitation notes for paid actions, production data, infrastructure, browser-only flows, or brittle automation",
-  "",
-  "## Evidence To Check",
-  "- API docs:",
-  "- CLI docs:",
-  "- MCP server docs:",
-  "- Pricing page:",
-  "- Sandbox or test-mode docs:",
-  "- Account setup docs:",
-  "",
-  "## Submitter Notes",
-  "",
-  "## Validation",
-  "- [ ] `bun run catalog:audit`",
-  "- [ ] `bun run build`",
-].join("\n")
-const submitToolPrUrl = (() => {
-  const url = new URL(`${GITHUB_REPO_URL}/compare/main...catalog/add-new-tool`)
-
-  url.searchParams.set("quick_pull", "1")
-  url.searchParams.set("template", "add-tool.md")
-  url.searchParams.set("title", "Add a tool")
-  url.searchParams.set("body", submitToolPrBody)
-
-  return url.toString()
-})()
-const submitToolAgentPrompt = [
-  `Please add a new agent-friendly tool to ${GITHUB_REPO_URL}.`,
-  "",
-  "Ask me for the tool name, website URL, submitter name, and agent-readiness notes if I have not provided them yet.",
-  "",
-  "Then:",
-  "1. Research official evidence for API, CLI, MCP, docs, pricing, sandbox or test mode, browser support, and account setup.",
-  "2. Edit `data/catalog.json` with a stable slug, category slugs, use case slugs, capability records, score fields, and limitation notes.",
-  "3. Run `bun run catalog:audit` and `bun run build`.",
-  "4. Commit the change, push a branch named `catalog/add-<tool-slug>`, and open a PR using `.github/PULL_REQUEST_TEMPLATE/add-tool.md`.",
-  "",
-  "Guardrails:",
-  "- Do not ask for database credentials.",
-  "- Do not add Docker, Neon, or local database setup.",
-  "- Keep all evidence URLs public and official when possible.",
-].join("\n")
+const submitToolPrUrl = buildSubmitToolPrUrl(emptySubmitToolInput)
+const submitToolAgentPrompt = buildSubmitToolAgentPrompt(emptySubmitToolInput)
 
 type ToolDirectoryProps = {
   tools: DirectoryListTool[]

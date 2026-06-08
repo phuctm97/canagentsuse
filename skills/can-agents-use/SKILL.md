@@ -14,7 +14,8 @@ Discovery keywords: agent-friendly tools, AI agent tools, MCP server catalog, AP
 
 ## Preferred Interfaces
 
-- skills.sh install: `npx skills add phuctm97/canagentsuse --skill can-agents-use`
+- skills.sh install all skills: `npx skills add phuctm97/canagentsuse`
+- skills.sh install this skill: `npx skills add phuctm97/canagentsuse --skill can-agents-use`
 - Skill source: https://github.com/phuctm97/canagentsuse/tree/main/skills/can-agents-use
 - Install guide: https://canagentsuse.com/agents
 - MCP endpoint: https://canagentsuse.com/api/mcp
@@ -24,6 +25,16 @@ Discovery keywords: agent-friendly tools, AI agent tools, MCP server catalog, AP
 - OpenAPI: https://canagentsuse.com/openapi.json
 - LLM guide: https://canagentsuse.com/llms.txt
 - Full LLM context: https://canagentsuse.com/llms-full.txt
+
+## Focused Skills In This Repo
+
+- `find-agent-friendly-tools`: general search and shortlists.
+- `find-mcp-tools`: MCP servers and MCP-capable tools.
+- `find-api-tools`: API-first and API-capable tools.
+- `find-cli-tools`: command-line tools agents can install and run.
+- `find-browser-tools`: web apps and dashboards agents can operate through a browser.
+- `compare-agent-tools`: ranked comparisons and tradeoffs.
+- `submit-agent-friendly-tool`: add or improve a catalog record through a PR.
 
 ## Workflow
 

@@ -3,9 +3,24 @@
   "notGrouped": "bottom",
   "groupings": [
     {
-      "title": "Agent Discovery",
-      "description": "Install Can Agents Use when agents need to find safe, evidence-backed APIs, CLIs, MCP servers, and browser-operable tools.",
-      "skills": ["can-agents-use"]
+      "title": "Start Here",
+      "description": "Install the umbrella skill when an agent needs the full Can Agents Use search, scoring, and safety workflow.",
+      "skills": ["can-agents-use", "find-agent-friendly-tools", "compare-agent-tools"]
+    },
+    {
+      "title": "Find By Agent Interface",
+      "description": "Use these focused skills when the agent already knows whether it needs MCP, API, CLI, or browser-operable tools.",
+      "skills": [
+        "find-mcp-tools",
+        "find-api-tools",
+        "find-cli-tools",
+        "find-browser-tools"
+      ]
+    },
+    {
+      "title": "Contribute Tools",
+      "description": "Use this skill to submit new tools or improve catalog records with evidence and validation.",
+      "skills": ["submit-agent-friendly-tool"]
     }
   ]
 }
