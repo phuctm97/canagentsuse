@@ -6,7 +6,6 @@ import {
   CheckCircle2Icon,
   Code2Icon,
   CopyIcon,
-  FileTextIcon,
   PlugIcon,
   TerminalIcon,
 } from "lucide-react"
@@ -15,6 +14,11 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import {
   agentInstallLinks,
+  cliAgentInstallExamples,
+  cliDoctorExample,
+  cliFullInstallExample,
+  cliInstallExample,
+  cliSkillInstallExample,
   mcpInstallExample,
   mcpSmokeTest,
   skillInstallExample,
@@ -23,16 +27,16 @@ import {
 import { SITE_ASSET_URL, SITE_NAME, SITE_URL } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Agent install guide for MCP, skills.sh, llms.txt, and API access",
+  title: "Agent install guide for CLI, MCP, skills, llms.txt, and API access",
   description:
-    "Install guide for using Can Agents Use through skills.sh, llms.txt, MCP-style tools, OpenAPI, JSON endpoints, and a reusable agent skill.",
+    "Install guide for using Can Agents Use through the CLI, MCP-style tools, skills, llms.txt, OpenAPI, JSON endpoints, and reusable agent instructions.",
   alternates: {
     canonical: `${SITE_URL}/agents`,
   },
   openGraph: {
     title: `Agent install guide | ${SITE_NAME}`,
     description:
-      "Connect agents to Can Agents Use through skills.sh, MCP, skill Markdown, llms.txt, OpenAPI, and read-only JSON APIs.",
+      "Connect agents to Can Agents Use through the CLI, MCP, skill Markdown, llms.txt, OpenAPI, and read-only JSON APIs.",
     url: `${SITE_URL}/agents`,
     images: [
       {
@@ -47,7 +51,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Agent install guide | ${SITE_NAME}`,
     description:
-      "Connect agents to Can Agents Use through skills.sh, MCP, skill Markdown, llms.txt, OpenAPI, and read-only JSON APIs.",
+      "Connect agents to Can Agents Use through the CLI, MCP, skill Markdown, llms.txt, OpenAPI, and read-only JSON APIs.",
     images: [`${SITE_ASSET_URL}/twitter-image`],
   },
 }
@@ -77,25 +81,26 @@ export default function AgentsPage() {
           <div className="space-y-6">
             <div className="space-y-4">
               <h1 className="max-w-3xl text-4xl font-semibold tracking-normal text-balance sm:text-5xl">
-                Install Can Agents Use for your agent.
+                Install Can Agents Use with one CLI command.
               </h1>
               <p className="max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">
                 Give agents a clean read-only way to discover tool readiness without
-                database access. Use MCP when your client supports remote HTTP tools,
-                or install the skill through skills.sh as persistent instructions.
+                database access. The CLI can install the MCP endpoint and bundled
+                skills for Claude Code, Cursor, Codex, OpenCode, Gemini CLI, and a
+                universal agent skills folder.
               </p>
             </div>
 
             <div className="grid gap-4 md:grid-cols-3">
               <Surface
-                icon={PlugIcon}
-                title="MCP tools"
-                body="Search and fetch catalog records with JSON-RPC tool calls."
+                icon={TerminalIcon}
+                title="CLI setup"
+                body="Install MCP config and the skill pack, check status, remove cleanly, and query the catalog."
               />
               <Surface
-                icon={FileTextIcon}
-                title="skills.sh skill"
-                body="A portable SKILL.md with searchable metadata, endpoints, and guardrails."
+                icon={PlugIcon}
+                title="MCP tools"
+                body="Search and fetch catalog records with read-only JSON-RPC tool calls."
               />
               <Surface
                 icon={BracesIcon}
@@ -109,6 +114,7 @@ export default function AgentsPage() {
             <h2 className="text-sm font-medium">Quick links</h2>
             <Separator className="my-3" />
             <div className="grid gap-2 text-sm">
+              <QuickLink href="https://www.npmjs.com/package/canagentsuse" label="npm CLI" />
               <QuickLink href={agentInstallLinks.mcp} label="MCP endpoint" />
               <QuickLink href={agentInstallLinks.skillsSh} label="skills.sh page" />
               <QuickLink href={agentInstallLinks.skillSource} label="Skill source" />
@@ -122,18 +128,45 @@ export default function AgentsPage() {
 
         <section className="grid min-w-0 gap-5 lg:grid-cols-2">
           <InstallBlock
-            icon={PlugIcon}
-            title="Install as MCP"
-            description="Use this when your agent client supports remote HTTP MCP-style servers."
-            code={mcpInstallExample}
-            note="Add this server config in your client MCP settings, then run the smoke test below."
+            icon={TerminalIcon}
+            title="Recommended CLI setup"
+            description="Use this first. It replaces the old npx skills path by installing both MCP and bundled skills where the agent supports them."
+            code={cliFullInstallExample}
+            note={`Fast path: ${cliInstallExample}. Run the dry-run first if you want to preview every file write.`}
           />
           <InstallBlock
             icon={BotIcon}
-            title="Install with skills.sh"
-            description="Use this when your agent supports portable skills or project instructions."
-            code={skillInstallExample}
-            note={`Official command: ${skillsShInstallExample}. Agents can also fetch /skill.md directly as a fallback.`}
+            title="Install only the skill"
+            description="Use this when you already have MCP configured or your agent only supports persistent instructions."
+            code={`${cliSkillInstallExample}
+
+# skills.sh fallback
+${skillInstallExample}`}
+            note={`The CLI is preferred. skills.sh remains available with ${skillsShInstallExample} for agents that already standardize on it.`}
+          />
+        </section>
+
+        <section className="min-w-0 rounded-md border bg-card p-5">
+          <div className="flex items-center gap-3">
+            <span className="flex size-9 items-center justify-center rounded-md border bg-background">
+              <BotIcon className="size-4" aria-hidden="true" />
+            </span>
+            <div>
+              <h2 className="text-base font-semibold">Agent-specific commands</h2>
+              <p className="text-sm text-muted-foreground">
+                Use one target when you do not want the CLI to touch every supported agent folder.
+              </p>
+            </div>
+          </div>
+          <CodeBlock
+            code={[
+              cliAgentInstallExamples.claude,
+              cliAgentInstallExamples.cursor,
+              cliAgentInstallExamples.codex,
+              cliAgentInstallExamples.opencode,
+              cliAgentInstallExamples.gemini,
+              cliAgentInstallExamples.universal,
+            ].join("\n")}
           />
         </section>
 
@@ -145,7 +178,8 @@ export default function AgentsPage() {
             <div>
               <h2 className="text-base font-semibold">MCP smoke test</h2>
               <p className="text-sm text-muted-foreground">
-                This confirms that tool discovery is reachable.
+                This confirms that production tool discovery is reachable. Local
+                install checks pass after setup writes the selected agent configs.
               </p>
             </div>
           </div>

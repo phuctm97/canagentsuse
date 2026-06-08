@@ -79,9 +79,9 @@ surfaces are enough.
 
 | If You Can... | Use This | Best For |
 | --- | --- | --- |
-| Install skills | `npx skills add phuctm97/canagentsuse` | Persistent agent instructions and focused discovery skills. |
-| Run the CLI | `npx canagentsuse search stripe` | Terminal discovery, scripts, and quick agent prompts. |
+| Run the CLI | `npx canagentsuse@latest setup --all-agents --yes` | One-command MCP plus bundled skill setup for Claude Code, Cursor, Codex, OpenCode, Gemini CLI, and universal agent folders. |
 | Use MCP | `https://canagentsuse.com/api/mcp` | Tool calls from Cursor, Claude Code, Codex, OpenCode, Gemini CLI, and other MCP-aware agents. |
+| Install only skills | `npx canagentsuse@latest skills install can-agents-use --all-agents --yes` | Persistent agent instructions and focused discovery skills. |
 | Fetch HTTP JSON | `https://canagentsuse.com/api/agent/search?q=stripe&page=1&limit=10` | Direct search from scripts, agents, and workflows. |
 | Read one big context file | `https://canagentsuse.com/llms-full.txt` | Long-context comparison across many tools. |
 | Generate a client | `https://canagentsuse.com/openapi.json` | Typed HTTP clients and automation. |
@@ -89,7 +89,7 @@ surfaces are enough.
 
 Recommended agent workflow:
 
-1. Start with the skill or MCP if your agent supports it.
+1. Start with `npx canagentsuse@latest setup --all-agents --yes` when you can run shell commands.
 2. Search for a focused query such as `stripe`, `scraping`, `email`, `browser`, `mcp`, or `billing`.
 3. Inspect one tool by slug before recommending it.
 4. Compare `scoreBreakdown`, `capabilities`, evidence URLs, pricing clarity, sandbox support, and limitations.
@@ -97,72 +97,27 @@ Recommended agent workflow:
 6. Mention caution notes before live money movement, production data changes, account creation, infrastructure changes, or irreversible actions.
 7. Treat scores as discovery signals, not legal, security, purchasing, or compliance approval.
 
-## Use The Skills
-
-Can Agents Use ships skills.sh-discoverable skills in [`skills/`](skills). The
-root [`skills.sh.json`](skills.sh.json) groups them for the skills.sh repository
-page at [skills.sh/phuctm97/canagentsuse](https://skills.sh/phuctm97/canagentsuse).
-
-List the skills:
-
-```bash
-npx skills add phuctm97/canagentsuse --list
-```
-
-Install all Can Agents Use skills:
-
-```bash
-npx skills add phuctm97/canagentsuse
-```
-
-Install one focused skill:
-
-```bash
-npx skills add phuctm97/canagentsuse --skill find-mcp-tools
-```
-
-| Skill | Use It When |
-| --- | --- |
-| [`can-agents-use`](skills/can-agents-use/SKILL.md) | You want the umbrella skill with all Can Agents Use surfaces and guardrails. |
-| [`find-agent-friendly-tools`](skills/find-agent-friendly-tools/SKILL.md) | You need a general shortlist of tools an agent can actually operate. |
-| [`find-mcp-tools`](skills/find-mcp-tools/SKILL.md) | You need MCP servers or MCP-capable tools. |
-| [`find-api-tools`](skills/find-api-tools/SKILL.md) | You need API-first tools, SDKs, webhooks, OpenAPI specs, or service-account workflows. |
-| [`find-cli-tools`](skills/find-cli-tools/SKILL.md) | You need tools an agent can install and run from a terminal. |
-| [`find-browser-tools`](skills/find-browser-tools/SKILL.md) | You need products an agent can operate through browser automation. |
-| [`compare-agent-tools`](skills/compare-agent-tools/SKILL.md) | You need ranked alternatives, score tradeoffs, and evidence-backed recommendations. |
-| [`submit-agent-friendly-tool`](skills/submit-agent-friendly-tool/SKILL.md) | You want to add or improve a catalog record with a PR. |
-
-Manual fallback for agents that read local skill folders:
-
-```bash
-mkdir -p ~/.codex/skills/can-agents-use
-curl -fsSL https://canagentsuse.com/skill.md \
-  -o ~/.codex/skills/can-agents-use/SKILL.md
-```
-
-The `/skill.md` fallback exposes the umbrella skill. Use skills.sh when you want
-the full multi-skill folder.
-
 ## Use The CLI
 
 Use the CLI when you want one-command agent setup or terminal-first discovery
 without installing the repo. It calls the same public read-only API that agents
-use.
+use and can replace the older `npx skills` flow for supported local agents.
 
 ```bash
-npx canagentsuse@latest setup
-npx canagentsuse@latest setup --claude --codex --yes
-npx canagentsuse@latest setup --all-agents --project --dry-run
-npx canagentsuse search stripe
-npx canagentsuse search "email api" --capability api --limit 5
-npx canagentsuse search --capability mcp --json
-npx canagentsuse tool stripe
-npx canagentsuse mcp-config
+npx canagentsuse@latest setup --all-agents --dry-run
+npx canagentsuse@latest setup --all-agents --yes
+npx canagentsuse@latest doctor
+npx canagentsuse@latest search stripe
+npx canagentsuse@latest search "email api" --capability api --limit 5
+npx canagentsuse@latest search --capability mcp --json
+npx canagentsuse@latest tool stripe
+npx canagentsuse@latest mcp-config
 ```
 
 | Command | Use It For |
 | --- | --- |
-| `canagentsuse setup` | Install Can Agents Use MCP config and bundled skills for detected agents. |
+| `canagentsuse install` | Alias for setup; useful as the direct mental replacement for `npx skills add`. |
+| `canagentsuse setup` | Install Can Agents Use MCP config and bundled skills for detected or selected agents. |
 | `canagentsuse remove` | Remove the MCP config and installed Can Agents Use skills. |
 | `canagentsuse status` | Show installed MCP and skill status by agent. |
 | `canagentsuse doctor` | Test the public API, MCP endpoint, and local setup. |
@@ -187,21 +142,82 @@ canagentsuse setup --universal
 ```
 
 Setup defaults to global user config. Use `--project` to write project-local
-config such as `.cursor/mcp.json`, `.codex/config.toml`, `.gemini/settings.json`,
-or `opencode.json`. Use `--dry-run` before writing; the CLI backs up existing
-config files before editing and only updates the `canagentsuse` MCP entry.
+config such as `.mcp.json`, `.cursor/mcp.json`, `.codex/config.toml`,
+`.gemini/settings.json`, or `opencode.json`. Use `--dry-run` before writing; the
+CLI backs up existing config files before editing and only updates the
+`canagentsuse` MCP entry.
 
 For scripts and agents, prefer `--json`:
 
 ```bash
-npx canagentsuse search "billing api" --capability api --limit 10 --json
+npx canagentsuse@latest search "billing api" --capability api --limit 10 --json
 ```
 
 The default site is `https://canagentsuse.com`. Override it for previews:
 
 ```bash
-CANAGENTSUSE_SITE_URL=https://www.canagentsuse.com npx canagentsuse catalog --json
+CANAGENTSUSE_SITE_URL=https://www.canagentsuse.com npx canagentsuse@latest catalog --json
 ```
+
+## Use The Skills
+
+Can Agents Use ships skills.sh-discoverable skills in [`skills/`](skills). The
+root [`skills.sh.json`](skills.sh.json) groups them for the skills.sh repository
+page at [skills.sh/phuctm97/canagentsuse](https://skills.sh/phuctm97/canagentsuse).
+The CLI is preferred for local agent setup because it installs both MCP and
+skills where possible. Use skills.sh as a registry fallback.
+
+List the bundled CLI skills:
+
+```bash
+npx canagentsuse@latest skills list
+```
+
+Install all bundled skills into all supported agent folders:
+
+```bash
+npx canagentsuse@latest skills install --all --all-agents --yes
+```
+
+skills.sh fallback list command:
+
+```bash
+npx skills add phuctm97/canagentsuse --list
+```
+
+skills.sh fallback install all:
+
+```bash
+npx skills add phuctm97/canagentsuse
+```
+
+skills.sh fallback install one focused skill:
+
+```bash
+npx skills add phuctm97/canagentsuse --skill find-mcp-tools
+```
+
+| Skill | Use It When |
+| --- | --- |
+| [`can-agents-use`](skills/can-agents-use/SKILL.md) | You want the umbrella skill with all Can Agents Use surfaces and guardrails. |
+| [`find-agent-friendly-tools`](skills/find-agent-friendly-tools/SKILL.md) | You need a general shortlist of tools an agent can actually operate. |
+| [`find-mcp-tools`](skills/find-mcp-tools/SKILL.md) | You need MCP servers or MCP-capable tools. |
+| [`find-api-tools`](skills/find-api-tools/SKILL.md) | You need API-first tools, SDKs, webhooks, OpenAPI specs, or service-account workflows. |
+| [`find-cli-tools`](skills/find-cli-tools/SKILL.md) | You need tools an agent can install and run from a terminal. |
+| [`find-browser-tools`](skills/find-browser-tools/SKILL.md) | You need products an agent can operate through browser automation. |
+| [`compare-agent-tools`](skills/compare-agent-tools/SKILL.md) | You need ranked alternatives, score tradeoffs, and evidence-backed recommendations. |
+| [`submit-agent-friendly-tool`](skills/submit-agent-friendly-tool/SKILL.md) | You want to add or improve a catalog record with a PR. |
+
+Manual fallback for agents that read local skill folders:
+
+```bash
+mkdir -p ~/.codex/skills/can-agents-use
+curl -fsSL https://canagentsuse.com/skill.md \
+  -o ~/.codex/skills/can-agents-use/SKILL.md
+```
+
+The `/skill.md` fallback exposes the umbrella skill. Use the CLI when you want
+the full multi-skill folder copied into local agent directories.
 
 ## Use MCP
 

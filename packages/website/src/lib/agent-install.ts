@@ -27,6 +27,19 @@ export const mcpSmokeTest = `curl -fsS -X POST ${agentInstallLinks.mcp} \\
   -H 'content-type: application/json' \\
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'`
 
+export const cliInstallExample = `npx canagentsuse@latest setup --all-agents --yes`
+export const cliInstallDryRunExample = `npx canagentsuse@latest setup --all-agents --dry-run`
+export const cliDoctorExample = `npx canagentsuse@latest doctor`
+export const cliSkillInstallExample = `npx canagentsuse@latest skills install can-agents-use --all-agents --yes`
+export const cliAgentInstallExamples = {
+  claude: `npx canagentsuse@latest setup --claude --yes`,
+  cursor: `npx canagentsuse@latest setup --cursor --yes`,
+  codex: `npx canagentsuse@latest setup --codex --yes`,
+  opencode: `npx canagentsuse@latest setup --opencode --yes`,
+  gemini: `npx canagentsuse@latest setup --gemini --yes`,
+  universal: `npx canagentsuse@latest setup --universal --yes`,
+}
+
 export const skillsShInstallExample = `npx skills add phuctm97/canagentsuse --skill can-agents-use`
 export const skillsShQuickInstallExample = `npx skills add phuctm97/canagentsuse`
 
@@ -37,6 +50,10 @@ export const skillInstallExample = `${skillsShInstallExample}
 
 # Manual fallback
 ${skillManualInstallExample}`
+
+export const cliFullInstallExample = `${cliInstallDryRunExample}
+${cliInstallExample}
+${cliDoctorExample}`
 
 export function canAgentsUseSkillMarkdown() {
   return `---
@@ -55,8 +72,10 @@ Discovery keywords: agent-friendly tools, AI agent tools, MCP server catalog, AP
 
 ## Preferred Interfaces
 
-- skills.sh install all skills: \`${skillsShQuickInstallExample}\`
-- skills.sh install this skill: \`${skillsShInstallExample}\`
+- CLI install MCP plus all bundled skills: \`${cliInstallExample}\`
+- CLI install only this skill: \`${cliSkillInstallExample}\`
+- CLI verify setup: \`${cliDoctorExample}\`
+- skills.sh fallback for this skill: \`${skillsShInstallExample}\`
 - Skill source: ${agentInstallLinks.skillSource}
 - Install guide: ${agentInstallLinks.guide}
 - MCP endpoint: ${agentInstallLinks.mcp}

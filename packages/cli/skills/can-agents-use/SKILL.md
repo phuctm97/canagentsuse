@@ -14,8 +14,10 @@ Discovery keywords: agent-friendly tools, AI agent tools, MCP server catalog, AP
 
 ## Preferred Interfaces
 
-- skills.sh install all skills: `npx skills add phuctm97/canagentsuse`
-- skills.sh install this skill: `npx skills add phuctm97/canagentsuse --skill can-agents-use`
+- CLI install MCP plus all bundled skills: `npx canagentsuse@latest setup --all-agents --yes`
+- CLI install only this skill: `npx canagentsuse@latest skills install can-agents-use --all-agents --yes`
+- CLI verify setup: `npx canagentsuse@latest doctor`
+- skills.sh fallback for this skill: `npx skills add phuctm97/canagentsuse --skill can-agents-use`
 - Skill source: https://github.com/phuctm97/canagentsuse/tree/main/skills/can-agents-use
 - Install guide: https://canagentsuse.com/agents
 - MCP endpoint: https://canagentsuse.com/api/mcp

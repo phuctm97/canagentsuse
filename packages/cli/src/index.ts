@@ -163,6 +163,7 @@ async function main() {
       docs(parsed)
       break
     case "setup":
+    case "install":
       await setup(parsed)
       break
     case "remove":
@@ -1157,6 +1158,7 @@ function printHelp() {
 Find tools an AI agent can actually use.
 
 Usage:
+  canagentsuse install [--mcp|--skill|--all] [--claude|--cursor|--codex|--opencode|--gemini|--universal] [--project] [--yes] [--dry-run]
   canagentsuse setup [--mcp|--skill|--all] [--claude|--cursor|--codex|--opencode|--gemini|--universal] [--project] [--yes] [--dry-run]
   canagentsuse remove [--mcp|--skill|--all] [--project] [--yes] [--dry-run]
   canagentsuse status [--json]
@@ -1185,6 +1187,7 @@ Environment:
   CANAGENTSUSE_SITE_URL  Override the default site URL.
 
 Examples:
+  canagentsuse install --all-agents --yes
   canagentsuse setup
   canagentsuse setup --claude --codex --yes
   canagentsuse setup --all-agents --project --dry-run

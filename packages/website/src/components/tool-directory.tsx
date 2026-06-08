@@ -34,9 +34,9 @@ import type {
 } from "@/lib/directory"
 import {
   agentInstallLinks,
+  cliAgentInstallExamples,
+  cliInstallExample,
   mcpInstallExample,
-  skillsShInstallExample,
-  skillsShQuickInstallExample,
 } from "@/lib/agent-install"
 import {
   buildSubmitToolAgentPrompt,
@@ -126,41 +126,19 @@ const scoreWeights = [
 const toolsBatchSize = 10
 const maxCommandToolResults = 24
 const maxCommandCategoryResults = 10
+const heroCliInstallCommand = "npx canagentsuse@latest setup"
+const githubRepoHref = "https://github.com/phuctm97/canagentsuse"
 const cursorMcpInstallHref =
   "cursor://anysphere.cursor-deeplink/mcp/install?name=canagentsuse&config=eyJjYW5hZ2VudHN1c2UiOnsidHlwZSI6Imh0dHAiLCJ1cmwiOiJodHRwczovL2NhbmFnZW50c3VzZS5jb20vYXBpL21jcCJ9fQ=="
-const claudeCodeInstallPrompt = [
-  "Please connect Claude Code to Can Agents Use.",
-  "",
-  "Use this read-only MCP server:",
-  mcpInstallExample,
-  "",
-  "Then use it to search agent-friendly tools before recommending APIs, CLIs, MCP servers, browser workflows, or paid software.",
-].join("\n")
-const opencodeInstallPrompt = [
-  "Please connect OpenCode to Can Agents Use.",
-  "",
-  "Use this read-only MCP server config:",
-  mcpInstallExample,
-  "",
-  "Prefer MCP tool calls or the public JSON endpoints over scraping the website.",
-].join("\n")
-const geminiCliInstallPrompt = [
-  "Please connect Gemini CLI to Can Agents Use.",
-  "",
-  "Use this read-only MCP server config:",
-  mcpInstallExample,
-  "",
-  `If MCP is not available, read ${agentInstallLinks.llmsFull} once and search locally in context.`,
-].join("\n")
 const connectAgentPrompt = [
   "Please connect your agent to Can Agents Use.",
   "",
   "Goal: use Can Agents Use as a read-only catalog for finding software that AI agents can safely operate.",
   "",
   "Preferred setup:",
-  `1. Install the skill: ${skillsShInstallExample}`,
+  `1. Run the CLI installer: ${cliInstallExample}`,
   "",
-  "2. If your agent supports MCP, add this server config:",
+  "2. If the CLI cannot write your agent config, add this MCP server config manually:",
   mcpInstallExample,
   "",
   `3. Otherwise, read ${agentInstallLinks.llmsFull} once and use ${agentInstallLinks.search}?q=<query>&page=1&limit=10 for focused searches.`,
@@ -186,9 +164,11 @@ type AgentAccessCopyTarget =
   | "prompt"
   | "submit"
   | "claude-code"
+  | "cursor"
   | "codex"
   | "opencode"
   | "gemini-cli"
+  | "universal"
 
 const copyToastLabels: Record<AgentAccessCopyTarget, string> = {
   mcp: "MCP config",
@@ -196,9 +176,11 @@ const copyToastLabels: Record<AgentAccessCopyTarget, string> = {
   prompt: "Agent prompt",
   submit: "Submit prompt",
   "claude-code": "Claude Code command",
+  cursor: "Cursor command",
   codex: "Codex command",
   opencode: "OpenCode command",
   "gemini-cli": "Gemini CLI command",
+  universal: "Universal skill command",
 }
 
 export function ToolDirectory({
@@ -429,6 +411,16 @@ export function ToolDirectory({
               <span className="truncate text-sm font-semibold">Can Agents Use</span>
             </Link>
             <div className="flex items-center gap-2">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button asChild size="icon" variant="outline" aria-label="Open GitHub repo">
+                    <a href={githubRepoHref} target="_blank" rel="noopener noreferrer">
+                      <GithubMarkIcon aria-hidden="true" />
+                    </a>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Open GitHub repo</TooltipContent>
+              </Tooltip>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button size="sm" type="button">
@@ -511,9 +503,6 @@ export function ToolDirectory({
                   </span>
                   <div className="min-w-0">
                     <div className="text-sm font-medium">Connect your agent</div>
-                    <p className="mt-1 text-sm leading-5 text-muted-foreground">
-                      Add the skill once. Choose agent-specific setup only when needed.
-                    </p>
                   </div>
                 </div>
 
@@ -524,9 +513,9 @@ export function ToolDirectory({
                     </span>
                     <button
                       type="button"
-                      onClick={() => copyAgentAccessText("skill", skillsShQuickInstallExample)}
+                      onClick={() => copyAgentAccessText("skill", heroCliInstallCommand)}
                       className="inline-flex size-7 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                      aria-label="Copy skills.sh install command"
+                      aria-label="Copy CLI install command"
                     >
                       {agentAccessCopy?.target === "skill" &&
                       agentAccessCopy.status === "copied" ? (
@@ -537,7 +526,7 @@ export function ToolDirectory({
                     </button>
                   </div>
                   <pre className="max-w-full overflow-x-auto px-3 py-3 text-xs leading-6">
-                    <code className="block min-w-max">{skillsShQuickInstallExample}</code>
+                    <code className="block min-w-max">{heroCliInstallCommand}</code>
                   </pre>
                 </div>
 
@@ -572,9 +561,22 @@ export function ToolDirectory({
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onSelect={() => {
+                          void copyAgentAccessText("cursor", cliAgentInstallExamples.cursor)
+                        }}
+                      >
+                        <TerminalIcon />
+                        <span className="flex min-w-0 flex-col">
+                          <span>Cursor CLI setup</span>
+                          <span className="text-xs text-muted-foreground">
+                            Copy CLI setup command
+                          </span>
+                        </span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onSelect={() => {
                           void copyAgentAccessText(
                             "claude-code",
-                            claudeCodeInstallPrompt
+                            cliAgentInstallExamples.claude
                           )
                         }}
                       >
@@ -582,33 +584,36 @@ export function ToolDirectory({
                         <span className="flex min-w-0 flex-col">
                           <span>Claude Code</span>
                           <span className="text-xs text-muted-foreground">
-                            Copy MCP setup prompt
+                            Copy CLI setup command
                           </span>
                         </span>
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onSelect={() => {
-                          void copyAgentAccessText("codex", skillsShInstallExample)
+                          void copyAgentAccessText("codex", cliAgentInstallExamples.codex)
                         }}
                       >
                         <BotIcon />
                         <span className="flex min-w-0 flex-col">
                           <span>Codex</span>
                           <span className="text-xs text-muted-foreground">
-                            Copy skills.sh command
+                            Copy CLI setup command
                           </span>
                         </span>
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onSelect={() => {
-                          void copyAgentAccessText("opencode", opencodeInstallPrompt)
+                          void copyAgentAccessText(
+                            "opencode",
+                            cliAgentInstallExamples.opencode
+                          )
                         }}
                       >
                         <Code2Icon />
                         <span className="flex min-w-0 flex-col">
                           <span>OpenCode</span>
                           <span className="text-xs text-muted-foreground">
-                            Copy MCP setup prompt
+                            Copy CLI setup command
                           </span>
                         </span>
                       </DropdownMenuItem>
@@ -616,7 +621,7 @@ export function ToolDirectory({
                         onSelect={() => {
                           void copyAgentAccessText(
                             "gemini-cli",
-                            geminiCliInstallPrompt
+                            cliAgentInstallExamples.gemini
                           )
                         }}
                       >
@@ -624,7 +629,23 @@ export function ToolDirectory({
                         <span className="flex min-w-0 flex-col">
                           <span>Gemini CLI</span>
                           <span className="text-xs text-muted-foreground">
-                            Copy MCP setup prompt
+                            Copy CLI setup command
+                          </span>
+                        </span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onSelect={() => {
+                          void copyAgentAccessText(
+                            "universal",
+                            cliAgentInstallExamples.universal
+                          )
+                        }}
+                      >
+                        <BracesIcon />
+                        <span className="flex min-w-0 flex-col">
+                          <span>Universal skills folder</span>
+                          <span className="text-xs text-muted-foreground">
+                            Copy fallback setup command
                           </span>
                         </span>
                       </DropdownMenuItem>
@@ -657,7 +678,7 @@ export function ToolDirectory({
                 >
                   {agentAccessCopy?.status === "failed"
                     ? "Clipboard blocked. Open the install guide for manual setup."
-                    : "Uses skills.sh, MCP, and public read-only endpoints."}
+                    : "Uses the CLI, MCP, skills, and public read-only endpoints."}
                 </div>
               </div>
             </aside>
@@ -853,6 +874,19 @@ export function ToolDirectory({
         </div>
       </section>
     </main>
+  )
+}
+
+function GithubMarkIcon(props: React.ComponentProps<"svg">) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className="size-4"
+      {...props}
+    >
+      <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.52 2.86 8.36 6.84 9.72.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.22-3.37-1.22-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1.01.07 1.54 1.06 1.54 1.06.89 1.57 2.34 1.12 2.91.86.09-.66.35-1.12.64-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05A9.33 9.33 0 0 1 12 6.99c.85 0 1.7.12 2.5.34 1.9-1.32 2.74-1.05 2.74-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.1 10.1 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z" />
+    </svg>
   )
 }
 
