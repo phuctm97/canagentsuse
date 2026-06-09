@@ -1,5 +1,11 @@
 # @canagentsuse/website
 
+## 0.1.9
+
+### Patch Changes
+
+- 7cee008: Split catalog contributions into one-file-per-tool sources and generate the aggregate catalog locally to reduce new-tool PR conflicts.
+
 ## 0.1.8
 
 ### Patch Changes
