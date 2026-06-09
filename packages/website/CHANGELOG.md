@@ -1,5 +1,11 @@
 # @canagentsuse/website
 
+## 0.1.6
+
+### Patch Changes
+
+- 0ffd7b0: Add RevenueCat to the agent-friendly tool catalog with API, MCP, pricing, docs, and sandbox evidence.
+
 ## 0.1.5
 
 ### Patch Changes
