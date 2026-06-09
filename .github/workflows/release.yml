@@ -1,14 +1,21 @@
 name: Release
+run-name: Release gate for ${{ github.ref_name }} by @${{ github.actor }}
 
 on:
   push:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      reason:
+        description: Why are you running the release gate manually?
+        required: false
+        default: Manual release check
 
 permissions:
   contents: write
   id-token: write
+  pull-requests: write
 
 concurrency:
   group: release-main
@@ -41,8 +48,22 @@ jobs:
       - name: Validate main branch
         run: bun run validate:ci
 
+      - name: Summarize validation
+        if: always()
+        run: |
+          {
+            echo "## Main validation"
+            echo ""
+            echo "| Field | Value |"
+            echo "| --- | --- |"
+            echo "| Trigger | \`${GITHUB_EVENT_NAME}\` |"
+            echo "| Ref | \`${GITHUB_REF_NAME}\` |"
+            echo "| Commit | \`${GITHUB_SHA}\` |"
+            echo "| Actor | @${GITHUB_ACTOR} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
   release:
-    name: Version, Publish, And Deploy
+    name: Plan, Version PR, Publish, And Deploy
     needs: validate
     runs-on: ubuntu-latest
     steps:
@@ -70,43 +91,72 @@ jobs:
         id: plan
         run: bun run release:plan
 
-      - name: Stop when no changeset packages are planned
+      - name: Summarize release plan
+        env:
+          HAS_PLAN: ${{ steps.plan.outputs.has_plan }}
+          PACKAGES_JSON: ${{ steps.plan.outputs.packages }}
+          CHANGESETS_JSON: ${{ steps.plan.outputs.changesets }}
+          MANUAL_REASON: ${{ inputs.reason }}
+        run: |
+          node <<'NODE'
+          const fs = require("node:fs")
+
+          const packages = JSON.parse(process.env.PACKAGES_JSON || "[]")
+          const changesets = JSON.parse(process.env.CHANGESETS_JSON || "[]")
+          const manualReason = process.env.MANUAL_REASON || ""
+          const lines = [
+            "## Release plan",
+            "",
+            "| Field | Value |",
+            "| --- | --- |",
+            `| Trigger | \`${process.env.GITHUB_EVENT_NAME}\` |`,
+            `| Ref | \`${process.env.GITHUB_REF_NAME}\` |`,
+            `| Commit | \`${process.env.GITHUB_SHA}\` |`,
+            `| Actor | @${process.env.GITHUB_ACTOR} |`,
+            `| Changeset plan | ${process.env.HAS_PLAN === "true" ? "yes" : "no"} |`,
+            `| Packages | ${packages.length ? packages.map((name) => `\`${name}\``).join(", ") : "none"} |`,
+            `| Changesets | ${changesets.length ? changesets.map((name) => `\`${name}\``).join(", ") : "none"} |`,
+          ]
+
+          if (manualReason) {
+            lines.push(`| Manual reason | ${manualReason.replaceAll("|", "\\|")} |`)
+          }
+
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${lines.join("\n")}\n`)
+          NODE
+
+      - name: Open or update version packages PR
+        if: steps.plan.outputs.has_plan == 'true'
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          github-token: ${{ github.token }}
+          version: bun run changeset:version
+          title: Version Packages
+          commit: Version packages
+
+      - name: Detect merged version release
         if: steps.plan.outputs.has_plan != 'true'
-        run: echo "No package release plan found in .changeset/*.md."
+        id: versioned
+        run: bun run release:detect-version
 
-      - name: Version packages from changesets
-        if: steps.plan.outputs.has_plan == 'true'
-        run: bun run changeset:version
+      - name: Stop when no release is needed
+        if: steps.plan.outputs.has_plan != 'true' && steps.versioned.outputs.has_release != 'true'
+        run: echo "No changesets or merged version package changes found."
 
-      - name: Validate versioned packages
-        if: steps.plan.outputs.has_plan == 'true'
+      - name: Validate version release
+        if: steps.versioned.outputs.has_release == 'true'
         run: bun run validate
 
-      - name: Run release checks
-        if: steps.plan.outputs.has_plan == 'true'
-        run: bun run check && bun run cli:pack
-
-      - name: Configure git author
-        if: steps.plan.outputs.has_plan == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Commit versioned packages
-        if: steps.plan.outputs.has_plan == 'true'
-        run: |
-          git add .changeset packages package.json bun.lock
-          git commit -m "Version packages"
-
       - name: Publish CLI package
-        if: steps.plan.outputs.cli == 'true'
+        if: steps.versioned.outputs.cli == 'true'
         env:
           NPM_CONFIG_ACCESS: public
           NPM_CONFIG_PROVENANCE: "true"
         run: bun run changeset:publish
 
       - name: Check Vercel secrets
-        if: steps.plan.outputs.website == 'true'
+        if: steps.versioned.outputs.website == 'true'
         id: vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -121,7 +171,7 @@ jobs:
           fi
 
       - name: Deploy website to Vercel
-        if: steps.plan.outputs.website == 'true' && steps.vercel.outputs.configured == 'true'
+        if: steps.versioned.outputs.website == 'true' && steps.vercel.outputs.configured == 'true'
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -131,8 +181,59 @@ jobs:
           bunx vercel build --prod --token "$VERCEL_TOKEN"
           bunx vercel deploy --prebuilt --prod --archive=tgz --token "$VERCEL_TOKEN"
 
-      - name: Push version commit and tags
-        if: steps.plan.outputs.has_plan == 'true'
+      - name: Push package tags
+        if: steps.versioned.outputs.has_release == 'true'
+        run: git push origin --tags
+
+      - name: Create GitHub release
+        if: steps.versioned.outputs.cli == 'true'
+        id: github_release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          git push origin HEAD:main
-          git push origin --tags
+          tag="canagentsuse@${{ steps.versioned.outputs.cli_version }}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            url="$(gh release view "$tag" --json url --jq .url)"
+          else
+            url="$(gh release create "$tag" --title "$tag" --generate-notes --latest)"
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Summarize release result
+        if: steps.plan.outputs.has_plan == 'true' || steps.versioned.outputs.has_release == 'true'
+        env:
+          HAS_PLAN: ${{ steps.plan.outputs.has_plan }}
+          VERSION_PR: ${{ steps.changesets.outputs.pullRequestNumber }}
+          HAS_RELEASE: ${{ steps.versioned.outputs.has_release }}
+          CLI_RELEASE: ${{ steps.versioned.outputs.cli }}
+          CLI_VERSION: ${{ steps.versioned.outputs.cli_version }}
+          WEBSITE_RELEASE: ${{ steps.versioned.outputs.website }}
+          WEBSITE_VERSION: ${{ steps.versioned.outputs.website_version }}
+          GITHUB_RELEASE_URL: ${{ steps.github_release.outputs.url }}
+          VERCEL_CONFIGURED: ${{ steps.vercel.outputs.configured }}
+        run: |
+          node <<'NODE'
+          const fs = require("node:fs")
+
+          const lines = ["", "## Release result", ""]
+
+          if (process.env.HAS_PLAN === "true") {
+            lines.push("A Version Packages PR was opened or updated.")
+            if (process.env.VERSION_PR) {
+              lines.push(`- Version PR: #${process.env.VERSION_PR}`)
+            }
+          } else if (process.env.HAS_RELEASE === "true") {
+            lines.push("Merged version package changes were released.")
+            lines.push(`- CLI publish: ${process.env.CLI_RELEASE === "true" ? `canagentsuse@${process.env.CLI_VERSION}` : "not needed"}`)
+            lines.push(`- Website deploy: ${process.env.WEBSITE_RELEASE === "true" ? `@canagentsuse/website@${process.env.WEBSITE_VERSION}` : "not needed"}`)
+            if (process.env.WEBSITE_RELEASE === "true") {
+              lines.push(`- Vercel secrets configured: ${process.env.VERCEL_CONFIGURED === "true" ? "yes" : "no"}`)
+            }
+            if (process.env.GITHUB_RELEASE_URL) {
+              lines.push(`- GitHub Release: ${process.env.GITHUB_RELEASE_URL}`)
+            }
+          }
+
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${lines.join("\n")}\n`)
+          NODE

@@ -5,6 +5,19 @@
 - Stable slug:
 - Submitted by:
 
+## Change Type
+
+- [ ] Add a new tool
+- [ ] Update an existing tool
+- [ ] Change website, API, MCP, CLI, or skill behavior
+- [ ] Maintenance only
+
+## Release Impact
+
+- User-facing summary:
+- Requires package release: yes/no
+- Changeset included: yes/no, path:
+
 ## Catalog Fields
 
 - `slug`:
@@ -73,10 +86,11 @@ Not provided
 - [ ] Added evidence URLs for important API, CLI, MCP, docs, pricing, sandbox, browser, and account setup claims
 - [ ] Included limitation/caution notes for money, production data, infrastructure, compliance, user accounts, browser-only flows, or brittle automation
 - [ ] Did not add secrets, database credentials, Docker/Neon setup, generated build output, or unrelated files
+- [ ] Added a `.changeset/*.md` file when this changes public website, API, MCP, CLI, or skill behavior
 
 ## Validation
 
 - [ ] `bun run catalog:format`
 - [ ] `bun run catalog:audit`
-- [ ] `bun run build`
+- [ ] `bun run validate`
 - [ ] `git diff --check`
