@@ -68121,6 +68121,85 @@
           "evidenceUrl": "https://github.com/s9y/serendipity"
         }
       ]
+    },
+    {
+      "slug": "revenuecat",
+      "name": "RevenueCat",
+      "tagline": "In-app subscriptions and purchases backend for mobile and web.",
+      "websiteUrl": "https://www.revenuecat.com",
+      "docsUrl": "https://www.revenuecat.com/docs",
+      "githubUrl": "https://github.com/RevenueCat",
+      "shortDescription": "Cross-platform subscription infrastructure with official MCP server, REST API v2, SDKs across mobile and web, webhooks, and a built-in Test Store sandbox.",
+      "agentSummary": "Strong fit for agents that need to configure apps, products, entitlements, offerings, and paywalls programmatically, query customer/subscription state via REST API v2, register webhooks, or drive subscription setup end-to-end through the official RevenueCat MCP server from supported AI clients.",
+      "bestFor": "Configuring and managing in-app subscriptions, entitlements, offerings, and paywalls across iOS, Android, web, and cross-platform SDKs.",
+      "cautionNotes": "RevenueCat ships an official MCP server, REST API v2, public/secret/sandbox keys, and a Test Store for safe testing; production changes still touch billing entitlements for real users and platform sandboxes (Apple/Google) accelerate renewals in non-obvious ways. Never ship a Test Store key in a release build. There is no official CLI — third-party CLIs exist but are unaffiliated.",
+      "pricingSummary": "Free up to $2,500 monthly tracked revenue; Pro is 1% of MTR above that; Enterprise on request. Growth Tools (paywalls, experiments) add a separate conversion fee.",
+      "authModel": "REST API v2 uses Bearer tokens with public (client) and secret (server) keys, plus separate sandbox/Test Store keys. MCP server authenticates with the same API v2 secret key via Authorization: Bearer. Webhooks use a configurable Authorization header value set in the dashboard.",
+      "accountCreation": "Self-serve signup at app.revenuecat.com; projects auto-provision with a Test Store and sandbox keys before any platform store connection.",
+      "browserSupport": "Dashboard at app.revenuecat.com is browser-automatable for setup gaps the API/MCP do not cover.",
+      "cliPackage": null,
+      "apiBaseUrl": "https://api.revenuecat.com/v2",
+      "mcpServer": "https://mcp.revenuecat.ai/mcp",
+      "agentScore": 88,
+      "launchScore": 450,
+      "submittedBy": "Can Agents Use community submission",
+      "categorySlugs": [
+        "billing-payments"
+      ],
+      "useCaseSlugs": [
+        "charge-a-customer",
+        "ship-app"
+      ],
+      "capabilities": [
+        {
+          "slug": "api",
+          "supportLevel": "native",
+          "detail": "REST API v2 covers projects, apps, products, entitlements, offerings, packages, customers, subscriptions, purchases, and webhooks with Bearer auth.",
+          "evidenceUrl": "https://www.revenuecat.com/docs/api-v2"
+        },
+        {
+          "slug": "mcp",
+          "supportLevel": "native",
+          "detail": "Official cloud-hosted MCP server at https://mcp.revenuecat.ai/mcp exposes ~26 tools for configuring apps, products, entitlements, offerings, and paywalls via natural language; authenticates with an API v2 secret key.",
+          "evidenceUrl": "https://www.revenuecat.com/docs/tools/mcp"
+        },
+        {
+          "slug": "sandbox",
+          "supportLevel": "native",
+          "detail": "Every project is auto-provisioned with a Test Store that behaves like a real store (entitlements, CustomerInfo, dashboard) using a dedicated Test Store API key; Apple/Google sandbox integrations are also first-class.",
+          "evidenceUrl": "https://www.revenuecat.com/docs/test-and-launch/sandbox"
+        },
+        {
+          "slug": "docs-quality",
+          "supportLevel": "strong",
+          "detail": "Task-oriented docs cover SDK quickstarts, REST API references, sandbox/testing, webhooks, and the MCP server.",
+          "evidenceUrl": "https://www.revenuecat.com/docs"
+        },
+        {
+          "slug": "pricing-clarity",
+          "supportLevel": "strong",
+          "detail": "Public pricing page documents the free MTR threshold, 1% Pro fee, and Growth Tools conversion fee.",
+          "evidenceUrl": "https://www.revenuecat.com/pricing/"
+        },
+        {
+          "slug": "account-creation",
+          "supportLevel": "strong",
+          "detail": "Self-serve signup; Test Store and sandbox keys work immediately without connecting a real App Store / Play Console account.",
+          "evidenceUrl": "https://app.revenuecat.com/signup"
+        },
+        {
+          "slug": "browser",
+          "supportLevel": "strong",
+          "detail": "Dashboard is browser-automatable for store connection, key rotation, and any setup not yet covered by API/MCP.",
+          "evidenceUrl": "https://app.revenuecat.com"
+        },
+        {
+          "slug": "cli",
+          "supportLevel": "manual",
+          "detail": "No official CLI; third-party CLIs (revcat, rc-cli) wrap the REST API v2 but are unaffiliated with RevenueCat.",
+          "evidenceUrl": "https://github.com/RevenueCat"
+        }
+      ]
     }
   ]
 }
