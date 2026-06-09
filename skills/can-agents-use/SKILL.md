@@ -97,7 +97,7 @@ Use MCP or JSON directly when shell commands are unavailable.
 3. For broad research or complete information, call MCP `get_agent_catalog`, read MCP resource `canagentsuse://catalog`, fetch `https://canagentsuse.com/api/agent/catalog`, or fetch `https://canagentsuse.com/llms-full.txt` once and search inside your own context.
 4. Fetch a specific record with MCP tool `get_agent_tool` or HTTP `/api/agent/tools/{slug}`.
 5. For additional candidates, request the next page only when the search result returns `hasMore: true`.
-6. Compare the weighted score model: machine operability 25%, agent safety 25%, readability 20%, auth/setup 15%, and production reliability 15%.
+6. Compare the weighted score models: agent readiness uses machine operability 25%, agent safety 25%, readability 20%, auth/setup 15%, and production reliability 15%; launch presence is computed separately from public adoption, ecosystem importance, distribution, and maintenance signals.
 7. Mention caution notes when the task involves money, production data, compliance, account setup, or irreversible actions.
 8. Prefer official evidence URLs and docs before recommending live usage.
 
@@ -129,5 +129,5 @@ curl -fsS 'https://canagentsuse.com/api/agent/tools/stripe'
 - Avoid polling loops. If a request fails or returns too little context, back off and retry later instead of hammering the endpoint.
 - Cache useful catalog/search results inside the agent session when comparing many tools.
 - Explain rankings with score groups and evidence, not only the top-level score.
-- Treat scores as discovery signals, not legal, security, purchasing, or compliance approval.
+- Treat agent and launch scores as discovery signals, not legal, security, purchasing, or compliance approval.
 - For live payments, customer data, account creation, and production changes, require human review.

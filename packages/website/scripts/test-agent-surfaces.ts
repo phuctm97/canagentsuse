@@ -10,6 +10,8 @@ import { GET as mcpDescriptorGet, POST as mcpPost } from "../src/app/api/mcp/rou
 import { GET as openApiGet } from "../src/app/openapi.json/route"
 import { GET as skillGet } from "../src/app/skill.md/route"
 import { canAgentsUseSkillMarkdown } from "../src/lib/agent-install"
+import { getDirectoryListData } from "../src/lib/directory"
+import { buildSubmitToolPrBody, emptySubmitToolInput } from "../src/lib/submit-tool"
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../../..")
 const rootSkillsDir = join(repoRoot, "skills")
@@ -26,8 +28,37 @@ async function main() {
   await testMcpSurface()
   await testOpenApiSurface()
   await testSkillSurface()
+  await testSubmitToolTemplate()
 
   console.log("Agent surface tests passed.")
+}
+
+async function testSubmitToolTemplate() {
+  const template = await readFile(
+    join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/add-tool.md"),
+    "utf8"
+  )
+
+  assert(
+    buildSubmitToolPrBody(emptySubmitToolInput) === template.trimEnd(),
+    "submit tool PR body matches GitHub add-tool template"
+  )
+  assert(
+    !template.includes("`agentScore` (0-100):"),
+    "submit template does not ask users to enter agentScore"
+  )
+  assert(
+    !template.includes("`launchScore` (0+):"),
+    "submit template does not ask users to enter launchScore"
+  )
+  assert(
+    template.includes("`launchSignals`:"),
+    "submit template asks users for launchSignals"
+  )
+  assert(
+    template.includes("`bun run catalog:format`"),
+    "submit template asks users to format the catalog"
+  )
 }
 
 async function testInstallApi() {
@@ -48,11 +79,20 @@ async function testInstallApi() {
 }
 
 async function testCatalogSearchAndToolApi() {
+  const directory = await getDirectoryListData()
+  assertToolsSortedByScore(directory.tools, "website directory tools")
+
   const catalog = await json<Record<string, unknown>>(await catalogGet())
   const tools = readPath(catalog, ["tools"])
 
   assert(Array.isArray(tools) && tools.length > 1000, "catalog API returns full catalog")
+  assertToolsSortedByScore(tools, "catalog API tools")
   assert(readPath(catalog, ["site", "endpoints", "installJson"]) === "https://canagentsuse.com/api/agent/install", "catalog advertises install JSON")
+
+  const topSearch = await json<Record<string, unknown>>(
+    await searchGet(new Request("https://canagentsuse.test/api/agent/search?page=1&limit=10"))
+  )
+  assertToolsSortedByScore(readPath(topSearch, ["tools"]), "search API top tools")
 
   const search = await json<Record<string, unknown>>(
     await searchGet(new Request("https://canagentsuse.test/api/agent/search?q=stripe&page=1&limit=5"))
@@ -60,6 +100,7 @@ async function testCatalogSearchAndToolApi() {
   assert(readPath(search, ["query"]) === "stripe", "search API normalizes query")
   assert(readPath(search, ["limit"]) === 5, "search API respects limit")
   assertToolSlug(search, "stripe", "search API can find Stripe")
+  assertToolsSortedByScore(readPath(search, ["tools"]), "search API query tools")
 
   const stripe = await json<Record<string, unknown>>(
     await toolGet(new Request("https://canagentsuse.test/api/agent/tools/stripe"), {
@@ -68,6 +109,14 @@ async function testCatalogSearchAndToolApi() {
   )
   assert(readPath(stripe, ["tool", "slug"]) === "stripe", "tool API returns Stripe by slug")
   assert(readPath(stripe, ["tool", "scoreBreakdown"]) !== undefined, "tool API returns score breakdown")
+  assert(
+    readPath(stripe, ["tool", "agentScore"]) === readPath(stripe, ["tool", "scoreBreakdown", "score"]),
+    "tool API derives agentScore from score breakdown"
+  )
+  assert(
+    readPath(stripe, ["tool", "launchScore"]) === readPath(stripe, ["tool", "launchScoreBreakdown", "score"]),
+    "tool API derives launchScore from launch score breakdown"
+  )
 
   const missing = await toolGet(new Request("https://canagentsuse.test/api/agent/tools/nope"), {
     params: Promise.resolve({ slug: "not-a-real-tool" }),
@@ -100,6 +149,20 @@ async function testMcpSurface() {
     "MCP install guide tool returns structured CLI guidance"
   )
 
+  const catalogTool = await mcp({
+    jsonrpc: "2.0",
+    id: 20,
+    method: "tools/call",
+    params: {
+      name: "get_agent_catalog",
+      arguments: {},
+    },
+  })
+  assertToolsSortedByScore(
+    readPath(catalogTool, ["result", "structuredContent", "tools"]),
+    "MCP catalog tool tools"
+  )
+
   const search = await mcp({
     jsonrpc: "2.0",
     id: 3,
@@ -113,6 +176,10 @@ async function testMcpSurface() {
     },
   })
   assertToolSlug(readPath(search, ["result", "structuredContent"]), "stripe", "MCP search finds Stripe")
+  assertToolsSortedByScore(
+    readPath(search, ["result", "structuredContent", "tools"]),
+    "MCP search tools"
+  )
 
   const resource = await mcp({
     jsonrpc: "2.0",
@@ -128,6 +195,21 @@ async function testMcpSurface() {
   assert(first.mimeType === "application/json", "MCP install resource is JSON")
   const parsed = JSON.parse(String(first.text)) as Record<string, unknown>
   assert(readPath(parsed, ["skills", "primarySkill"]) === "can-agents-use", "MCP install resource includes primary skill")
+
+  const catalogResource = await mcp({
+    jsonrpc: "2.0",
+    id: 6,
+    method: "resources/read",
+    params: {
+      uri: "canagentsuse://catalog",
+    },
+  })
+  const catalogContents = readPath(catalogResource, ["result", "contents"])
+  assert(Array.isArray(catalogContents), "MCP catalog resource returns contents")
+  const catalogFirst = catalogContents[0] as Record<string, unknown>
+  assert(catalogFirst.mimeType === "application/json", "MCP catalog resource is JSON")
+  const parsedCatalog = JSON.parse(String(catalogFirst.text)) as Record<string, unknown>
+  assertToolsSortedByScore(readPath(parsedCatalog, ["tools"]), "MCP catalog resource tools")
 
   const missingTool = await mcp({
     jsonrpc: "2.0",
@@ -219,6 +301,22 @@ function assertToolSlug(value: unknown, slug: string, message: string) {
     Array.isArray(tools) && tools.some((tool) => readPath(tool, ["slug"]) === slug),
     message
   )
+}
+
+function assertToolsSortedByScore(value: unknown, label: string) {
+  assert(Array.isArray(value), `${label} is an array`)
+
+  for (let index = 1; index < value.length; index += 1) {
+    const previousScore = readPath(value[index - 1], ["agentScore"])
+    const currentScore = readPath(value[index], ["agentScore"])
+
+    assert(typeof previousScore === "number", `${label} item ${index} has previous score`)
+    assert(typeof currentScore === "number", `${label} item ${index + 1} has score`)
+    assert(
+      previousScore >= currentScore,
+      `${label} is sorted by descending agentScore at positions ${index} and ${index + 1}`
+    )
+  }
 }
 
 function assertNamedItem(value: unknown, expected: string, message: string, key = "name") {

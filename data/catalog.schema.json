@@ -86,13 +86,24 @@
         "authModel",
         "accountCreation",
         "browserSupport",
-        "agentScore",
-        "launchScore",
+        "launchSignals",
         "categorySlugs",
         "useCaseSlugs",
         "capabilities"
       ],
       "additionalProperties": true,
+      "allOf": [
+        {
+          "not": {
+            "required": ["agentScore"]
+          }
+        },
+        {
+          "not": {
+            "required": ["launchScore"]
+          }
+        }
+      ],
       "properties": {
         "slug": { "$ref": "#/$defs/slug" },
         "name": { "type": "string", "minLength": 1 },
@@ -111,8 +122,7 @@
         "cliPackage": { "type": ["string", "null"] },
         "apiBaseUrl": { "type": ["string", "null"] },
         "mcpServer": { "type": ["string", "null"] },
-        "agentScore": { "type": "number", "minimum": 0, "maximum": 100 },
-        "launchScore": { "type": "number", "minimum": 0 },
+        "launchSignals": { "$ref": "#/$defs/launchSignals" },
         "isFeatured": { "type": "boolean" },
         "submittedBy": { "type": "string" },
         "categorySlugs": {
@@ -132,6 +142,46 @@
             "$ref": "#/$defs/toolCapability"
           }
         }
+      }
+    },
+    "launchSignals": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "adoptionTier": {
+          "type": "string",
+          "enum": [
+            "category-leader",
+            "major-platform",
+            "established-platform",
+            "established-product",
+            "growing-product",
+            "niche-tool",
+            "early-tool"
+          ]
+        },
+        "ecosystemImportance": {
+          "type": "string",
+          "enum": [
+            "core-platform",
+            "business-critical",
+            "developer-tooling",
+            "specialized",
+            "niche",
+            "unknown"
+          ]
+        },
+        "githubStars": { "type": ["number", "null"], "minimum": 0 },
+        "packageDownloadsMonthly": { "type": ["number", "null"], "minimum": 0 },
+        "maturity": {
+          "type": "string",
+          "enum": ["active", "maintained", "unknown"]
+        },
+        "distribution": {
+          "type": "string",
+          "enum": ["auto", "none"]
+        },
+        "evidenceUrl": { "type": ["string", "null"] }
       }
     },
     "toolCapability": {

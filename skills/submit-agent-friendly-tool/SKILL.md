@@ -50,11 +50,20 @@ Fill these fields from evidence:
 - `cliPackage`
 - `apiBaseUrl`
 - `mcpServer`
-- `agentScore`
-- `launchScore`
+- `launchSignals`
 - `categorySlugs`
 - `useCaseSlugs`
 - `capabilities`
+
+`launchSignals` is used to compute `launchScore`. Fill the public signals you can verify:
+
+- `adoptionTier`: `category-leader`, `major-platform`, `established-platform`, `established-product`, `growing-product`, `niche-tool`, or `early-tool`
+- `ecosystemImportance`: `core-platform`, `business-critical`, `developer-tooling`, `specialized`, `niche`, or `unknown`
+- `githubStars`: public GitHub stars when relevant
+- `packageDownloadsMonthly`: public package download volume when relevant
+- `maturity`: `active`, `maintained`, or `unknown`
+- `distribution`: usually `auto`; use `none` only for generated/imported records where distribution should not affect launch presence
+- `evidenceUrl`: official or public source for the launch signals
 
 Each capability must include:
 
@@ -80,6 +89,7 @@ Each capability must include:
 Run:
 
 ```bash
+bun run catalog:format
 bun run catalog:audit
 bun run build
 git diff --check
@@ -89,6 +99,6 @@ git diff --check
 
 - Do not add secrets, database credentials, Docker/Neon setup, generated build output, or unrelated refactors.
 - Do not invent evidence. Use `null`, `unknown`, or clear caution notes when evidence is missing.
-- Score conservatively from evidence, not marketing claims.
+- Fill capability evidence and `launchSignals`; app surfaces compute score fields from those inputs.
 - Add caution notes for money, production data, accounts, compliance, infrastructure, browser-only flows, brittle automation, or irreversible actions.
 - GitHub's prefilled PR composer requires the head branch to exist, so push the branch before opening the PR.

@@ -31,7 +31,7 @@ credentials, local setup, or write access.
 | `canagentsuse catalog` | Show catalog counts or print the full JSON catalog with `--json`. |
 | `canagentsuse mcp-config` | Print copyable MCP config for agents. |
 | `canagentsuse install-guide` | Fetch structured setup guidance for CLI, MCP, skills, API, and Markdown use. |
-| `canagentsuse score-model` | Print the score model used for ranking. |
+| `canagentsuse score-model` | Print the agent-readiness and launch-presence score models used for ranking. |
 | `canagentsuse docs` | List all agent-facing surfaces. |
 
 Setup supports Claude Code, Cursor, Codex, OpenCode, Gemini CLI, and the

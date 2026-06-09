@@ -10,6 +10,8 @@
     "dev": "cd packages/website && bun run dev",
     "build": "cd packages/website && bun run build",
     "start": "cd packages/website && bun run start",
+    "catalog:format": "node scripts/format-catalog.mjs",
+    "catalog:format:check": "node scripts/format-catalog.mjs --check",
     "catalog:audit": "cd packages/website && bun run catalog:audit",
     "website:dev": "cd packages/website && bun run dev",
     "website:build": "cd packages/website && bun run build",
@@ -28,7 +30,7 @@
     "changeset:version": "changeset version && bun run release:sync-cli-version",
     "changeset:publish": "changeset publish",
     "typecheck": "bun run website:typecheck && bun run cli:typecheck",
-    "check": "bun run typecheck && bun run catalog:audit && bun run agent-surfaces:test && bun run cli:test && bun run build",
+    "check": "bun run typecheck && bun run catalog:format:check && bun run catalog:audit && bun run agent-surfaces:test && bun run cli:test && bun run build",
     "validate": "bun run check && bun run cli:pack && git diff --check",
     "validate:ci": "bun run validate && node scripts/validate-commit.mjs"
   },

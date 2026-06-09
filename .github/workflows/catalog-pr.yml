@@ -1,0 +1,51 @@
+name: Catalog PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: catalog-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  catalog:
+    name: Format And Validate Catalog
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          package-manager-cache: false
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Format catalog JSON
+        run: bun run catalog:format
+
+      - name: Verify catalog JSON is canonical
+        run: |
+          if ! git diff --exit-code -- data/catalog.json; then
+            echo "::error file=data/catalog.json::Catalog JSON is not formatted. Run: bun run catalog:format"
+            exit 1
+          fi
+
+      - name: Audit catalog metadata
+        run: bun run catalog:audit
+
+      - name: Typecheck catalog consumers
+        run: bun run website:typecheck

@@ -1,5 +1,7 @@
 import catalog from "../../../../data/catalog.json"
 
+import type { LaunchSignals } from "@/lib/launch-scoring"
+
 export type CatalogCategory = {
   slug: string
   name: string
@@ -39,8 +41,7 @@ export type CatalogTool = {
   cliPackage?: string | null
   apiBaseUrl?: string | null
   mcpServer?: string | null
-  agentScore: number
-  launchScore: number
+  launchSignals: LaunchSignals
   isFeatured?: boolean
   submittedBy?: string
   categorySlugs: string[]

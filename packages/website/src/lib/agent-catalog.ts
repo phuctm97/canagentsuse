@@ -11,6 +11,11 @@ import {
   agentScoreWeights,
   type AgentScoreBreakdown,
 } from "@/lib/agent-scoring"
+import {
+  launchScoreModel,
+  type LaunchScoreBreakdown,
+  type LaunchSignals,
+} from "@/lib/launch-scoring"
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site"
 
 export const agentInterfaceVersion = "2026-06-08"
@@ -37,7 +42,9 @@ export type AgentTool = {
   agentScore: number
   agentTier: string
   scoreBreakdown: AgentScoreBreakdown
+  launchSignals: LaunchSignals
   launchScore: number
+  launchScoreBreakdown: LaunchScoreBreakdown
   isFeatured: boolean
   categories: DirectoryCategory[]
   useCases: DirectoryUseCase[]
@@ -53,6 +60,7 @@ export type AgentCatalog = {
     source: "catalog-json" | "sample"
     guidance: string[]
     scoreModel: typeof agentScoreWeights
+    launchScoreModel: typeof launchScoreModel
     endpoints: Record<string, string>
   }
   tools: AgentTool[]
@@ -108,7 +116,13 @@ export async function searchAgentTools(options: AgentSearchOptions) {
       rank: scoreTool(tool, query, category, capability),
     }))
     .filter(({ rank }) => rank > 0)
-    .sort((left, right) => right.rank - left.rank || right.tool.agentScore - left.tool.agentScore)
+    .sort(
+      (left, right) =>
+        right.tool.agentScore - left.tool.agentScore ||
+        right.rank - left.rank ||
+        right.tool.launchScore - left.tool.launchScore ||
+        left.tool.name.localeCompare(right.tool.name)
+    )
     .map(({ tool }) => tool)
   const total = rankedTools.length
   const totalPages = Math.max(1, Math.ceil(total / limit))
@@ -173,6 +187,14 @@ export function catalogToMarkdown(catalog: AgentCatalog, options?: { full?: bool
           .map((signal) => signal.label)
           .join(", ")})`
     ),
+    "",
+    "## Launch Score Model",
+    "",
+    `- Base score: ${launchScoreModel.baseScore}`,
+    ...launchScoreModel.groups.map(
+      (group) => `- ${group.label}: up to ${group.maxScore} points`
+    ),
+    "- Launch scores are computed from structured launchSignals and catalog evidence.",
   ]
 
   if (options?.full) {
@@ -204,6 +226,7 @@ export function catalogToMarkdown(catalog: AgentCatalog, options?: { full?: bool
         `- Docs: ${tool.docsUrl ?? "Not listed"}`,
         `- Agent score: ${tool.agentScore}`,
         `- Agent tier: ${tool.agentTier}`,
+        `- Launch score: ${tool.launchScore}`,
         `- Categories: ${tool.categories.map((item) => item.name).join(", ")}`,
         `- Use cases: ${tool.useCases.map((item) => item.name).join(", ")}`,
         `- Best for: ${tool.bestFor}`,
@@ -478,6 +501,9 @@ export function openApiDocument(catalog: AgentCatalog) {
             "agentScore",
             "agentTier",
             "scoreBreakdown",
+            "launchSignals",
+            "launchScore",
+            "launchScoreBreakdown",
             "categories",
             "capabilities",
           ],
@@ -507,7 +533,17 @@ export function openApiDocument(catalog: AgentCatalog) {
             agentScore: { type: "integer" },
             agentTier: { type: "string" },
             scoreBreakdown: { type: "object" },
-            launchScore: { type: "integer" },
+            launchSignals: {
+              type: "object",
+              description:
+                "Structured launch presence inputs used to compute launchScore.",
+            },
+            launchScore: {
+              type: "integer",
+              description:
+                "Computed launch presence score used as a secondary ranking signal after agentScore.",
+            },
+            launchScoreBreakdown: { type: "object" },
             isFeatured: { type: "boolean" },
             categories: { type: "array", items: { type: "object" } },
             useCases: { type: "array", items: { type: "object" } },
@@ -586,6 +622,7 @@ function toAgentCatalog(data: DirectoryData): AgentCatalog {
         "Use caution notes for live money, production data, account, and compliance workflows.",
       ],
       scoreModel: agentScoreWeights,
+      launchScoreModel,
       endpoints: {
         llms: `${SITE_URL}/llms.txt`,
         llmsFull: `${SITE_URL}/llms-full.txt`,
@@ -629,7 +666,9 @@ function toAgentTool(tool: DirectoryTool): AgentTool {
     agentScore: tool.agentScore,
     agentTier: tool.agentTier,
     scoreBreakdown: tool.scoreBreakdown,
+    launchSignals: tool.launchSignals,
     launchScore: tool.launchScore,
+    launchScoreBreakdown: tool.launchScoreBreakdown,
     isFeatured: tool.isFeatured,
     categories: tool.categories,
     useCases: tool.useCases,
@@ -647,7 +686,7 @@ function scoreTool(tool: AgentTool, query: string, category: string, capability:
   }
 
   if (!query) {
-    return tool.agentScore
+    return 1
   }
 
   const queryTokens = tokenizeQuery(query)
