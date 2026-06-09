@@ -1,5 +1,11 @@
 # @canagentsuse/website
 
+## 0.1.7
+
+### Patch Changes
+
+- 1c72679: Compute agent-readiness scores from the scoring model instead of storing them in catalog records, sort returned tool lists by highest computed score first, and align add-tool submission templates around evidence-first fields.
+
 ## 0.1.6
 
 ### Patch Changes
