@@ -12,6 +12,7 @@
     "start": "cd packages/website && bun run start",
     "catalog:build": "node scripts/build-catalog.mjs",
     "catalog:build:check": "node scripts/build-catalog.mjs --check",
+    "catalog:pr:check": "node scripts/validate-catalog-pr.mjs",
     "catalog:source:check": "node scripts/validate-catalog-sources.mjs",
     "catalog:format": "node scripts/format-catalog.mjs && bun run catalog:build",
     "catalog:format:check": "node scripts/format-catalog.mjs --check",

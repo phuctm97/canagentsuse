@@ -128,12 +128,34 @@ jobs:
       - name: Open or update version packages PR
         if: steps.plan.outputs.has_plan == 'true'
         id: changesets
+        continue-on-error: true
         uses: changesets/action@v1
         with:
           github-token: ${{ github.token }}
           version: bun run changeset:version
           title: Version Packages
           commit: Version packages
+
+      - name: Verify version branch fallback
+        if: steps.plan.outputs.has_plan == 'true' && steps.changesets.outcome == 'failure'
+        id: version_pr_fallback
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_BRANCH: changeset-release/main
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          if ! git ls-remote --exit-code origin "refs/heads/${RELEASE_BRANCH}" >/dev/null; then
+            echo "changesets/action failed before pushing ${RELEASE_BRANCH}."
+            exit 1
+          fi
+
+          pr_json="$(gh pr list --state open --head "${RELEASE_BRANCH}" --json number,url --jq '.[0] // empty' || true)"
+          if [ -n "$pr_json" ]; then
+            echo "number=$(printf '%s' "$pr_json" | node -e 'let s=\"\";process.stdin.on(\"data\",d=>s+=d);process.stdin.on(\"end\",()=>console.log(JSON.parse(s).number))')" >> "$GITHUB_OUTPUT"
+            echo "url=$(printf '%s' "$pr_json" | node -e 'let s=\"\";process.stdin.on(\"data\",d=>s+=d);process.stdin.on(\"end\",()=>console.log(JSON.parse(s).url))')" >> "$GITHUB_OUTPUT"
+          else
+            echo "manual_url=https://github.com/${REPOSITORY}/pull/new/${RELEASE_BRANCH}" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Detect merged version release
         if: steps.plan.outputs.has_plan != 'true'
@@ -205,6 +227,10 @@ jobs:
         env:
           HAS_PLAN: ${{ steps.plan.outputs.has_plan }}
           VERSION_PR: ${{ steps.changesets.outputs.pullRequestNumber }}
+          VERSION_PR_OUTCOME: ${{ steps.changesets.outcome }}
+          FALLBACK_VERSION_PR: ${{ steps.version_pr_fallback.outputs.number }}
+          FALLBACK_VERSION_PR_URL: ${{ steps.version_pr_fallback.outputs.url }}
+          FALLBACK_MANUAL_URL: ${{ steps.version_pr_fallback.outputs.manual_url }}
           HAS_RELEASE: ${{ steps.versioned.outputs.has_release }}
           CLI_RELEASE: ${{ steps.versioned.outputs.cli }}
           CLI_VERSION: ${{ steps.versioned.outputs.cli_version }}
@@ -219,9 +245,20 @@ jobs:
           const lines = ["", "## Release result", ""]
 
           if (process.env.HAS_PLAN === "true") {
-            lines.push("A Version Packages PR was opened or updated.")
             if (process.env.VERSION_PR) {
+              lines.push("A Version Packages PR was opened or updated.")
               lines.push(`- Version PR: #${process.env.VERSION_PR}`)
+            } else if (process.env.FALLBACK_VERSION_PR) {
+              lines.push("A Version Packages branch was pushed and an existing PR is available.")
+              lines.push(`- Version PR: #${process.env.FALLBACK_VERSION_PR}`)
+              if (process.env.FALLBACK_VERSION_PR_URL) {
+                lines.push(`- Version PR URL: ${process.env.FALLBACK_VERSION_PR_URL}`)
+              }
+            } else if (process.env.FALLBACK_MANUAL_URL) {
+              lines.push("A Version Packages branch was pushed, but this repository does not allow GitHub Actions to create pull requests.")
+              lines.push(`- Open the version PR manually: ${process.env.FALLBACK_MANUAL_URL}`)
+            } else if (process.env.VERSION_PR_OUTCOME === "failure") {
+              lines.push("Version Packages PR creation failed before a fallback branch could be verified.")
             }
           } else if (process.env.HAS_RELEASE === "true") {
             lines.push("Merged version package changes were released.")
