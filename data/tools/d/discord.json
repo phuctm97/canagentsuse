@@ -1,0 +1,69 @@
+{
+  "slug": "discord",
+  "name": "Discord",
+  "tagline": "Communities, bots, interactions, webhooks, and REST/Gateway APIs.",
+  "websiteUrl": "https://discord.com",
+  "docsUrl": "https://docs.discord.com",
+  "githubUrl": "https://github.com/discord/discord-api-docs",
+  "shortDescription": "Discord exposes bot, interaction, application command, webhook, REST, and Gateway APIs with public docs.",
+  "agentSummary": "Agents can build bots, slash commands, and community workflows when token permissions and moderation are constrained.",
+  "bestFor": "Community bots, support servers, internal chatops, and event-driven workflows.",
+  "cautionNotes": "Key limitations: Posting, moderation, and member data require clear permissions and rate-limit handling. Outbound messages, SMS, email deliverability, consent, unsubscribe behavior, private chats, and customer-facing replies need approval, throttling, and audit logs. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Developer API is generally free; app monetization and premium features have separate rules.",
+  "authModel": "Bot tokens, OAuth2, application commands, permissions, and webhook URLs.",
+  "accountCreation": "Self-serve developer app creation.",
+  "browserSupport": "Developer portal and server UI are needed for app setup and permissions.",
+  "apiBaseUrl": "https://discord.com/api/v10",
+  "categorySlugs": [
+    "email-messaging",
+    "social-media"
+  ],
+  "useCaseSlugs": [
+    "publish-content",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST API and Gateway support bots, interactions, webhooks, applications, and guild workflows.",
+      "evidenceUrl": "https://docs.discord.com/developers/reference"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Official docs include reference, changelog, OAuth, and interaction guides.",
+      "evidenceUrl": "https://docs.discord.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Developer API is generally free; app monetization and premium features have separate rules.",
+      "evidenceUrl": "https://docs.discord.com/developers/topics/rate-limits"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve developer app creation.",
+      "evidenceUrl": "https://discord.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "partial",
+      "detail": "Developer portal and server UI are needed for app setup and permissions.",
+      "evidenceUrl": "https://discord.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "Test servers and development apps allow safer bot testing."
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/discord/discord-api-docs"
+  }
+}

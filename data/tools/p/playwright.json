@@ -1,0 +1,78 @@
+{
+  "slug": "playwright",
+  "name": "Playwright",
+  "tagline": "Reliable browser automation for Chromium, Firefox, and WebKit.",
+  "websiteUrl": "https://playwright.dev",
+  "docsUrl": "https://playwright.dev/docs/intro",
+  "githubUrl": "https://github.com/microsoft/playwright",
+  "shortDescription": "A browser automation framework that agents can use for testing, scraping, visual QA, and logged-in workflows.",
+  "agentSummary": "Great local primitive for agents that need to see, click, type, screenshot, and validate web apps.",
+  "bestFor": "Browser QA, screenshots, UI flows, and deterministic web automation.",
+  "cautionNotes": "Key limitations: Anti-bot rules and human-sensitive websites need care. Respect robots.txt, site terms, rate limits, copyright, authentication boundaries, and anti-bot controls before asking an agent to crawl or extract content. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Browser automation can be brittle around UI changes, MFA, captchas, policy prompts, and hidden confirmation states.",
+  "pricingSummary": "Open source; infrastructure cost depends on where browsers run.",
+  "authModel": "No hosted account required for the local library.",
+  "accountCreation": "No account needed.",
+  "browserSupport": "It is browser automation.",
+  "cliPackage": "playwright",
+  "isFeatured": true,
+  "categorySlugs": [
+    "scraping-content",
+    "project-workflows"
+  ],
+  "useCaseSlugs": [
+    "extract-web-data",
+    "triage-work",
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "CLI supports install, test, codegen, screenshots, traces, and reports.",
+      "evidenceUrl": "https://playwright.dev/docs/intro"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include testing, locators, auth state, traces, and CI recipes.",
+      "evidenceUrl": "https://playwright.dev/docs/intro"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Open source; infrastructure cost depends on where browsers run.",
+      "evidenceUrl": "https://github.com/microsoft/playwright"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "native",
+      "detail": "No account needed.",
+      "evidenceUrl": "https://playwright.dev"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "native",
+      "detail": "Designed for direct browser operation and assertions.",
+      "evidenceUrl": "https://playwright.dev/docs/intro"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://playwright.dev/docs/intro"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Node, Python, Java, and .NET APIs expose browser control.",
+      "evidenceUrl": "https://playwright.dev/docs/intro"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/microsoft/playwright"
+  }
+}

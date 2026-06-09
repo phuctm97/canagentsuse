@@ -1,0 +1,69 @@
+{
+  "slug": "weaviate",
+  "name": "Weaviate",
+  "tagline": "Open-source AI-native vector database with REST, GraphQL, and gRPC.",
+  "websiteUrl": "https://weaviate.io",
+  "docsUrl": "https://docs.weaviate.io",
+  "githubUrl": "https://github.com/weaviate/weaviate",
+  "shortDescription": "Weaviate supports vector and hybrid search through REST, GraphQL, gRPC, cloud, and local deployments.",
+  "agentSummary": "Agents can manage collections, import objects, run hybrid/vector search, and choose local or cloud test environments.",
+  "bestFor": "AI-native vector search, hybrid retrieval, and local/cloud RAG workflows.",
+  "cautionNotes": "Key limitations: Schema changes, vectorizer configuration, and data deletion need review. Schema changes, migrations, deletes, backups, row-level security, and retention policies need explicit review before agents touch production data. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Open-source self-hosting plus public Weaviate Cloud pricing.",
+  "authModel": "API keys, OIDC, and cloud auth depending on deployment.",
+  "accountCreation": "Self-serve cloud signup or local Docker setup.",
+  "browserSupport": "Cloud console and docs support setup and inspection.",
+  "apiBaseUrl": "https://docs.weaviate.io/weaviate/api",
+  "categorySlugs": [
+    "search-rag",
+    "databases-storage"
+  ],
+  "useCaseSlugs": [
+    "build-rag"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Weaviate exposes REST, GraphQL, and gRPC APIs for management and search.",
+      "evidenceUrl": "https://docs.weaviate.io/weaviate/api"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs explain APIs, clients, deployment, and retrieval patterns.",
+      "evidenceUrl": "https://docs.weaviate.io"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Open-source self-hosting plus public Weaviate Cloud pricing.",
+      "evidenceUrl": "https://github.com/weaviate/weaviate"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve cloud signup or local Docker setup.",
+      "evidenceUrl": "https://weaviate.io"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Cloud console and docs support setup and inspection.",
+      "evidenceUrl": "https://weaviate.io"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Local Docker deployment supports safe experimentation.",
+      "evidenceUrl": "https://docs.weaviate.io/deploy/installation-guides/docker-installation"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/weaviate/weaviate"
+  }
+}

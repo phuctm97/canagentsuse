@@ -1,0 +1,77 @@
+{
+  "slug": "gitlab",
+  "name": "GitLab",
+  "tagline": "Git, issues, CI/CD, packages, API, CLI, and DevSecOps.",
+  "websiteUrl": "https://about.gitlab.com",
+  "docsUrl": "https://docs.gitlab.com",
+  "githubUrl": "https://gitlab.com/gitlab-org/gitlab",
+  "shortDescription": "GitLab provides REST and GraphQL APIs, glab CLI, CI/CD, issues, merge requests, packages, and deployments.",
+  "agentSummary": "Agents can manage repos, merge requests, issues, pipelines, and releases through CLI/API workflows.",
+  "bestFor": "Source control, CI/CD automation, issue triage, and release operations.",
+  "cautionNotes": "Key limitations: Repository permissions, pipeline variables, and destructive git operations need guardrails. Deploys, secret changes, IAM, billing, networking, deletes, and rollback paths have high production blast radius; require scoped credentials and review gates. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public SaaS/self-managed pricing with free and paid tiers.",
+  "authModel": "Personal/project/group access tokens, OAuth, deploy tokens, and roles.",
+  "accountCreation": "Self-serve SaaS signup or self-managed deployment.",
+  "browserSupport": "Browser UI is useful for reviews, pipelines, and permissions.",
+  "cliPackage": "glab",
+  "apiBaseUrl": "https://gitlab.com/api/v4",
+  "categorySlugs": [
+    "project-workflows",
+    "deployment-infra"
+  ],
+  "useCaseSlugs": [
+    "triage-work",
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "glab CLI supports issues, merge requests, pipelines, releases, and API calls.",
+      "evidenceUrl": "https://docs.gitlab.com/editor_extensions/gitlab_cli/"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST and GraphQL APIs cover projects, issues, merge requests, pipelines, and releases.",
+      "evidenceUrl": "https://docs.gitlab.com/api/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs are broad and versioned across SaaS/self-managed workflows.",
+      "evidenceUrl": "https://docs.gitlab.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public SaaS/self-managed pricing with free and paid tiers.",
+      "evidenceUrl": "https://about.gitlab.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve SaaS signup or self-managed deployment.",
+      "evidenceUrl": "https://about.gitlab.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Browser UI is useful for reviews, pipelines, and permissions.",
+      "evidenceUrl": "https://about.gitlab.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://docs.gitlab.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://gitlab.com/gitlab-org/gitlab"
+  }
+}

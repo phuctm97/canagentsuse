@@ -1,0 +1,61 @@
+{
+  "slug": "buffer",
+  "name": "Buffer",
+  "tagline": "Social scheduling API for multiple networks.",
+  "websiteUrl": "https://buffer.com",
+  "docsUrl": "https://support.buffer.com/article/859-does-buffer-have-an-api",
+  "shortDescription": "Buffer offers an API for publishing to many social networks, scheduling posts, and managing connected channels.",
+  "agentSummary": "Agents can schedule content through one interface, but media/network-specific requirements and approvals still matter.",
+  "bestFor": "Cross-network social scheduling, content calendars, and simple social automation.",
+  "cautionNotes": "Key limitations: Brand voice, platform policy, media requirements, and accidental posting need human approval. Posting, moderation, DMs, paid campaigns, platform policy, brand voice, and account reputation should stay human-reviewed for public or customer-facing actions. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Browser automation can be brittle around UI changes, MFA, captchas, policy prompts, and hidden confirmation states.",
+  "pricingSummary": "Public channel/team-based pricing with free plan.",
+  "authModel": "Buffer account auth and API access.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Calendar UI is useful for review and approval.",
+  "apiBaseUrl": "https://api.bufferapp.com",
+  "categorySlugs": [
+    "social-media"
+  ],
+  "useCaseSlugs": [
+    "publish-content"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "strong",
+      "detail": "Buffer documents API-supported posting across Instagram, Threads, LinkedIn, X, Facebook, TikTok, and more.",
+      "evidenceUrl": "https://support.buffer.com/article/859-does-buffer-have-an-api"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Official docs are listed for API behavior, authentication, limits, examples, and setup review.",
+      "evidenceUrl": "https://support.buffer.com/article/859-does-buffer-have-an-api"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public by channels and users.",
+      "evidenceUrl": "https://buffer.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://buffer.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Approval and calendar review are browser-first.",
+      "evidenceUrl": "https://support.buffer.com/article/859-does-buffer-have-an-api"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "specialized",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://support.buffer.com/article/859-does-buffer-have-an-api"
+  }
+}

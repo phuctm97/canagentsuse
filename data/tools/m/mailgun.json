@@ -1,0 +1,61 @@
+{
+  "slug": "mailgun",
+  "name": "Mailgun",
+  "tagline": "Email sending, validation, receiving, and deliverability APIs.",
+  "websiteUrl": "https://www.mailgun.com",
+  "docsUrl": "https://documentation.mailgun.com",
+  "shortDescription": "Mailgun exposes OpenAPI-described email APIs for sending, domains, events, routes, suppression lists, and validation.",
+  "agentSummary": "Agents can send and inspect email delivery flows through API endpoints with clear domain and event concepts.",
+  "bestFor": "Transactional email, inbound routes, email validation, and delivery analytics.",
+  "cautionNotes": "Key limitations: Sender reputation, compliance, and bulk sends need approval and throttling. Outbound messages, SMS, email deliverability, consent, unsubscribe behavior, private chats, and customer-facing replies need approval, throttling, and audit logs. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Account setup or elevated access may require vendor, admin, or compliance approval before an agent can operate independently.",
+  "pricingSummary": "Public monthly and usage-based email pricing.",
+  "authModel": "API keys, domain credentials, webhooks, and signatures.",
+  "accountCreation": "Self-serve signup with domain verification.",
+  "browserSupport": "Control panel is useful for domain setup, logs, and deliverability review.",
+  "apiBaseUrl": "https://api.mailgun.net/v3",
+  "categorySlugs": [
+    "email-messaging"
+  ],
+  "useCaseSlugs": [
+    "publish-content"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Mailgun API is documented with OpenAPI and covers messages, domains, events, routes, and keys.",
+      "evidenceUrl": "https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/messages"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include API reference, SDKs, webhooks, and deliverability guidance.",
+      "evidenceUrl": "https://documentation.mailgun.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public by monthly volume and features.",
+      "evidenceUrl": "https://www.mailgun.com/pricing/"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup with domain verification.",
+      "evidenceUrl": "https://www.mailgun.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "partial",
+      "detail": "Control panel is useful for domain setup, logs, and deliverability review.",
+      "evidenceUrl": "https://www.mailgun.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://documentation.mailgun.com"
+  }
+}

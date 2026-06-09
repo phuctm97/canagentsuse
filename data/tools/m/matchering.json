@@ -1,0 +1,71 @@
+{
+  "slug": "matchering",
+  "name": "Matchering",
+  "tagline": "Self-hosted automation software.",
+  "websiteUrl": "https://github.com/sergree/matchering",
+  "docsUrl": "https://github.com/sergree/matchering",
+  "githubUrl": "https://github.com/sergree/matchering",
+  "shortDescription": "Automated music mastering (alternative to LANDR, eMastered and MajorDecibel).",
+  "agentSummary": "Matchering is self-hostable software from the Awesome Selfhosted data index. Agents can inspect the source, deploy it in a controlled environment, and operate the browser UI; API or CLI support should be verified in project docs.",
+  "bestFor": "Self-hosted automation workflows, internal tools, and controlled deployment experiments.",
+  "cautionNotes": "Key limitations: generated from community metadata, not a full security review. Verify maintenance activity, license, deployment docs, auth model, backup and restore path, update process, API or CLI support, and data exposure before production agent automation. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Browser automation can be brittle around UI changes, MFA, captchas, policy prompts, and hidden confirmation states.",
+  "pricingSummary": "Self-hosted/open-source licensing listed as GPL-3.0; infrastructure costs vary by deployment.",
+  "authModel": "Auth and permissions depend on the deployed app configuration; platform metadata: Docker. Source code: https://github.com/sergree/matchering",
+  "accountCreation": "No vendor signup is required for self-hosted use, but deployment and admin setup are required.",
+  "browserSupport": "Browser UI can be operated after deployment; exact flows depend on the app configuration.",
+  "submittedBy": "Generated from Awesome Selfhosted data",
+  "categorySlugs": [
+    "self-hosted",
+    "selfhosted-automation"
+  ],
+  "useCaseSlugs": [
+    "self-host-tool",
+    "inspect-open-source",
+    "deploy-internal-tool"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "partial",
+      "detail": "Metadata suggests an API, server, integration, or automation surface; verify exact endpoints in project docs.",
+      "evidenceUrl": "https://github.com/sergree/matchering"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Self-hosted web app can be operated through a browser once deployed.",
+      "evidenceUrl": "https://github.com/sergree/matchering"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Self-hosted/open-source licensing makes software cost inspectable; infrastructure cost depends on deployment.",
+      "evidenceUrl": "https://github.com/sergree/matchering"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "partial",
+      "detail": "No vendor signup is required for self-hosted use, but deployment, admin setup, and local auth configuration are usually required.",
+      "evidenceUrl": "https://github.com/sergree/matchering"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "partial",
+      "detail": "Project website or source repository is listed for documentation and deployment review.",
+      "evidenceUrl": "https://github.com/sergree/matchering"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Self-hosted deployment supports local, staging, or disposable test environments before production use.",
+      "evidenceUrl": "https://github.com/sergree/matchering"
+    }
+  ],
+  "launchSignals": {
+    "githubStars": 2400,
+    "ecosystemImportance": "unknown",
+    "maturity": "maintained",
+    "distribution": "none",
+    "evidenceUrl": "https://github.com/sergree/matchering"
+  }
+}

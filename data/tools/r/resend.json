@@ -1,0 +1,63 @@
+{
+  "slug": "resend",
+  "name": "Resend",
+  "tagline": "Transactional email for developers.",
+  "websiteUrl": "https://resend.com",
+  "docsUrl": "https://resend.com/docs",
+  "githubUrl": "https://github.com/resend",
+  "shortDescription": "A developer-friendly email API with clear docs, SDKs, domains, audiences, and broadcasts.",
+  "agentSummary": "Good for agents that need to wire transactional email and inspect delivery paths quickly.",
+  "bestFor": "Transactional email, onboarding emails, and product notifications.",
+  "cautionNotes": "Key limitations: Domain verification and deliverability settings are human-sensitive. Outbound messages, SMS, email deliverability, consent, unsubscribe behavior, private chats, and customer-facing replies need approval, throttling, and audit logs. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Browser automation can be brittle around UI changes, MFA, captchas, policy prompts, and hidden confirmation states. Account setup or elevated access may require vendor, admin, or compliance approval before an agent can operate independently.",
+  "pricingSummary": "Public pricing with free and paid email volume tiers.",
+  "authModel": "API keys and domain verification.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Dashboard helps with API keys, domains, logs, and broadcasts.",
+  "apiBaseUrl": "https://api.resend.com",
+  "categorySlugs": [
+    "email-messaging"
+  ],
+  "useCaseSlugs": [
+    "publish-content",
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Email send, audiences, contacts, domains, and API keys are documented.",
+      "evidenceUrl": "https://resend.com/docs"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "native",
+      "detail": "Official docs are listed for API behavior, authentication, limits, examples, and setup review.",
+      "evidenceUrl": "https://resend.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Volume pricing is easy to inspect.",
+      "evidenceUrl": "https://resend.com/docs"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://resend.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard is useful for logs and domain setup.",
+      "evidenceUrl": "https://resend.com/docs"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "growing-product",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/resend"
+  }
+}

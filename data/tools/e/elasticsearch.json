@@ -1,0 +1,70 @@
+{
+  "slug": "elasticsearch",
+  "name": "Elasticsearch",
+  "tagline": "Search and analytics engine with APIs, clients, and Elastic Cloud.",
+  "websiteUrl": "https://www.elastic.co/elasticsearch",
+  "docsUrl": "https://www.elastic.co/docs",
+  "githubUrl": "https://github.com/elastic/elasticsearch",
+  "shortDescription": "Elasticsearch exposes extensive search, indexing, vector, observability, and cluster APIs.",
+  "agentSummary": "Agents can query, index, inspect, and automate search clusters if permissions and destructive actions are constrained.",
+  "bestFor": "Search infrastructure, log search, vector search, and analytics-heavy retrieval.",
+  "cautionNotes": "Key limitations: Cluster operations and index deletion are high-impact; use scoped credentials and dry-run checks. Issue resolution, alert muting, analytics interpretation, PII in logs, sampling, and retention settings can hide incidents or expose user data if automated too broadly. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Open-source/self-managed options plus public Elastic Cloud pricing.",
+  "authModel": "API keys, service accounts, users, roles, and cloud auth.",
+  "accountCreation": "Self-serve Elastic Cloud signup or local deployment.",
+  "browserSupport": "Kibana is useful for inspection, dashboards, and safe query iteration.",
+  "apiBaseUrl": "https://www.elastic.co/docs/api",
+  "categorySlugs": [
+    "search-rag",
+    "observability"
+  ],
+  "useCaseSlugs": [
+    "build-rag",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Elastic API docs cover search, indexing, security, cluster, and vector operations.",
+      "evidenceUrl": "https://www.elastic.co/docs/api"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs are broad and versioned for stack components.",
+      "evidenceUrl": "https://www.elastic.co/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Open-source/self-managed options plus public Elastic Cloud pricing.",
+      "evidenceUrl": "https://github.com/elastic/elasticsearch"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve Elastic Cloud signup or local deployment.",
+      "evidenceUrl": "https://www.elastic.co/elasticsearch"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Kibana is useful for inspection, dashboards, and safe query iteration.",
+      "evidenceUrl": "https://www.elastic.co/elasticsearch"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Local Docker and trial cloud deployments support safe testing.",
+      "evidenceUrl": "https://www.elastic.co/docs/deploy-manage/deploy/self-managed/install-elasticsearch-docker-basic"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/elastic/elasticsearch"
+  }
+}

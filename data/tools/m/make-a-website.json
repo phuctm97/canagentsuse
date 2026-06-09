@@ -1,0 +1,62 @@
+{
+  "slug": "make-a-website",
+  "name": "Make A Website",
+  "tagline": "Build and host a real website from a description.",
+  "websiteUrl": "https://makeawebsite.app",
+  "docsUrl": "https://agents.makeawebsite.app/api.md",
+  "githubUrl": null,
+  "shortDescription": "Turns a plain-text description into a real, hosted single-page website — hosting, a custom domain, HTTPS, web analytics, and a contact form all included.",
+  "agentSummary": "Lets an agent build and manage a user's website end to end over a REST API: create a site from a description, poll the asynchronous build, make iterative changes, read web analytics and contact-form submissions, and connect a custom domain. The agent links into the user's existing account (approved in the iOS app) and acts on their behalf; it spends the user's plan and cannot pay. OpenAPI is at https://api.makeawebsite.app/openapi.yml and agent discovery at https://agents.makeawebsite.app/llms.txt.",
+  "bestFor": "Single-page sites — business landing and intro pages, restaurants, cafes, local businesses, coming-soon and contact pages.",
+  "cautionNotes": "The agent acts on the user's account and spends their plan (free tier is one website; Pro and consumable Fast Passes are billed via Apple in-app purchase). The agent cannot pay — on a plan limit the API returns HTTP 402 with an upgrade_url the user completes in the iOS app. Account linking requires the user's explicit in-app approval; an agent cannot self-signup. The human steps (approval, payment) are iOS-app only.",
+  "pricingSummary": "Free tier includes one website; Pro subscription unlocks unlimited sites and longer analytics history; consumable Fast Passes give instant builds. Billing is via Apple in-app purchase on the user's account.",
+  "authModel": "Delegated bearer tokens via an OAuth 2.0 device-authorization flow: the agent calls /agents/link/start, the user approves the shown code in the Make A Website iOS app, and /agents/link/poll returns a maw_agt_live_ token sent as Authorization: Bearer. The agent acts on the user's behalf and the token is revocable in the app.",
+  "accountCreation": "No agent self-signup. The agent links into a user's existing account, which the user approves in the Make A Website iOS app; users create their account by installing the app.",
+  "browserSupport": "Not required — the full agent surface is a JSON REST API. The only human steps (approving the link and paying) happen in the iOS app, not a browser.",
+  "cliPackage": null,
+  "apiBaseUrl": "https://api.makeawebsite.app/api/v1",
+  "mcpServer": null,
+  "submittedBy": "Make A Website",
+  "categorySlugs": [
+    "deployment-infra"
+  ],
+  "useCaseSlugs": [
+    "publish-content",
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST API at /api/v1 with an OpenAPI 3.1 spec: create/list/get/edit/delete sites, make changes, poll status, read analytics and form submissions, and connect custom domains.",
+      "evidenceUrl": "https://api.makeawebsite.app/openapi.yml"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Agent-focused discovery and docs: llms.txt, a markdown API reference, OpenAPI, an api-catalog, and a DNS-AID record at agents.makeawebsite.app.",
+      "evidenceUrl": "https://agents.makeawebsite.app/api.md"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "partial",
+      "detail": "The agent links into a user's existing account via a device-authorization flow; the user must approve in the iOS app. No agent self-signup.",
+      "evidenceUrl": "https://agents.makeawebsite.app/llms.txt"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "partial",
+      "detail": "Free tier is one site; Pro plus consumable Fast Passes via Apple in-app purchase. The agent spends the user's plan and a 402 surfaces an upgrade link.",
+      "evidenceUrl": "https://agents.makeawebsite.app/api.md"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "early-tool",
+    "ecosystemImportance": "specialized",
+    "maturity": "active",
+    "githubStars": null,
+    "packageDownloadsMonthly": null,
+    "distribution": "none",
+    "evidenceUrl": "https://makeawebsite.app"
+  }
+}

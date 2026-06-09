@@ -1,0 +1,65 @@
+{
+  "slug": "romm",
+  "name": "RomM",
+  "tagline": "Self-hosted games - administrative utilities & control panels software.",
+  "websiteUrl": "https://romm.app/",
+  "docsUrl": "https://github.com/rommapp/romm",
+  "githubUrl": "https://github.com/rommapp/romm",
+  "shortDescription": "ROM manager for organizing, enriching, and playing retro games, with support for 400+ platforms.",
+  "agentSummary": "RomM is self-hostable software from the Awesome Selfhosted data index. Agents can inspect the source, deploy it in a controlled environment, and operate the browser UI; API or CLI support should be verified in project docs.",
+  "bestFor": "Self-hosted games - administrative utilities & control panels workflows, internal tools, and controlled deployment experiments.",
+  "cautionNotes": "Key limitations: generated from community metadata, not a full security review. Verify maintenance activity, license, deployment docs, auth model, backup and restore path, update process, API or CLI support, and data exposure before production agent automation. Browser automation can be brittle around UI changes, MFA, captchas, policy prompts, and hidden confirmation states. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Self-hosted/open-source licensing listed as AGPL-3.0; infrastructure costs vary by deployment.",
+  "authModel": "Auth and permissions depend on the deployed app configuration; platform metadata: Docker. Source code: https://github.com/rommapp/romm",
+  "accountCreation": "No vendor signup is required for self-hosted use, but deployment and admin setup are required.",
+  "browserSupport": "Browser UI can be operated after deployment; exact flows depend on the app configuration.",
+  "submittedBy": "Generated from Awesome Selfhosted data",
+  "categorySlugs": [
+    "self-hosted",
+    "selfhosted-games-administrative-utilities-and-control-panels"
+  ],
+  "useCaseSlugs": [
+    "self-host-tool",
+    "inspect-open-source",
+    "deploy-internal-tool"
+  ],
+  "capabilities": [
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Self-hosted web app can be operated through a browser once deployed.",
+      "evidenceUrl": "https://romm.app/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Self-hosted/open-source licensing makes software cost inspectable; infrastructure cost depends on deployment.",
+      "evidenceUrl": "https://github.com/rommapp/romm"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "partial",
+      "detail": "No vendor signup is required for self-hosted use, but deployment, admin setup, and local auth configuration are usually required.",
+      "evidenceUrl": "https://github.com/rommapp/romm"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "partial",
+      "detail": "Project website or source repository is listed for documentation and deployment review.",
+      "evidenceUrl": "https://github.com/rommapp/romm"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Self-hosted deployment supports local, staging, or disposable test environments before production use.",
+      "evidenceUrl": "https://github.com/rommapp/romm"
+    }
+  ],
+  "launchSignals": {
+    "githubStars": 8850,
+    "ecosystemImportance": "unknown",
+    "maturity": "maintained",
+    "distribution": "none",
+    "evidenceUrl": "https://github.com/rommapp/romm"
+  }
+}

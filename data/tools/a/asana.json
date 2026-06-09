@@ -1,0 +1,69 @@
+{
+  "slug": "asana",
+  "name": "Asana",
+  "tagline": "Work management API for tasks, projects, goals, and teams.",
+  "websiteUrl": "https://asana.com",
+  "docsUrl": "https://developers.asana.com",
+  "shortDescription": "Asana provides REST APIs, OAuth, personal access tokens, webhooks, events, tasks, projects, and goals.",
+  "agentSummary": "Agents can search, create, update, and organize work if workspace permissions are scoped carefully.",
+  "bestFor": "Task triage, project updates, status reporting, and operational workflows.",
+  "cautionNotes": "Key limitations: Task mutations and private project data need review and clear ownership. Project, CRM, document, and spreadsheet writes depend on team context and privacy rules; require least-privilege scopes and review for workflow-changing actions. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public seat-based pricing with plan-specific features.",
+  "authModel": "Personal access tokens, OAuth apps, webhooks, and Asana MCP app integration.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Browser UI is helpful for project structure and approval review.",
+  "apiBaseUrl": "https://app.asana.com/api/1.0",
+  "categorySlugs": [
+    "project-workflows",
+    "automation-integrations"
+  ],
+  "useCaseSlugs": [
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Developer docs cover tasks, projects, users, goals, webhooks, and events.",
+      "evidenceUrl": "https://developers.asana.com/docs"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Asana offers an official MCP server for accessing the Asana Work Graph from compatible AI assistants.",
+      "evidenceUrl": "https://developers.asana.com/docs/mcp-server"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include API reference, guides, auth, and webhook examples.",
+      "evidenceUrl": "https://developers.asana.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public by plan and seat.",
+      "evidenceUrl": "https://asana.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://asana.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Browser UI is helpful for project structure and approval review.",
+      "evidenceUrl": "https://asana.com"
+    }
+  ],
+  "mcpServer": "https://mcp.asana.com/sse",
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://developers.asana.com"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "slug": "manage-my-damn-life",
+  "name": "Manage My Damn Life",
+  "tagline": "Self-hosted calendar & contacts software.",
+  "websiteUrl": "https://intri.in/manage-my-damn-life/",
+  "docsUrl": "https://github.com/intri-in/manage-my-damn-life-nextjs",
+  "githubUrl": "https://github.com/intri-in/manage-my-damn-life-nextjs",
+  "shortDescription": "Manage my Damn Life (MMDL) is a self-hosted front end for managing your CalDAV tasks and calendars.",
+  "agentSummary": "Manage My Damn Life is self-hostable software from the Awesome Selfhosted data index. Agents can inspect the source, deploy it in a controlled environment, and operate the browser UI; API or CLI support should be verified in project docs.",
+  "bestFor": "Self-hosted calendar & contacts workflows, internal tools, and controlled deployment experiments.",
+  "cautionNotes": "Key limitations: generated from community metadata, not a full security review. Verify maintenance activity, license, deployment docs, auth model, backup and restore path, update process, API or CLI support, and data exposure before production agent automation. Browser automation can be brittle around UI changes, MFA, captchas, policy prompts, and hidden confirmation states. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Self-hosted/open-source licensing listed as GPL-3.0; infrastructure costs vary by deployment.",
+  "authModel": "Auth and permissions depend on the deployed app configuration; platform metadata: Nodejs, Docker. Source code: https://github.com/intri-in/manage-my-damn-life-nextjs",
+  "accountCreation": "No vendor signup is required for self-hosted use, but deployment and admin setup are required.",
+  "browserSupport": "Browser UI can be operated after deployment; exact flows depend on the app configuration.",
+  "submittedBy": "Generated from Awesome Selfhosted data",
+  "categorySlugs": [
+    "self-hosted",
+    "selfhosted-calendar-and-contacts"
+  ],
+  "useCaseSlugs": [
+    "self-host-tool",
+    "inspect-open-source"
+  ],
+  "capabilities": [
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Self-hosted web app can be operated through a browser once deployed.",
+      "evidenceUrl": "https://intri.in/manage-my-damn-life/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Self-hosted/open-source licensing makes software cost inspectable; infrastructure cost depends on deployment.",
+      "evidenceUrl": "https://github.com/intri-in/manage-my-damn-life-nextjs"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "partial",
+      "detail": "No vendor signup is required for self-hosted use, but deployment, admin setup, and local auth configuration are usually required.",
+      "evidenceUrl": "https://github.com/intri-in/manage-my-damn-life-nextjs"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "partial",
+      "detail": "Project website or source repository is listed for documentation and deployment review.",
+      "evidenceUrl": "https://github.com/intri-in/manage-my-damn-life-nextjs"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Self-hosted deployment supports local, staging, or disposable test environments before production use.",
+      "evidenceUrl": "https://github.com/intri-in/manage-my-damn-life-nextjs"
+    }
+  ],
+  "launchSignals": {
+    "githubStars": 450,
+    "ecosystemImportance": "unknown",
+    "maturity": "maintained",
+    "distribution": "none",
+    "evidenceUrl": "https://github.com/intri-in/manage-my-damn-life-nextjs"
+  }
+}

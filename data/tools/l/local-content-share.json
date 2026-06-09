@@ -1,0 +1,71 @@
+{
+  "slug": "local-content-share",
+  "name": "Local Content Share",
+  "tagline": "Self-hosted pastebins software.",
+  "websiteUrl": "https://github.com/Tanq16/local-content-share",
+  "docsUrl": "https://github.com/Tanq16/local-content-share",
+  "githubUrl": "https://github.com/Tanq16/local-content-share",
+  "shortDescription": "Store and share text snippets and files within your local network.",
+  "agentSummary": "Local Content Share is self-hostable software from the Awesome Selfhosted data index. Agents can inspect the source, deploy it in a controlled environment, and operate the browser UI; API or CLI support should be verified in project docs.",
+  "bestFor": "Self-hosted pastebins workflows, internal tools, and controlled deployment experiments.",
+  "cautionNotes": "Key limitations: generated from community metadata, not a full security review. Verify maintenance activity, license, deployment docs, auth model, backup and restore path, update process, API or CLI support, and data exposure before production agent automation. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. Browser automation can be brittle around UI changes, MFA, captchas, policy prompts, and hidden confirmation states.",
+  "pricingSummary": "Self-hosted/open-source licensing listed as MIT; infrastructure costs vary by deployment.",
+  "authModel": "Auth and permissions depend on the deployed app configuration; platform metadata: Docker, Go. Source code: https://github.com/Tanq16/local-content-share",
+  "accountCreation": "No vendor signup is required for self-hosted use, but deployment and admin setup are required.",
+  "browserSupport": "Browser UI can be operated after deployment; exact flows depend on the app configuration.",
+  "submittedBy": "Generated from Awesome Selfhosted data",
+  "categorySlugs": [
+    "self-hosted",
+    "selfhosted-pastebins",
+    "selfhosted-file-transfer-single-click-and-drag-n-drop-upload"
+  ],
+  "useCaseSlugs": [
+    "self-host-tool",
+    "inspect-open-source"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "partial",
+      "detail": "Metadata suggests command-line operation; verify install and command coverage in project docs.",
+      "evidenceUrl": "https://github.com/Tanq16/local-content-share"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Self-hosted web app can be operated through a browser once deployed.",
+      "evidenceUrl": "https://github.com/Tanq16/local-content-share"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Self-hosted/open-source licensing makes software cost inspectable; infrastructure cost depends on deployment.",
+      "evidenceUrl": "https://github.com/Tanq16/local-content-share"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "partial",
+      "detail": "No vendor signup is required for self-hosted use, but deployment, admin setup, and local auth configuration are usually required.",
+      "evidenceUrl": "https://github.com/Tanq16/local-content-share"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "partial",
+      "detail": "Project website or source repository is listed for documentation and deployment review.",
+      "evidenceUrl": "https://github.com/Tanq16/local-content-share"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Self-hosted deployment supports local, staging, or disposable test environments before production use.",
+      "evidenceUrl": "https://github.com/Tanq16/local-content-share"
+    }
+  ],
+  "launchSignals": {
+    "githubStars": 450,
+    "ecosystemImportance": "unknown",
+    "maturity": "maintained",
+    "distribution": "none",
+    "evidenceUrl": "https://github.com/Tanq16/local-content-share"
+  }
+}

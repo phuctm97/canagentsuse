@@ -1,0 +1,63 @@
+{
+  "slug": "zendesk",
+  "name": "Zendesk",
+  "tagline": "Support tickets, users, help center, chat, and customer APIs.",
+  "websiteUrl": "https://www.zendesk.com",
+  "docsUrl": "https://developer.zendesk.com",
+  "shortDescription": "Zendesk offers APIs for tickets, users, organizations, help center, messaging, webhooks, and apps.",
+  "agentSummary": "Agents can triage support queues, draft replies, inspect users, and update tickets with scoped credentials.",
+  "bestFor": "Customer support automation, ticket triage, help center workflows, and customer success.",
+  "cautionNotes": "Key limitations: Customer PII and outbound replies require approval and auditability. Verify official docs, pricing, rate limits, permissions, and production side effects before delegating account-changing actions to an agent. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public seat-based pricing; suite features vary by plan.",
+  "authModel": "OAuth, API tokens, basic auth variants, and role permissions.",
+  "accountCreation": "Self-serve trial/signup.",
+  "browserSupport": "Agent workspace is useful for review and human escalation.",
+  "apiBaseUrl": "https://{subdomain}.zendesk.com/api/v2",
+  "categorySlugs": [
+    "support-success",
+    "crm-sales"
+  ],
+  "useCaseSlugs": [
+    "triage-work",
+    "sync-crm"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "API reference covers tickets, users, organizations, help center, webhooks, and messaging.",
+      "evidenceUrl": "https://developer.zendesk.com/api-reference/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Developer docs include guides, app framework, and API refs.",
+      "evidenceUrl": "https://developer.zendesk.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public by suite and support plan.",
+      "evidenceUrl": "https://www.zendesk.com/pricing/"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve trial/signup.",
+      "evidenceUrl": "https://www.zendesk.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "partial",
+      "detail": "Agent workspace is useful for review and human escalation.",
+      "evidenceUrl": "https://www.zendesk.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://developer.zendesk.com"
+  }
+}

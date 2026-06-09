@@ -1,0 +1,62 @@
+{
+  "slug": "x-api",
+  "name": "X API",
+  "tagline": "Programmatic posts, users, trends, DMs, media, and social data.",
+  "websiteUrl": "https://developer.x.com",
+  "docsUrl": "https://docs.x.com",
+  "shortDescription": "X API provides paid access to posts, users, search, media upload, DMs, spaces, lists, and trends.",
+  "agentSummary": "Agents can publish and read social data, but pricing, access levels, and policy compliance make it less automatic.",
+  "bestFor": "Social publishing, monitoring public conversations, and account workflow automation.",
+  "cautionNotes": "Key limitations: Posting, DMs, compliance, and changing API access tiers require human review. Posting, moderation, DMs, paid campaigns, platform policy, brand voice, and account reputation should stay human-reviewed for public or customer-facing actions. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Account setup or elevated access may require vendor, admin, or compliance approval before an agent can operate independently.",
+  "pricingSummary": "Public pay-per-use and enterprise API plans; access differs by endpoint.",
+  "authModel": "OAuth 1.0a, OAuth 2.0, bearer tokens, app/user permissions.",
+  "accountCreation": "Developer account setup and paid access are required for many workflows.",
+  "browserSupport": "Developer portal and product UI are important for app setup and review.",
+  "apiBaseUrl": "https://api.x.com/2",
+  "categorySlugs": [
+    "social-media"
+  ],
+  "useCaseSlugs": [
+    "publish-content",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "API docs cover posts, users, DMs, spaces, lists, trends, media, and more.",
+      "evidenceUrl": "https://docs.x.com/x-api/overview"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "partial",
+      "detail": "Docs are official, but endpoint access and plan gating can be complex.",
+      "evidenceUrl": "https://docs.x.com/home"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "partial",
+      "detail": "Pricing is public, but commercial and enterprise access details vary.",
+      "evidenceUrl": "https://docs.x.com/x-api/getting-started/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "partial",
+      "detail": "Developer account setup and paid access are required for many workflows.",
+      "evidenceUrl": "https://developer.x.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Developer portal and product UI are important for app setup and review.",
+      "evidenceUrl": "https://developer.x.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "specialized",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://docs.x.com"
+  }
+}

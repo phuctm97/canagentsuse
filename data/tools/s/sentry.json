@@ -1,0 +1,70 @@
+{
+  "slug": "sentry",
+  "name": "Sentry",
+  "tagline": "Error monitoring, tracing, and production issue triage.",
+  "websiteUrl": "https://sentry.io",
+  "docsUrl": "https://docs.sentry.io",
+  "githubUrl": "https://github.com/getsentry",
+  "shortDescription": "Observability platform with SDKs, APIs, issue search, releases, and rich production context.",
+  "agentSummary": "Agents can inspect issues, stack traces, events, releases, traces, and Sentry MCP debugging tools to connect production errors back to code.",
+  "bestFor": "Production bug triage, error monitoring, performance traces, and release health.",
+  "cautionNotes": "Key limitations: Issue muting/resolution should follow product judgment, not just silence noise. Issue resolution, alert muting, analytics interpretation, PII in logs, sampling, and retention settings can hide incidents or expose user data if automated too broadly. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public event-volume pricing with free and team tiers.",
+  "authModel": "Auth tokens, org/project scopes, DSNs, integrations, and Sentry MCP OAuth or user-token auth.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Web UI is important for traces, screenshots, and issue context.",
+  "apiBaseUrl": "https://sentry.io/api/0",
+  "categorySlugs": [
+    "observability"
+  ],
+  "useCaseSlugs": [
+    "triage-work",
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "API covers orgs, projects, issues, events, releases, and more.",
+      "evidenceUrl": "https://docs.sentry.io"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Official Sentry MCP service and @sentry/mcp-server package are optimized for human-in-the-loop coding agents and debugging workflows.",
+      "evidenceUrl": "https://github.com/getsentry/sentry-mcp"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "SDK setup docs are broad and framework-specific.",
+      "evidenceUrl": "https://docs.sentry.io"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public event-volume pricing with free and team tiers.",
+      "evidenceUrl": "https://sentry.io/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://sentry.io"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "UI exposes issue context that is sometimes richer than API summaries.",
+      "evidenceUrl": "https://docs.sentry.io"
+    }
+  ],
+  "mcpServer": "https://mcp.sentry.dev",
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/getsentry"
+  }
+}

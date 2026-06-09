@@ -1,0 +1,70 @@
+{
+  "slug": "grafana-cloud",
+  "name": "Grafana Cloud",
+  "tagline": "Metrics, logs, traces, dashboards, alerts, and observability APIs.",
+  "websiteUrl": "https://grafana.com/products/cloud/",
+  "docsUrl": "https://grafana.com/docs/grafana-cloud",
+  "githubUrl": "https://github.com/grafana",
+  "shortDescription": "Grafana Cloud exposes APIs for dashboards, folders, alerts, service accounts, metrics, logs, traces, and cloud stacks.",
+  "agentSummary": "Agents can automate dashboards, alerts, and observability queries when service accounts and folders are scoped.",
+  "bestFor": "Dashboards, alerts, Prometheus/Loki/Tempo workflows, and observability automation.",
+  "cautionNotes": "Key limitations: Alert changes and production observability queries need review and rate-limit awareness. Issue resolution, alert muting, analytics interpretation, PII in logs, sampling, and retention settings can hide incidents or expose user data if automated too broadly. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public free and usage-based cloud pricing.",
+  "authModel": "Service accounts, tokens, org roles, stack IDs, and data source permissions.",
+  "accountCreation": "Self-serve cloud signup or open-source self-hosting.",
+  "browserSupport": "Dashboard UI is the main review surface for panels and alerts.",
+  "apiBaseUrl": "https://grafana.com/api",
+  "categorySlugs": [
+    "observability",
+    "analytics-product"
+  ],
+  "useCaseSlugs": [
+    "triage-work",
+    "analyze-product"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Grafana APIs cover dashboards, folders, alerting, data sources, service accounts, and cloud resources.",
+      "evidenceUrl": "https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs cover cloud, OSS, APIs, alerting, dashboards, and data sources.",
+      "evidenceUrl": "https://grafana.com/docs/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public with free and usage-based tiers.",
+      "evidenceUrl": "https://grafana.com/pricing/"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve cloud signup or open-source self-hosting.",
+      "evidenceUrl": "https://grafana.com/products/cloud/"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard UI is the main review surface for panels and alerts.",
+      "evidenceUrl": "https://grafana.com/products/cloud/"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://grafana.com/docs/grafana-cloud"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/grafana"
+  }
+}

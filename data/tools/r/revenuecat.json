@@ -1,0 +1,80 @@
+{
+  "slug": "revenuecat",
+  "name": "RevenueCat",
+  "tagline": "In-app subscriptions, entitlements, paywalls, and revenue analytics.",
+  "websiteUrl": "https://www.revenuecat.com",
+  "docsUrl": "https://www.revenuecat.com/docs",
+  "githubUrl": "https://github.com/RevenueCat",
+  "shortDescription": "RevenueCat provides SDKs, REST APIs, webhooks, an official MCP server, Test Store, platform sandbox support, paywalls, entitlements, and subscription analytics for apps.",
+  "agentSummary": "Agents can inspect and manage RevenueCat projects through REST API v2 or the official remote MCP server, configure products, entitlements, offerings, paywalls, customers, charts, and webhooks, and use Test Store or platform sandboxes before live release.",
+  "bestFor": "Mobile app subscriptions, cross-platform entitlements, paywalls, customer subscription state, web billing, and revenue analytics.",
+  "cautionNotes": "Key limitations: Live entitlement grants, refunds, promotional access, web billing, store credentials, and customer subscription data need human review. Secret API keys and MCP access can modify sensitive billing resources; use read-only or scoped OAuth/API v2 credentials where possible. Test Store and platform sandboxes should be used before launch, but App Store, Google Play, Stripe, and Paddle production configuration still needs careful review. API automation needs attention to permissions, rate limits, retries, and audit logs.",
+  "pricingSummary": "Public pricing starts free up to $2,500 in monthly tracked revenue, then usage-based pricing; enterprise plans are custom.",
+  "authModel": "Public SDK API keys, secret API keys, OAuth access tokens for REST API v2, webhook signatures, and MCP OAuth or API v2 secret-key authentication with read-only or write-enabled permissions.",
+  "accountCreation": "Self-serve signup; each project includes Test Store for development, while production requires app store or web billing provider setup.",
+  "browserSupport": "Dashboard is useful for project setup, product catalog configuration, customer inspection, paywalls, charts, and sandbox data review.",
+  "apiBaseUrl": "https://api.revenuecat.com/v2",
+  "submittedBy": "Can Agents Use research",
+  "categorySlugs": [
+    "billing-payments",
+    "analytics-product",
+    "commerce"
+  ],
+  "useCaseSlugs": [
+    "charge-a-customer",
+    "analyze-product",
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST API v2 covers project, customer, entitlement, offering, product, subscription, chart, metric, webhook, and integration workflows; API v1 remains documented for customer and transaction actions.",
+      "evidenceUrl": "https://www.revenuecat.com/reference/revenuecat-rest-api"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Official remote MCP server supports OAuth for Codex, Claude, Cursor, VS Code, and other clients, plus API v2 secret-key authentication.",
+      "evidenceUrl": "https://www.revenuecat.com/docs/tools/mcp/setup"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "native",
+      "detail": "Official docs include SDK quickstarts, API references, product configuration, authentication, sandbox testing, web billing, paywalls, webhooks, and troubleshooting.",
+      "evidenceUrl": "https://www.revenuecat.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public pricing explains the free monthly tracked revenue threshold, usage-based pricing, growth tools, and enterprise path.",
+      "evidenceUrl": "https://www.revenuecat.com/pricing/"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup and project creation are documented; production setup depends on store or billing-provider credentials.",
+      "evidenceUrl": "https://www.revenuecat.com/docs/projects/overview"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard workflows cover project setup, product catalogs, offerings, paywalls, customer views, charts, integrations, and sandbox toggles.",
+      "evidenceUrl": "https://www.revenuecat.com/docs/projects/configuring-products"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "native",
+      "detail": "RevenueCat Test Store works without platform setup, and platform sandboxes support Apple, Google, Amazon, Stripe, and Paddle testing before production.",
+      "evidenceUrl": "https://www.revenuecat.com/docs/test-and-launch/sandbox"
+    }
+  ],
+  "mcpServer": "https://mcp.revenuecat.ai/mcp",
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/RevenueCat"
+  }
+}

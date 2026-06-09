@@ -1,0 +1,68 @@
+{
+  "slug": "lemon-squeezy",
+  "name": "Lemon Squeezy",
+  "tagline": "Merchant-of-record payments, subscriptions, licenses, and checkout.",
+  "websiteUrl": "https://www.lemonsqueezy.com",
+  "docsUrl": "https://docs.lemonsqueezy.com",
+  "shortDescription": "Lemon Squeezy offers API, webhooks, checkouts, subscriptions, license keys, discounts, and test mode.",
+  "agentSummary": "Agents can create commerce and licensing workflows with a simple API, but live selling still needs business verification.",
+  "bestFor": "Indie SaaS payments, digital products, subscriptions, license keys, and checkout links.",
+  "cautionNotes": "Key limitations: Live money, taxes, refunds, and license entitlements require review. Live payments, refunds, payouts, tax, disputes, and business verification can move money or create compliance exposure; keep agents in sandbox or test mode until a human approves live changes. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Account setup or elevated access may require vendor, admin, or compliance approval before an agent can operate independently.",
+  "pricingSummary": "Public merchant-of-record transaction pricing.",
+  "authModel": "API keys and webhook signing secrets.",
+  "accountCreation": "Self-serve signup; store activation required for live sales.",
+  "browserSupport": "Dashboard is useful for products, licenses, and store activation.",
+  "apiBaseUrl": "https://api.lemonsqueezy.com/v1",
+  "categorySlugs": [
+    "billing-payments",
+    "commerce"
+  ],
+  "useCaseSlugs": [
+    "charge-a-customer"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "API docs cover products, variants, checkouts, subscriptions, customers, licenses, and webhooks.",
+      "evidenceUrl": "https://docs.lemonsqueezy.com/api"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Official docs are listed for API behavior, authentication, limits, examples, and setup review.",
+      "evidenceUrl": "https://docs.lemonsqueezy.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public and transaction-based.",
+      "evidenceUrl": "https://www.lemonsqueezy.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup; store activation required for live sales.",
+      "evidenceUrl": "https://www.lemonsqueezy.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard is useful for products, licenses, and store activation.",
+      "evidenceUrl": "https://www.lemonsqueezy.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "native",
+      "detail": "Test mode supports checkout, products, discounts, subscriptions, license keys, webhooks, and API integrations.",
+      "evidenceUrl": "https://docs.lemonsqueezy.com/help/getting-started/test-mode"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://docs.lemonsqueezy.com"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "slug": "replicate",
+  "name": "Replicate",
+  "tagline": "Run image, video, audio, and language models via API.",
+  "websiteUrl": "https://replicate.com",
+  "docsUrl": "https://replicate.com/docs",
+  "githubUrl": "https://github.com/replicate",
+  "shortDescription": "Replicate provides a hosted model API, webhooks, files, deployments, and an official CLI.",
+  "agentSummary": "Agents can run many media and AI models, inspect predictions, and automate model deployments through API or CLI.",
+  "bestFor": "Image/video/audio generation, model demos, and hosted inference jobs.",
+  "cautionNotes": "Key limitations: Model licenses, output safety, and per-model cost/latency vary widely. Model behavior, costs, rate limits, data retention, and safety policies can change by model and account tier; use evals, spend caps, and data controls for sensitive workloads. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Usage-based pricing by model hardware and runtime.",
+  "authModel": "API tokens.",
+  "accountCreation": "Self-serve signup; billing required for sustained usage.",
+  "browserSupport": "Web UI is helpful for model discovery and prediction inspection.",
+  "cliPackage": "replicate",
+  "apiBaseUrl": "https://api.replicate.com/v1",
+  "categorySlugs": [
+    "ai-models",
+    "design-media"
+  ],
+  "useCaseSlugs": [
+    "call-models",
+    "manage-media"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "strong",
+      "detail": "CLI supports running and managing Replicate workflows.",
+      "evidenceUrl": "https://github.com/replicate/cli"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "HTTP API supports predictions, models, deployments, files, and webhooks.",
+      "evidenceUrl": "https://replicate.com/docs/reference/http"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include model, webhook, and deployment examples.",
+      "evidenceUrl": "https://replicate.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Usage-based pricing by model hardware and runtime.",
+      "evidenceUrl": "https://replicate.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup; billing required for sustained usage.",
+      "evidenceUrl": "https://replicate.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Web UI is helpful for model discovery and prediction inspection.",
+      "evidenceUrl": "https://replicate.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://replicate.com/docs"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/replicate"
+  }
+}

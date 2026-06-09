@@ -3,12 +3,12 @@
   "version": "0.1.8",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 60139",
-    "build": "next build",
+    "dev": "node ../../scripts/build-catalog.mjs && next dev -p 60139",
+    "build": "node ../../scripts/build-catalog.mjs && next build",
     "start": "next start -p 60139",
-    "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test:agent-surfaces": "tsx scripts/test-agent-surfaces.ts",
-    "catalog:audit": "tsx scripts/audit-catalog-metadata.ts"
+    "typecheck": "node ../../scripts/build-catalog.mjs && tsc --noEmit -p tsconfig.json",
+    "test:agent-surfaces": "node ../../scripts/build-catalog.mjs && tsx scripts/test-agent-surfaces.ts",
+    "catalog:audit": "node ../../scripts/build-catalog.mjs && tsx scripts/audit-catalog-metadata.ts"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

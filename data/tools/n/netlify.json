@@ -1,0 +1,76 @@
+{
+  "slug": "netlify",
+  "name": "Netlify",
+  "tagline": "Frontend deployment, Functions, Edge, CLI, and API.",
+  "websiteUrl": "https://www.netlify.com",
+  "docsUrl": "https://docs.netlify.com",
+  "githubUrl": "https://github.com/netlify",
+  "shortDescription": "Netlify provides a mature CLI, deployments, build hooks, environment variables, functions, edge functions, and API.",
+  "agentSummary": "Agents can deploy static/front-end apps, inspect deploys, manage environment variables, and automate builds.",
+  "bestFor": "Frontend deployment, previews, static sites, serverless functions, and build automation.",
+  "cautionNotes": "Key limitations: Production aliases, env vars, and build settings need review. Deploys, secret changes, IAM, billing, networking, deletes, and rollback paths have high production blast radius; require scoped credentials and review gates. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public seat and usage-based pricing with free tier.",
+  "authModel": "OAuth, personal access tokens, team/site permissions.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Dashboard supports sites, deploy logs, domains, billing, and env vars.",
+  "cliPackage": "netlify",
+  "apiBaseUrl": "https://api.netlify.com/api/v1",
+  "categorySlugs": [
+    "deployment-infra"
+  ],
+  "useCaseSlugs": [
+    "ship-app",
+    "manage-infra"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Netlify CLI supports deploys, dev server, functions, env, and site operations.",
+      "evidenceUrl": "https://docs.netlify.com/cli/get-started/"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Netlify API supports sites, deploys, forms, hooks, DNS, and environment variables.",
+      "evidenceUrl": "https://open-api.netlify.com/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "native",
+      "detail": "Official docs are listed for API behavior, authentication, limits, examples, and setup review.",
+      "evidenceUrl": "https://docs.netlify.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public seat and usage-based pricing with free tier.",
+      "evidenceUrl": "https://www.netlify.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://www.netlify.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard supports sites, deploy logs, domains, billing, and env vars.",
+      "evidenceUrl": "https://www.netlify.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Deploy previews and branch deploys support safer review workflows.",
+      "evidenceUrl": "https://docs.netlify.com/site-deploys/deploy-previews/"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/netlify"
+  }
+}

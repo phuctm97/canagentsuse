@@ -1,0 +1,84 @@
+{
+  "slug": "render",
+  "name": "Render",
+  "tagline": "Cloud apps, jobs, databases, API, CLI, and MCP server.",
+  "websiteUrl": "https://render.com",
+  "docsUrl": "https://render.com/docs",
+  "githubUrl": "https://github.com/render-oss",
+  "shortDescription": "Render provides app hosting, managed databases, deployment API, CLI, IaC-style blueprints, and an open MCP server.",
+  "agentSummary": "Agents can inspect services, deploy from images, manage env vars, and use API/CLI workflows with review.",
+  "bestFor": "Web services, background workers, cron jobs, managed databases, and deployment automation.",
+  "cautionNotes": "Key limitations: Deploys, env vars, and deletion operations should be reviewed. Schema changes, migrations, deletes, backups, row-level security, and retention policies need explicit review before agents touch production data. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials.",
+  "pricingSummary": "Public pricing by service type and resource class.",
+  "authModel": "API keys, workspace permissions, REST API tokens, and Render MCP API-key auth.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Dashboard helps inspect logs, deploys, env vars, and billing.",
+  "cliPackage": "render",
+  "apiBaseUrl": "https://api.render.com/v1",
+  "mcpServer": "https://mcp.render.com/mcp",
+  "categorySlugs": [
+    "deployment-infra",
+    "databases-storage"
+  ],
+  "useCaseSlugs": [
+    "ship-app",
+    "manage-infra"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "strong",
+      "detail": "Render CLI can authenticate with API keys and deploy image-backed services.",
+      "evidenceUrl": "https://render.com/docs/cli"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Render API supports services, deploys, jobs, environment variables, and databases.",
+      "evidenceUrl": "https://render.com/docs/api"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Official hosted Render MCP server manages Render services, databases, metrics, and logs from compatible agent clients.",
+      "evidenceUrl": "https://render.com/docs/mcp-server"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include API, CLI, deploys, logs, and blueprints.",
+      "evidenceUrl": "https://render.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public pricing by service type and resource class.",
+      "evidenceUrl": "https://render.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://render.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard helps inspect logs, deploys, env vars, and billing.",
+      "evidenceUrl": "https://render.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://render.com/docs"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/render-oss"
+  }
+}

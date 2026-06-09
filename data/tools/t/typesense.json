@@ -1,0 +1,68 @@
+{
+  "slug": "typesense",
+  "name": "Typesense",
+  "tagline": "Open-source typo-tolerant search with vector and hybrid search.",
+  "websiteUrl": "https://typesense.org",
+  "docsUrl": "https://typesense.org/docs",
+  "githubUrl": "https://github.com/typesense/typesense",
+  "shortDescription": "Typesense provides an open-source search engine with API-first collections, documents, vector search, and cloud hosting.",
+  "agentSummary": "Agents can create collections, index documents, tune schema, and run local search workflows safely.",
+  "bestFor": "Self-hosted search, lightweight product search, and hybrid vector/keyword retrieval.",
+  "cautionNotes": "Key limitations: Schema migrations and production relevance changes need human review. Verify official docs, pricing, rate limits, permissions, and production side effects before delegating account-changing actions to an agent. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Open-source self-hosting plus public cloud pricing.",
+  "authModel": "API keys with search-only and admin use patterns.",
+  "accountCreation": "Self-serve cloud signup or local Docker setup.",
+  "browserSupport": "Cloud dashboard and local APIs are enough for most operations.",
+  "apiBaseUrl": "https://typesense.org/docs/latest/api/",
+  "categorySlugs": [
+    "search-rag"
+  ],
+  "useCaseSlugs": [
+    "build-rag"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "API docs cover collections, documents, search, aliases, keys, and metrics.",
+      "evidenceUrl": "https://typesense.org/docs/latest/api/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs are concise and developer-oriented.",
+      "evidenceUrl": "https://typesense.org/docs/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Open-source self-hosting plus public cloud pricing.",
+      "evidenceUrl": "https://github.com/typesense/typesense"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve cloud signup or local Docker setup.",
+      "evidenceUrl": "https://typesense.org"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Cloud dashboard and local APIs are enough for most operations.",
+      "evidenceUrl": "https://typesense.org"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Local Docker and open-source setup allow safe test indexes.",
+      "evidenceUrl": "https://typesense.org/docs/guide/install-typesense.html"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/typesense/typesense"
+  }
+}

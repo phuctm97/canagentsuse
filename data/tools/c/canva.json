@@ -1,0 +1,69 @@
+{
+  "slug": "canva",
+  "name": "Canva",
+  "tagline": "Design, asset, export, and collaboration APIs.",
+  "websiteUrl": "https://www.canva.com",
+  "docsUrl": "https://www.canva.dev/docs",
+  "shortDescription": "Canva Connect APIs let apps create integrations for assets, designs, comments, folders, exports, and brand workflows.",
+  "agentSummary": "Agents can use Canva APIs and the Canva MCP server for design creation, editing, asset search, export, commenting, and brand workflows.",
+  "bestFor": "Design asset sync, generated design workflows, comments, and export automation.",
+  "cautionNotes": "Key limitations: Public integrations need Canva review; brand assets and design mutations require approval. Verify official docs, pricing, rate limits, permissions, and production side effects before delegating account-changing actions to an agent. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public Canva pricing; API integration access may depend on use case and plan.",
+  "authModel": "OAuth, Canva app/integration credentials, and Canva MCP per-user authentication.",
+  "accountCreation": "Self-serve user/team signup; developer app review for public integrations.",
+  "browserSupport": "Browser UI remains central for design review and editing.",
+  "apiBaseUrl": "https://api.canva.com/rest/v1",
+  "categorySlugs": [
+    "design-media"
+  ],
+  "useCaseSlugs": [
+    "manage-media",
+    "publish-content"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Canva Connect APIs expose assets, designs, comments, folders, and exports with OpenAPI.",
+      "evidenceUrl": "https://www.canva.dev/docs/connect/"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Canva provides a remote MCP server for design creation/editing, asset and brand management, library search, export, and comments.",
+      "evidenceUrl": "https://www.canva.dev/docs/mcp/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include Connect API, apps SDK, app components, and review rules.",
+      "evidenceUrl": "https://www.canva.dev/docs/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public Canva pricing; API integration access may depend on use case and plan.",
+      "evidenceUrl": "https://www.canva.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve user/team signup; developer app review for public integrations.",
+      "evidenceUrl": "https://www.canva.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "native",
+      "detail": "Design creation and review are browser-first workflows.",
+      "evidenceUrl": "https://www.canva.dev/docs"
+    }
+  ],
+  "mcpServer": "https://mcp.canva.com/mcp",
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "specialized",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://www.canva.dev/docs"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "slug": "anthropic",
+  "name": "Anthropic",
+  "tagline": "Claude API for messages, tools, files, and agent workflows.",
+  "websiteUrl": "https://www.anthropic.com",
+  "docsUrl": "https://docs.anthropic.com",
+  "shortDescription": "Claude's API provides Messages, tool use, prompt caching, batches, files, and model pricing docs.",
+  "agentSummary": "Strong for agents that need tool-calling, long-context reasoning, batch work, and clear model behavior documentation.",
+  "bestFor": "Claude-powered agents, tool use, document reasoning, and batch analysis.",
+  "cautionNotes": "Key limitations: Agents need spend limits, tool permission boundaries, and review for high-impact automated decisions. Model behavior, costs, rate limits, data retention, and safety policies can change by model and account tier; use evals, spend caps, and data controls for sensitive workloads. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public per-token model pricing with cache and batch concepts documented.",
+  "authModel": "API keys, workspace/admin controls, and request IDs.",
+  "accountCreation": "Self-serve Console signup with billing for paid API use.",
+  "browserSupport": "Console supports keys, usage, workbench testing, and workspace settings.",
+  "apiBaseUrl": "https://api.anthropic.com",
+  "isFeatured": true,
+  "submittedBy": "Can Agents Use research",
+  "categorySlugs": [
+    "ai-models"
+  ],
+  "useCaseSlugs": [
+    "call-models"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Messages API supports tool use, streaming, files, batches, and model operations.",
+      "evidenceUrl": "https://docs.anthropic.com/en/api/messages"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "native",
+      "detail": "Docs include API reference, tool-use guidance, prompt caching, and model behavior notes.",
+      "evidenceUrl": "https://docs.anthropic.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Model pricing is public and separated by input, output, cache, and batch usage.",
+      "evidenceUrl": "https://www.anthropic.com/pricing#anthropic-api"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve Console signup with billing for paid API use.",
+      "evidenceUrl": "https://www.anthropic.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Console supports keys, usage, workbench testing, and workspace settings.",
+      "evidenceUrl": "https://www.anthropic.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "Console/workbench and low-risk API keys support staged testing."
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "major-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://docs.anthropic.com"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "slug": "slack",
+  "name": "Slack",
+  "tagline": "Team messaging, apps, workflows, and notifications.",
+  "websiteUrl": "https://slack.com",
+  "docsUrl": "https://api.slack.com",
+  "shortDescription": "Messaging platform with APIs, bot tokens, slash commands, events, and workflow automation.",
+  "agentSummary": "Useful for agents that need to notify teams, search approved workspace content, read threads, create canvases, or automate operational messages with Slack's MCP server.",
+  "bestFor": "Team notifications, chatops, support workflows, and operational alerts.",
+  "cautionNotes": "Key limitations: Workspace permissions, private data, and posting behavior need careful scopes. Outbound messages, SMS, email deliverability, consent, unsubscribe behavior, private chats, and customer-facing replies need approval, throttling, and audit logs. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public seat-based pricing with free and paid plans.",
+  "authModel": "OAuth apps, user tokens for MCP, bot tokens, signing secrets, and webhooks.",
+  "accountCreation": "Self-serve workspace signup and app creation.",
+  "browserSupport": "Admin and app setup often requires browser flows.",
+  "apiBaseUrl": "https://slack.com/api",
+  "categorySlugs": [
+    "social-media",
+    "email-messaging",
+    "project-workflows"
+  ],
+  "useCaseSlugs": [
+    "publish-content",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Web API, Events API, slash commands, and webhooks are documented.",
+      "evidenceUrl": "https://api.slack.com"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Official Slack MCP server supports workspace search, reading channels and threads, sending messages, and related Slack actions through Streamable HTTP.",
+      "evidenceUrl": "https://docs.slack.dev/ai/slack-mcp-server/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "API docs are broad but permission-heavy.",
+      "evidenceUrl": "https://api.slack.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public seat-based pricing with free and paid plans.",
+      "evidenceUrl": "https://slack.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve workspace signup and app creation.",
+      "evidenceUrl": "https://slack.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "partial",
+      "detail": "Admin permissions and app installs can need human/browser approval.",
+      "evidenceUrl": "https://slack.com"
+    }
+  ],
+  "mcpServer": "https://mcp.slack.com/mcp",
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://api.slack.com"
+  }
+}

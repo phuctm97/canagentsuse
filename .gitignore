@@ -25,6 +25,9 @@
 /build
 /packages/*/dist/
 
+# generated catalog artifact
+/data/catalog.json
+
 # misc
 .DS_Store
 *.pem

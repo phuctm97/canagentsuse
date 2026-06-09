@@ -1,0 +1,77 @@
+{
+  "slug": "hugging-face",
+  "name": "Hugging Face",
+  "tagline": "Models, datasets, Spaces, and inference infrastructure.",
+  "websiteUrl": "https://huggingface.co",
+  "docsUrl": "https://huggingface.co/docs",
+  "githubUrl": "https://github.com/huggingface",
+  "shortDescription": "Hugging Face provides model hub APIs, inference APIs, datasets, Spaces, and a mature CLI.",
+  "agentSummary": "Agents can search model metadata, call inference endpoints, upload artifacts, and manage repos through API or CLI.",
+  "bestFor": "Model discovery, inference endpoints, datasets, and AI app prototypes.",
+  "cautionNotes": "Key limitations: Open model licenses, gated models, and hardware costs need review. Model behavior, costs, rate limits, data retention, and safety policies can change by model and account tier; use evals, spend caps, and data controls for sensitive workloads. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public pricing for inference endpoints, Spaces hardware, and Pro/team plans.",
+  "authModel": "User access tokens, organizations, and repo permissions.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Model and dataset pages are highly browser-friendly for discovery.",
+  "cliPackage": "huggingface-cli",
+  "apiBaseUrl": "https://huggingface.co/api",
+  "categorySlugs": [
+    "ai-models",
+    "search-rag"
+  ],
+  "useCaseSlugs": [
+    "call-models",
+    "build-rag"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "strong",
+      "detail": "CLI and hub libraries manage auth, uploads, downloads, and repos.",
+      "evidenceUrl": "https://huggingface.co/docs/huggingface_hub/guides/cli"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Hub and inference APIs expose models, datasets, repos, and inference operations.",
+      "evidenceUrl": "https://huggingface.co/docs/api-inference/index"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs cover hub, inference, datasets, Spaces, and libraries.",
+      "evidenceUrl": "https://huggingface.co/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public pricing for inference endpoints, Spaces hardware, and Pro/team plans.",
+      "evidenceUrl": "https://huggingface.co/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://huggingface.co"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "partial",
+      "detail": "Model and dataset pages are highly browser-friendly for discovery.",
+      "evidenceUrl": "https://huggingface.co"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://huggingface.co/docs"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "major-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/huggingface"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "slug": "twilio",
+  "name": "Twilio",
+  "tagline": "Programmable SMS, voice, WhatsApp, email, and communications APIs.",
+  "websiteUrl": "https://www.twilio.com",
+  "docsUrl": "https://www.twilio.com/docs",
+  "githubUrl": "https://github.com/twilio",
+  "shortDescription": "Twilio has mature communications APIs, SDKs, CLI, OpenAPI specs, Postman collections, webhooks, and pricing docs.",
+  "agentSummary": "Agents can send messages, manage numbers, inspect logs, and automate communications when compliance and approvals are enforced.",
+  "bestFor": "SMS, WhatsApp, voice, notifications, contact-center prototypes, and communication workflows.",
+  "cautionNotes": "Key limitations: Outbound messaging, phone numbers, consent, compliance, and spend need strict human review. Outbound messages, SMS, email deliverability, consent, unsubscribe behavior, private chats, and customer-facing replies need approval, throttling, and audit logs. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public per-channel usage pricing by destination and product.",
+  "authModel": "Account SID/Auth Token, API keys, subaccounts, OAuth for some products, and webhook signatures.",
+  "accountCreation": "Self-serve trial with phone verification; production messaging requires compliance setup.",
+  "browserSupport": "Console is important for number setup, logs, messaging compliance, and billing.",
+  "cliPackage": "twilio",
+  "apiBaseUrl": "https://api.twilio.com/2010-04-01",
+  "categorySlugs": [
+    "email-messaging",
+    "automation-integrations"
+  ],
+  "useCaseSlugs": [
+    "publish-content",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Twilio CLI manages resources from the terminal.",
+      "evidenceUrl": "https://www.twilio.com/docs/twilio-cli/quickstart"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Docs cover messaging, voice, conversations, verification, OpenAPI, SDKs, and webhooks.",
+      "evidenceUrl": "https://www.twilio.com/docs"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "native",
+      "detail": "Docs include quickstarts, SDKs, API refs, OpenAPI, Postman, status, and error codes.",
+      "evidenceUrl": "https://www.twilio.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Channel and destination pricing is public.",
+      "evidenceUrl": "https://www.twilio.com/en-us/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve trial with phone verification; production messaging requires compliance setup.",
+      "evidenceUrl": "https://www.twilio.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Console is important for number setup, logs, messaging compliance, and billing.",
+      "evidenceUrl": "https://www.twilio.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://www.twilio.com/docs"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "major-platform",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/twilio"
+  }
+}

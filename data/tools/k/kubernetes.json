@@ -1,0 +1,76 @@
+{
+  "slug": "kubernetes",
+  "name": "Kubernetes",
+  "tagline": "Container orchestration with kubectl, APIs, dry-run, and declarative resources.",
+  "websiteUrl": "https://kubernetes.io",
+  "docsUrl": "https://kubernetes.io/docs",
+  "githubUrl": "https://github.com/kubernetes/kubernetes",
+  "shortDescription": "Kubernetes exposes a declarative API, kubectl CLI, dry-run, server-side apply, RBAC, events, and logs.",
+  "agentSummary": "Agents can inspect clusters, propose manifests, diff/apply changes, and read logs if RBAC is scoped tightly.",
+  "bestFor": "Cluster operations, deployments, rollouts, logs, events, and declarative app infrastructure.",
+  "cautionNotes": "Key limitations: Cluster-wide permissions, secrets, deletes, and production rollouts need strict human review. Deploys, secret changes, IAM, billing, networking, deletes, and rollback paths have high production blast radius; require scoped credentials and review gates. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Open-source; managed cluster pricing depends on cloud provider.",
+  "authModel": "Kubeconfig, RBAC, service accounts, contexts, and admission policies.",
+  "accountCreation": "Local clusters or managed cloud clusters; no central signup.",
+  "browserSupport": "Dashboards vary; CLI is usually better for agents.",
+  "cliPackage": "kubectl",
+  "apiBaseUrl": "https://kubernetes.default.svc",
+  "categorySlugs": [
+    "deployment-infra"
+  ],
+  "useCaseSlugs": [
+    "manage-infra",
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "kubectl supports get, describe, logs, diff, apply, rollout, and dry-run workflows.",
+      "evidenceUrl": "https://kubernetes.io/docs/reference/kubectl/"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Kubernetes API reference covers resources and operations.",
+      "evidenceUrl": "https://kubernetes.io/docs/reference/kubernetes-api/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs are comprehensive and versioned.",
+      "evidenceUrl": "https://kubernetes.io/docs/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Open-source; managed cluster pricing depends on cloud provider.",
+      "evidenceUrl": "https://github.com/kubernetes/kubernetes"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Local clusters or managed cloud clusters; no central signup.",
+      "evidenceUrl": "https://kubernetes.io"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboards vary; CLI is usually better for agents.",
+      "evidenceUrl": "https://kubernetes.io"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "dry-run, local clusters, namespaces, and RBAC make staged changes possible.",
+      "evidenceUrl": "https://kubernetes.io/docs/reference/using-api/api-concepts/"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "major-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/kubernetes/kubernetes"
+  }
+}

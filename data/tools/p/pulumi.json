@@ -1,0 +1,76 @@
+{
+  "slug": "pulumi",
+  "name": "Pulumi",
+  "tagline": "Infrastructure as code using real programming languages.",
+  "websiteUrl": "https://www.pulumi.com",
+  "docsUrl": "https://www.pulumi.com/docs",
+  "githubUrl": "https://github.com/pulumi/pulumi",
+  "shortDescription": "Pulumi provides CLI previews, SDKs, Automation API, ESC, and Pulumi Cloud REST API.",
+  "agentSummary": "Agents can propose infrastructure as code, run previews, and call Pulumi Cloud APIs with JSON output.",
+  "bestFor": "Programmable IaC, previewed infra changes, multi-cloud provisioning, and automation APIs.",
+  "cautionNotes": "Key limitations: Apply/update operations can change production infrastructure; require review and scoped stack tokens. Deploys, secret changes, IAM, billing, networking, deletes, and rollback paths have high production blast radius; require scoped credentials and review gates. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Open-source CLI plus public Pulumi Cloud pricing.",
+  "authModel": "Pulumi access tokens, cloud provider credentials, ESC environments, and stack permissions.",
+  "accountCreation": "CLI can run locally; Pulumi Cloud self-serve signup.",
+  "browserSupport": "Pulumi Cloud UI supports stacks, previews, resources, and audit review.",
+  "cliPackage": "pulumi",
+  "apiBaseUrl": "https://api.pulumi.com",
+  "categorySlugs": [
+    "deployment-infra"
+  ],
+  "useCaseSlugs": [
+    "manage-infra",
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "CLI supports preview, up, destroy, stack, config, and JSON output.",
+      "evidenceUrl": "https://www.pulumi.com/docs/iac/cli/"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "pulumi api can call Pulumi Cloud REST endpoints non-interactively.",
+      "evidenceUrl": "https://www.pulumi.com/docs/iac/cli/api/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs cover CLI, SDKs, Automation API, and cloud APIs.",
+      "evidenceUrl": "https://www.pulumi.com/docs/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Open-source CLI plus public Pulumi Cloud pricing.",
+      "evidenceUrl": "https://github.com/pulumi/pulumi"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "CLI can run locally; Pulumi Cloud self-serve signup.",
+      "evidenceUrl": "https://www.pulumi.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Pulumi Cloud UI supports stacks, previews, resources, and audit review.",
+      "evidenceUrl": "https://www.pulumi.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "native",
+      "detail": "Preview provides a dry-run before infrastructure updates.",
+      "evidenceUrl": "https://www.pulumi.com/docs/iac/cli/commands/pulumi_preview/"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/pulumi/pulumi"
+  }
+}

@@ -56,8 +56,12 @@ async function testSubmitToolTemplate() {
     "submit template asks users for launchSignals"
   )
   assert(
-    template.includes("`bun run catalog:format`"),
-    "submit template asks users to format the catalog"
+    template.includes("`bun run catalog:build`"),
+    "submit template asks users to build the catalog"
+  )
+  assert(
+    template.includes("`data/catalog.json`"),
+    "submit template warns users not to edit generated catalog"
   )
 }
 

@@ -1,0 +1,753 @@
+{
+  "generatedAt": "2026-06-08T07:33:59.554Z",
+  "source": "Can Agents Use split file-backed catalog",
+  "categories": [
+    {
+      "slug": "billing-payments",
+      "name": "Billing & payments",
+      "description": "Payments, subscriptions, invoicing, tax, and pricing APIs.",
+      "sortOrder": 10
+    },
+    {
+      "slug": "social-media",
+      "name": "Social media",
+      "description": "Publishing, monitoring, community, and social APIs.",
+      "sortOrder": 20
+    },
+    {
+      "slug": "scraping-content",
+      "name": "Scraping & content",
+      "description": "Web extraction, search, crawling, browser automation, and content APIs.",
+      "sortOrder": 30
+    },
+    {
+      "slug": "databases-storage",
+      "name": "Databases & storage",
+      "description": "Postgres, object storage, vector search, and data backends.",
+      "sortOrder": 40
+    },
+    {
+      "slug": "auth-accounts",
+      "name": "Auth & accounts",
+      "description": "Authentication, identity, user management, and account flows.",
+      "sortOrder": 50
+    },
+    {
+      "slug": "deployment-infra",
+      "name": "Deployment & infra",
+      "description": "Hosting, serverless, queues, workers, and cloud operations.",
+      "sortOrder": 60
+    },
+    {
+      "slug": "email-messaging",
+      "name": "Email & messaging",
+      "description": "Transactional email, SMS, chat, and collaboration surfaces.",
+      "sortOrder": 70
+    },
+    {
+      "slug": "observability",
+      "name": "Observability",
+      "description": "Errors, logs, analytics, monitoring, and product telemetry.",
+      "sortOrder": 80
+    },
+    {
+      "slug": "project-workflows",
+      "name": "Project workflows",
+      "description": "Issues, docs, CRM, spreadsheets, and team operations.",
+      "sortOrder": 90
+    },
+    {
+      "slug": "ai-models",
+      "name": "AI models",
+      "description": "Model APIs, inference gateways, embeddings, reranking, and generation.",
+      "sortOrder": 15
+    },
+    {
+      "slug": "search-rag",
+      "name": "Search & RAG",
+      "description": "Vector databases, search engines, retrieval APIs, and indexing tools.",
+      "sortOrder": 35
+    },
+    {
+      "slug": "automation-integrations",
+      "name": "Automation & integrations",
+      "description": "Workflow automation, connectors, forms, and cross-SaaS orchestration.",
+      "sortOrder": 65
+    },
+    {
+      "slug": "crm-sales",
+      "name": "CRM & sales",
+      "description": "CRM records, support tickets, sales operations, and customer systems.",
+      "sortOrder": 75
+    },
+    {
+      "slug": "analytics-product",
+      "name": "Analytics & product",
+      "description": "Product analytics, event pipelines, experiments, and business metrics.",
+      "sortOrder": 85
+    },
+    {
+      "slug": "spreadsheets-data",
+      "name": "Spreadsheets & data",
+      "description": "Sheets, no-code databases, forms, and lightweight operational data.",
+      "sortOrder": 95
+    },
+    {
+      "slug": "design-media",
+      "name": "Design & media",
+      "description": "Design files, assets, images, uploads, transformations, and media workflows.",
+      "sortOrder": 105
+    },
+    {
+      "slug": "commerce",
+      "name": "Commerce",
+      "description": "Stores, merchant operations, checkouts, tax, subscriptions, and order APIs.",
+      "sortOrder": 115
+    },
+    {
+      "slug": "support-success",
+      "name": "Support & success",
+      "description": "Customer support, knowledge bases, tickets, chat, and helpdesk workflows.",
+      "sortOrder": 125
+    },
+    {
+      "slug": "self-hosted",
+      "name": "Self-hosted",
+      "description": "Software that can run on user-controlled infrastructure.",
+      "sortOrder": 200
+    },
+    {
+      "slug": "selfhosted-analytics",
+      "name": "Analytics",
+      "description": "Analytics is the systematic computational analysis of data or statistics. It is used for the discovery, interpretation, and communication of meaningful patterns in data.",
+      "sortOrder": 201
+    },
+    {
+      "slug": "selfhosted-archiving-and-digital-preservation-dp",
+      "name": "Archiving and Digital Preservation (DP)",
+      "description": "Digital archiving and preservation software.",
+      "sortOrder": 202
+    },
+    {
+      "slug": "selfhosted-automation",
+      "name": "Automation",
+      "description": "Automation software designed to reduce human intervention in processes.",
+      "sortOrder": 203
+    },
+    {
+      "slug": "selfhosted-blogging-platforms",
+      "name": "Blogging Platforms",
+      "description": "A blog is a discussion or informational website consisting of discrete, diary-style text entries (posts).",
+      "sortOrder": 205
+    },
+    {
+      "slug": "selfhosted-booking-and-scheduling",
+      "name": "Booking and Scheduling",
+      "description": "Event scheduling, reservation, and appointment management software.",
+      "sortOrder": 206
+    },
+    {
+      "slug": "selfhosted-bookmarks-and-link-sharing",
+      "name": "Bookmarks and Link Sharing",
+      "description": "Software which allows users to add, annotate, edit, and share bookmarks) of web documents.",
+      "sortOrder": 207
+    },
+    {
+      "slug": "selfhosted-calendar-and-contacts",
+      "name": "Calendar & Contacts",
+      "description": "CalDAV and CardDAV protocol servers and web clients/interfaces for Electronic calendar, address book and contact management.",
+      "sortOrder": 208
+    },
+    {
+      "slug": "selfhosted-communication-custom-communication-systems",
+      "name": "Communication - Custom Communication Systems",
+      "description": "Communication software used to provide remote access to systems and exchange files and messages in text, audio and/or video formats between different computers or users, using their own custom protocols.",
+      "sortOrder": 209
+    },
+    {
+      "slug": "selfhosted-communication-email-complete-solutions",
+      "name": "Communication - Email - Complete Solutions",
+      "description": "Simple deployment of E-mail servers, e.g. for inexperienced or impatient admins.",
+      "sortOrder": 210
+    },
+    {
+      "slug": "selfhosted-communication-email-mail-delivery-agents",
+      "name": "Communication - Email - Mail Delivery Agents",
+      "description": "Mail Delivery Agents (MDAs) - IMAP/POP3 server software.",
+      "sortOrder": 211
+    },
+    {
+      "slug": "selfhosted-communication-email-mail-transfer-agents",
+      "name": "Communication - Email - Mail Transfer Agents",
+      "description": "Mail Transfer Agents (MTAs) - SMTP servers.",
+      "sortOrder": 212
+    },
+    {
+      "slug": "selfhosted-communication-email-mailing-lists-and-newsletters",
+      "name": "Communication - Email - Mailing Lists and Newsletters",
+      "description": "Mailing list servers and mass mailing software - one message to many recipients.",
+      "sortOrder": 213
+    },
+    {
+      "slug": "selfhosted-communication-email-webmail-clients",
+      "name": "Communication - Email - Webmail Clients",
+      "description": "Webmail clients.",
+      "sortOrder": 214
+    },
+    {
+      "slug": "selfhosted-communication-irc",
+      "name": "Communication - IRC",
+      "description": "IRC communication software.",
+      "sortOrder": 215
+    },
+    {
+      "slug": "selfhosted-communication-sip",
+      "name": "Communication - SIP",
+      "description": "SIP/IPBX telephony software.",
+      "sortOrder": 216
+    },
+    {
+      "slug": "selfhosted-communication-social-networks-and-forums",
+      "name": "Communication - Social Networks and Forums",
+      "description": "Social Networking and Forum software.",
+      "sortOrder": 217
+    },
+    {
+      "slug": "selfhosted-communication-video-conferencing",
+      "name": "Communication - Video Conferencing",
+      "description": "Video/Web Conferencing tools and software.",
+      "sortOrder": 218
+    },
+    {
+      "slug": "selfhosted-communication-xmpp-servers",
+      "name": "Communication - XMPP - Servers",
+      "description": "Extensible Messaging and Presence Protocol servers.",
+      "sortOrder": 219
+    },
+    {
+      "slug": "selfhosted-communication-xmpp-web-clients",
+      "name": "Communication - XMPP - Web Clients",
+      "description": "Extensible Messaging and Presence Protocol Web clients/interfaces.",
+      "sortOrder": 220
+    },
+    {
+      "slug": "selfhosted-community-supported-agriculture-csa",
+      "name": "Community-Supported Agriculture (CSA)",
+      "description": "Management and administration tools for community supported agriculture and food cooperatives.",
+      "sortOrder": 221
+    },
+    {
+      "slug": "selfhosted-conference-management",
+      "name": "Conference Management",
+      "description": "Software for submission of abstracts and preparation/management of academic conferences.",
+      "sortOrder": 222
+    },
+    {
+      "slug": "selfhosted-content-management-systems-cms",
+      "name": "Content Management Systems (CMS)",
+      "description": "Content Management Systems offer a practical way to setup a website with many features, using third party plugins, themes and functionality that are easy to add and customize.",
+      "sortOrder": 223
+    },
+    {
+      "slug": "selfhosted-customer-relationship-management-crm",
+      "name": "Customer Relationship Management (CRM)",
+      "description": "Customer relationship management (CRM) is a strategic process that organizations use to manage, analyze, and improve their interactions with customers.",
+      "sortOrder": 224
+    },
+    {
+      "slug": "selfhosted-database-management",
+      "name": "Database Management",
+      "description": "Web interfaces for database management. Includes tools for database analytics and visualization.",
+      "sortOrder": 225
+    },
+    {
+      "slug": "selfhosted-dns",
+      "name": "DNS",
+      "description": "DNS servers and management tools with advertisement blocking functionality, primarily aimed at home or small networks.",
+      "sortOrder": 226
+    },
+    {
+      "slug": "selfhosted-document-management-e-books",
+      "name": "Document Management - E-books",
+      "description": "Ebook library management software.",
+      "sortOrder": 227
+    },
+    {
+      "slug": "selfhosted-document-management-institutional-repository-and-digital-library-software",
+      "name": "Document Management - Institutional Repository and Digital Library Software",
+      "description": "Institutional repository and digital library management software.",
+      "sortOrder": 228
+    },
+    {
+      "slug": "selfhosted-document-management-integrated-library-systems-ils",
+      "name": "Document Management - Integrated Library Systems (ILS)",
+      "description": "An integrated library system is an enterprise resource planning system for a library, used to track items owned, orders made, bills paid, and patrons who have borrowed.",
+      "sortOrder": 229
+    },
+    {
+      "slug": "selfhosted-document-management",
+      "name": "Document Management",
+      "description": "A document management system (DMS) is a system used to receive, track, manage and store documents and reduce paper.",
+      "sortOrder": 230
+    },
+    {
+      "slug": "selfhosted-e-commerce",
+      "name": "E-commerce",
+      "description": "E-commerce software.",
+      "sortOrder": 231
+    },
+    {
+      "slug": "selfhosted-feed-readers",
+      "name": "Feed Readers",
+      "description": "A news aggregator, also termed a feed aggregator, feed reader, news reader, RSS reader, is an application that aggregates web content such as newspapers/blogs/vlogs/podcasts in one location for easy viewing.",
+      "sortOrder": 233
+    },
+    {
+      "slug": "selfhosted-file-transfer-object-storage-and-file-servers",
+      "name": "File Transfer - Object Storage & File Servers",
+      "description": "Object storage is a computer data storage that manages data as objects, as opposed to other storage architectures like file systems which manages data as a file hierarchy, and block storage which manages data as...",
+      "sortOrder": 235
+    },
+    {
+      "slug": "selfhosted-file-transfer-peer-to-peer-filesharing",
+      "name": "File Transfer - Peer-to-peer Filesharing",
+      "description": "Peer-to-peer file sharing is the distribution and sharing of digital media using peer-to-peer (P2P) networking technology.",
+      "sortOrder": 236
+    },
+    {
+      "slug": "selfhosted-file-transfer-single-click-and-drag-n-drop-upload",
+      "name": "File Transfer - Single-click & Drag-n-drop Upload",
+      "description": "Simplified file servers for sharing of one-time/short-lived/temporary files, providing single-click or drag-and-drop upload functionality.",
+      "sortOrder": 237
+    },
+    {
+      "slug": "selfhosted-file-transfer-web-based-file-managers",
+      "name": "File Transfer - Web-based File Managers",
+      "description": "Web-based file managers.",
+      "sortOrder": 238
+    },
+    {
+      "slug": "selfhosted-file-transfer-and-synchronization",
+      "name": "File Transfer & Synchronization",
+      "description": "File transfer, sharing and synchronization software software.",
+      "sortOrder": 239
+    },
+    {
+      "slug": "selfhosted-games-administrative-utilities-and-control-panels",
+      "name": "Games - Administrative Utilities & Control Panels",
+      "description": "Utilities for managing game servers and game libraries.",
+      "sortOrder": 240
+    },
+    {
+      "slug": "selfhosted-games",
+      "name": "Games",
+      "description": "Multiplayer game servers and browser games.",
+      "sortOrder": 241
+    },
+    {
+      "slug": "selfhosted-genealogy",
+      "name": "Genealogy",
+      "description": "Genealogy software used to record, organize, and publish genealogical data.",
+      "sortOrder": 242
+    },
+    {
+      "slug": "selfhosted-generative-artificial-intelligence-genai",
+      "name": "Generative Artificial Intelligence (GenAI)",
+      "description": "Generative Artificial Intelligence (GenAI) is a subset of artificial intelligence that uses generative models to produce text, images, videos, or other forms of data.",
+      "sortOrder": 243
+    },
+    {
+      "slug": "selfhosted-groupware",
+      "name": "Groupware",
+      "description": "Collaborative software or groupware is designed to help people working on a common task to attain their goals. Groupware often regroups multiple services such as file sharing, calendar/events management, appointment...",
+      "sortOrder": 244
+    },
+    {
+      "slug": "selfhosted-health-and-fitness",
+      "name": "Health and Fitness",
+      "description": "Medical, Health and Fitness software.",
+      "sortOrder": 245
+    },
+    {
+      "slug": "selfhosted-human-resources-management-hrm",
+      "name": "Human Resources Management (HRM)",
+      "description": "A human resources management system combines a number of systems and processes to ensure the easy management of human resources, business processes and data.",
+      "sortOrder": 246
+    },
+    {
+      "slug": "selfhosted-internet-of-things-iot",
+      "name": "Internet of Things (IoT)",
+      "description": "Internet of Things describes physical objects with sensors, processing ability, software, and other technologies that connect and exchange data with other devices over the Internet.",
+      "sortOrder": 248
+    },
+    {
+      "slug": "selfhosted-inventory-management",
+      "name": "Inventory Management",
+      "description": "Inventory management software.",
+      "sortOrder": 249
+    },
+    {
+      "slug": "selfhosted-knowledge-management-tools",
+      "name": "Knowledge Management Tools",
+      "description": "Knowledge management is the collection of methods relating to creating, sharing, using and managing the knowledge and information.",
+      "sortOrder": 250
+    },
+    {
+      "slug": "selfhosted-learning-and-courses",
+      "name": "Learning and Courses",
+      "description": "Tools and software to help with education and learning.",
+      "sortOrder": 251
+    },
+    {
+      "slug": "selfhosted-manufacturing",
+      "name": "Manufacturing",
+      "description": "Software to manage 3D printers, CNC machines and other physical manufacturing tools.",
+      "sortOrder": 252
+    },
+    {
+      "slug": "selfhosted-maps-and-global-positioning-system-gps",
+      "name": "Maps and Global Positioning System (GPS)",
+      "description": "Maps, cartography, GIS and GPS software.",
+      "sortOrder": 253
+    },
+    {
+      "slug": "selfhosted-media-management",
+      "name": "Media Management",
+      "description": "Digital media management tools and software.",
+      "sortOrder": 254
+    },
+    {
+      "slug": "selfhosted-media-streaming-audio-streaming",
+      "name": "Media Streaming - Audio Streaming",
+      "description": "Audio streaming tools and software.",
+      "sortOrder": 255
+    },
+    {
+      "slug": "selfhosted-media-streaming-multimedia-streaming",
+      "name": "Media Streaming - Multimedia Streaming",
+      "description": "Multimedia streaming tools and software.",
+      "sortOrder": 256
+    },
+    {
+      "slug": "selfhosted-media-streaming-video-streaming",
+      "name": "Media Streaming - Video Streaming",
+      "description": "Video streaming tools and software.",
+      "sortOrder": 257
+    },
+    {
+      "slug": "selfhosted-miscellaneous",
+      "name": "Miscellaneous",
+      "description": "Software that does not fit in another section.",
+      "sortOrder": 259
+    },
+    {
+      "slug": "selfhosted-money-budgeting-and-management",
+      "name": "Money, Budgeting & Management",
+      "description": "Money management and budgeting software.",
+      "sortOrder": 260
+    },
+    {
+      "slug": "selfhosted-network-utilities",
+      "name": "Network Utilities",
+      "description": "Network utilities are tools and software that help manage, monitor, and troubleshoot computer networks.",
+      "sortOrder": 262
+    },
+    {
+      "slug": "selfhosted-note-taking-and-editors",
+      "name": "Note-taking & Editors",
+      "description": "Note taking editors.",
+      "sortOrder": 263
+    },
+    {
+      "slug": "selfhosted-office-suites",
+      "name": "Office Suites",
+      "description": "An office suite is a collection of productivity software usually containing at least a word processor, spreadsheet and a presentation program.",
+      "sortOrder": 264
+    },
+    {
+      "slug": "selfhosted-password-managers",
+      "name": "Password Managers",
+      "description": "A password manager allows users to store, generate, and manage their passwords for local applications and online services.",
+      "sortOrder": 265
+    },
+    {
+      "slug": "selfhosted-pastebins",
+      "name": "Pastebins",
+      "description": "A pastebin is a type of online content-hosting service used for sharing and storing code and text.",
+      "sortOrder": 266
+    },
+    {
+      "slug": "selfhosted-personal-dashboards",
+      "name": "Personal Dashboards",
+      "description": "Dashboards for accessing information and applications.",
+      "sortOrder": 267
+    },
+    {
+      "slug": "selfhosted-photo-galleries",
+      "name": "Photo Galleries",
+      "description": "A gallery is software that helps the user publish or share photos, pictures, videos or other digital media.",
+      "sortOrder": 268
+    },
+    {
+      "slug": "selfhosted-polls-and-events",
+      "name": "Polls and Events",
+      "description": "Software for organising polls and events.",
+      "sortOrder": 269
+    },
+    {
+      "slug": "selfhosted-proxy",
+      "name": "Proxy",
+      "description": "A proxy is a server application that acts as an intermediary between a client requesting a resource and the server providing that resource. This section about forward (i.e. outgoing) proxies. For reverse proxies, see...",
+      "sortOrder": 270
+    },
+    {
+      "slug": "selfhosted-recipe-management",
+      "name": "Recipe Management",
+      "description": "Software and tools for managing recipes.",
+      "sortOrder": 271
+    },
+    {
+      "slug": "selfhosted-remote-access",
+      "name": "Remote Access",
+      "description": "Remote desktop and SSH servers and web interfaces for remote management of computer systems.",
+      "sortOrder": 272
+    },
+    {
+      "slug": "selfhosted-resource-planning",
+      "name": "Resource Planning",
+      "description": "Software and tools to help with resource and supply planning, including enterprise resource and supply planning (ERP).",
+      "sortOrder": 273
+    },
+    {
+      "slug": "selfhosted-search-engines",
+      "name": "Search Engines",
+      "description": "A search engine) is an information retrieval system designed to help find information stored on a computer system. This includes Web search engines.",
+      "sortOrder": 274
+    },
+    {
+      "slug": "selfhosted-self-hosting-solutions",
+      "name": "Self-hosting Solutions",
+      "description": "Software for easy installation, management and configuration of self-hosted services and applications.",
+      "sortOrder": 275
+    },
+    {
+      "slug": "selfhosted-software-development-api-management",
+      "name": "Software Development - API Management",
+      "description": "API management is the process of creating and publishing application programming interfaces (APIs), enforcing their usage policies, controlling access, nurturing the subscriber community, collecting and analyzing...",
+      "sortOrder": 276
+    },
+    {
+      "slug": "selfhosted-software-development-feature-toggle",
+      "name": "Software Development - Feature Toggle",
+      "description": "A feature toggle in software development provides an alternative to maintaining multiple feature branches in source code.",
+      "sortOrder": 279
+    },
+    {
+      "slug": "selfhosted-software-development-ide-and-tools",
+      "name": "Software Development - IDE & Tools",
+      "description": "An integrated development environment (IDE) is a software application that provides comprehensive facilities to computer programmers for software development.",
+      "sortOrder": 280
+    },
+    {
+      "slug": "selfhosted-software-development-localization",
+      "name": "Software Development - Localization",
+      "description": "Localization is the process of adapting code and software to other languages.",
+      "sortOrder": 281
+    },
+    {
+      "slug": "selfhosted-software-development-low-code",
+      "name": "Software Development - Low Code",
+      "description": "A low-code development platform (LCDP) provides a development environment used to create application software through a graphical user interface.",
+      "sortOrder": 282
+    },
+    {
+      "slug": "selfhosted-software-development-project-management",
+      "name": "Software Development - Project Management",
+      "description": "Tools and software for software project management.",
+      "sortOrder": 283
+    },
+    {
+      "slug": "selfhosted-software-development-testing",
+      "name": "Software Development - Testing",
+      "description": "Tools and software for software testing.",
+      "sortOrder": 284
+    },
+    {
+      "slug": "selfhosted-task-management-and-to-do-lists",
+      "name": "Task Management & To-do Lists",
+      "description": "Task management software.",
+      "sortOrder": 287
+    },
+    {
+      "slug": "selfhosted-ticketing",
+      "name": "Ticketing",
+      "description": "Helpdesk, bug and issue tracking software to help the tracking of user requests, bugs and missing features.",
+      "sortOrder": 288
+    },
+    {
+      "slug": "selfhosted-time-tracking",
+      "name": "Time Tracking",
+      "description": "Time-tracking software is a category of computer software that allows its users to record time spent on tasks or projects.",
+      "sortOrder": 289
+    },
+    {
+      "slug": "selfhosted-url-shorteners",
+      "name": "URL Shorteners",
+      "description": "URL shortening is the action of shortening a URL to make it substantially shorter and still direct to the required page. Before hosting one, please see disadvantages of URL shorteners.",
+      "sortOrder": 290
+    },
+    {
+      "slug": "selfhosted-video-surveillance",
+      "name": "Video Surveillance",
+      "description": "Video surveillance, also known as Closed-circuit television (CCTV), is the use of video cameras for surveillance in areas that require additional security or ongoing monitoring.",
+      "sortOrder": 291
+    },
+    {
+      "slug": "selfhosted-web-servers",
+      "name": "Web Servers",
+      "description": "Web Servers and Reverse Proxies. A web server is a piece of software and underlying hardware that accepts requests via HTTP (the network protocol created to distribute web content) or its secure variant HTTPS. A...",
+      "sortOrder": 293
+    },
+    {
+      "slug": "selfhosted-wikis",
+      "name": "Wikis",
+      "description": "A wiki is a publication collaboratively edited and managed by its own audience directly using a web browser.",
+      "sortOrder": 294
+    }
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "name": "CLI",
+      "group": "Agent access",
+      "description": "Official or strong command-line workflow an agent can use locally.",
+      "sortOrder": 10
+    },
+    {
+      "slug": "api",
+      "name": "API",
+      "group": "Agent access",
+      "description": "Documented API with machine-friendly auth and examples.",
+      "sortOrder": 20
+    },
+    {
+      "slug": "mcp",
+      "name": "MCP",
+      "group": "Agent access",
+      "description": "Official or community MCP server for direct agent/tool integration.",
+      "sortOrder": 30
+    },
+    {
+      "slug": "browser",
+      "name": "Browser",
+      "group": "Agent access",
+      "description": "Agent can operate the product through browser automation when needed.",
+      "sortOrder": 40
+    },
+    {
+      "slug": "account-creation",
+      "name": "Account creation",
+      "group": "Onboarding",
+      "description": "Signup and setup are clear enough for assisted or scripted onboarding.",
+      "sortOrder": 50
+    },
+    {
+      "slug": "pricing-clarity",
+      "name": "Pricing clarity",
+      "group": "Buying",
+      "description": "Pricing, limits, and free tiers are easy to inspect before use.",
+      "sortOrder": 60
+    },
+    {
+      "slug": "docs-quality",
+      "name": "Docs quality",
+      "group": "Understanding",
+      "description": "Docs are complete enough for an agent to reason over safely.",
+      "sortOrder": 70
+    },
+    {
+      "slug": "sandbox",
+      "name": "Sandbox",
+      "group": "Safety",
+      "description": "Supports test mode, preview environments, or safe dry runs.",
+      "sortOrder": 80
+    }
+  ],
+  "useCases": [
+    {
+      "slug": "charge-a-customer",
+      "name": "Charge a customer",
+      "description": "Create checkout, subscriptions, invoices, and billing workflows."
+    },
+    {
+      "slug": "publish-content",
+      "name": "Publish content",
+      "description": "Create or schedule posts, docs, email, and customer messages."
+    },
+    {
+      "slug": "extract-web-data",
+      "name": "Extract web data",
+      "description": "Search, crawl, scrape, parse, and normalize public web content."
+    },
+    {
+      "slug": "ship-app",
+      "name": "Ship an app",
+      "description": "Provision infra, deploy, monitor, and iterate on production apps."
+    },
+    {
+      "slug": "manage-users",
+      "name": "Manage users",
+      "description": "Create, authenticate, segment, and support users or teams."
+    },
+    {
+      "slug": "triage-work",
+      "name": "Triage work",
+      "description": "Inspect issues, tasks, documents, analytics, and production signals."
+    },
+    {
+      "slug": "call-models",
+      "name": "Call models",
+      "description": "Generate, embed, rerank, transcribe, or route AI model requests."
+    },
+    {
+      "slug": "build-rag",
+      "name": "Build RAG",
+      "description": "Index documents, retrieve context, run hybrid search, and manage vectors."
+    },
+    {
+      "slug": "manage-infra",
+      "name": "Manage infra",
+      "description": "Provision, deploy, inspect, and automate cloud or platform resources."
+    },
+    {
+      "slug": "sync-crm",
+      "name": "Sync CRM",
+      "description": "Read and update contacts, companies, deals, tickets, and customer history."
+    },
+    {
+      "slug": "analyze-product",
+      "name": "Analyze product",
+      "description": "Send events, inspect funnels, query metrics, and investigate usage."
+    },
+    {
+      "slug": "manage-media",
+      "name": "Manage media",
+      "description": "Create, upload, transform, organize, and export visual assets."
+    },
+    {
+      "slug": "self-host-tool",
+      "name": "Self-host a tool",
+      "description": "Deploy and operate a tool on user-controlled infrastructure."
+    },
+    {
+      "slug": "deploy-internal-tool",
+      "name": "Deploy internal tools",
+      "description": "Run internal apps, dashboards, workflows, and operational systems."
+    },
+    {
+      "slug": "inspect-open-source",
+      "name": "Inspect open source",
+      "description": "Review source code, releases, licenses, and deployment paths before agent use."
+    }
+  ]
+}

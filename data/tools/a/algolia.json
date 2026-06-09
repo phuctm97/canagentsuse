@@ -1,0 +1,77 @@
+{
+  "slug": "algolia",
+  "name": "Algolia",
+  "tagline": "Hosted search, recommendations, and discovery APIs.",
+  "websiteUrl": "https://www.algolia.com",
+  "docsUrl": "https://www.algolia.com/doc",
+  "githubUrl": "https://github.com/algolia",
+  "shortDescription": "Algolia provides mature hosted search APIs, API clients, CLI tooling, indexing, analytics, and rules.",
+  "agentSummary": "Agents can create indices, push records, tune ranking, and inspect search behavior through API and dashboards.",
+  "bestFor": "Hosted site search, product search, indexing pipelines, and recommendations.",
+  "cautionNotes": "Key limitations: Search relevance changes can affect revenue; production ranking changes need review. Verify official docs, pricing, rate limits, permissions, and production side effects before delegating account-changing actions to an agent. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public usage-based pricing by records and requests.",
+  "authModel": "Application IDs and scoped API keys.",
+  "accountCreation": "Self-serve signup with free tier.",
+  "browserSupport": "Dashboard is important for relevance tuning and analytics review.",
+  "cliPackage": "algolia",
+  "apiBaseUrl": "https://{application-id}.algolia.net",
+  "categorySlugs": [
+    "search-rag",
+    "analytics-product"
+  ],
+  "useCaseSlugs": [
+    "build-rag",
+    "analyze-product"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "strong",
+      "detail": "Algolia CLI supports scripting index and app tasks.",
+      "evidenceUrl": "https://www.algolia.com/doc/tools/cli/"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST and client APIs cover search, indexing, settings, rules, and analytics.",
+      "evidenceUrl": "https://www.algolia.com/doc/rest-api/search/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include API references, guides, and examples.",
+      "evidenceUrl": "https://www.algolia.com/doc/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public usage-based pricing by records and requests.",
+      "evidenceUrl": "https://www.algolia.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup with free tier.",
+      "evidenceUrl": "https://www.algolia.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard is important for relevance tuning and analytics review.",
+      "evidenceUrl": "https://www.algolia.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://www.algolia.com/doc"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/algolia"
+  }
+}

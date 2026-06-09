@@ -1,0 +1,62 @@
+{
+  "slug": "exa",
+  "name": "Exa",
+  "tagline": "Web search built for AI applications.",
+  "websiteUrl": "https://exa.ai",
+  "docsUrl": "https://docs.exa.ai",
+  "shortDescription": "Search and content retrieval APIs designed for AI research and retrieval workflows.",
+  "agentSummary": "Useful when agents need semantically relevant web results and page contents without generic scraping setup.",
+  "bestFor": "Research, web retrieval, content discovery, and RAG pipelines.",
+  "cautionNotes": "Key limitations: Search results still need source evaluation and citation hygiene. Respect robots.txt, site terms, rate limits, copyright, authentication boundaries, and anti-bot controls before asking an agent to crawl or extract content. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public API pricing with free trial and usage-based tiers.",
+  "authModel": "API key.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Dashboard mainly supports API keys and usage.",
+  "apiBaseUrl": "https://api.exa.ai",
+  "categorySlugs": [
+    "scraping-content"
+  ],
+  "useCaseSlugs": [
+    "extract-web-data",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Search, find similar, and content endpoints support agent research.",
+      "evidenceUrl": "https://docs.exa.ai"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs are compact and API-focused.",
+      "evidenceUrl": "https://docs.exa.ai"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Usage tiers are visible before integration.",
+      "evidenceUrl": "https://docs.exa.ai"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://exa.ai"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard mainly supports API keys and usage.",
+      "evidenceUrl": "https://exa.ai"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "growing-product",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://docs.exa.ai"
+  }
+}

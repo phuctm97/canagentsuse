@@ -394,12 +394,14 @@ curl -fsS https://canagentsuse.com/skill.md
 The repo is intentionally file-backed. There is no database required to run,
 build, or contribute.
 
-- [`data/catalog.json`](data/catalog.json): canonical catalog data.
+- [`data/tools`](data/tools): canonical one-file-per-tool catalog source.
+- [`data/taxonomy.json`](data/taxonomy.json): shared categories, capabilities, and use cases.
 - [`data/catalog.schema.json`](data/catalog.schema.json): validation schema for editors and agents.
 - [`data/README.md`](data/README.md): data format notes.
 
-JSON is used because it is native to Next.js, TypeScript, APIs, MCP responses,
-and LLM-facing exports. Markdown is kept for documentation.
+`data/catalog.json` is generated locally from those split sources for Next.js,
+APIs, MCP responses, and LLM-facing exports. Do not edit or commit it.
+Markdown is kept for documentation.
 
 ## Repository Layout
 
@@ -413,7 +415,8 @@ This repo is a Bun workspace monorepo with two packages:
 Project assets stay at the root so GitHub readers and agents can find them
 quickly:
 
-- [`data/catalog.json`](data/catalog.json): canonical catalog data.
+- [`data/tools`](data/tools): canonical catalog records, split by first slug character.
+- [`data/taxonomy.json`](data/taxonomy.json): canonical shared taxonomy.
 - [`skills/`](skills): skills.sh-discoverable skills.
 - [`skills.sh.json`](skills.sh.json): skills.sh metadata.
 - [`.github/PULL_REQUEST_TEMPLATE/add-tool.md`](.github/PULL_REQUEST_TEMPLATE/add-tool.md): contribution template.
@@ -456,6 +459,7 @@ website env in `packages/website/.env.local`.
 Useful checks:
 
 ```bash
+bun run catalog:build
 bun run catalog:audit
 bun run cli:test
 bun run cli:pack
@@ -534,13 +538,14 @@ commit; a connected Vercel Git integration can deploy that commit normally.
 
 The best contribution is a well-evidenced catalog record.
 
-1. Edit [`data/catalog.json`](data/catalog.json).
+1. Add or edit one tool file in [`data/tools`](data/tools), for example `data/tools/s/stripe.json`.
 2. Add evidence URLs for important API, CLI, MCP, pricing, docs, sandbox, or account setup claims.
 3. Add `launchSignals` for public traction and importance.
 4. Include limitation notes for anything that affects money, production data, infrastructure, or users.
-5. Run `bun run catalog:format` so `data/catalog.json` uses the canonical two-space JSON format.
-6. Run `bun run catalog:audit`.
-7. Open a pull request. The Catalog PR workflow reruns the formatter, fails with a diff if the JSON is not canonical, audits metadata, and typechecks catalog consumers.
+5. Run `bun run catalog:build` to regenerate the local aggregate catalog.
+6. Run `bun run catalog:format` so source JSON uses the canonical two-space format.
+7. Run `bun run catalog:audit`.
+8. Open a pull request. The Catalog PR workflow rebuilds the generated catalog, reruns the formatter, audits metadata, and typechecks catalog consumers.
 
 If you are not ready to edit JSON, use the website submit flow to open a
 prefilled GitHub pull request or copy a ready-to-run agent prompt.

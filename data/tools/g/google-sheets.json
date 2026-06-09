@@ -1,0 +1,68 @@
+{
+  "slug": "google-sheets",
+  "name": "Google Sheets API",
+  "tagline": "Spreadsheet data automation through Google Workspace APIs.",
+  "websiteUrl": "https://workspace.google.com/products/sheets/",
+  "docsUrl": "https://developers.google.com/workspace/sheets/api",
+  "shortDescription": "Google Sheets API lets agents read, write, format, batch update, and integrate spreadsheet data.",
+  "agentSummary": "Agents can operate spreadsheets through well-documented APIs when OAuth/service account access is configured.",
+  "bestFor": "Lightweight data edits, reports, operational spreadsheets, and workflow glue.",
+  "cautionNotes": "Key limitations: Sheets often hold sensitive data; require least-privilege OAuth scopes and change review. Project, CRM, document, and spreadsheet writes depend on team context and privacy rules; require least-privilege scopes and review for workflow-changing actions. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "API usage is generally tied to Google Cloud quota and Workspace plan context.",
+  "authModel": "OAuth, service accounts, API keys for limited public access, and Workspace scopes.",
+  "accountCreation": "Google account and Cloud project setup are self-serve.",
+  "browserSupport": "Browser UI remains best for visual review and sheet layout.",
+  "apiBaseUrl": "https://sheets.googleapis.com/v4",
+  "categorySlugs": [
+    "spreadsheets-data",
+    "project-workflows"
+  ],
+  "useCaseSlugs": [
+    "triage-work",
+    "analyze-product"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Sheets API supports spreadsheet values, batch updates, formatting, and metadata.",
+      "evidenceUrl": "https://developers.google.com/workspace/sheets/api/guides/concepts"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include guides, reference, auth, and quickstarts.",
+      "evidenceUrl": "https://developers.google.com/workspace/sheets/api"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "API usage is generally tied to Google Cloud quota and Workspace plan context.",
+      "evidenceUrl": "https://developers.google.com/workspace/sheets/api/limits"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Google account and Cloud project setup are self-serve.",
+      "evidenceUrl": "https://workspace.google.com/products/sheets/"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Browser UI remains best for visual review and sheet layout.",
+      "evidenceUrl": "https://workspace.google.com/products/sheets/"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "Copies and test spreadsheets allow low-risk automation."
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://developers.google.com/workspace/sheets/api"
+  }
+}

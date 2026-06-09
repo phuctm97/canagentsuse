@@ -1,0 +1,63 @@
+{
+  "slug": "clerk",
+  "name": "Clerk",
+  "tagline": "Authentication and user management for modern apps.",
+  "websiteUrl": "https://clerk.com",
+  "docsUrl": "https://clerk.com/docs",
+  "githubUrl": "https://github.com/clerk",
+  "shortDescription": "Auth, user management, organizations, billing integrations, and UI components for app builders.",
+  "agentSummary": "Agents can wire auth into frameworks quickly, but provider setup and production auth settings need review.",
+  "bestFor": "User signup, login, organizations, and app auth surfaces.",
+  "cautionNotes": "Key limitations: Security, redirect URLs, and provider credentials should be human-reviewed. Identity configuration, redirect URLs, provider credentials, user lifecycle actions, and permission scopes can lock users out or expose accounts if automated without review. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Browser automation can be brittle around UI changes, MFA, captchas, policy prompts, and hidden confirmation states.",
+  "pricingSummary": "Public MAU-based pricing with free and paid tiers.",
+  "authModel": "Secret keys, publishable keys, JWT/session auth, OAuth providers.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Dashboard is important for instance configuration.",
+  "apiBaseUrl": "https://api.clerk.com",
+  "categorySlugs": [
+    "auth-accounts"
+  ],
+  "useCaseSlugs": [
+    "manage-users",
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Backend API and SDKs support users, organizations, sessions, and invitations.",
+      "evidenceUrl": "https://clerk.com/docs"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Framework guides are practical for agents wiring apps.",
+      "evidenceUrl": "https://clerk.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public MAU-based pricing with free and paid tiers.",
+      "evidenceUrl": "https://clerk.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://clerk.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard configuration is often required.",
+      "evidenceUrl": "https://clerk.com/docs"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "growing-product",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/clerk"
+  }
+}

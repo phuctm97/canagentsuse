@@ -1,0 +1,61 @@
+{
+  "slug": "mistral-ai",
+  "name": "Mistral AI",
+  "tagline": "Open and commercial model APIs with chat, agents, OCR, and embeddings.",
+  "websiteUrl": "https://mistral.ai",
+  "docsUrl": "https://docs.mistral.ai",
+  "shortDescription": "Mistral provides model inference APIs, agents, OCR, embeddings, fine-tuning, and SDK docs.",
+  "agentSummary": "Agents can call Mistral's REST API for chat, embeddings, OCR, and agent workflows with public model/pricing docs.",
+  "bestFor": "European AI model API usage, OCR, embeddings, and model routing experiments.",
+  "cautionNotes": "Key limitations: Verify model availability, regional requirements, and data policy before production automation. Model behavior, costs, rate limits, data retention, and safety policies can change by model and account tier; use evals, spend caps, and data controls for sensitive workloads. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public model pricing with token-based rates.",
+  "authModel": "API keys through La Plateforme.",
+  "accountCreation": "Self-serve account creation with billing for paid usage.",
+  "browserSupport": "Console supports key and usage management.",
+  "apiBaseUrl": "https://api.mistral.ai/v1",
+  "categorySlugs": [
+    "ai-models"
+  ],
+  "useCaseSlugs": [
+    "call-models"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "API docs cover chat, embeddings, agents, OCR, files, and fine-tuning.",
+      "evidenceUrl": "https://docs.mistral.ai/api/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs are API-focused with examples and SDK references.",
+      "evidenceUrl": "https://docs.mistral.ai"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Mistral publishes model pricing.",
+      "evidenceUrl": "https://mistral.ai/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve account creation with billing for paid usage.",
+      "evidenceUrl": "https://mistral.ai"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Console supports key and usage management.",
+      "evidenceUrl": "https://mistral.ai"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://docs.mistral.ai"
+  }
+}

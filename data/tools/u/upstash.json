@@ -1,0 +1,78 @@
+{
+  "slug": "upstash",
+  "name": "Upstash",
+  "tagline": "Serverless Redis, QStash, Vector, Workflow, and REST APIs.",
+  "websiteUrl": "https://upstash.com",
+  "docsUrl": "https://upstash.com/docs",
+  "shortDescription": "Upstash exposes Redis REST, QStash messaging, Vector, Workflow, Kafka, and a CLI built for agents and automation.",
+  "agentSummary": "Agents can provision lightweight state, queues, vector indexes, and scheduled workflows with HTTP-first APIs.",
+  "bestFor": "Serverless Redis, queues, rate limiting, vector search, workflows, and cron-like jobs.",
+  "cautionNotes": "Key limitations: Queue fanout, deletes, and token exposure need careful scoping. Schema changes, migrations, deletes, backups, row-level security, and retention policies need explicit review before agents touch production data. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public usage-based pricing with free tiers across products.",
+  "authModel": "REST URLs/tokens, API keys, and environment variables.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Console supports database, token, usage, and log inspection.",
+  "cliPackage": "upstash",
+  "apiBaseUrl": "https://api.upstash.com",
+  "categorySlugs": [
+    "databases-storage",
+    "deployment-infra",
+    "search-rag"
+  ],
+  "useCaseSlugs": [
+    "ship-app",
+    "manage-infra",
+    "build-rag"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "CLI can run Redis commands against the REST API and manage resources.",
+      "evidenceUrl": "https://upstash.com/docs/agent-resources/cli"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Redis REST, QStash, Vector, and management APIs are documented.",
+      "evidenceUrl": "https://upstash.com/docs/redis/features/restapi"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Official docs are listed for API behavior, authentication, limits, examples, and setup review.",
+      "evidenceUrl": "https://upstash.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public across Redis, QStash, Vector, and Workflow.",
+      "evidenceUrl": "https://upstash.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://upstash.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Console supports database, token, usage, and log inspection.",
+      "evidenceUrl": "https://upstash.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://upstash.com/docs"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://upstash.com/docs"
+  }
+}

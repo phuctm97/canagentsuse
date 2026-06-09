@@ -1,0 +1,73 @@
+{
+  "slug": "gotenberg",
+  "name": "Gotenberg",
+  "tagline": "Self-hosted document management software.",
+  "websiteUrl": "https://gotenberg.dev",
+  "docsUrl": "https://github.com/gotenberg/gotenberg",
+  "githubUrl": "https://github.com/gotenberg/gotenberg",
+  "shortDescription": "Developer-friendly API to interact with powerful tools like Chromium and LibreOffice for converting numerous document formats (HTML, Markdown, Word, Excel, etc.) into PDF files, and more.",
+  "agentSummary": "Gotenberg is self-hostable software from the Awesome Selfhosted data index. Agents can inspect the source, deploy it in a controlled environment, and operate the browser UI; API or CLI support should be verified in project docs.",
+  "bestFor": "Self-hosted document management workflows, internal tools, and controlled deployment experiments.",
+  "cautionNotes": "Key limitations: generated from community metadata, not a full security review. Verify maintenance activity, license, deployment docs, auth model, backup and restore path, update process, API or CLI support, and data exposure before production agent automation. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Browser automation can be brittle around UI changes, MFA, captchas, policy prompts, and hidden confirmation states.",
+  "pricingSummary": "Self-hosted/open-source licensing listed as MIT; infrastructure costs vary by deployment.",
+  "authModel": "Auth and permissions depend on the deployed app configuration; platform metadata: Docker. Source code: https://github.com/gotenberg/gotenberg",
+  "accountCreation": "No vendor signup is required for self-hosted use, but deployment and admin setup are required.",
+  "browserSupport": "Browser UI can be operated after deployment; exact flows depend on the app configuration.",
+  "submittedBy": "Generated from Awesome Selfhosted data",
+  "categorySlugs": [
+    "self-hosted",
+    "selfhosted-document-management",
+    "selfhosted-automation"
+  ],
+  "useCaseSlugs": [
+    "self-host-tool",
+    "inspect-open-source",
+    "deploy-internal-tool",
+    "publish-content"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "partial",
+      "detail": "Metadata suggests an API, server, integration, or automation surface; verify exact endpoints in project docs.",
+      "evidenceUrl": "https://github.com/gotenberg/gotenberg"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Self-hosted web app can be operated through a browser once deployed.",
+      "evidenceUrl": "https://gotenberg.dev"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Self-hosted/open-source licensing makes software cost inspectable; infrastructure cost depends on deployment.",
+      "evidenceUrl": "https://github.com/gotenberg/gotenberg"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "partial",
+      "detail": "No vendor signup is required for self-hosted use, but deployment, admin setup, and local auth configuration are usually required.",
+      "evidenceUrl": "https://github.com/gotenberg/gotenberg"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "partial",
+      "detail": "Project website or source repository is listed for documentation and deployment review.",
+      "evidenceUrl": "https://github.com/gotenberg/gotenberg"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Self-hosted deployment supports local, staging, or disposable test environments before production use.",
+      "evidenceUrl": "https://github.com/gotenberg/gotenberg"
+    }
+  ],
+  "launchSignals": {
+    "githubStars": 12300,
+    "ecosystemImportance": "unknown",
+    "maturity": "maintained",
+    "distribution": "none",
+    "evidenceUrl": "https://github.com/gotenberg/gotenberg"
+  }
+}

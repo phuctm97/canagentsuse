@@ -1,0 +1,62 @@
+{
+  "slug": "google-gemini",
+  "name": "Google Gemini API",
+  "tagline": "Google's Gemini models, embeddings, files, and structured generation.",
+  "websiteUrl": "https://ai.google.dev",
+  "docsUrl": "https://ai.google.dev/gemini-api/docs",
+  "shortDescription": "Gemini API exposes model generation, embeddings, files, context caching, and multimodal examples.",
+  "agentSummary": "Useful for agents that need a Google-backed model API with SDKs, structured outputs, and multimodal capabilities.",
+  "bestFor": "Multimodal model calls, embeddings, structured output, and Google AI Studio prototypes.",
+  "cautionNotes": "Key limitations: Production use needs model/version pinning, quota checks, and privacy review. Model behavior, costs, rate limits, data retention, and safety policies can change by model and account tier; use evals, spend caps, and data controls for sensitive workloads. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public Gemini API pricing and free-tier/paid-tier concepts.",
+  "authModel": "API keys and Google Cloud project-based auth depending on surface.",
+  "accountCreation": "Self-serve Google AI Studio or Google Cloud setup.",
+  "browserSupport": "AI Studio is helpful for prompt prototyping and key management.",
+  "apiBaseUrl": "https://generativelanguage.googleapis.com",
+  "categorySlugs": [
+    "ai-models"
+  ],
+  "useCaseSlugs": [
+    "call-models",
+    "build-rag"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Gemini API docs cover models, embeddings, files, structured output, and context caching.",
+      "evidenceUrl": "https://ai.google.dev/gemini-api/docs"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include SDK examples and API concepts for agent integration.",
+      "evidenceUrl": "https://ai.google.dev/gemini-api/docs/api-key"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Gemini API pricing is public.",
+      "evidenceUrl": "https://ai.google.dev/gemini-api/docs/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve Google AI Studio or Google Cloud setup.",
+      "evidenceUrl": "https://ai.google.dev"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "AI Studio is helpful for prompt prototyping and key management.",
+      "evidenceUrl": "https://ai.google.dev"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "major-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://ai.google.dev/gemini-api/docs"
+  }
+}

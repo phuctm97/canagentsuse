@@ -1,0 +1,68 @@
+{
+  "slug": "paddle",
+  "name": "Paddle",
+  "tagline": "Merchant-of-record payments, subscriptions, tax, checkout, and billing APIs.",
+  "websiteUrl": "https://www.paddle.com",
+  "docsUrl": "https://developer.paddle.com",
+  "shortDescription": "Paddle provides unified APIs for checkout, products, prices, subscriptions, transactions, customers, and webhooks.",
+  "agentSummary": "Agents can manage SaaS billing objects and checkout flows with tax/MoR handled by Paddle, subject to business review.",
+  "bestFor": "SaaS billing, subscriptions, checkout, tax handling, and merchant-of-record workflows.",
+  "cautionNotes": "Key limitations: Live billing, tax, refunds, and customer communication need review. Live payments, refunds, payouts, tax, disputes, and business verification can move money or create compliance exposure; keep agents in sandbox or test mode until a human approves live changes. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Account setup or elevated access may require vendor, admin, or compliance approval before an agent can operate independently.",
+  "pricingSummary": "Public transaction-based pricing for Paddle Billing.",
+  "authModel": "API keys, client-side tokens, notification/webhook signatures.",
+  "accountCreation": "Self-serve signup with business verification for live selling.",
+  "browserSupport": "Dashboard is useful for review, verification, and billing operations.",
+  "apiBaseUrl": "https://api.paddle.com",
+  "categorySlugs": [
+    "billing-payments",
+    "commerce"
+  ],
+  "useCaseSlugs": [
+    "charge-a-customer"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Developer docs describe a unified API for payments, tax, subscriptions, checkout, and metrics.",
+      "evidenceUrl": "https://developer.paddle.com/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include API reference, webhooks, checkout, and billing guides.",
+      "evidenceUrl": "https://developer.paddle.com/api-reference/overview"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Paddle publishes transaction pricing.",
+      "evidenceUrl": "https://www.paddle.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup with business verification for live selling.",
+      "evidenceUrl": "https://www.paddle.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard is useful for review, verification, and billing operations.",
+      "evidenceUrl": "https://www.paddle.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "native",
+      "detail": "Sandbox environment supports testing checkout and subscription workflows.",
+      "evidenceUrl": "https://developer.paddle.com/sdks/sandbox/"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://developer.paddle.com"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "slug": "mediamtx",
+  "name": "MediaMTX",
+  "tagline": "Self-hosted media streaming - multimedia streaming software.",
+  "websiteUrl": "https://mediamtx.org",
+  "docsUrl": "https://github.com/bluenviron/mediamtx",
+  "githubUrl": "https://github.com/bluenviron/mediamtx",
+  "shortDescription": "Ready-to-use, zero-dependency real-time media server and proxy to publish, read, record, playback and route video/audio streams over SRT, WebRTC, RTSP, RTMP, HLS, MPEG-TS, RTP.",
+  "agentSummary": "MediaMTX is self-hostable software from the Awesome Selfhosted data index. Agents can inspect the source, deploy it in a controlled environment, and operate the browser UI; API or CLI support should be verified in project docs.",
+  "bestFor": "Self-hosted media streaming - multimedia streaming workflows, internal tools, and controlled deployment experiments.",
+  "cautionNotes": "Key limitations: generated from community metadata, not a full security review. Verify maintenance activity, license, deployment docs, auth model, backup and restore path, update process, API or CLI support, and data exposure before production agent automation. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Browser automation can be brittle around UI changes, MFA, captchas, policy prompts, and hidden confirmation states.",
+  "pricingSummary": "Self-hosted/open-source licensing listed as MIT; infrastructure costs vary by deployment.",
+  "authModel": "Auth and permissions depend on the deployed app configuration; platform metadata: Go, Docker. Source code: https://github.com/bluenviron/mediamtx",
+  "accountCreation": "No vendor signup is required for self-hosted use, but deployment and admin setup are required.",
+  "browserSupport": "Browser UI can be operated after deployment; exact flows depend on the app configuration.",
+  "submittedBy": "Generated from Awesome Selfhosted data",
+  "categorySlugs": [
+    "self-hosted",
+    "selfhosted-media-streaming-multimedia-streaming"
+  ],
+  "useCaseSlugs": [
+    "self-host-tool",
+    "inspect-open-source"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "partial",
+      "detail": "Metadata suggests an API, server, integration, or automation surface; verify exact endpoints in project docs.",
+      "evidenceUrl": "https://github.com/bluenviron/mediamtx"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Self-hosted web app can be operated through a browser once deployed.",
+      "evidenceUrl": "https://mediamtx.org"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Self-hosted/open-source licensing makes software cost inspectable; infrastructure cost depends on deployment.",
+      "evidenceUrl": "https://github.com/bluenviron/mediamtx"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "partial",
+      "detail": "No vendor signup is required for self-hosted use, but deployment, admin setup, and local auth configuration are usually required.",
+      "evidenceUrl": "https://github.com/bluenviron/mediamtx"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "partial",
+      "detail": "Project website or source repository is listed for documentation and deployment review.",
+      "evidenceUrl": "https://github.com/bluenviron/mediamtx"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Self-hosted deployment supports local, staging, or disposable test environments before production use.",
+      "evidenceUrl": "https://github.com/bluenviron/mediamtx"
+    }
+  ],
+  "launchSignals": {
+    "githubStars": 18900,
+    "ecosystemImportance": "unknown",
+    "maturity": "maintained",
+    "distribution": "none",
+    "evidenceUrl": "https://github.com/bluenviron/mediamtx"
+  }
+}

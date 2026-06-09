@@ -1,0 +1,68 @@
+{
+  "slug": "jira",
+  "name": "Jira",
+  "tagline": "Issue tracking and project workflows through Atlassian APIs.",
+  "websiteUrl": "https://www.atlassian.com/software/jira",
+  "docsUrl": "https://developer.atlassian.com/cloud/jira/platform/rest/v3/",
+  "shortDescription": "Jira Cloud exposes REST APIs, OAuth, Forge/Connect apps, webhooks, JQL, issues, projects, and workflows.",
+  "agentSummary": "Agents can automate Jira through REST APIs and Atlassian's Rovo MCP server for Jira, Confluence, and Compass search, summaries, issue creation, and updates.",
+  "bestFor": "Issue triage, sprint hygiene, workflow updates, and project operations.",
+  "cautionNotes": "Key limitations: Workflow transitions, permissions, and customer data need review. Project, CRM, document, and spreadsheet writes depend on team context and privacy rules; require least-privilege scopes and review for workflow-changing actions. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public Atlassian plan pricing with free and paid tiers.",
+  "authModel": "Atlassian API tokens, OAuth apps, user permissions, and Atlassian Rovo MCP OAuth/API-token access.",
+  "accountCreation": "Self-serve Atlassian Cloud signup.",
+  "browserSupport": "Browser UI is useful for workflow, board, and permission review.",
+  "apiBaseUrl": "https://your-domain.atlassian.net/rest/api/3",
+  "categorySlugs": [
+    "project-workflows"
+  ],
+  "useCaseSlugs": [
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Jira Cloud REST API covers issues, projects, fields, transitions, and search.",
+      "evidenceUrl": "https://developer.atlassian.com/cloud/jira/platform/rest/v3/"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Atlassian Rovo MCP Server connects AI clients to Jira, Confluence, and Compass through OAuth 2.1 and existing user permissions.",
+      "evidenceUrl": "https://support.atlassian.com/atlassian-rovo-mcp-server/docs/getting-started-with-the-atlassian-remote-mcp-server/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Atlassian developer docs include REST, Forge, OAuth, and webhooks.",
+      "evidenceUrl": "https://developer.atlassian.com/cloud/jira/platform/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Jira pricing is public by plan and user count.",
+      "evidenceUrl": "https://www.atlassian.com/software/jira/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve Atlassian Cloud signup.",
+      "evidenceUrl": "https://www.atlassian.com/software/jira"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Browser UI is useful for workflow, board, and permission review.",
+      "evidenceUrl": "https://www.atlassian.com/software/jira"
+    }
+  ],
+  "mcpServer": "https://mcp.atlassian.com/v1/mcp/authv2",
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://developer.atlassian.com/cloud/jira/platform/rest/v3/"
+  }
+}

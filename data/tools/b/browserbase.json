@@ -1,0 +1,63 @@
+{
+  "slug": "browserbase",
+  "name": "Browserbase",
+  "tagline": "Cloud browsers for AI agents and automation.",
+  "websiteUrl": "https://www.browserbase.com",
+  "docsUrl": "https://docs.browserbase.com",
+  "shortDescription": "Hosted browser sessions, stealth infrastructure, and automation tools for agent workflows.",
+  "agentSummary": "Strong fit when local Playwright is not enough and an agent needs durable remote browser sessions.",
+  "bestFor": "Remote browser automation, logged-in workflows, and agent web tasks.",
+  "cautionNotes": "Key limitations: Use responsibly and respect site terms; browser automation can trigger risk systems. Respect robots.txt, site terms, rate limits, copyright, authentication boundaries, and anti-bot controls before asking an agent to crawl or extract content. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Browser automation can be brittle around UI changes, MFA, captchas, policy prompts, and hidden confirmation states.",
+  "pricingSummary": "Public tiers and usage-based session pricing.",
+  "authModel": "API key and hosted account.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Core product is remote browser access.",
+  "apiBaseUrl": "https://api.browserbase.com",
+  "categorySlugs": [
+    "scraping-content",
+    "deployment-infra"
+  ],
+  "useCaseSlugs": [
+    "extract-web-data",
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "API creates and manages browser sessions.",
+      "evidenceUrl": "https://docs.browserbase.com"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs focus on automation recipes and integrations.",
+      "evidenceUrl": "https://docs.browserbase.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public tiers and usage-based session pricing.",
+      "evidenceUrl": "https://www.browserbase.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://www.browserbase.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "native",
+      "detail": "Provides hosted browser execution for agents.",
+      "evidenceUrl": "https://docs.browserbase.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://docs.browserbase.com"
+  }
+}

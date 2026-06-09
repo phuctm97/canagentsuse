@@ -1,0 +1,65 @@
+{
+  "slug": "affine-community-edition",
+  "name": "AFFiNE Community Edition",
+  "tagline": "Self-hosted knowledge management tools software.",
+  "websiteUrl": "https://affine.pro/",
+  "docsUrl": "https://github.com/toeverything/AFFiNE",
+  "githubUrl": "https://github.com/toeverything/AFFiNE",
+  "shortDescription": "Next-gen knowledge base that brings planning, sorting and creating all together. Privacy first, customizable and ready to use (alternative to Notion and Miro).",
+  "agentSummary": "AFFiNE Community Edition is self-hostable software from the Awesome Selfhosted data index. Agents can inspect the source, deploy it in a controlled environment, and operate the browser UI; API or CLI support should be verified in project docs.",
+  "bestFor": "Self-hosted knowledge management tools workflows, internal tools, and controlled deployment experiments.",
+  "cautionNotes": "Key limitations: generated from community metadata, not a full security review. Verify maintenance activity, license, deployment docs, auth model, backup and restore path, update process, API or CLI support, and data exposure before production agent automation. Browser automation can be brittle around UI changes, MFA, captchas, policy prompts, and hidden confirmation states. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Self-hosted/open-source licensing listed as MIT, AGPL-3.0; infrastructure costs vary by deployment.",
+  "authModel": "Auth and permissions depend on the deployed app configuration; platform metadata: Docker. Source code: https://github.com/toeverything/AFFiNE",
+  "accountCreation": "No vendor signup is required for self-hosted use, but deployment and admin setup are required.",
+  "browserSupport": "Browser UI can be operated after deployment; exact flows depend on the app configuration.",
+  "submittedBy": "Generated from Awesome Selfhosted data",
+  "categorySlugs": [
+    "self-hosted",
+    "selfhosted-knowledge-management-tools"
+  ],
+  "useCaseSlugs": [
+    "self-host-tool",
+    "inspect-open-source",
+    "deploy-internal-tool"
+  ],
+  "capabilities": [
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Self-hosted web app can be operated through a browser once deployed.",
+      "evidenceUrl": "https://affine.pro/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Self-hosted/open-source licensing makes software cost inspectable; infrastructure cost depends on deployment.",
+      "evidenceUrl": "https://github.com/toeverything/AFFiNE"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "partial",
+      "detail": "No vendor signup is required for self-hosted use, but deployment, admin setup, and local auth configuration are usually required.",
+      "evidenceUrl": "https://github.com/toeverything/AFFiNE"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "partial",
+      "detail": "Project website or source repository is listed for documentation and deployment review.",
+      "evidenceUrl": "https://github.com/toeverything/AFFiNE"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Self-hosted deployment supports local, staging, or disposable test environments before production use.",
+      "evidenceUrl": "https://github.com/toeverything/AFFiNE"
+    }
+  ],
+  "launchSignals": {
+    "githubStars": 69150,
+    "ecosystemImportance": "unknown",
+    "maturity": "maintained",
+    "distribution": "none",
+    "evidenceUrl": "https://github.com/toeverything/AFFiNE"
+  }
+}

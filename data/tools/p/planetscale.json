@@ -1,0 +1,83 @@
+{
+  "slug": "planetscale",
+  "name": "PlanetScale",
+  "tagline": "Serverless Postgres/Vitess with CLI, API, branches, and MCP.",
+  "websiteUrl": "https://planetscale.com",
+  "docsUrl": "https://planetscale.com/docs",
+  "githubUrl": "https://github.com/planetscale",
+  "shortDescription": "PlanetScale provides database branching, service tokens, CLI API passthrough, and an MCP server command.",
+  "agentSummary": "Agents can branch databases, inspect schemas, manage deploy requests, and use CLI/MCP surfaces for database workflows.",
+  "bestFor": "Database branching, schema review, deploy requests, and agent-safe data workflows.",
+  "cautionNotes": "Key limitations: Production schema deploys and data changes need review and backups. Schema changes, migrations, deletes, backups, row-level security, and retention policies need explicit review before agents touch production data. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials.",
+  "pricingSummary": "Public pricing by organization, database, storage, and usage.",
+  "authModel": "OAuth login, service tokens, org/database permissions, and CLI config.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Dashboard helps review branches, deploy requests, and usage.",
+  "cliPackage": "pscale",
+  "apiBaseUrl": "https://api.planetscale.com",
+  "mcpServer": "pscale mcp server",
+  "categorySlugs": [
+    "databases-storage"
+  ],
+  "useCaseSlugs": [
+    "ship-app",
+    "manage-infra"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "pscale CLI includes API passthrough, branch workflows, and MCP install/server commands.",
+      "evidenceUrl": "https://planetscale.com/cli"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "PlanetScale API supports databases, branches, deploy requests, and service tokens.",
+      "evidenceUrl": "https://planetscale.com/docs/api/reference/service-tokens"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "CLI exposes MCP install and server commands for agent clients.",
+      "evidenceUrl": "https://planetscale.com/cli"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Official docs are listed for API behavior, authentication, limits, examples, and setup review.",
+      "evidenceUrl": "https://planetscale.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public pricing by organization, database, storage, and usage.",
+      "evidenceUrl": "https://planetscale.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://planetscale.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard helps review branches, deploy requests, and usage.",
+      "evidenceUrl": "https://planetscale.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "native",
+      "detail": "Database branching provides safe review environments.",
+      "evidenceUrl": "https://planetscale.com/docs"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/planetscale"
+  }
+}

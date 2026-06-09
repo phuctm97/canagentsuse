@@ -125,17 +125,18 @@ export function buildSubmitToolPrBody(input: SubmitToolInput) {
     "",
     "## PR Checklist",
     "",
-    "- [ ] Added or updated exactly one tool record in `data/catalog.json`",
+    "- [ ] Added or updated exactly one tool source file in `data/tools/<first-letter>/<slug>.json`",
     "- [ ] Used a stable unique slug and existing category/use-case/capability slugs where possible",
     "- [ ] Filled required fields from `data/catalog.schema.json`",
     "- [ ] Added `launchSignals` from public adoption, ecosystem, package, GitHub, maturity, or distribution evidence",
     "- [ ] Added evidence URLs for important API, CLI, MCP, docs, pricing, sandbox, browser, and account setup claims",
     "- [ ] Included limitation/caution notes for money, production data, infrastructure, compliance, user accounts, browser-only flows, or brittle automation",
-    "- [ ] Did not add secrets, database credentials, Docker/Neon setup, generated build output, or unrelated files",
+    "- [ ] Did not edit `data/catalog.json`, add secrets, database credentials, Docker/Neon setup, generated build output, or unrelated files",
     "- [ ] Added a `.changeset/*.md` file when this changes public website, API, MCP, CLI, or skill behavior",
     "",
     "## Validation",
     "",
+    "- [ ] `bun run catalog:build`",
     "- [ ] `bun run catalog:format`",
     "- [ ] `bun run catalog:audit`",
     "- [ ] `bun run validate`",
@@ -161,6 +162,8 @@ export function buildSubmitToolPrUrl(input: SubmitToolInput) {
 
 export function buildSubmitToolAgentPrompt(input: SubmitToolInput) {
   const branchName = buildSubmitToolBranchName(input.toolName)
+  const slug = slugifyToolName(input.toolName)
+  const sourcePath = `data/tools/${sourceFolderForSlug(slug)}/${slug}.json`
   const prBody = buildSubmitToolPrBody(input)
 
   return [
@@ -176,15 +179,15 @@ export function buildSubmitToolAgentPrompt(input: SubmitToolInput) {
     "",
     "Repository workflow:",
     `1. Create a branch named \`${branchName}\`.`,
-    "2. Read `data/README.md`, `data/catalog.schema.json`, and nearby records in `data/catalog.json` before editing.",
-    "3. Edit `data/catalog.json` only, unless the repo clearly requires a small docs update for the submission flow.",
-    "4. Add or update exactly one tool record with a stable unique `slug`, `name`, `tagline`, `websiteUrl`, `docsUrl`, `githubUrl`, `shortDescription`, `agentSummary`, `bestFor`, `cautionNotes`, `pricingSummary`, `authModel`, `accountCreation`, `browserSupport`, `cliPackage`, `apiBaseUrl`, `mcpServer`, `launchSignals`, `categorySlugs`, `useCaseSlugs`, and `capabilities`.",
+    "2. Read `data/README.md`, `data/catalog.schema.json`, `data/taxonomy.json`, and nearby records in `data/tools/` before editing.",
+    `3. Add or update exactly one tool source file at \`${sourcePath}\`. Do not edit \`data/catalog.json\`; it is generated.`,
+    "4. The tool source file must contain a stable unique `slug`, `name`, `tagline`, `websiteUrl`, `docsUrl`, `githubUrl`, `shortDescription`, `agentSummary`, `bestFor`, `cautionNotes`, `pricingSummary`, `authModel`, `accountCreation`, `browserSupport`, `cliPackage`, `apiBaseUrl`, `mcpServer`, `launchSignals`, `categorySlugs`, `useCaseSlugs`, and `capabilities`.",
     "5. Use existing category, use-case, and capability slugs where possible. Do not invent new slugs unless the catalog schema/data already supports them or the new slug is truly required.",
     "6. For each capability, use support level `native`, `strong`, `partial`, `manual`, or `unknown`; include a concrete detail and an official/public evidence URL when available.",
     "7. Prefer official docs, product docs, GitHub repos, package registries, pricing pages, and auth/setup docs as evidence. Avoid marketing-only or unsourced claims.",
     "8. Use `launchSignals` for public adoption, ecosystem importance, GitHub stars, package downloads, maturity, distribution, and evidence URL. Add caution notes for money, production data, accounts, compliance, infrastructure, browser-only flows, or brittle automation.",
     "9. Do not add secrets, database credentials, Docker/Neon setup, generated build output, or unrelated refactors.",
-    "10. Run `bun run catalog:format`, `bun run catalog:audit`, `bun run build`, and `git diff --check`.",
+    "10. Run `bun run catalog:build`, `bun run catalog:format`, `bun run catalog:audit`, `bun run build`, and `git diff --check`.",
     "11. Commit the change and push the branch before opening the PR. GitHub's prefilled PR composer requires the head branch to exist.",
     "12. Open a PR to `main` in `phuctm97/canagentsuse` using `.github/PULL_REQUEST_TEMPLATE/add-tool.md`.",
     "",
@@ -192,4 +195,10 @@ export function buildSubmitToolAgentPrompt(input: SubmitToolInput) {
     "",
     prBody,
   ].join("\n")
+}
+
+function sourceFolderForSlug(slug: string) {
+  const first = slug.charAt(0)
+
+  return /^[a-z]$/.test(first) ? first : "0-9"
 }

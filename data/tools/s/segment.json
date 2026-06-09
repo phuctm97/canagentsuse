@@ -1,0 +1,63 @@
+{
+  "slug": "segment",
+  "name": "Twilio Segment",
+  "tagline": "Customer data platform with tracking, profiles, destinations, and APIs.",
+  "websiteUrl": "https://segment.com",
+  "docsUrl": "https://segment.com/docs",
+  "shortDescription": "Segment provides tracking APIs, Protocols, Profiles, Destinations, Warehouses, and source/destination management.",
+  "agentSummary": "Agents can send events, inspect schemas, and manage customer data pipelines when PII and governance controls are clear.",
+  "bestFor": "Event pipelines, CDP workflows, analytics routing, and customer profile data.",
+  "cautionNotes": "Key limitations: Customer data, PII, and destination fanout require governance and approval. Verify official docs, pricing, rate limits, permissions, and production side effects before delegating account-changing actions to an agent. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Account setup or elevated access may require vendor, admin, or compliance approval before an agent can operate independently.",
+  "pricingSummary": "Public plan pricing, often MTU/event-volume based.",
+  "authModel": "Write keys, OAuth/API tokens, workspace permissions, source/destination credentials.",
+  "accountCreation": "Self-serve signup or sales-assisted plans.",
+  "browserSupport": "Workspace UI is central for schema, destination, and debugger review.",
+  "apiBaseUrl": "https://api.segmentapis.com",
+  "categorySlugs": [
+    "analytics-product",
+    "automation-integrations"
+  ],
+  "useCaseSlugs": [
+    "analyze-product",
+    "sync-crm"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Segment APIs cover tracking, workspace config, sources, destinations, and profiles.",
+      "evidenceUrl": "https://segment.com/docs/api/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include tracking APIs, destination docs, Protocols, and Personas/Profiles concepts.",
+      "evidenceUrl": "https://segment.com/docs/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "partial",
+      "detail": "Pricing is public at high level, with usage and plan details varying.",
+      "evidenceUrl": "https://segment.com/pricing/"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup or sales-assisted plans.",
+      "evidenceUrl": "https://segment.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "native",
+      "detail": "Workspace UI is central for schema, destination, and debugger review.",
+      "evidenceUrl": "https://segment.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://segment.com/docs"
+  }
+}

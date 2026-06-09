@@ -1,0 +1,64 @@
+{
+  "slug": "pipedream",
+  "name": "Pipedream",
+  "tagline": "Developer automation with REST API, Connect API, sources, and workflows.",
+  "websiteUrl": "https://pipedream.com",
+  "docsUrl": "https://pipedream.com/docs",
+  "githubUrl": "https://github.com/PipedreamHQ",
+  "shortDescription": "Pipedream provides code-first workflows, event sources, managed auth, REST APIs, and Connect APIs.",
+  "agentSummary": "Agents can create workflows, manage event sources, invoke actions, and connect user accounts through APIs.",
+  "bestFor": "Webhook-driven automation, managed OAuth connectors, developer workflows, and agent tool backends.",
+  "cautionNotes": "Key limitations: Connected accounts and workflow side effects need explicit permissioning and review. Verify official docs, pricing, rate limits, permissions, and production side effects before delegating account-changing actions to an agent. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public credit/usage-based pricing with free tier.",
+  "authModel": "Bearer tokens, OAuth, project/user scoping, and connected accounts.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Workflow editor helps review code, logs, and connected accounts.",
+  "apiBaseUrl": "https://api.pipedream.com/v1",
+  "categorySlugs": [
+    "automation-integrations"
+  ],
+  "useCaseSlugs": [
+    "triage-work",
+    "publish-content",
+    "sync-crm"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST API manages workflows, event sources, subscriptions, and account resources.",
+      "evidenceUrl": "https://pipedream.com/docs/rest-api/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include REST API, Connect API, SDKs, sources, and workflows.",
+      "evidenceUrl": "https://pipedream.com/docs/connect/api-ref"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public with credits and workflow dimensions.",
+      "evidenceUrl": "https://pipedream.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://pipedream.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "partial",
+      "detail": "Workflow editor helps review code, logs, and connected accounts.",
+      "evidenceUrl": "https://pipedream.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/PipedreamHQ"
+  }
+}

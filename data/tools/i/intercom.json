@@ -1,0 +1,63 @@
+{
+  "slug": "intercom",
+  "name": "Intercom",
+  "tagline": "Customer messaging, support inbox, contacts, conversations, and APIs.",
+  "websiteUrl": "https://www.intercom.com",
+  "docsUrl": "https://developers.intercom.com",
+  "shortDescription": "Intercom provides REST APIs for contacts, conversations, tickets, articles, data events, and messenger workflows.",
+  "agentSummary": "Agents can assist support and success workflows by reading conversations and updating records with careful permissions.",
+  "bestFor": "Support inbox triage, customer messaging, help center content, and product support automation.",
+  "cautionNotes": "Key limitations: Customer messages and helpdesk changes require approval, privacy review, and escalation paths. Verify official docs, pricing, rate limits, permissions, and production side effects before delegating account-changing actions to an agent. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public plan pricing with add-ons and usage dimensions.",
+  "authModel": "OAuth apps, access tokens, and workspace permissions.",
+  "accountCreation": "Self-serve trial/signup.",
+  "browserSupport": "Inbox UI is important for human review and escalation.",
+  "apiBaseUrl": "https://api.intercom.io",
+  "categorySlugs": [
+    "support-success",
+    "crm-sales"
+  ],
+  "useCaseSlugs": [
+    "triage-work",
+    "sync-crm"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST API covers contacts, conversations, tickets, articles, data events, and admins.",
+      "evidenceUrl": "https://developers.intercom.com/docs/references/rest-api/api.intercom.io/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Developer docs include API references, auth, webhooks, and messenger concepts.",
+      "evidenceUrl": "https://developers.intercom.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "partial",
+      "detail": "Pricing is public but add-ons and usage can vary.",
+      "evidenceUrl": "https://www.intercom.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve trial/signup.",
+      "evidenceUrl": "https://www.intercom.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Inbox UI is important for human review and escalation.",
+      "evidenceUrl": "https://www.intercom.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://developers.intercom.com"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "slug": "sendgrid",
+  "name": "Twilio SendGrid",
+  "tagline": "Transactional and marketing email API.",
+  "websiteUrl": "https://sendgrid.com",
+  "docsUrl": "https://www.twilio.com/docs/sendgrid",
+  "githubUrl": "https://github.com/sendgrid",
+  "shortDescription": "SendGrid provides mail send APIs, templates, contacts, stats, webhooks, suppression lists, and scheduling.",
+  "agentSummary": "Agents can send transactional email and manage templates/lists when domains and approvals are configured.",
+  "bestFor": "Transactional email, marketing sends, templates, suppression management, and delivery analytics.",
+  "cautionNotes": "Key limitations: Outbound email can damage sender reputation; use review, test addresses, and unsubscribe safeguards. Outbound messages, SMS, email deliverability, consent, unsubscribe behavior, private chats, and customer-facing replies need approval, throttling, and audit logs. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Account setup or elevated access may require vendor, admin, or compliance approval before an agent can operate independently.",
+  "pricingSummary": "Public plan pricing by email volume and feature set.",
+  "authModel": "API keys with scopes, sender/domain authentication, webhooks.",
+  "accountCreation": "Self-serve signup with sender/domain verification.",
+  "browserSupport": "Console helps review sender auth, templates, stats, and suppression lists.",
+  "apiBaseUrl": "https://api.sendgrid.com/v3",
+  "categorySlugs": [
+    "email-messaging"
+  ],
+  "useCaseSlugs": [
+    "publish-content"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Mail Send API and v3 APIs cover email sending, templates, contacts, and stats.",
+      "evidenceUrl": "https://www.twilio.com/docs/sendgrid/api-reference/mail-send/mail-send"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs cover API reference, scheduling, webhooks, and delivery concepts.",
+      "evidenceUrl": "https://www.twilio.com/docs/sendgrid"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public by email volume and product.",
+      "evidenceUrl": "https://sendgrid.com/en-us/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup with sender/domain verification.",
+      "evidenceUrl": "https://sendgrid.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Console helps review sender auth, templates, stats, and suppression lists.",
+      "evidenceUrl": "https://sendgrid.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/sendgrid"
+  }
+}

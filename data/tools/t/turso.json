@@ -1,0 +1,77 @@
+{
+  "slug": "turso",
+  "name": "Turso",
+  "tagline": "SQLite-compatible edge databases with CLI and platform API.",
+  "websiteUrl": "https://turso.tech",
+  "docsUrl": "https://docs.turso.tech",
+  "githubUrl": "https://github.com/tursodatabase",
+  "shortDescription": "Turso provides libSQL databases, branching-style workflows, CLI management, platform APIs, and embedded replicas.",
+  "agentSummary": "Agents can create databases, manage groups/locations/tokens, and use SQLite-compatible workflows from CLI or API.",
+  "bestFor": "Edge SQLite apps, small product databases, local-first workflows, and embedded replicas.",
+  "cautionNotes": "Key limitations: Production schema/data changes should use backups and human review. Schema changes, migrations, deletes, backups, row-level security, and retention policies need explicit review before agents touch production data. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public plan pricing with free and usage-based dimensions.",
+  "authModel": "API tokens, database auth tokens, org/user scoping.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Dashboard supports org, database, token, and usage inspection.",
+  "cliPackage": "turso",
+  "apiBaseUrl": "https://api.turso.tech",
+  "categorySlugs": [
+    "databases-storage",
+    "deployment-infra"
+  ],
+  "useCaseSlugs": [
+    "ship-app",
+    "manage-infra"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Turso CLI manages databases, auth tokens, groups, and shell workflows.",
+      "evidenceUrl": "https://docs.turso.tech/cli"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Platform API supports org, database, group, location, and token operations.",
+      "evidenceUrl": "https://docs.turso.tech/api-reference/introduction"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include CLI, SDKs, platform API, and local development.",
+      "evidenceUrl": "https://docs.turso.tech"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public plan pricing with free and usage-based dimensions.",
+      "evidenceUrl": "https://turso.tech/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://turso.tech"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard supports org, database, token, and usage inspection.",
+      "evidenceUrl": "https://turso.tech"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://docs.turso.tech"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/tursodatabase"
+  }
+}

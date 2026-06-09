@@ -1,0 +1,83 @@
+{
+  "slug": "supabase",
+  "name": "Supabase",
+  "tagline": "Postgres, auth, storage, edge functions, and realtime.",
+  "websiteUrl": "https://supabase.com",
+  "docsUrl": "https://supabase.com/docs",
+  "githubUrl": "https://github.com/supabase",
+  "shortDescription": "A Postgres-backed app platform with strong docs, local CLI, generated types, and broad APIs.",
+  "agentSummary": "Agents can create schemas, run local stacks, manage migrations, generate types, query projects, inspect logs, and use Supabase's hosted MCP server with read-only and project-scoped options.",
+  "bestFor": "App backends, database-first prototypes, auth, storage, and realtime features.",
+  "cautionNotes": "Key limitations: RLS policies require careful review before exposing data. Schema changes, migrations, deletes, backups, row-level security, and retention policies need explicit review before agents touch production data. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials.",
+  "pricingSummary": "Public project-based pricing with free tier and usage add-ons.",
+  "authModel": "Project API keys, JWTs, service role keys, OAuth providers, and hosted MCP OAuth or access-token auth.",
+  "accountCreation": "Self-serve signup; organizations and billing for production scale.",
+  "browserSupport": "Dashboard is strong for setup and inspection.",
+  "cliPackage": "supabase",
+  "categorySlugs": [
+    "databases-storage",
+    "auth-accounts"
+  ],
+  "useCaseSlugs": [
+    "ship-app",
+    "manage-users"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "CLI supports local dev, migrations, generated types, functions, and linking.",
+      "evidenceUrl": "https://supabase.com/docs"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Official Supabase MCP server covers database, debugging, development, Edge Functions, branching, and docs tools with scope/read-only controls.",
+      "evidenceUrl": "https://supabase.com/docs/guides/ai-tools/mcp"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "native",
+      "detail": "Official docs are listed for API behavior, authentication, limits, examples, and setup review.",
+      "evidenceUrl": "https://supabase.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public project-based pricing with free tier and usage add-ons.",
+      "evidenceUrl": "https://supabase.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup; organizations and billing for production scale.",
+      "evidenceUrl": "https://supabase.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard is strong for setup and inspection.",
+      "evidenceUrl": "https://supabase.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Local Docker stack is excellent for agent-safe development.",
+      "evidenceUrl": "https://supabase.com/docs"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "PostgREST, auth, storage, realtime, and management APIs are documented.",
+      "evidenceUrl": "https://supabase.com/docs"
+    }
+  ],
+  "mcpServer": "https://mcp.supabase.com/mcp",
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/supabase"
+  }
+}

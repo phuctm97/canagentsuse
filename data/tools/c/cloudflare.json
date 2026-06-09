@@ -1,0 +1,87 @@
+{
+  "slug": "cloudflare",
+  "name": "Cloudflare",
+  "tagline": "Edge compute, DNS, storage, workers, AI, and official MCP servers.",
+  "websiteUrl": "https://www.cloudflare.com",
+  "docsUrl": "https://developers.cloudflare.com",
+  "githubUrl": "https://github.com/cloudflare",
+  "shortDescription": "Cloudflare exposes broad API, Wrangler CLI, Workers, Pages, R2, KV, D1, Vectorize, AI, and MCP servers.",
+  "agentSummary": "Agents can deploy Workers, manage DNS, inspect analytics, provision storage, and connect through Cloudflare MCP servers.",
+  "bestFor": "Edge deployment, DNS, Workers, storage, observability, and agent infrastructure.",
+  "cautionNotes": "Key limitations: DNS, firewall, and production deployment changes need explicit human approval. Model behavior, costs, rate limits, data retention, and safety policies can change by model and account tier; use evals, spend caps, and data controls for sensitive workloads. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials.",
+  "pricingSummary": "Public pricing across plans and usage-based developer products.",
+  "authModel": "API tokens with scoped permissions, OAuth, account IDs, and Wrangler login.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Dashboard is important for account, DNS, logs, and billing review.",
+  "cliPackage": "wrangler",
+  "apiBaseUrl": "https://api.cloudflare.com/client/v4",
+  "mcpServer": "https://mcp.cloudflare.com/mcp",
+  "isFeatured": true,
+  "categorySlugs": [
+    "deployment-infra",
+    "databases-storage",
+    "ai-models"
+  ],
+  "useCaseSlugs": [
+    "ship-app",
+    "manage-infra",
+    "call-models"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Wrangler CLI manages Workers, Pages, D1, KV, R2, and local dev.",
+      "evidenceUrl": "https://developers.cloudflare.com/workers/wrangler/"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Cloudflare API reference covers account, DNS, Workers, Pages, R2, KV, and security products.",
+      "evidenceUrl": "https://developers.cloudflare.com/api/"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Official Cloudflare MCP server exposes the Cloudflare API through token-efficient Code Mode; Cloudflare also publishes a docs MCP server.",
+      "evidenceUrl": "https://github.com/cloudflare/mcp"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Official docs are listed for API behavior, authentication, limits, examples, and setup review.",
+      "evidenceUrl": "https://developers.cloudflare.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public pricing across plans and usage-based developer products.",
+      "evidenceUrl": "https://www.cloudflare.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://www.cloudflare.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard is important for account, DNS, logs, and billing review.",
+      "evidenceUrl": "https://www.cloudflare.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Local dev, preview deployments, and scoped API tokens support safer automation.",
+      "evidenceUrl": "https://developers.cloudflare.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "major-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/cloudflare"
+  }
+}

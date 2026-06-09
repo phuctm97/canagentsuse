@@ -1,0 +1,70 @@
+{
+  "slug": "posthog",
+  "name": "PostHog",
+  "tagline": "Product analytics, feature flags, session replay, and event APIs.",
+  "websiteUrl": "https://posthog.com",
+  "docsUrl": "https://posthog.com/docs",
+  "githubUrl": "https://github.com/PostHog/posthog",
+  "shortDescription": "PostHog provides product analytics, feature flags, experiments, session replay, CDP, API, and self-hosted/open-source options.",
+  "agentSummary": "Agents can send events, query product data, manage flags, and inspect behavior with open-source-friendly docs.",
+  "bestFor": "Product analytics, feature flags, experiments, session replay, and event pipelines.",
+  "cautionNotes": "Key limitations: User analytics and recordings may contain PII; use privacy controls and scoped keys. Issue resolution, alert muting, analytics interpretation, PII in logs, sampling, and retention settings can hide incidents or expose user data if automated too broadly. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public usage-based pricing with free allowances.",
+  "authModel": "Project API keys, personal API keys, roles, and organization permissions.",
+  "accountCreation": "Self-serve cloud signup or self-hosting.",
+  "browserSupport": "Dashboard is important for insights, flags, and replay review.",
+  "apiBaseUrl": "https://app.posthog.com/api",
+  "categorySlugs": [
+    "analytics-product",
+    "observability"
+  ],
+  "useCaseSlugs": [
+    "analyze-product",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Docs cover capture, query, feature flag, persons, projects, and data pipeline APIs.",
+      "evidenceUrl": "https://posthog.com/docs/api"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include product analytics, flags, experiments, replay, and self-hosting.",
+      "evidenceUrl": "https://posthog.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "native",
+      "detail": "Pricing is public by event/session/replay usage with free tiers.",
+      "evidenceUrl": "https://posthog.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve cloud signup or self-hosting.",
+      "evidenceUrl": "https://posthog.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard is important for insights, flags, and replay review.",
+      "evidenceUrl": "https://posthog.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Self-hosting and test projects support safer experimentation.",
+      "evidenceUrl": "https://posthog.com/docs"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/PostHog/posthog"
+  }
+}

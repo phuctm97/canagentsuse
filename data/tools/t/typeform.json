@@ -1,0 +1,63 @@
+{
+  "slug": "typeform",
+  "name": "Typeform",
+  "tagline": "Forms, responses, webhooks, and embed APIs.",
+  "websiteUrl": "https://www.typeform.com",
+  "docsUrl": "https://www.typeform.com/developers",
+  "shortDescription": "Typeform provides APIs for form creation, response retrieval, webhook management, and embeds.",
+  "agentSummary": "Agents can create intake forms, retrieve submissions, and connect form events into workflows.",
+  "bestFor": "Lead capture, surveys, research forms, onboarding forms, and structured intake.",
+  "cautionNotes": "Key limitations: Respondent PII, consent, and webhook destinations need review. Verify official docs, pricing, rate limits, permissions, and production side effects before delegating account-changing actions to an agent. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public form/product pricing with response and feature limits.",
+  "authModel": "OAuth apps and personal access tokens.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Form design and brand review are often browser-first.",
+  "apiBaseUrl": "https://api.typeform.com",
+  "categorySlugs": [
+    "automation-integrations",
+    "spreadsheets-data"
+  ],
+  "useCaseSlugs": [
+    "publish-content",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Developer docs cover Create API, Responses API, webhooks, and embeds.",
+      "evidenceUrl": "https://www.typeform.com/developers/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include reference, auth, examples, and webhook flows.",
+      "evidenceUrl": "https://www.typeform.com/developers/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Plans and response limits are public.",
+      "evidenceUrl": "https://www.typeform.com/pricing/"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://www.typeform.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "partial",
+      "detail": "Form design and brand review are often browser-first.",
+      "evidenceUrl": "https://www.typeform.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://www.typeform.com/developers"
+  }
+}

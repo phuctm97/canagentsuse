@@ -1,0 +1,68 @@
+{
+  "slug": "meilisearch",
+  "name": "Meilisearch",
+  "tagline": "Open-source search engine with simple APIs and cloud hosting.",
+  "websiteUrl": "https://www.meilisearch.com",
+  "docsUrl": "https://www.meilisearch.com/docs",
+  "githubUrl": "https://github.com/meilisearch/meilisearch",
+  "shortDescription": "Meilisearch provides simple REST APIs for indexes, documents, search, tasks, API keys, and settings.",
+  "agentSummary": "Agents can spin up local search, index documents, and inspect asynchronous tasks with a small API surface.",
+  "bestFor": "Small and medium search apps, quick indexing, and local search experiments.",
+  "cautionNotes": "Key limitations: Production relevance and deletion operations still need review. Verify official docs, pricing, rate limits, permissions, and production side effects before delegating account-changing actions to an agent. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Open-source self-hosting plus public cloud pricing.",
+  "authModel": "Master keys and scoped API keys.",
+  "accountCreation": "Self-serve cloud signup or local binary/Docker.",
+  "browserSupport": "Cloud UI and API task views help debug ingestion.",
+  "apiBaseUrl": "https://www.meilisearch.com/docs/reference/api/overview",
+  "categorySlugs": [
+    "search-rag"
+  ],
+  "useCaseSlugs": [
+    "build-rag"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST API covers indexes, documents, search, tasks, keys, and settings.",
+      "evidenceUrl": "https://www.meilisearch.com/docs/reference/api/overview"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include quickstarts, API reference, and self-hosted guides.",
+      "evidenceUrl": "https://www.meilisearch.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Open-source self-hosting plus public cloud pricing.",
+      "evidenceUrl": "https://github.com/meilisearch/meilisearch"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve cloud signup or local binary/Docker.",
+      "evidenceUrl": "https://www.meilisearch.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "partial",
+      "detail": "Cloud UI and API task views help debug ingestion.",
+      "evidenceUrl": "https://www.meilisearch.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Local binary and Docker setup make safe experiments easy.",
+      "evidenceUrl": "https://www.meilisearch.com/docs/learn/getting_started/installation"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/meilisearch/meilisearch"
+  }
+}

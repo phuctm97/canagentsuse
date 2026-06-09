@@ -1,0 +1,64 @@
+{
+  "slug": "cloudinary",
+  "name": "Cloudinary",
+  "tagline": "Image and video upload, transformation, optimization, and media APIs.",
+  "websiteUrl": "https://cloudinary.com",
+  "docsUrl": "https://cloudinary.com/documentation",
+  "githubUrl": "https://github.com/cloudinary",
+  "shortDescription": "Cloudinary provides upload, admin, transformation, video, image, DAM, and asset management APIs.",
+  "agentSummary": "Agents can upload, transform, tag, search, organize, and deliver media assets with well-documented APIs.",
+  "bestFor": "Image uploads, transformations, optimization, DAM operations, and generated media pipelines.",
+  "cautionNotes": "Key limitations: Bulk deletes, asset overwrites, and signed transformations need review. Schema changes, migrations, deletes, backups, row-level security, and retention policies need explicit review before agents touch production data. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public pricing based on credits, transformations, bandwidth, and storage.",
+  "authModel": "API key/secret, signed upload presets, unsigned presets, and restricted transformations.",
+  "accountCreation": "Self-serve signup with free tier.",
+  "browserSupport": "Console helps inspect assets, transformations, usage, and presets.",
+  "apiBaseUrl": "https://api.cloudinary.com/v1_1",
+  "categorySlugs": [
+    "design-media",
+    "databases-storage"
+  ],
+  "useCaseSlugs": [
+    "manage-media",
+    "publish-content"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Upload and Admin APIs support file upload, tagging, search, updates, transformations, and bulk deletion.",
+      "evidenceUrl": "https://cloudinary.com/documentation/image_upload_api_reference"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include API references, SDKs, transformation guides, and upload security.",
+      "evidenceUrl": "https://cloudinary.com/documentation"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public by plan and credit usage.",
+      "evidenceUrl": "https://cloudinary.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup with free tier.",
+      "evidenceUrl": "https://cloudinary.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Console helps inspect assets, transformations, usage, and presets.",
+      "evidenceUrl": "https://cloudinary.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/cloudinary"
+  }
+}

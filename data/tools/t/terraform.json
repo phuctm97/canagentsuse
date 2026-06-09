@@ -1,0 +1,77 @@
+{
+  "slug": "terraform",
+  "name": "Terraform",
+  "tagline": "Infrastructure as code with plans, providers, CLI, and state.",
+  "websiteUrl": "https://www.terraform.io",
+  "docsUrl": "https://developer.hashicorp.com/terraform/docs",
+  "githubUrl": "https://github.com/hashicorp/terraform",
+  "shortDescription": "Terraform gives agents a plan/apply workflow, provider ecosystem, CLI, state, and stable machine-readable IaC patterns.",
+  "agentSummary": "Very agent-friendly because changes can be proposed in code and reviewed through plan output before apply.",
+  "bestFor": "Infrastructure provisioning, reviewable cloud changes, drift inspection, and repeatable environments.",
+  "cautionNotes": "Key limitations: Never let agents apply production plans without human review, locked state, and scoped credentials. Deploys, secret changes, IAM, billing, networking, deletes, and rollback paths have high production blast radius; require scoped credentials and review gates. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Open-source CLI plus HCP Terraform paid team/governance plans.",
+  "authModel": "Provider credentials, cloud tokens, HCP tokens, workspace permissions.",
+  "accountCreation": "CLI is local; HCP Terraform is self-serve.",
+  "browserSupport": "HCP Terraform UI supports plans, state, runs, and policy review.",
+  "cliPackage": "terraform",
+  "apiBaseUrl": "https://app.terraform.io/api/v2",
+  "isFeatured": true,
+  "categorySlugs": [
+    "deployment-infra"
+  ],
+  "useCaseSlugs": [
+    "manage-infra",
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "CLI supports init, plan, validate, apply, import, state, and providers.",
+      "evidenceUrl": "https://developer.hashicorp.com/terraform/cli"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "strong",
+      "detail": "HCP Terraform API supports runs, workspaces, state versions, policies, and variables.",
+      "evidenceUrl": "https://developer.hashicorp.com/terraform/cloud-docs/api-docs"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "native",
+      "detail": "Docs include CLI, language, providers, and cloud API references.",
+      "evidenceUrl": "https://developer.hashicorp.com/terraform/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Open-source CLI plus HCP Terraform paid team/governance plans.",
+      "evidenceUrl": "https://github.com/hashicorp/terraform"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "CLI is local; HCP Terraform is self-serve.",
+      "evidenceUrl": "https://www.terraform.io"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "HCP Terraform UI supports plans, state, runs, and policy review.",
+      "evidenceUrl": "https://www.terraform.io"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "native",
+      "detail": "plan and validate provide reviewable dry-run behavior before apply.",
+      "evidenceUrl": "https://developer.hashicorp.com/terraform/cli/commands/plan"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "major-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/hashicorp/terraform"
+  }
+}

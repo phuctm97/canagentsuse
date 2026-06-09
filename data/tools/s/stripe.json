@@ -1,0 +1,85 @@
+{
+  "slug": "stripe",
+  "name": "Stripe",
+  "tagline": "Programmable payments, billing, and checkout.",
+  "websiteUrl": "https://stripe.com",
+  "docsUrl": "https://docs.stripe.com",
+  "githubUrl": "https://github.com/stripe",
+  "shortDescription": "A payments platform with mature APIs, test mode, SDKs, CLI workflows, and strong docs.",
+  "agentSummary": "Excellent for agents that need to create products, prices, checkout sessions, invoices, webhook tests, customer billing flows, inspect request logs, use idempotency keys, or connect Stripe's official MCP server from supported agent clients.",
+  "bestFor": "Billing setup, subscription catalogs, webhooks, and payment automation.",
+  "cautionNotes": "Stripe has test mode, test clocks, idempotency keys, request IDs, API versioning, webhook events, request logs, and documented rate limits; live money movement, tax, Connect onboarding, and compliance still need human review.",
+  "pricingSummary": "Public usage-based pricing with card processing, Billing, and add-on fees.",
+  "authModel": "API keys, restricted keys, OAuth for Connect, webhook secrets, API versioning, request IDs, idempotency keys, and OAuth or restricted-key auth for Stripe MCP.",
+  "accountCreation": "Self-serve signup; live activation requires business verification.",
+  "browserSupport": "Dashboard is usable by browser automation for review and setup gaps.",
+  "cliPackage": "stripe",
+  "apiBaseUrl": "https://api.stripe.com",
+  "isFeatured": true,
+  "submittedBy": "Can Agents Use research",
+  "categorySlugs": [
+    "billing-payments"
+  ],
+  "useCaseSlugs": [
+    "charge-a-customer",
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Official CLI supports listen, trigger, fixtures, logs, and local webhook testing.",
+      "evidenceUrl": "https://docs.stripe.com/stripe-cli"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Extensive REST APIs and typed SDKs for payments and billing.",
+      "evidenceUrl": "https://docs.stripe.com/api"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Official remote MCP server exposes Stripe API tools and Stripe knowledge-base search; local @stripe/mcp is also available.",
+      "evidenceUrl": "https://docs.stripe.com/mcp"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "native",
+      "detail": "Task-oriented docs include examples, API references, and testing guidance.",
+      "evidenceUrl": "https://docs.stripe.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public pricing pages and object-level cost concepts are well documented.",
+      "evidenceUrl": "https://stripe.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup; live activation requires business verification.",
+      "evidenceUrl": "https://stripe.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "native",
+      "detail": "Dashboard is usable by browser automation for review and setup gaps.",
+      "evidenceUrl": "https://stripe.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "native",
+      "detail": "Test mode, test clocks, and separate MCP sandbox/live access make agent-created billing flows safer.",
+      "evidenceUrl": "https://docs.stripe.com/test-mode"
+    }
+  ],
+  "mcpServer": "https://mcp.stripe.com",
+  "launchSignals": {
+    "adoptionTier": "major-platform",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/stripe"
+  }
+}

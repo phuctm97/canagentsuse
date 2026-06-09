@@ -1,0 +1,61 @@
+{
+  "slug": "together-ai",
+  "name": "Together AI",
+  "tagline": "Serverless open model inference, fine-tuning, and GPU platform.",
+  "websiteUrl": "https://www.together.ai",
+  "docsUrl": "https://docs.together.ai",
+  "shortDescription": "Together offers model inference APIs, OpenAI-compatible endpoints, fine-tuning, embeddings, and serverless model pricing.",
+  "agentSummary": "Useful when agents need access to many open models through a single API with clear serverless pricing.",
+  "bestFor": "Open model inference, model comparison, embeddings, and fine-tuning workflows.",
+  "cautionNotes": "Key limitations: Agents should pin model IDs and handle model-specific rate limits and output variance. Model behavior, costs, rate limits, data retention, and safety policies can change by model and account tier; use evals, spend caps, and data controls for sensitive workloads. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public per-model serverless pricing and dedicated endpoint pricing.",
+  "authModel": "API keys.",
+  "accountCreation": "Self-serve signup with free credits and paid usage.",
+  "browserSupport": "Dashboard supports keys, model catalog, and usage.",
+  "apiBaseUrl": "https://api.together.xyz/v1",
+  "categorySlugs": [
+    "ai-models"
+  ],
+  "useCaseSlugs": [
+    "call-models"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST inference docs include OpenAI-compatible chat and completions.",
+      "evidenceUrl": "https://docs.together.ai/docs/inference-rest"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include API, SDK, and model catalog guidance.",
+      "evidenceUrl": "https://docs.together.ai"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Serverless model pricing is public.",
+      "evidenceUrl": "https://docs.together.ai/docs/serverless/models"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup with free credits and paid usage.",
+      "evidenceUrl": "https://www.together.ai"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard supports keys, model catalog, and usage.",
+      "evidenceUrl": "https://www.together.ai"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://docs.together.ai"
+  }
+}

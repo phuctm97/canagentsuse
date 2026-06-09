@@ -1,0 +1,86 @@
+{
+  "slug": "github",
+  "name": "GitHub",
+  "tagline": "Code hosting, issues, Actions, and automation APIs.",
+  "websiteUrl": "https://github.com",
+  "docsUrl": "https://docs.github.com",
+  "githubUrl": "https://github.com/github",
+  "shortDescription": "GitHub is one of the strongest agent-operated platforms thanks to git, gh CLI, REST, GraphQL, and Actions.",
+  "agentSummary": "Agents can create repos, push code, inspect issues, open PRs, run workflows, and read review feedback through CLI and APIs.",
+  "bestFor": "Repository operations, CI, code review, issue triage, and release flows.",
+  "cautionNotes": "Key limitations: Permission scopes and org policies matter; destructive git operations need guardrails. Deploys, secret changes, IAM, billing, networking, deletes, and rollback paths have high production blast radius; require scoped credentials and review gates. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials.",
+  "pricingSummary": "Public pricing with free, Team, Enterprise, Actions, storage, and Copilot dimensions.",
+  "authModel": "Git credentials, fine-grained PATs, GitHub Apps, OAuth, device login, and remote MCP OAuth/PAT authentication.",
+  "accountCreation": "Self-serve signup with email verification.",
+  "browserSupport": "The web UI is agent-operable for logged-in workflows when APIs are insufficient.",
+  "cliPackage": "gh",
+  "apiBaseUrl": "https://api.github.com",
+  "isFeatured": true,
+  "submittedBy": "Can Agents Use research",
+  "categorySlugs": [
+    "project-workflows",
+    "deployment-infra"
+  ],
+  "useCaseSlugs": [
+    "ship-app",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Official gh CLI covers repo, PR, issue, release, workflow, and auth tasks.",
+      "evidenceUrl": "https://cli.github.com/manual/"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST and GraphQL APIs cover most platform data.",
+      "evidenceUrl": "https://docs.github.com/en/rest"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "GitHub's official MCP server supports repository, issue, pull request, Actions, code search, and support-doc workflows.",
+      "evidenceUrl": "https://github.com/github/github-mcp-server"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include API references, auth, webhooks, and Actions examples.",
+      "evidenceUrl": "https://docs.github.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public pricing with free, Team, Enterprise, Actions, storage, and Copilot dimensions.",
+      "evidenceUrl": "https://github.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup with email verification.",
+      "evidenceUrl": "https://github.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Browser flows are useful for settings and marketplace gaps.",
+      "evidenceUrl": "https://docs.github.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://docs.github.com"
+    }
+  ],
+  "mcpServer": "https://api.githubcopilot.com/mcp/",
+  "launchSignals": {
+    "adoptionTier": "major-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/github"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "slug": "figma",
+  "name": "Figma",
+  "tagline": "Design files, comments, variables, dev resources, and REST APIs.",
+  "websiteUrl": "https://www.figma.com",
+  "docsUrl": "https://developers.figma.com",
+  "githubUrl": "https://github.com/figma",
+  "shortDescription": "Figma's REST API exposes files, images, comments, variables, components, webhooks, and design metadata.",
+  "agentSummary": "Agents can inspect design context through REST APIs and use Figma's remote MCP server to extract design data, generate code context, and write supported Figma content.",
+  "bestFor": "Design-to-code context, asset export, comment triage, and design system metadata.",
+  "cautionNotes": "Key limitations: Design files can include private roadmap and brand assets; write/comment actions need review. Project, CRM, document, and spreadsheet writes depend on team context and privacy rules; require least-privilege scopes and review for workflow-changing actions. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public seat-based pricing; API access depends on team/file permissions.",
+  "authModel": "OAuth, file permissions, API tokens for REST APIs, and Figma MCP OAuth.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Browser/editor UI is central for visual review.",
+  "apiBaseUrl": "https://api.figma.com",
+  "categorySlugs": [
+    "design-media",
+    "project-workflows"
+  ],
+  "useCaseSlugs": [
+    "manage-media",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST API uses api.figma.com and covers files, images, comments, components, variables, and webhooks.",
+      "evidenceUrl": "https://developers.figma.com/docs/rest-api/"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Official Figma MCP server gives supported clients direct design context, live UI capture, code generation context, and write-to-canvas tools.",
+      "evidenceUrl": "https://developers.figma.com/docs/figma-mcp-server/remote-server-installation/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Developer docs include REST, plugins, widgets, auth, and examples.",
+      "evidenceUrl": "https://developers.figma.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public seat-based pricing; API access depends on team/file permissions.",
+      "evidenceUrl": "https://www.figma.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://www.figma.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "native",
+      "detail": "Visual design review is best performed in the browser/editor.",
+      "evidenceUrl": "https://developers.figma.com"
+    }
+  ],
+  "mcpServer": "https://mcp.figma.com/mcp",
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/figma"
+  }
+}

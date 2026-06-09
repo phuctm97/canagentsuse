@@ -1,0 +1,86 @@
+{
+  "slug": "microsoft-azure",
+  "name": "Microsoft Azure",
+  "tagline": "Cloud APIs, Azure CLI, identity, DevOps, and AI services.",
+  "websiteUrl": "https://azure.microsoft.com/en-us",
+  "docsUrl": "https://learn.microsoft.com/azure",
+  "githubUrl": "https://github.com/Azure",
+  "shortDescription": "Azure exposes ARM APIs, Azure CLI, SDKs, resource groups, managed identities, and extensive cloud service docs.",
+  "agentSummary": "Agents can inspect and manage Azure resources through CLI/API with resource group, subscription, and RBAC boundaries.",
+  "bestFor": "Enterprise cloud operations, Azure AI, Functions, Container Apps, storage, and DevOps.",
+  "cautionNotes": "Key limitations: Subscription-wide permissions, Entra ID, networking, and billing need strict guardrails. Model behavior, costs, rate limits, data retention, and safety policies can change by model and account tier; use evals, spend caps, and data controls for sensitive workloads. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials.",
+  "pricingSummary": "Public per-service pricing and calculator; enterprise discounts can vary.",
+  "authModel": "Entra ID, service principals, managed identities, RBAC, and CLI login.",
+  "accountCreation": "Self-serve signup with billing and identity verification.",
+  "browserSupport": "Portal is useful for IAM, monitoring, and billing review.",
+  "cliPackage": "az",
+  "apiBaseUrl": "https://management.azure.com",
+  "categorySlugs": [
+    "deployment-infra",
+    "databases-storage",
+    "ai-models"
+  ],
+  "useCaseSlugs": [
+    "manage-infra",
+    "ship-app",
+    "call-models"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Azure CLI covers resource and service management.",
+      "evidenceUrl": "https://learn.microsoft.com/en-us/cli/azure/"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Azure REST APIs and ARM resource APIs are documented.",
+      "evidenceUrl": "https://learn.microsoft.com/en-us/rest/api/azure/"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Microsoft's Azure MCP Server connects agent clients to Azure services and resources through Azure credentials.",
+      "evidenceUrl": "https://learn.microsoft.com/azure/developer/azure-mcp-server/overview"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Microsoft Learn provides service docs, API refs, and CLI refs.",
+      "evidenceUrl": "https://learn.microsoft.com/azure/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public per-service pricing and calculator; enterprise discounts can vary.",
+      "evidenceUrl": "https://azure.microsoft.com/en-us/pricing/calculator/"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup with billing and identity verification.",
+      "evidenceUrl": "https://azure.microsoft.com/en-us"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "partial",
+      "detail": "Portal is useful for IAM, monitoring, and billing review.",
+      "evidenceUrl": "https://azure.microsoft.com/en-us"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://learn.microsoft.com/azure"
+    }
+  ],
+  "mcpServer": "npx -y @azure/mcp@latest server start",
+  "launchSignals": {
+    "adoptionTier": "major-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/Azure"
+  }
+}

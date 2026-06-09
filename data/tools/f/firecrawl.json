@@ -1,0 +1,64 @@
+{
+  "slug": "firecrawl",
+  "name": "Firecrawl",
+  "tagline": "Turn websites into clean markdown or structured data.",
+  "websiteUrl": "https://firecrawl.dev",
+  "docsUrl": "https://docs.firecrawl.dev",
+  "githubUrl": "https://github.com/mendableai/firecrawl",
+  "shortDescription": "A crawling and scraping API built for LLM-ready extraction, markdown conversion, and structured outputs.",
+  "agentSummary": "Useful when an agent needs to inspect websites without writing browser orchestration from scratch.",
+  "bestFor": "Crawling websites, extracting markdown, and feeding research workflows.",
+  "cautionNotes": "Key limitations: Respect robots, terms, rate limits, and content ownership. Respect robots.txt, site terms, rate limits, copyright, authentication boundaries, and anti-bot controls before asking an agent to crawl or extract content. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public free and paid tiers based on credits and extraction volume.",
+  "authModel": "API key.",
+  "accountCreation": "Self-serve account and API key flow.",
+  "browserSupport": "Dashboard exists for keys and usage; primary path is API.",
+  "apiBaseUrl": "https://api.firecrawl.dev",
+  "isFeatured": true,
+  "categorySlugs": [
+    "scraping-content"
+  ],
+  "useCaseSlugs": [
+    "extract-web-data",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "API-first scraping and crawl endpoints.",
+      "evidenceUrl": "https://docs.firecrawl.dev/api-reference"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs are organized around scrape, crawl, map, extract, and SDK flows.",
+      "evidenceUrl": "https://docs.firecrawl.dev"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Credit-oriented pricing is visible before implementation.",
+      "evidenceUrl": "https://docs.firecrawl.dev"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve account and API key flow.",
+      "evidenceUrl": "https://firecrawl.dev"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard exists for keys and usage; primary path is API.",
+      "evidenceUrl": "https://firecrawl.dev"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/mendableai/firecrawl"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "slug": "hubspot",
+  "name": "HubSpot",
+  "tagline": "CRM, marketing, sales, tickets, and automation APIs.",
+  "websiteUrl": "https://www.hubspot.com",
+  "docsUrl": "https://developers.hubspot.com/docs",
+  "shortDescription": "HubSpot exposes CRM objects, associations, owners, tickets, forms, webhooks, workflows, and app auth APIs.",
+  "agentSummary": "Agents can read and update customer records, deals, tickets, and marketing data when scopes are configured carefully.",
+  "bestFor": "CRM sync, lead enrichment, ticket operations, customer data, and sales workflows.",
+  "cautionNotes": "Key limitations: Customer data, email sending, and CRM writes require scoped apps and human approval. Verify official docs, pricing, rate limits, permissions, and production side effects before delegating account-changing actions to an agent. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public product pricing but feature/API limits vary by hub and plan.",
+  "authModel": "Private app tokens, OAuth apps, CRM scopes, and HubSpot MCP OAuth credentials.",
+  "accountCreation": "Self-serve CRM signup; app setup requires developer configuration.",
+  "browserSupport": "Browser UI is important for schema, permissions, and workflow review.",
+  "apiBaseUrl": "https://api.hubapi.com",
+  "categorySlugs": [
+    "crm-sales",
+    "automation-integrations"
+  ],
+  "useCaseSlugs": [
+    "sync-crm",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "CRM APIs cover contacts, companies, deals, tickets, associations, and custom objects.",
+      "evidenceUrl": "https://developers.hubspot.com/docs/api/crm/understanding-the-crm"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "HubSpot's remote MCP server lets compatible clients query HubSpot CRM data using OAuth-controlled app scopes.",
+      "evidenceUrl": "https://developers.hubspot.com/docs/apps/developer-platform/build-apps/integrate-with-the-remote-hubspot-mcp-server"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Developer docs include API reference, guides, scopes, and webhooks.",
+      "evidenceUrl": "https://developers.hubspot.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "partial",
+      "detail": "Product pricing is public, but API access and limits depend on hubs and plan.",
+      "evidenceUrl": "https://www.hubspot.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve CRM signup; app setup requires developer configuration.",
+      "evidenceUrl": "https://www.hubspot.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Browser UI is important for schema, permissions, and workflow review.",
+      "evidenceUrl": "https://www.hubspot.com"
+    }
+  ],
+  "mcpServer": "https://mcp.hubspot.com",
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://developers.hubspot.com/docs"
+  }
+}

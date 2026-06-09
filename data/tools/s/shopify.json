@@ -1,0 +1,77 @@
+{
+  "slug": "shopify",
+  "name": "Shopify",
+  "tagline": "Commerce platform with Admin API, Storefront API, CLI, webhooks, and dev stores.",
+  "websiteUrl": "https://www.shopify.com",
+  "docsUrl": "https://shopify.dev/docs",
+  "githubUrl": "https://github.com/Shopify",
+  "shortDescription": "Shopify provides Admin GraphQL/REST APIs, Storefront API, CLI, webhooks, Hydrogen, app billing, and dev stores.",
+  "agentSummary": "Agents can manage commerce data, build apps, subscribe to webhooks, and test in development stores with careful scopes.",
+  "bestFor": "Storefronts, products, orders, app development, checkout integrations, and commerce workflows.",
+  "cautionNotes": "Key limitations: Orders, inventory, customer data, payments, and app review requirements need human review. Live payments, refunds, payouts, tax, disputes, and business verification can move money or create compliance exposure; keep agents in sandbox or test mode until a human approves live changes. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public store plans and app billing concepts; merchant costs vary by plan/add-ons.",
+  "authModel": "OAuth apps, access scopes, app proxies, webhooks, and custom app tokens.",
+  "accountCreation": "Self-serve stores and development stores through partner/dev flows.",
+  "browserSupport": "Admin UI is important for app setup, products, and merchant review.",
+  "cliPackage": "shopify",
+  "apiBaseUrl": "https://{shop}.myshopify.com/admin/api",
+  "categorySlugs": [
+    "commerce",
+    "billing-payments"
+  ],
+  "useCaseSlugs": [
+    "charge-a-customer",
+    "publish-content"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Shopify CLI supports app and theme development, dev stores, config, and deploy workflows.",
+      "evidenceUrl": "https://shopify.dev/docs/api/shopify-cli"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Shopify Admin GraphQL, Storefront API, and webhooks cover commerce operations.",
+      "evidenceUrl": "https://shopify.dev/docs/api"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include API reference, CLI, webhooks, app auth, and checkout guidance.",
+      "evidenceUrl": "https://shopify.dev/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public store plans and app billing concepts; merchant costs vary by plan/add-ons.",
+      "evidenceUrl": "https://www.shopify.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve stores and development stores through partner/dev flows.",
+      "evidenceUrl": "https://www.shopify.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Admin UI is important for app setup, products, and merchant review.",
+      "evidenceUrl": "https://www.shopify.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Development stores and Bogus Gateway support testing.",
+      "evidenceUrl": "https://shopify.dev/docs/apps/build/authentication-authorization/access-tokens"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "major-platform",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/Shopify"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "slug": "pinecone",
+  "name": "Pinecone",
+  "tagline": "Managed vector database and inference APIs for search.",
+  "websiteUrl": "https://www.pinecone.io",
+  "docsUrl": "https://docs.pinecone.io",
+  "shortDescription": "Pinecone offers managed vector search, indexes, namespaces, backups, integrated embedding, and SDKs.",
+  "agentSummary": "Agents can create indexes, upsert vectors or text, query semantic search, and inspect usage through documented APIs.",
+  "bestFor": "Hosted vector search, RAG indexes, embeddings, and semantic retrieval.",
+  "cautionNotes": "Key limitations: Agents should manage namespace isolation, deletion safety, and embedding model compatibility. Schema changes, migrations, deletes, backups, row-level security, and retention policies need explicit review before agents touch production data. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public pricing for serverless, pod-based, storage, and inference usage.",
+  "authModel": "API keys and project/environment scoping.",
+  "accountCreation": "Self-serve signup with free starter concepts.",
+  "browserSupport": "Console supports index management and usage review.",
+  "apiBaseUrl": "https://api.pinecone.io",
+  "categorySlugs": [
+    "search-rag",
+    "databases-storage"
+  ],
+  "useCaseSlugs": [
+    "build-rag",
+    "extract-web-data"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "API reference covers indexes, vectors, search, backups, and inference.",
+      "evidenceUrl": "https://docs.pinecone.io/docs/api-reference"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs are organized around RAG, search, and index operations.",
+      "evidenceUrl": "https://docs.pinecone.io"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public with usage and plan dimensions.",
+      "evidenceUrl": "https://www.pinecone.io/pricing/"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup with free starter concepts.",
+      "evidenceUrl": "https://www.pinecone.io"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Console supports index management and usage review.",
+      "evidenceUrl": "https://www.pinecone.io"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://docs.pinecone.io"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "slug": "datadog",
+  "name": "Datadog",
+  "tagline": "Metrics, logs, traces, monitors, incidents, and observability APIs.",
+  "websiteUrl": "https://www.datadoghq.com",
+  "docsUrl": "https://docs.datadoghq.com",
+  "githubUrl": "https://github.com/DataDog",
+  "shortDescription": "Datadog provides APIs, CLI-adjacent tooling, Terraform provider, monitors, dashboards, logs, traces, and incident workflows.",
+  "agentSummary": "Agents can query observability data, manage monitors, inspect logs, and triage production systems with scoped API keys.",
+  "bestFor": "Production monitoring, log search, incident triage, dashboards, and SLO workflows.",
+  "cautionNotes": "Key limitations: Monitor changes, incident updates, and sensitive logs need human review. Issue resolution, alert muting, analytics interpretation, PII in logs, sampling, and retention settings can hide incidents or expose user data if automated too broadly. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public product pricing but total cost can be complex across metrics, logs, APM, and hosts.",
+  "authModel": "API keys, application keys, service accounts, roles, and audit logs.",
+  "accountCreation": "Self-serve trial/signup.",
+  "browserSupport": "Dashboard is central for graphs, logs, monitors, and incidents.",
+  "apiBaseUrl": "https://api.datadoghq.com",
+  "categorySlugs": [
+    "observability",
+    "analytics-product"
+  ],
+  "useCaseSlugs": [
+    "triage-work",
+    "analyze-product"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Datadog API covers monitors, dashboards, logs, metrics, incidents, SLOs, and service catalog.",
+      "evidenceUrl": "https://docs.datadoghq.com/api/latest/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include API reference, integrations, observability guides, and examples.",
+      "evidenceUrl": "https://docs.datadoghq.com/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "partial",
+      "detail": "Pricing is public, but multi-product usage can be complex.",
+      "evidenceUrl": "https://www.datadoghq.com/pricing/"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve trial/signup.",
+      "evidenceUrl": "https://www.datadoghq.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "native",
+      "detail": "Dashboard is central for graphs, logs, monitors, and incidents.",
+      "evidenceUrl": "https://www.datadoghq.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/DataDog"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "slug": "telegram-bot-api",
+  "name": "Telegram Bot API",
+  "tagline": "Bots, messages, files, webhooks, and chat automation.",
+  "websiteUrl": "https://telegram.org",
+  "docsUrl": "https://core.telegram.org/bots/api",
+  "shortDescription": "Telegram Bot API exposes HTTP methods for sending messages, managing chats, files, webhooks, payments, and updates.",
+  "agentSummary": "Agents can operate bots and chat workflows with a straightforward HTTP API and webhook/polling model.",
+  "bestFor": "Bot notifications, chat automations, support intake, and lightweight messaging workflows.",
+  "cautionNotes": "Key limitations: Chat privacy, group permissions, and accidental broadcasts need safeguards. Outbound messages, SMS, email deliverability, consent, unsubscribe behavior, private chats, and customer-facing replies need approval, throttling, and audit logs. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Bot API is free; paid platform features are separate.",
+  "authModel": "Bot tokens from BotFather and webhook secrets.",
+  "accountCreation": "Telegram account and BotFather bot creation.",
+  "browserSupport": "Bot setup is chat-first rather than browser-first.",
+  "apiBaseUrl": "https://api.telegram.org/bot{token}",
+  "categorySlugs": [
+    "email-messaging",
+    "social-media"
+  ],
+  "useCaseSlugs": [
+    "publish-content",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Bot API documents methods for messages, chats, files, updates, and webhooks.",
+      "evidenceUrl": "https://core.telegram.org/bots/api"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs are compact, stable, and HTTP-oriented.",
+      "evidenceUrl": "https://core.telegram.org/bots"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Bot API is free; paid platform features are separate.",
+      "evidenceUrl": "https://telegram.org/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "partial",
+      "detail": "Telegram account and BotFather bot creation.",
+      "evidenceUrl": "https://telegram.org"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "partial",
+      "detail": "Bot setup is chat-first rather than browser-first.",
+      "evidenceUrl": "https://telegram.org"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "Private test bots and test chats support safer development."
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://core.telegram.org/bots/api"
+  }
+}

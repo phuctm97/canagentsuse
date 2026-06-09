@@ -142,8 +142,8 @@ export function SubmitToolForm() {
             {copyStatus === "copied" ? "Copied agent prompt" : "Copy agent prompt"}
           </Button>
           <p className="text-sm text-muted-foreground">
-            Copies a ready prompt for an agent to research, edit the catalog, run
-            checks, and open the PR.
+            Copies a ready prompt for an agent to research, edit one tool source
+            file, run checks, and open the PR.
           </p>
         </div>
       </div>

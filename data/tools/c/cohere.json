@@ -1,0 +1,63 @@
+{
+  "slug": "cohere",
+  "name": "Cohere",
+  "tagline": "Command, Embed, Rerank, and enterprise retrieval APIs.",
+  "websiteUrl": "https://cohere.com",
+  "docsUrl": "https://docs.cohere.com",
+  "shortDescription": "Cohere provides chat, embeddings, reranking, classification, and tool-use oriented APIs.",
+  "agentSummary": "Good for agents that need strong RAG primitives like embeddings and reranking with clear API references.",
+  "bestFor": "Embeddings, reranking, enterprise search, and retrieval-augmented generation.",
+  "cautionNotes": "Key limitations: RAG agents should monitor source grounding, latency, and per-model pricing. Model behavior, costs, rate limits, data retention, and safety policies can change by model and account tier; use evals, spend caps, and data controls for sensitive workloads. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public model pricing and trial information.",
+  "authModel": "API keys with dashboard management.",
+  "accountCreation": "Self-serve signup for API keys.",
+  "browserSupport": "Dashboard supports keys, playground, and usage checks.",
+  "apiBaseUrl": "https://api.cohere.com",
+  "categorySlugs": [
+    "ai-models",
+    "search-rag"
+  ],
+  "useCaseSlugs": [
+    "call-models",
+    "build-rag"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Reference docs cover chat, embed, rerank, classify, and datasets.",
+      "evidenceUrl": "https://docs.cohere.com/reference/about"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs are structured around common RAG and model workflows.",
+      "evidenceUrl": "https://docs.cohere.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public by model family and operation.",
+      "evidenceUrl": "https://cohere.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup for API keys.",
+      "evidenceUrl": "https://cohere.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard supports keys, playground, and usage checks.",
+      "evidenceUrl": "https://cohere.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://docs.cohere.com"
+  }
+}

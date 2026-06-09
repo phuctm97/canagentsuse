@@ -1,0 +1,76 @@
+{
+  "slug": "musikcube",
+  "name": "musikcube",
+  "tagline": "Self-hosted media streaming - audio streaming software.",
+  "websiteUrl": "https://musikcube.com/",
+  "docsUrl": "https://github.com/clangen/musikcube",
+  "githubUrl": "https://github.com/clangen/musikcube",
+  "shortDescription": "Streaming audio server with Linux/macOS/Windows/Android clients.",
+  "agentSummary": "musikcube is self-hostable software from the Awesome Selfhosted data index. Agents can inspect the source, deploy it in a controlled environment, and operate the browser UI; API or CLI support should be verified in project docs.",
+  "bestFor": "Self-hosted media streaming - audio streaming workflows, internal tools, and controlled deployment experiments.",
+  "cautionNotes": "Key limitations: generated from community metadata, not a full security review. Verify maintenance activity, license, deployment docs, auth model, backup and restore path, update process, API or CLI support, and data exposure before production agent automation. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Self-hosted/open-source licensing listed as BSD-3-Clause; infrastructure costs vary by deployment.",
+  "authModel": "Auth and permissions depend on the deployed app configuration; platform metadata: C++, deb. Source code: https://github.com/clangen/musikcube",
+  "accountCreation": "No vendor signup is required for self-hosted use, but deployment and admin setup are required.",
+  "browserSupport": "Browser UI can be operated after deployment; exact flows depend on the app configuration.",
+  "submittedBy": "Generated from Awesome Selfhosted data",
+  "categorySlugs": [
+    "self-hosted",
+    "selfhosted-media-streaming-audio-streaming"
+  ],
+  "useCaseSlugs": [
+    "self-host-tool",
+    "inspect-open-source"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "partial",
+      "detail": "Metadata suggests command-line operation; verify install and command coverage in project docs.",
+      "evidenceUrl": "https://github.com/clangen/musikcube"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "partial",
+      "detail": "Metadata suggests an API, server, integration, or automation surface; verify exact endpoints in project docs.",
+      "evidenceUrl": "https://github.com/clangen/musikcube"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Self-hosted web app can be operated through a browser once deployed.",
+      "evidenceUrl": "https://musikcube.com/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Self-hosted/open-source licensing makes software cost inspectable; infrastructure cost depends on deployment.",
+      "evidenceUrl": "https://github.com/clangen/musikcube"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "partial",
+      "detail": "No vendor signup is required for self-hosted use, but deployment, admin setup, and local auth configuration are usually required.",
+      "evidenceUrl": "https://github.com/clangen/musikcube"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "partial",
+      "detail": "Project website or source repository is listed for documentation and deployment review.",
+      "evidenceUrl": "https://github.com/clangen/musikcube"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Self-hosted deployment supports local, staging, or disposable test environments before production use.",
+      "evidenceUrl": "https://github.com/clangen/musikcube"
+    }
+  ],
+  "launchSignals": {
+    "githubStars": 4650,
+    "ecosystemImportance": "unknown",
+    "maturity": "maintained",
+    "distribution": "none",
+    "evidenceUrl": "https://github.com/clangen/musikcube"
+  }
+}

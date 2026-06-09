@@ -1,0 +1,61 @@
+{
+  "slug": "groq",
+  "name": "Groq",
+  "tagline": "Fast inference API for open and hosted models.",
+  "websiteUrl": "https://groq.com",
+  "docsUrl": "https://console.groq.com/docs",
+  "shortDescription": "Groq exposes a fast OpenAI-compatible inference API with model docs, usage limits, and pricing.",
+  "agentSummary": "Useful for agents that need very low-latency model calls with a simple API surface.",
+  "bestFor": "Low-latency inference, chat completions, transcription, and model experiments.",
+  "cautionNotes": "Key limitations: Agents should monitor model availability, rate limits, and non-deterministic outputs. Model behavior, costs, rate limits, data retention, and safety policies can change by model and account tier; use evals, spend caps, and data controls for sensitive workloads. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public model pricing and free developer limits.",
+  "authModel": "API keys.",
+  "accountCreation": "Self-serve console signup.",
+  "browserSupport": "Console supports keys, docs, and usage.",
+  "apiBaseUrl": "https://api.groq.com/openai/v1",
+  "categorySlugs": [
+    "ai-models"
+  ],
+  "useCaseSlugs": [
+    "call-models"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "OpenAI-compatible API reference covers chat and audio endpoints.",
+      "evidenceUrl": "https://console.groq.com/docs/api-reference"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include quickstarts, rate limits, and model pages.",
+      "evidenceUrl": "https://console.groq.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public by model.",
+      "evidenceUrl": "https://groq.com/pricing/"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve console signup.",
+      "evidenceUrl": "https://groq.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Console supports keys, docs, and usage.",
+      "evidenceUrl": "https://groq.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://console.groq.com/docs"
+  }
+}

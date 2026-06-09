@@ -1,0 +1,86 @@
+{
+  "slug": "aws",
+  "name": "AWS",
+  "tagline": "Cloud APIs, CLI, SDKs, IAM, and infrastructure services.",
+  "websiteUrl": "https://aws.amazon.com",
+  "docsUrl": "https://docs.aws.amazon.com",
+  "githubUrl": "https://github.com/aws",
+  "shortDescription": "AWS has extremely broad APIs, SDKs, CLI, IAM, CloudFormation, CloudTrail, and service-specific docs.",
+  "agentSummary": "Powerful for agents that can operate within least-privilege IAM and infrastructure-as-code guardrails.",
+  "bestFor": "Cloud provisioning, compute, storage, queues, AI services, logs, and enterprise infrastructure.",
+  "cautionNotes": "Key limitations: High blast radius: IAM, billing, data deletion, networking, and production changes require strict review. Model behavior, costs, rate limits, data retention, and safety policies can change by model and account tier; use evals, spend caps, and data controls for sensitive workloads. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials.",
+  "pricingSummary": "Public service pricing calculators and per-service rates; complex at scale.",
+  "authModel": "IAM users/roles, STS, SSO, policies, permission boundaries, and access keys.",
+  "accountCreation": "Self-serve account creation with billing and identity verification.",
+  "browserSupport": "Console is broad and useful but risky for unsupervised agents.",
+  "cliPackage": "aws",
+  "apiBaseUrl": "https://aws.amazon.com/api",
+  "categorySlugs": [
+    "deployment-infra",
+    "databases-storage",
+    "ai-models"
+  ],
+  "useCaseSlugs": [
+    "manage-infra",
+    "ship-app",
+    "call-models"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "AWS CLI supports scriptable access to AWS services.",
+      "evidenceUrl": "https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "AWS services expose APIs and SDKs with service-specific references.",
+      "evidenceUrl": "https://docs.aws.amazon.com/"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "strong",
+      "detail": "AWS provides managed and open-source MCP servers for AWS docs, APIs, infrastructure, databases, observability, and service-specific workflows.",
+      "evidenceUrl": "https://awslabs.github.io/mcp/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs are extensive, service-specific, and versioned.",
+      "evidenceUrl": "https://docs.aws.amazon.com/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public service pricing calculators and per-service rates; complex at scale.",
+      "evidenceUrl": "https://aws.amazon.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve account creation with billing and identity verification.",
+      "evidenceUrl": "https://aws.amazon.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Console is broad and useful but risky for unsupervised agents.",
+      "evidenceUrl": "https://aws.amazon.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "Separate accounts, IAM boundaries, and IaC plans can make agent work safer.",
+      "evidenceUrl": "https://docs.aws.amazon.com"
+    }
+  ],
+  "mcpServer": "https://awslabs.github.io/mcp/",
+  "launchSignals": {
+    "adoptionTier": "category-leader",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/aws"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "slug": "salesforce",
+  "name": "Salesforce",
+  "tagline": "Enterprise CRM with APIs, sandboxes, CLI, metadata, and automation.",
+  "websiteUrl": "https://www.salesforce.com",
+  "docsUrl": "https://developer.salesforce.com/docs",
+  "githubUrl": "https://github.com/forcedotcom",
+  "shortDescription": "Salesforce provides REST, SOAP, Bulk, Metadata, Tooling APIs, sandboxes, scratch orgs, and Salesforce CLI.",
+  "agentSummary": "Agents can automate CRM and metadata workflows, but enterprise permissions and object models require careful setup.",
+  "bestFor": "Enterprise CRM, metadata deployments, customer records, integrations, and sales operations.",
+  "cautionNotes": "Key limitations: Production org writes, PII, workflows, and metadata deployments need admin review. Verify official docs, pricing, rate limits, permissions, and production side effects before delegating account-changing actions to an agent. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public editions and add-ons; enterprise pricing and API limits can be complex.",
+  "authModel": "OAuth, connected apps, JWT bearer flow, profiles, permission sets, and org scopes.",
+  "accountCreation": "Developer orgs are self-serve; enterprise orgs are contracted.",
+  "browserSupport": "Setup UI is central for permissions, apps, and schema review.",
+  "cliPackage": "sf",
+  "apiBaseUrl": "https://login.salesforce.com/services/data",
+  "categorySlugs": [
+    "crm-sales"
+  ],
+  "useCaseSlugs": [
+    "sync-crm",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Salesforce CLI supports org auth, metadata deploys, data operations, and scratch orgs.",
+      "evidenceUrl": "https://developer.salesforce.com/tools/salesforcecli"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Salesforce has REST, SOAP, Bulk, Metadata, and Tooling APIs.",
+      "evidenceUrl": "https://developer.salesforce.com/docs/apis"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Developer docs are broad but require platform expertise.",
+      "evidenceUrl": "https://developer.salesforce.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public editions and add-ons; enterprise pricing and API limits can be complex.",
+      "evidenceUrl": "https://www.salesforce.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Developer orgs are self-serve; enterprise orgs are contracted.",
+      "evidenceUrl": "https://www.salesforce.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "native",
+      "detail": "Setup UI is central for permissions, apps, and schema review.",
+      "evidenceUrl": "https://www.salesforce.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "native",
+      "detail": "Sandboxes and scratch orgs support safer agent testing.",
+      "evidenceUrl": "https://developer.salesforce.com/docs/platform/sfvscode-extensions/guide/scratch-orgs.html"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "major-platform",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/forcedotcom"
+  }
+}

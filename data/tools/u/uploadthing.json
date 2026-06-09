@@ -1,0 +1,64 @@
+{
+  "slug": "uploadthing",
+  "name": "UploadThing",
+  "tagline": "File uploads for modern apps with SDKs, callbacks, and dashboard.",
+  "websiteUrl": "https://uploadthing.com",
+  "docsUrl": "https://docs.uploadthing.com",
+  "githubUrl": "https://github.com/pingdotgg/uploadthing",
+  "shortDescription": "UploadThing provides developer-friendly file uploads, SDKs, route handlers, callbacks, and file management APIs.",
+  "agentSummary": "Agents can wire app uploads quickly in supported frameworks and inspect upload routes and file metadata.",
+  "bestFor": "App file uploads, image attachment flows, and developer-friendly media ingestion.",
+  "cautionNotes": "Key limitations: File access rules, malware scanning needs, and deletion policies need product review. Schema changes, migrations, deletes, backups, row-level security, and retention policies need explicit review before agents touch production data. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public storage/bandwidth pricing with free tier.",
+  "authModel": "API keys, app IDs, server-side route auth, and callback validation.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Dashboard supports apps, files, keys, and usage.",
+  "apiBaseUrl": "https://api.uploadthing.com",
+  "categorySlugs": [
+    "design-media",
+    "databases-storage"
+  ],
+  "useCaseSlugs": [
+    "manage-media",
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "strong",
+      "detail": "Docs cover server SDKs, file routes, callbacks, ACLs, and upload APIs.",
+      "evidenceUrl": "https://docs.uploadthing.com"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs are compact and framework-oriented.",
+      "evidenceUrl": "https://docs.uploadthing.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public by storage and bandwidth.",
+      "evidenceUrl": "https://uploadthing.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://uploadthing.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard supports apps, files, keys, and usage.",
+      "evidenceUrl": "https://uploadthing.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/pingdotgg/uploadthing"
+  }
+}

@@ -79,17 +79,18 @@ Not provided
 
 ## PR Checklist
 
-- [ ] Added or updated exactly one tool record in `data/catalog.json`
+- [ ] Added or updated exactly one tool source file in `data/tools/<first-letter>/<slug>.json`
 - [ ] Used a stable unique slug and existing category/use-case/capability slugs where possible
 - [ ] Filled required fields from `data/catalog.schema.json`
 - [ ] Added `launchSignals` from public adoption, ecosystem, package, GitHub, maturity, or distribution evidence
 - [ ] Added evidence URLs for important API, CLI, MCP, docs, pricing, sandbox, browser, and account setup claims
 - [ ] Included limitation/caution notes for money, production data, infrastructure, compliance, user accounts, browser-only flows, or brittle automation
-- [ ] Did not add secrets, database credentials, Docker/Neon setup, generated build output, or unrelated files
+- [ ] Did not edit `data/catalog.json`, add secrets, database credentials, Docker/Neon setup, generated build output, or unrelated files
 - [ ] Added a `.changeset/*.md` file when this changes public website, API, MCP, CLI, or skill behavior
 
 ## Validation
 
+- [ ] `bun run catalog:build`
 - [ ] `bun run catalog:format`
 - [ ] `bun run catalog:audit`
 - [ ] `bun run validate`

@@ -1,0 +1,61 @@
+{
+  "slug": "amplitude",
+  "name": "Amplitude",
+  "tagline": "Product analytics APIs for events, cohorts, charts, and experiments.",
+  "websiteUrl": "https://amplitude.com",
+  "docsUrl": "https://amplitude.com/docs",
+  "shortDescription": "Amplitude provides analytics APIs for event upload, cohorts, annotations, exports, dashboards, feature flags, and experiments.",
+  "agentSummary": "Agents can upload events, export cohorts, and inspect product analytics with scoped keys and privacy controls.",
+  "bestFor": "Product analytics, cohorts, event pipelines, experiments, and usage reporting.",
+  "cautionNotes": "Key limitations: Analytics data can include PII; data governance and read/write scopes need review. Verify official docs, pricing, rate limits, permissions, and production side effects before delegating account-changing actions to an agent. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Account setup or elevated access may require vendor, admin, or compliance approval before an agent can operate independently.",
+  "pricingSummary": "Public plan pricing with usage and feature limits.",
+  "authModel": "API keys, secret keys, management API keys, OAuth for some integrations.",
+  "accountCreation": "Self-serve signup and sales-assisted plans.",
+  "browserSupport": "Dashboard is essential for chart and cohort review.",
+  "apiBaseUrl": "https://amplitude.com/api",
+  "categorySlugs": [
+    "analytics-product"
+  ],
+  "useCaseSlugs": [
+    "analyze-product"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Analytics APIs include event upload, cohorts, annotations, exports, dashboards, and management APIs.",
+      "evidenceUrl": "https://amplitude.com/docs/apis"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs cover analytics, APIs, SDKs, experiments, and data governance.",
+      "evidenceUrl": "https://amplitude.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "partial",
+      "detail": "Pricing is public by plan but enterprise usage can vary.",
+      "evidenceUrl": "https://amplitude.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup and sales-assisted plans.",
+      "evidenceUrl": "https://amplitude.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard is essential for chart and cohort review.",
+      "evidenceUrl": "https://amplitude.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "specialized",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://amplitude.com/docs"
+  }
+}

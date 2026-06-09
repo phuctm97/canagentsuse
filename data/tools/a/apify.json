@@ -1,0 +1,75 @@
+{
+  "slug": "apify",
+  "name": "Apify",
+  "tagline": "Actors, proxies, scraping, and browser automation at scale.",
+  "websiteUrl": "https://apify.com",
+  "docsUrl": "https://docs.apify.com",
+  "githubUrl": "https://github.com/apify",
+  "shortDescription": "A mature scraping and automation platform with actors, storage, APIs, SDKs, and marketplace patterns.",
+  "agentSummary": "Agents can run existing actors, create automation tasks, inspect datasets, and connect outputs into workflows.",
+  "bestFor": "Reusable scraping actors, scheduled crawls, proxies, and dataset pipelines.",
+  "cautionNotes": "Key limitations: Actor quality varies; marketplace actors should be reviewed before automation. Respect robots.txt, site terms, rate limits, copyright, authentication boundaries, and anti-bot controls before asking an agent to crawl or extract content. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public platform pricing with free credits and compute/usage dimensions.",
+  "authModel": "API token and platform account.",
+  "accountCreation": "Self-serve signup; billing needed for larger usage.",
+  "browserSupport": "Console is usable for actor setup and inspection.",
+  "cliPackage": "apify",
+  "apiBaseUrl": "https://api.apify.com",
+  "categorySlugs": [
+    "scraping-content"
+  ],
+  "useCaseSlugs": [
+    "extract-web-data"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "CLI supports actor development and platform operations.",
+      "evidenceUrl": "https://docs.apify.com/cli"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "API covers actors, runs, datasets, key-value stores, and schedules.",
+      "evidenceUrl": "https://docs.apify.com"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "native",
+      "detail": "Official docs are listed for API behavior, authentication, limits, examples, and setup review.",
+      "evidenceUrl": "https://docs.apify.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public platform pricing with free credits and compute/usage dimensions.",
+      "evidenceUrl": "https://apify.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup; billing needed for larger usage.",
+      "evidenceUrl": "https://apify.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Console is useful when choosing and configuring actors.",
+      "evidenceUrl": "https://docs.apify.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://docs.apify.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/apify"
+  }
+}

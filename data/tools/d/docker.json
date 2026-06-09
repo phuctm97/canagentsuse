@@ -1,0 +1,76 @@
+{
+  "slug": "docker",
+  "name": "Docker",
+  "tagline": "Containers, Compose, Engine API, Docker Hub, and CLI workflows.",
+  "websiteUrl": "https://www.docker.com",
+  "docsUrl": "https://docs.docker.com",
+  "githubUrl": "https://github.com/docker",
+  "shortDescription": "Docker is highly scriptable through CLI, Compose, Engine API, registries, and local reproducible environments.",
+  "agentSummary": "Agents can build, run, inspect, test, and compose local services with repeatable commands and logs.",
+  "bestFor": "Local dev environments, container builds, integration tests, and deployment artifacts.",
+  "cautionNotes": "Key limitations: Agents need limits around privileged containers, volume mounts, secrets, and registry pushes. Deploys, secret changes, IAM, billing, networking, deletes, and rollback paths have high production blast radius; require scoped credentials and review gates. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public Docker Desktop/Hub/team pricing plus open-source Engine components.",
+  "authModel": "Local daemon access, Docker Hub tokens, registry credentials, and contexts.",
+  "accountCreation": "CLI can be local; Docker Hub signup is self-serve.",
+  "browserSupport": "Desktop and Hub UI help inspect images, repos, and billing.",
+  "cliPackage": "docker",
+  "apiBaseUrl": "http://localhost/v1.45",
+  "categorySlugs": [
+    "deployment-infra"
+  ],
+  "useCaseSlugs": [
+    "manage-infra",
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Docker CLI and Compose CLI cover build, run, logs, exec, compose, and registry workflows.",
+      "evidenceUrl": "https://docs.docker.com/reference/"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Docker Engine API provides programmatic daemon access.",
+      "evidenceUrl": "https://docs.docker.com/reference/api/engine/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include CLI, API, Compose, Dockerfile, and security references.",
+      "evidenceUrl": "https://docs.docker.com/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public Docker Desktop/Hub/team pricing plus open-source Engine components.",
+      "evidenceUrl": "https://github.com/docker"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "CLI can be local; Docker Hub signup is self-serve.",
+      "evidenceUrl": "https://www.docker.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "partial",
+      "detail": "Desktop and Hub UI help inspect images, repos, and billing.",
+      "evidenceUrl": "https://www.docker.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "native",
+      "detail": "Local containers provide isolated repeatable test environments.",
+      "evidenceUrl": "https://docs.docker.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "major-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/docker"
+  }
+}

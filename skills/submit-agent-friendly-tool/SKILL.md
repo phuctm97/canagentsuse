@@ -14,15 +14,15 @@ Use one of these paths:
 
 - Website PR flow: open `https://canagentsuse.com/submit`, fill tool name and website URL, then choose `Open GitHub PR template`.
 - Website agent flow: open `https://canagentsuse.com/submit`, fill the fields, then choose `Copy agent prompt`.
-- Direct GitHub flow: create a branch in `phuctm97/canagentsuse`, edit `data/catalog.json`, and open a PR with `.github/PULL_REQUEST_TEMPLATE/add-tool.md`.
+- Direct GitHub flow: create a branch in `phuctm97/canagentsuse`, add or edit one source file in `data/tools/<first-letter>/<tool-slug>.json`, and open a PR with `.github/PULL_REQUEST_TEMPLATE/add-tool.md`.
 
 ## Direct Agent Workflow
 
 1. Ask for tool name and website URL if missing.
 2. Create a branch named `catalog/add-<tool-slug>`.
-3. Read `data/README.md`, `data/catalog.schema.json`, and nearby records in `data/catalog.json`.
-4. Edit `data/catalog.json` only unless the submission needs a very small docs update.
-5. Add or update exactly one tool record.
+3. Read `data/README.md`, `data/catalog.schema.json`, `data/taxonomy.json`, and nearby records in `data/tools/`.
+4. Add or update exactly one tool source file in `data/tools/<first-letter>/<tool-slug>.json`. Do not edit `data/catalog.json`; it is generated.
+5. Keep the tool `slug` equal to the filename without `.json`.
 6. Use a stable unique `slug`.
 7. Prefer existing category, use-case, and capability slugs.
 8. Use official evidence URLs where possible.
@@ -89,6 +89,7 @@ Each capability must include:
 Run:
 
 ```bash
+bun run catalog:build
 bun run catalog:format
 bun run catalog:audit
 bun run build
@@ -97,7 +98,7 @@ git diff --check
 
 ## Guardrails
 
-- Do not add secrets, database credentials, Docker/Neon setup, generated build output, or unrelated refactors.
+- Do not edit `data/catalog.json`, add secrets, database credentials, Docker/Neon setup, generated build output, or unrelated refactors.
 - Do not invent evidence. Use `null`, `unknown`, or clear caution notes when evidence is missing.
 - Fill capability evidence and `launchSignals`; app surfaces compute score fields from those inputs.
 - Add caution notes for money, production data, accounts, compliance, infrastructure, browser-only flows, brittle automation, or irreversible actions.

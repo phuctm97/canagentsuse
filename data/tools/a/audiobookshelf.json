@@ -1,0 +1,73 @@
+{
+  "slug": "audiobookshelf",
+  "name": "Audiobookshelf",
+  "tagline": "Self-hosted media streaming - audio streaming software.",
+  "websiteUrl": "https://www.audiobookshelf.org/",
+  "docsUrl": "https://github.com/advplyr/audiobookshelf",
+  "githubUrl": "https://github.com/advplyr/audiobookshelf",
+  "shortDescription": "Audiobook and podcast server. It streams all audio formats, keeps and syncs progress across devices. Comes with open-source apps for Android and iOS.",
+  "agentSummary": "Audiobookshelf is self-hostable software from the Awesome Selfhosted data index. Agents can inspect the source, deploy it in a controlled environment, and operate the browser UI; API or CLI support should be verified in project docs.",
+  "bestFor": "Self-hosted media streaming - audio streaming workflows, internal tools, and controlled deployment experiments.",
+  "cautionNotes": "Key limitations: generated from community metadata, not a full security review. Verify maintenance activity, license, deployment docs, auth model, backup and restore path, update process, API or CLI support, and data exposure before production agent automation. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Browser automation can be brittle around UI changes, MFA, captchas, policy prompts, and hidden confirmation states.",
+  "pricingSummary": "Self-hosted/open-source licensing listed as GPL-3.0; infrastructure costs vary by deployment.",
+  "authModel": "Auth and permissions depend on the deployed app configuration; platform metadata: Docker, deb, Nodejs. Source code: https://github.com/advplyr/audiobookshelf",
+  "accountCreation": "No vendor signup is required for self-hosted use, but deployment and admin setup are required.",
+  "browserSupport": "Browser UI can be operated after deployment; exact flows depend on the app configuration.",
+  "submittedBy": "Generated from Awesome Selfhosted data",
+  "categorySlugs": [
+    "self-hosted",
+    "selfhosted-media-streaming-audio-streaming",
+    "selfhosted-document-management-e-books"
+  ],
+  "useCaseSlugs": [
+    "self-host-tool",
+    "inspect-open-source",
+    "deploy-internal-tool",
+    "publish-content"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "partial",
+      "detail": "Metadata suggests an API, server, integration, or automation surface; verify exact endpoints in project docs.",
+      "evidenceUrl": "https://github.com/advplyr/audiobookshelf"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Self-hosted web app can be operated through a browser once deployed.",
+      "evidenceUrl": "https://www.audiobookshelf.org/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Self-hosted/open-source licensing makes software cost inspectable; infrastructure cost depends on deployment.",
+      "evidenceUrl": "https://github.com/advplyr/audiobookshelf"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "partial",
+      "detail": "No vendor signup is required for self-hosted use, but deployment, admin setup, and local auth configuration are usually required.",
+      "evidenceUrl": "https://github.com/advplyr/audiobookshelf"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "partial",
+      "detail": "Project website or source repository is listed for documentation and deployment review.",
+      "evidenceUrl": "https://github.com/advplyr/audiobookshelf"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Self-hosted deployment supports local, staging, or disposable test environments before production use.",
+      "evidenceUrl": "https://github.com/advplyr/audiobookshelf"
+    }
+  ],
+  "launchSignals": {
+    "githubStars": 13050,
+    "ecosystemImportance": "unknown",
+    "maturity": "maintained",
+    "distribution": "none",
+    "evidenceUrl": "https://github.com/advplyr/audiobookshelf"
+  }
+}

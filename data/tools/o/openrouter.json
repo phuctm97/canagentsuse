@@ -1,0 +1,61 @@
+{
+  "slug": "openrouter",
+  "name": "OpenRouter",
+  "tagline": "One OpenAI-compatible gateway for many model providers.",
+  "websiteUrl": "https://openrouter.ai",
+  "docsUrl": "https://openrouter.ai/docs",
+  "shortDescription": "OpenRouter routes requests across many model providers through an OpenAI-compatible API with visible model pricing.",
+  "agentSummary": "Good for agents that need model fallback or broad model selection through one API, but provider variability needs monitoring.",
+  "bestFor": "Model routing, fallback experiments, quick access to many providers, and cost comparison.",
+  "cautionNotes": "Key limitations: Provider-specific reliability, data policy, and model versioning need review before sensitive workloads. Model behavior, costs, rate limits, data retention, and safety policies can change by model and account tier; use evals, spend caps, and data controls for sensitive workloads. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public model catalog with per-token prices and provider routing details.",
+  "authModel": "API keys and optional app attribution headers.",
+  "accountCreation": "Self-serve signup and credit-based usage.",
+  "browserSupport": "Dashboard supports keys, credits, activity, and model selection.",
+  "apiBaseUrl": "https://openrouter.ai/api/v1",
+  "categorySlugs": [
+    "ai-models"
+  ],
+  "useCaseSlugs": [
+    "call-models"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "OpenAI-compatible chat completions API supports many models.",
+      "evidenceUrl": "https://openrouter.ai/docs/api-reference/overview"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs explain routing, headers, parameters, and provider behavior.",
+      "evidenceUrl": "https://openrouter.ai/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "native",
+      "detail": "Model pages expose provider and per-token pricing.",
+      "evidenceUrl": "https://openrouter.ai/models"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup and credit-based usage.",
+      "evidenceUrl": "https://openrouter.ai"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard supports keys, credits, activity, and model selection.",
+      "evidenceUrl": "https://openrouter.ai"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://openrouter.ai/docs"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "slug": "mongodb-atlas",
+  "name": "MongoDB Atlas",
+  "tagline": "Managed MongoDB, Atlas CLI, Admin API, and vector search.",
+  "websiteUrl": "https://www.mongodb.com/products/platform/atlas-database",
+  "docsUrl": "https://www.mongodb.com/docs/atlas",
+  "githubUrl": "https://github.com/mongodb",
+  "shortDescription": "Atlas provides a managed database platform with Admin API, Atlas CLI, Terraform provider, search, and vector search.",
+  "agentSummary": "Agents can operate MongoDB Atlas through API/CLI and use the official MongoDB MCP server for Atlas administration, database operations, query analysis, and schema exploration.",
+  "bestFor": "MongoDB cloud operations, database provisioning, search, vector search, and app data.",
+  "cautionNotes": "Key limitations: Cluster changes, network access, and destructive database operations need human review. Schema changes, migrations, deletes, backups, row-level security, and retention policies need explicit review before agents touch production data. MCP servers inherit the connected account's scopes and may send prompts or data to third-party services; configure read-only or narrow scopes when available. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials.",
+  "pricingSummary": "Public pricing with free clusters, serverless/dedicated tiers, and usage dimensions.",
+  "authModel": "Atlas API keys, database credentials, connection strings, service accounts, and MongoDB MCP configuration.",
+  "accountCreation": "Self-serve Atlas signup.",
+  "browserSupport": "Atlas UI is useful for cluster, access, logs, and billing review.",
+  "cliPackage": "atlas",
+  "apiBaseUrl": "https://cloud.mongodb.com/api/atlas",
+  "categorySlugs": [
+    "databases-storage",
+    "search-rag"
+  ],
+  "useCaseSlugs": [
+    "ship-app",
+    "build-rag",
+    "manage-infra"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Atlas CLI supports programmatic cluster and project operations.",
+      "evidenceUrl": "https://www.mongodb.com/docs/atlas/cli/current/"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Atlas Administration API supports projects, clusters, users, and administrative objects.",
+      "evidenceUrl": "https://www.mongodb.com/docs/atlas/api/"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Official MongoDB MCP server works with Atlas and local MongoDB deployments for cluster administration, database operations, query analysis, and performance recommendations.",
+      "evidenceUrl": "https://www.mongodb.com/docs/mcp-server/overview/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs cover Admin API, CLI, Terraform, and vector search.",
+      "evidenceUrl": "https://www.mongodb.com/docs/atlas/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public pricing with free clusters, serverless/dedicated tiers, and usage dimensions.",
+      "evidenceUrl": "https://www.mongodb.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve Atlas signup.",
+      "evidenceUrl": "https://www.mongodb.com/products/platform/atlas-database"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "partial",
+      "detail": "Atlas UI is useful for cluster, access, logs, and billing review.",
+      "evidenceUrl": "https://www.mongodb.com/products/platform/atlas-database"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://www.mongodb.com/docs/atlas"
+    }
+  ],
+  "mcpServer": "npx -y mongodb-mcp-server",
+  "launchSignals": {
+    "adoptionTier": "established-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/mongodb"
+  }
+}

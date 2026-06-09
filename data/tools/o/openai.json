@@ -1,0 +1,69 @@
+{
+  "slug": "openai",
+  "name": "OpenAI",
+  "tagline": "Model, embeddings, realtime, image, and agent APIs.",
+  "websiteUrl": "https://openai.com",
+  "docsUrl": "https://platform.openai.com/docs",
+  "shortDescription": "A broad AI platform with documented REST APIs, SDKs, model pricing, request IDs, and usage controls.",
+  "agentSummary": "Agents can call chat, responses, embeddings, image, audio, realtime, and tool-oriented APIs with clear request and response schemas.",
+  "bestFor": "Model calls, embeddings, speech, image generation, evals, and agent backends.",
+  "cautionNotes": "Key limitations: Production agents need budget controls, data-handling review, prompt-injection defenses, and model-specific evals. Model behavior, costs, rate limits, data retention, and safety policies can change by model and account tier; use evals, spend caps, and data controls for sensitive workloads. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public per-model usage pricing with separate input, output, cached, and media dimensions.",
+  "authModel": "API keys, project keys, organization/project scoping, and request IDs for support.",
+  "accountCreation": "Self-serve signup; paid usage requires billing setup.",
+  "browserSupport": "Dashboard is useful for keys, usage, logs, evals, and project setup.",
+  "apiBaseUrl": "https://api.openai.com/v1",
+  "isFeatured": true,
+  "submittedBy": "Can Agents Use research",
+  "categorySlugs": [
+    "ai-models"
+  ],
+  "useCaseSlugs": [
+    "call-models",
+    "build-rag"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST API covers model, embedding, realtime, image, and audio workflows.",
+      "evidenceUrl": "https://platform.openai.com/docs/api-reference"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "native",
+      "detail": "API reference and guides include curl examples, SDKs, request IDs, and model-specific notes.",
+      "evidenceUrl": "https://platform.openai.com/docs"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public by model and modality.",
+      "evidenceUrl": "https://platform.openai.com/docs/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup; paid usage requires billing setup.",
+      "evidenceUrl": "https://openai.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard is useful for keys, usage, logs, evals, and project setup.",
+      "evidenceUrl": "https://openai.com"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "Agents can test in separate projects and enforce usage limits before production rollout."
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "major-platform",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://platform.openai.com/docs"
+  }
+}

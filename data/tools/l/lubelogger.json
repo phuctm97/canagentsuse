@@ -1,0 +1,64 @@
+{
+  "slug": "lubelogger",
+  "name": "LubeLogger",
+  "tagline": "Self-hosted miscellaneous software.",
+  "websiteUrl": "https://lubelogger.com",
+  "docsUrl": "https://github.com/hargata/lubelog",
+  "githubUrl": "https://github.com/hargata/lubelog",
+  "shortDescription": "Web-based vehicle maintenance and fuel mileage tracker.",
+  "agentSummary": "LubeLogger is self-hostable software from the Awesome Selfhosted data index. Agents can inspect the source, deploy it in a controlled environment, and operate the browser UI; API or CLI support should be verified in project docs.",
+  "bestFor": "Self-hosted miscellaneous workflows, internal tools, and controlled deployment experiments.",
+  "cautionNotes": "Key limitations: generated from community metadata, not a full security review. Verify maintenance activity, license, deployment docs, auth model, backup and restore path, update process, API or CLI support, and data exposure before production agent automation. Browser automation can be brittle around UI changes, MFA, captchas, policy prompts, and hidden confirmation states. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Self-hosted/open-source licensing listed as MIT; infrastructure costs vary by deployment.",
+  "authModel": "Auth and permissions depend on the deployed app configuration; platform metadata: Docker, K8S, C#. Source code: https://github.com/hargata/lubelog",
+  "accountCreation": "No vendor signup is required for self-hosted use, but deployment and admin setup are required.",
+  "browserSupport": "Browser UI can be operated after deployment; exact flows depend on the app configuration.",
+  "submittedBy": "Generated from Awesome Selfhosted data",
+  "categorySlugs": [
+    "self-hosted",
+    "selfhosted-miscellaneous"
+  ],
+  "useCaseSlugs": [
+    "self-host-tool",
+    "inspect-open-source"
+  ],
+  "capabilities": [
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Self-hosted web app can be operated through a browser once deployed.",
+      "evidenceUrl": "https://lubelogger.com"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Self-hosted/open-source licensing makes software cost inspectable; infrastructure cost depends on deployment.",
+      "evidenceUrl": "https://github.com/hargata/lubelog"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "partial",
+      "detail": "No vendor signup is required for self-hosted use, but deployment, admin setup, and local auth configuration are usually required.",
+      "evidenceUrl": "https://github.com/hargata/lubelog"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "partial",
+      "detail": "Project website or source repository is listed for documentation and deployment review.",
+      "evidenceUrl": "https://github.com/hargata/lubelog"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Self-hosted deployment supports local, staging, or disposable test environments before production use.",
+      "evidenceUrl": "https://github.com/hargata/lubelog"
+    }
+  ],
+  "launchSignals": {
+    "githubStars": 2550,
+    "ecosystemImportance": "unknown",
+    "maturity": "maintained",
+    "distribution": "none",
+    "evidenceUrl": "https://github.com/hargata/lubelog"
+  }
+}

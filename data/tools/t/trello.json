@@ -1,0 +1,61 @@
+{
+  "slug": "trello",
+  "name": "Trello",
+  "tagline": "Cards, boards, lists, webhooks, and lightweight project API.",
+  "websiteUrl": "https://trello.com",
+  "docsUrl": "https://developer.atlassian.com/cloud/trello",
+  "shortDescription": "Trello provides a REST API for boards, cards, lists, labels, members, actions, and webhooks.",
+  "agentSummary": "Agents can move cards, create tasks, and inspect lightweight workflows when board permissions are constrained.",
+  "bestFor": "Simple project boards, content workflows, checklists, and operational task tracking.",
+  "cautionNotes": "Key limitations: Card moves and public/private board permissions need review. Project, CRM, document, and spreadsheet writes depend on team context and privacy rules; require least-privilege scopes and review for workflow-changing actions. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Store credentials outside source control and use least-privilege scopes, short-lived tokens, or restricted keys where the product supports them.",
+  "pricingSummary": "Public Trello plan pricing.",
+  "authModel": "API key/token, OAuth-like token authorization, and workspace permissions.",
+  "accountCreation": "Self-serve Atlassian/Trello signup.",
+  "browserSupport": "Board UI is the main review surface.",
+  "apiBaseUrl": "https://api.trello.com/1",
+  "categorySlugs": [
+    "project-workflows"
+  ],
+  "useCaseSlugs": [
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST API covers boards, cards, lists, actions, members, and webhooks.",
+      "evidenceUrl": "https://developer.atlassian.com/cloud/trello/rest/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Developer docs include API reference and auth patterns.",
+      "evidenceUrl": "https://developer.atlassian.com/cloud/trello/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public by plan.",
+      "evidenceUrl": "https://trello.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve Atlassian/Trello signup.",
+      "evidenceUrl": "https://trello.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "partial",
+      "detail": "Board UI is the main review surface.",
+      "evidenceUrl": "https://trello.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://developer.atlassian.com/cloud/trello"
+  }
+}

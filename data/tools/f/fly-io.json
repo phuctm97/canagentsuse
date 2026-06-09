@@ -1,0 +1,77 @@
+{
+  "slug": "fly-io",
+  "name": "Fly.io",
+  "tagline": "Global app platform with flyctl, Machines API, and managed Postgres.",
+  "websiteUrl": "https://fly.io",
+  "docsUrl": "https://fly.io/docs",
+  "githubUrl": "https://github.com/superfly",
+  "shortDescription": "Fly.io provides flyctl, Machines API, app deploys, secrets, logs, Postgres, and distributed app primitives.",
+  "agentSummary": "Agents can deploy apps, inspect logs, manage secrets, create machines, and automate infrastructure with flyctl/API.",
+  "bestFor": "Global app deployment, edge workers, machines, Postgres apps, and agent-managed services.",
+  "cautionNotes": "Key limitations: Secrets, destroy commands, scaling, and production deploys need review. Schema changes, migrations, deletes, backups, row-level security, and retention policies need explicit review before agents touch production data. CLI access is powerful but can run destructive local or production commands; prefer dry runs, preview environments, and non-production credentials. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging.",
+  "pricingSummary": "Public usage-based pricing by compute, storage, bandwidth, and managed services.",
+  "authModel": "Access tokens, organizations, deploy tokens, and CLI auth.",
+  "accountCreation": "Self-serve signup.",
+  "browserSupport": "Dashboard supports org, billing, apps, and deployment review.",
+  "cliPackage": "flyctl",
+  "apiBaseUrl": "https://api.machines.dev",
+  "categorySlugs": [
+    "deployment-infra",
+    "databases-storage"
+  ],
+  "useCaseSlugs": [
+    "ship-app",
+    "manage-infra"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "flyctl manages apps, deploys, secrets, logs, volumes, machines, and Postgres.",
+      "evidenceUrl": "https://fly.io/docs/flyctl/"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Machines API supports programmatic machine lifecycle operations.",
+      "evidenceUrl": "https://fly.io/docs/machines/api/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs cover flyctl, apps, Machines, Postgres, and networking.",
+      "evidenceUrl": "https://fly.io/docs/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public usage-based pricing by compute, storage, bandwidth, and managed services.",
+      "evidenceUrl": "https://fly.io/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup.",
+      "evidenceUrl": "https://fly.io"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard supports org, billing, apps, and deployment review.",
+      "evidenceUrl": "https://fly.io"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "The tool has documented test, local, preview, self-hosted, or staging paths that let agents validate changes away from production.",
+      "evidenceUrl": "https://fly.io/docs"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "core-platform",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/superfly"
+  }
+}

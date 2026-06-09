@@ -1,0 +1,62 @@
+{
+  "slug": "postmark",
+  "name": "Postmark",
+  "tagline": "Transactional email API focused on reliable delivery.",
+  "websiteUrl": "https://postmarkapp.com",
+  "docsUrl": "https://postmarkapp.com/developer",
+  "githubUrl": "https://github.com/wildbit/postmark.js",
+  "shortDescription": "Postmark provides email sending, templates, inbound parsing, suppressions, message streams, and webhooks.",
+  "agentSummary": "Agents can send transactional email and inspect delivery events with a simpler operational model than broad marketing suites.",
+  "bestFor": "Transactional email, templates, inbound processing, and delivery troubleshooting.",
+  "cautionNotes": "Key limitations: Outbound email still requires domain authentication, test sends, and approval for customer-facing content. Outbound messages, SMS, email deliverability, consent, unsubscribe behavior, private chats, and customer-facing replies need approval, throttling, and audit logs. API automation needs client-side throttling, idempotency where supported, pagination limits, retries, and audit logging. Account setup or elevated access may require vendor, admin, or compliance approval before an agent can operate independently.",
+  "pricingSummary": "Public monthly pricing by email volume.",
+  "authModel": "Server API tokens, account API tokens, webhooks, and domain verification.",
+  "accountCreation": "Self-serve trial/signup.",
+  "browserSupport": "Dashboard supports streams, templates, logs, and suppressions.",
+  "apiBaseUrl": "https://api.postmarkapp.com",
+  "categorySlugs": [
+    "email-messaging"
+  ],
+  "useCaseSlugs": [
+    "publish-content"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Developer API covers sending, templates, inbound, suppressions, message streams, and webhooks.",
+      "evidenceUrl": "https://postmarkapp.com/developer/api/overview"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include API reference, webhooks, and delivery concepts.",
+      "evidenceUrl": "https://postmarkapp.com/developer"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing is public by monthly volume.",
+      "evidenceUrl": "https://postmarkapp.com/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve trial/signup.",
+      "evidenceUrl": "https://postmarkapp.com"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard supports streams, templates, logs, and suppressions.",
+      "evidenceUrl": "https://postmarkapp.com"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "business-critical",
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/wildbit/postmark.js"
+  }
+}
