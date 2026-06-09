@@ -1,5 +1,11 @@
 # canagentsuse
 
+## 0.2.8
+
+### Patch Changes
+
+- 5e6f97a: Rank searched tool results by text relevance before readiness score so exact tool names surface first across the API, MCP, and CLI surfaces.
+
 ## 0.2.7
 
 ### Patch Changes
