@@ -10,6 +10,11 @@ import {
   scoreAgentFriendliness,
   type AgentScoreBreakdown,
 } from "@/lib/agent-scoring"
+import {
+  scoreLaunchPresence,
+  type LaunchScoreBreakdown,
+  type LaunchSignals,
+} from "@/lib/launch-scoring"
 
 export type DirectoryCapability = {
   slug: string
@@ -53,7 +58,9 @@ export type DirectoryTool = {
   agentScore: number
   agentTier: string
   scoreBreakdown: AgentScoreBreakdown
+  launchSignals: LaunchSignals
   launchScore: number
+  launchScoreBreakdown: LaunchScoreBreakdown
   isFeatured: boolean
   categories: DirectoryCategory[]
   useCases: DirectoryUseCase[]
@@ -213,15 +220,21 @@ function toDirectoryListTool(tool: DirectoryTool): DirectoryListTool {
 }
 
 function withAgentScore(
-  tool: Omit<DirectoryTool, "agentScore" | "agentTier" | "scoreBreakdown">
+  tool: Omit<
+    DirectoryTool,
+    "agentScore" | "agentTier" | "scoreBreakdown" | "launchScore" | "launchScoreBreakdown"
+  >
 ) {
   const scoreBreakdown = scoreAgentFriendliness(tool)
+  const launchScoreBreakdown = scoreLaunchPresence(tool)
 
   return {
     ...tool,
     agentScore: scoreBreakdown.score,
     agentTier: scoreBreakdown.tier,
     scoreBreakdown,
+    launchScore: launchScoreBreakdown.score,
+    launchScoreBreakdown,
   }
 }
 

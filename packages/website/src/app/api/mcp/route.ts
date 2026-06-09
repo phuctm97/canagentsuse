@@ -8,6 +8,7 @@ import {
 } from "@/lib/agent-catalog"
 import { agentInstallGuide, agentInstallLinks, mcpInstallExample } from "@/lib/agent-install"
 import { agentScoreWeights } from "@/lib/agent-scoring"
+import { launchScoreModel } from "@/lib/launch-scoring"
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site"
 
 type JsonRpcId = string | number | null
@@ -135,7 +136,7 @@ const mcpTools = [
     name: "get_agent_score_model",
     title: "Get Agent Score Model",
     description:
-      "Return the weighted signal model used to rank agent friendliness: operability, safety, readability, setup, and reliability.",
+      "Return the weighted signal models used to rank agent friendliness and launch presence.",
     inputSchema: {
       type: "object",
       properties: {},
@@ -390,7 +391,7 @@ async function handleToolCall(id: JsonRpcId, params: unknown) {
       return jsonRpcResult(id, toolResult({ capabilities: catalog.capabilities }))
     }
     case "get_agent_score_model": {
-      return jsonRpcResult(id, toolResult({ scoreModel: agentScoreWeights }))
+      return jsonRpcResult(id, toolResult({ scoreModel: agentScoreWeights, launchScoreModel }))
     }
     case "get_agent_install_guide": {
       return jsonRpcResult(id, toolResult(agentInstallGuide()))

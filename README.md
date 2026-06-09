@@ -71,6 +71,24 @@ Scores are out of 100 and are derived from the evidence in each tool record.
 The website keeps the score compact. Agent surfaces expose the detailed
 `scoreBreakdown` object.
 
+## Launch Score Model
+
+`launchScore` is a secondary ranking signal used after agent readiness. It is
+computed from `launchSignals`, not entered directly in catalog records.
+
+| Group | Points |
+| --- | ---: |
+| Base score | 120 |
+| Public adoption | 600 |
+| Ecosystem importance | 150 |
+| Distribution maturity | 70 |
+| Maintenance signal | 20 |
+
+Use `launchSignals` to describe public traction and importance: adoption tier,
+ecosystem importance, GitHub stars, package download volume, maturity,
+distribution handling, and an evidence URL. For self-hosted imports, GitHub
+stars keep the historical formula: `min(950, 120 + floor(stars / 150))`.
+
 ## Agent Quick Start
 
 Agents should use these read-only public surfaces. Do not ask for database
@@ -93,7 +111,7 @@ Recommended agent workflow:
 1. Start with `npx canagentsuse@latest setup --all-agents --yes` when you can run shell commands.
 2. Search for a focused query such as `stripe`, `scraping`, `email`, `browser`, `mcp`, or `billing`.
 3. Inspect one tool by slug before recommending it.
-4. Compare `scoreBreakdown`, `capabilities`, evidence URLs, pricing clarity, sandbox support, and limitations.
+4. Compare `scoreBreakdown`, `launchScoreBreakdown`, `capabilities`, evidence URLs, pricing clarity, sandbox support, and limitations.
 5. For broad comparisons, fetch the full catalog once and search locally.
 6. Mention caution notes before live money movement, production data changes, account creation, infrastructure changes, or irreversible actions.
 7. Treat scores as discovery signals, not legal, security, purchasing, or compliance approval.
@@ -258,7 +276,7 @@ Available MCP tools:
 | `get_agent_tool` | Fetch one tool by slug, including evidence and limitations. |
 | `list_agent_categories` | Discover category slugs. |
 | `list_agent_capabilities` | Discover capability slugs such as `api`, `cli`, `mcp`, `browser`, and `sandbox`. |
-| `get_agent_score_model` | Understand the weighted score model before ranking tools. |
+| `get_agent_score_model` | Understand the weighted agent and launch score models before ranking tools. |
 
 MCP resources:
 
@@ -518,10 +536,11 @@ The best contribution is a well-evidenced catalog record.
 
 1. Edit [`data/catalog.json`](data/catalog.json).
 2. Add evidence URLs for important API, CLI, MCP, pricing, docs, sandbox, or account setup claims.
-3. Include limitation notes for anything that affects money, production data, infrastructure, or users.
-4. Add a changeset when the change should release the website or CLI.
-5. Run `bun run catalog:audit`.
-6. Open a pull request.
+3. Add `launchSignals` for public traction and importance.
+4. Include limitation notes for anything that affects money, production data, infrastructure, or users.
+5. Run `bun run catalog:format` so `data/catalog.json` uses the canonical two-space JSON format.
+6. Run `bun run catalog:audit`.
+7. Open a pull request. The Catalog PR workflow reruns the formatter, fails with a diff if the JSON is not canonical, audits metadata, and typechecks catalog consumers.
 
 If you are not ready to edit JSON, use the website submit flow to open a
 prefilled GitHub pull request or copy a ready-to-run agent prompt.

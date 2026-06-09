@@ -49,6 +49,10 @@ const mockScoreModel = [
     signals: [{ slug: "api", label: "API", weight: 10 }],
   },
 ]
+const mockLaunchScoreModel = {
+  baseScore: 120,
+  groups: [{ key: "public-adoption", label: "Public adoption", maxScore: 600 }],
+}
 const mockTools = [
   mockTool("stripe", "Stripe", 96),
   mockTool("revenuecat", "RevenueCat", 86),
@@ -59,6 +63,7 @@ const mockCatalog = {
     name: "Can Agents Use",
     description: "Mock sorted catalog",
     scoreModel: mockScoreModel,
+    launchScoreModel: mockLaunchScoreModel,
   },
   tools: mockTools,
   categories: [],
@@ -116,7 +121,8 @@ try {
     [cli, "score-model", "--site", mockServer.url, "--json"],
     packageRoot
   )
-  assertJsonOutputPath(scoreModelOutput, [0, "key"], "operability", "score-model --json")
+  assertJsonOutputPath(scoreModelOutput, ["agentScoreModel", 0, "key"], "operability", "score-model --json")
+  assertJsonOutputPath(scoreModelOutput, ["launchScoreModel", "baseScore"], 120, "score-model --json")
   await run(process.execPath, [cli, "skills", "list"], packageRoot)
   await run(process.execPath, [cli, "setup", "--all-agents", "--project", "--dry-run"], packageRoot)
   await run(process.execPath, [cli, "setup", "--cli", "--all-agents", "--project", "--dry-run"], packageRoot)

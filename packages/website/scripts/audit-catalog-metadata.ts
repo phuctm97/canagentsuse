@@ -26,6 +26,16 @@ for (const tool of tools) {
     errors.push(`${tool.slug}: agentScore is computed from evidence and must not be stored in catalog.json`)
   }
 
+  if ("launchScore" in tool) {
+    errors.push(`${tool.slug}: launchScore is computed from launchSignals and must not be stored in catalog.json`)
+  }
+
+  if (!tool.launchSignals) {
+    errors.push(`${tool.slug}: launchSignals are required for computed launchScore`)
+  } else {
+    checkUrl(tool, "launchSignals.evidenceUrl", tool.launchSignals.evidenceUrl)
+  }
+
   checkUrl(tool, "websiteUrl", tool.websiteUrl, { required: true })
   checkUrl(tool, "docsUrl", tool.docsUrl)
   checkUrl(tool, "githubUrl", tool.githubUrl)

@@ -89,6 +89,7 @@ type AgentCatalogResponse = {
     interfaceVersion?: string
     guidance?: string[]
     scoreModel?: unknown
+    launchScoreModel?: unknown
     endpoints?: Record<string, string>
   }
   tools?: AgentTool[]
@@ -345,14 +346,17 @@ async function scoreModel(parsed: ParsedArgs) {
   const data = await fetchJson<AgentCatalogResponse>(
     new URL("/api/agent/catalog", siteUrl(parsed))
   )
-  const score = data.site?.scoreModel ?? null
+  const score = {
+    agentScoreModel: data.site?.scoreModel ?? null,
+    launchScoreModel: data.site?.launchScoreModel ?? null,
+  }
 
   if (parsed.flags.json) {
     printJson(score)
     return
   }
 
-  console.log("Agent-friendliness score model")
+  console.log("Can Agents Use score models")
   console.log("")
   console.log(JSON.stringify(score, null, 2))
 }

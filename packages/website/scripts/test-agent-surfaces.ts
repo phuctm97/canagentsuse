@@ -47,6 +47,18 @@ async function testSubmitToolTemplate() {
     !template.includes("`agentScore` (0-100):"),
     "submit template does not ask users to enter agentScore"
   )
+  assert(
+    !template.includes("`launchScore` (0+):"),
+    "submit template does not ask users to enter launchScore"
+  )
+  assert(
+    template.includes("`launchSignals`:"),
+    "submit template asks users for launchSignals"
+  )
+  assert(
+    template.includes("`bun run catalog:format`"),
+    "submit template asks users to format the catalog"
+  )
 }
 
 async function testInstallApi() {
@@ -100,6 +112,10 @@ async function testCatalogSearchAndToolApi() {
   assert(
     readPath(stripe, ["tool", "agentScore"]) === readPath(stripe, ["tool", "scoreBreakdown", "score"]),
     "tool API derives agentScore from score breakdown"
+  )
+  assert(
+    readPath(stripe, ["tool", "launchScore"]) === readPath(stripe, ["tool", "launchScoreBreakdown", "score"]),
+    "tool API derives launchScore from launch score breakdown"
   )
 
   const missing = await toolGet(new Request("https://canagentsuse.test/api/agent/tools/nope"), {
