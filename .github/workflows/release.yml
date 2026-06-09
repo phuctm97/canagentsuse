@@ -63,7 +63,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
   release:
-    name: Plan, Version PR, Publish, And Deploy
+    name: Plan, Version, Publish, And Deploy
     needs: validate
     runs-on: ubuntu-latest
     steps:
@@ -236,7 +236,7 @@ jobs:
             if (process.env.VERSION_COMMIT_SHA) {
               lines.push(`- Version commit: \`${process.env.VERSION_COMMIT_SHA}\``)
             }
-            lines.push("- The pushed version commit will trigger the publish/deploy release gate.")
+            lines.push("- The release gate continues from the version commit in this workflow run.")
           } else if (process.env.HAS_RELEASE === "true") {
             lines.push("Merged version package changes were released.")
             lines.push(`- CLI publish: ${process.env.CLI_RELEASE === "true" ? `canagentsuse@${process.env.CLI_VERSION}` : "not needed"}`)

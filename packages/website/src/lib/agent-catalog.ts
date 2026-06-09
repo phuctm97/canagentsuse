@@ -118,8 +118,8 @@ export async function searchAgentTools(options: AgentSearchOptions) {
     .filter(({ rank }) => rank > 0)
     .sort(
       (left, right) =>
-        right.tool.agentScore - left.tool.agentScore ||
         right.rank - left.rank ||
+        right.tool.agentScore - left.tool.agentScore ||
         right.tool.launchScore - left.tool.launchScore ||
         left.tool.name.localeCompare(right.tool.name)
     )
@@ -726,7 +726,7 @@ function scoreTool(tool: AgentTool, query: string, category: string, capability:
     return 0
   }
 
-  let rank = tool.agentScore
+  let rank = 0
   if (normalizeSlug(tool.slug) === query) rank += 1000
   if (normalizeQuery(tool.name) === query) rank += 800
   if (normalizeQuery(tool.name).includes(query)) rank += 200

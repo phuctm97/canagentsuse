@@ -104,7 +104,19 @@ async function testCatalogSearchAndToolApi() {
   assert(readPath(search, ["query"]) === "stripe", "search API normalizes query")
   assert(readPath(search, ["limit"]) === 5, "search API respects limit")
   assertToolSlug(search, "stripe", "search API can find Stripe")
-  assertToolsSortedByScore(readPath(search, ["tools"]), "search API query tools")
+  assertFirstToolSlug(search, "stripe", "search API ranks exact name match first")
+
+  const exactNameSearch = await json<Record<string, unknown>>(
+    await searchGet(
+      new Request("https://canagentsuse.test/api/agent/search?q=make%20a%20website&page=1&limit=5")
+    )
+  )
+  assertToolSlug(exactNameSearch, "make-a-website", "search API can find Make A Website")
+  assertFirstToolSlug(
+    exactNameSearch,
+    "make-a-website",
+    "search API ranks exact multi-word name match first"
+  )
 
   const stripe = await json<Record<string, unknown>>(
     await toolGet(new Request("https://canagentsuse.test/api/agent/tools/stripe"), {
@@ -180,9 +192,33 @@ async function testMcpSurface() {
     },
   })
   assertToolSlug(readPath(search, ["result", "structuredContent"]), "stripe", "MCP search finds Stripe")
-  assertToolsSortedByScore(
-    readPath(search, ["result", "structuredContent", "tools"]),
-    "MCP search tools"
+  assertFirstToolSlug(
+    readPath(search, ["result", "structuredContent"]),
+    "stripe",
+    "MCP search ranks exact name match first"
+  )
+
+  const exactNameSearch = await mcp({
+    jsonrpc: "2.0",
+    id: 30,
+    method: "tools/call",
+    params: {
+      name: "search_agent_tools",
+      arguments: {
+        query: "make a website",
+        limit: 5,
+      },
+    },
+  })
+  assertToolSlug(
+    readPath(exactNameSearch, ["result", "structuredContent"]),
+    "make-a-website",
+    "MCP search finds Make A Website"
+  )
+  assertFirstToolSlug(
+    readPath(exactNameSearch, ["result", "structuredContent"]),
+    "make-a-website",
+    "MCP search ranks exact multi-word name match first"
   )
 
   const resource = await mcp({
@@ -303,6 +339,14 @@ function assertToolSlug(value: unknown, slug: string, message: string) {
   const tools = readPath(value, ["tools"])
   assert(
     Array.isArray(tools) && tools.some((tool) => readPath(tool, ["slug"]) === slug),
+    message
+  )
+}
+
+function assertFirstToolSlug(value: unknown, slug: string, message: string) {
+  const tools = readPath(value, ["tools"])
+  assert(
+    Array.isArray(tools) && readPath(tools[0], ["slug"]) === slug,
     message
   )
 }
