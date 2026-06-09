@@ -68196,6 +68196,86 @@
           "evidenceUrl": "https://github.com/s9y/serendipity"
         }
       ]
+    },
+    {
+      "slug": "sonar",
+      "name": "Sonar",
+      "tagline": "App Store Optimization: keyword research, rank tracking, and competitor intelligence for iOS and Android.",
+      "websiteUrl": "https://trysonar.app",
+      "docsUrl": "https://trysonar.app/docs",
+      "githubUrl": null,
+      "shortDescription": "Sonar is an ASO platform for the iOS App Store and Google Play that provides keyword difficulty scores, search-popularity estimates, daily rank tracking, competitor keyword gap analysis, and revenue estimates, exposed through a REST API, a CLI, and a stdio MCP server.",
+      "agentSummary": "Agents can run ASO research without a browser: stateless REST endpoints cover app lookup, store search, ASO scoring, keyword research and suggestions, keyword extraction, reviews, and revenue estimates, while org-scoped endpoints read tracked apps, keywords, rankings, and competitor data. The same surface is available through the `sonar` CLI and the `@sonarapp/mcp` MCP server (Claude Desktop, Claude Code, Cursor), all authenticated with a Bearer `aso_` API key.",
+      "bestFor": "App Store and Google Play keyword research, keyword difficulty scoring, daily rank tracking, competitor keyword gap analysis, and app revenue estimates for indie developers.",
+      "cautionNotes": "Key limitations: Keyword difficulty, search-popularity, and revenue figures are proprietary estimates derived from scraped store data, not official store metrics, and can lag or shift as Apple and Google endpoints change. Write-scoped keys (Full plan) can add or modify tracked apps, keywords, and competitor scans and consume prepaid credits, so prefer read scope for pure research. Each API call spends credits or daily quota, so add client-side throttling, retries, and budget limits. The Full-plan trial requires a credit card, and the source repository is private, so source-level inspection is not possible. Store the `aso_` API key outside source control.",
+      "pricingSummary": "Full plan is $19/month or $12.42/month billed annually ($149/yr); API-only use runs on prepaid credit packs from $10 (credits never expire) with 50 free credits on signup. The 7-day free trial requires a credit card; the credit packs do not.",
+      "authModel": "Bearer API key with the `aso_` prefix (SHA-256 hashed at rest); keys carry read or read+write scopes. The CLI and MCP server read the `SONAR_API_KEY` environment variable. Dashboard sign-in uses Clerk.",
+      "accountCreation": "Self-serve signup. API/credit accounts receive 50 free credits with no card required; the Full-plan dashboard trial requires a credit card.",
+      "browserSupport": "Full web dashboard for app and keyword management, rank charts, competitor groups, reviews, and API-key issuance; free no-signup keyword-difficulty lookup tools are also public.",
+      "cliPackage": "@sonarapp/cli",
+      "apiBaseUrl": "https://trysonar.app/api/v1",
+      "mcpServer": "@sonarapp/mcp",
+      "agentScore": 77,
+      "launchScore": 125,
+      "submittedBy": "Can Agents Use research",
+      "categorySlugs": [
+        "analytics-product",
+        "scraping-content"
+      ],
+      "useCaseSlugs": [
+        "extract-web-data",
+        "analyze-product"
+      ],
+      "capabilities": [
+        {
+          "slug": "api",
+          "supportLevel": "native",
+          "detail": "REST API at /api/v1 with stateless endpoints (app lookup, search, ASO score, keyword search, suggestions, keyword extraction, reviews, revenue) plus org-scoped endpoints for tracked apps, keywords, rankings, and competitors; Full plan includes 1,000 requests/day.",
+          "evidenceUrl": "https://trysonar.app/docs/api"
+        },
+        {
+          "slug": "cli",
+          "supportLevel": "native",
+          "detail": "Published `sonar` CLI (npm `@sonarapp/cli`) with auth, apps, keywords, rankings, competitors, and CSV/JSON export commands.",
+          "evidenceUrl": "https://trysonar.app/docs/cli"
+        },
+        {
+          "slug": "mcp",
+          "supportLevel": "native",
+          "detail": "Stdio MCP server (npm `@sonarapp/mcp`, bin `sonar-mcp`) exposing the stateless ASO tools, with documented configuration for Claude Desktop, Claude Code, and Cursor.",
+          "evidenceUrl": "https://trysonar.app/docs/mcp"
+        },
+        {
+          "slug": "docs-quality",
+          "supportLevel": "strong",
+          "detail": "Docs cover the API (per-endpoint reference, scopes, endpoint costs, response headers), CLI, and MCP setup with request/response examples.",
+          "evidenceUrl": "https://trysonar.app/docs"
+        },
+        {
+          "slug": "pricing-clarity",
+          "supportLevel": "strong",
+          "detail": "Public pricing shows the Full plan and annual price, and the docs list per-endpoint credit costs (1 credit for stateless calls, 10 for keyword research).",
+          "evidenceUrl": "https://trysonar.app/#pricing"
+        },
+        {
+          "slug": "account-creation",
+          "supportLevel": "strong",
+          "detail": "Self-serve signup with 50 free credits and no card required for API/credit use; the Full-plan trial requires a credit card.",
+          "evidenceUrl": "https://trysonar.app/docs/api"
+        },
+        {
+          "slug": "browser",
+          "supportLevel": "strong",
+          "detail": "Full dashboard for managing apps, keywords, rankings, competitors, reviews, and API keys; free public keyword-difficulty lookup tools need no signup.",
+          "evidenceUrl": "https://trysonar.app"
+        },
+        {
+          "slug": "sandbox",
+          "supportLevel": "partial",
+          "detail": "No dedicated test/sandbox mode, but 50 free signup credits plus read-only stateless endpoints let agents trial research calls before paying or making changes.",
+          "evidenceUrl": "https://trysonar.app/docs/api"
+        }
+      ]
     }
   ]
 }
