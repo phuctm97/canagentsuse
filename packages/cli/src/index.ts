@@ -18,7 +18,7 @@ import { fileURLToPath } from "node:url"
 import { createInterface } from "node:readline/promises"
 import { stdin as input, stdout as output } from "node:process"
 
-const VERSION = "0.2.5"
+const VERSION = "0.2.6"
 const DEFAULT_SITE_URL = "https://canagentsuse.com"
 const MAX_LIMIT = 50
 const MCP_NAME = "canagentsuse"

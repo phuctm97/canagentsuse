@@ -1,5 +1,11 @@
 # @canagentsuse/website
 
+## 0.1.8
+
+### Patch Changes
+
+- 5671f7c: Compute launch scores from structured launch signals, reject raw launchScore catalog fields, and add the Catalog PR workflow plus formatter checks for canonical catalog JSON.
+
 ## 0.1.7
 
 ### Patch Changes
