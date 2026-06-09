@@ -147,12 +147,12 @@ jobs:
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Detect merged version release
-        if: steps.plan.outputs.has_plan != 'true'
+        if: steps.plan.outputs.has_plan != 'true' || steps.version_commit.outputs.committed == 'true'
         id: versioned
         run: bun run release:detect-version
 
       - name: Stop when no release is needed
-        if: steps.plan.outputs.has_plan != 'true' && steps.versioned.outputs.has_release != 'true'
+        if: steps.versioned.outputs.has_release != 'true'
         run: echo "No changesets or merged version package changes found."
 
       - name: Validate version release

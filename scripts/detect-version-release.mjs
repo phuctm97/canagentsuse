@@ -55,16 +55,21 @@ async function appendOutput(name, value) {
 
 const base = eventBeforeSha() || (canResolveCommit("HEAD^") ? "HEAD^" : null);
 const files = base ? changedFiles(base) : [];
-const cli = files.includes("packages/cli/package.json");
-const website = files.includes("packages/website/package.json");
+const cliVersion = packageVersion("packages/cli/package.json");
+const websiteVersion = packageVersion("packages/website/package.json");
+const cliTagExists = canResolveCommit(`canagentsuse@${cliVersion}`);
+const hasUntaggedCliVersion = !cliTagExists;
+const cli = files.includes("packages/cli/package.json") || hasUntaggedCliVersion;
+const website = files.includes("packages/website/package.json") || hasUntaggedCliVersion;
 const hasRelease = cli || website;
 const plan = {
   base,
   hasRelease,
   cli,
   website,
-  cliVersion: packageVersion("packages/cli/package.json"),
-  websiteVersion: packageVersion("packages/website/package.json"),
+  cliVersion,
+  websiteVersion,
+  cliTagExists,
   changedFiles: files,
 };
 
