@@ -22,6 +22,10 @@ checkUnique("use case", useCases)
 checkUnique("tool", tools)
 
 for (const tool of tools) {
+  if ("agentScore" in tool) {
+    errors.push(`${tool.slug}: agentScore is computed from evidence and must not be stored in catalog.json`)
+  }
+
   checkUrl(tool, "websiteUrl", tool.websiteUrl, { required: true })
   checkUrl(tool, "docsUrl", tool.docsUrl)
   checkUrl(tool, "githubUrl", tool.githubUrl)

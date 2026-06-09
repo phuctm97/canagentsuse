@@ -212,7 +212,9 @@ function toDirectoryListTool(tool: DirectoryTool): DirectoryListTool {
   }
 }
 
-function withAgentScore(tool: Omit<DirectoryTool, "agentTier" | "scoreBreakdown">) {
+function withAgentScore(
+  tool: Omit<DirectoryTool, "agentScore" | "agentTier" | "scoreBreakdown">
+) {
   const scoreBreakdown = scoreAgentFriendliness(tool)
 
   return {
@@ -226,8 +228,9 @@ function withAgentScore(tool: Omit<DirectoryTool, "agentTier" | "scoreBreakdown"
 function sortTools(tools: DirectoryTool[]) {
   return [...tools].sort(
     (left, right) =>
-      Number(right.isFeatured) - Number(left.isFeatured) ||
       right.agentScore - left.agentScore ||
+      Number(right.isFeatured) - Number(left.isFeatured) ||
+      right.launchScore - left.launchScore ||
       left.name.localeCompare(right.name)
   )
 }

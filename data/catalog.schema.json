@@ -86,13 +86,15 @@
         "authModel",
         "accountCreation",
         "browserSupport",
-        "agentScore",
         "launchScore",
         "categorySlugs",
         "useCaseSlugs",
         "capabilities"
       ],
       "additionalProperties": true,
+      "not": {
+        "required": ["agentScore"]
+      },
       "properties": {
         "slug": { "$ref": "#/$defs/slug" },
         "name": { "type": "string", "minLength": 1 },
@@ -111,7 +113,6 @@
         "cliPackage": { "type": ["string", "null"] },
         "apiBaseUrl": { "type": ["string", "null"] },
         "mcpServer": { "type": ["string", "null"] },
-        "agentScore": { "type": "number", "minimum": 0, "maximum": 100 },
         "launchScore": { "type": "number", "minimum": 0 },
         "isFeatured": { "type": "boolean" },
         "submittedBy": { "type": "string" },

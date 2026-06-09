@@ -973,7 +973,12 @@ const ToolCommandDialog = React.memo(function ToolCommandDialog({
         rank: rankSearchText(item.searchText, item.tool.name, queryTerms, normalizedQuery),
       }))
       .filter((item) => item.rank > 0)
-      .sort((a, b) => b.rank - a.rank || b.tool.agentScore - a.tool.agentScore || a.index - b.index)
+      .sort(
+        (a, b) =>
+          b.tool.agentScore - a.tool.agentScore ||
+          b.rank - a.rank ||
+          a.index - b.index
+      )
       .slice(0, maxCommandToolResults)
       .map((item) => item.tool)
   }, [normalizedQuery, queryTerms, toolIndex, tools])

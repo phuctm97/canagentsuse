@@ -24,7 +24,6 @@
 - `cliPackage`:
 - `apiBaseUrl`:
 - `mcpServer`:
-- `agentScore` (0-100):
 - `launchScore` (0+):
 - `categorySlugs`:
 - `useCaseSlugs`:
@@ -63,6 +62,7 @@ Not provided
 - [ ] Added or updated exactly one tool record in `data/catalog.json`
 - [ ] Used a stable unique slug and existing category/use-case/capability slugs where possible
 - [ ] Filled required fields from `data/catalog.schema.json`
+- [ ] Did not set `agentScore`; it is computed automatically from the scoring algorithm
 - [ ] Added evidence URLs for important API, CLI, MCP, docs, pricing, sandbox, browser, and account setup claims
 - [ ] Included limitation/caution notes for money, production data, infrastructure, compliance, user accounts, browser-only flows, or brittle automation
 - [ ] Added a changeset if this should trigger a website or CLI release

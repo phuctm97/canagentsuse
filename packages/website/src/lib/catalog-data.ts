@@ -39,7 +39,6 @@ export type CatalogTool = {
   cliPackage?: string | null
   apiBaseUrl?: string | null
   mcpServer?: string | null
-  agentScore: number
   launchScore: number
   isFeatured?: boolean
   submittedBy?: string

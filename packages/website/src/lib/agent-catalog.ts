@@ -108,7 +108,13 @@ export async function searchAgentTools(options: AgentSearchOptions) {
       rank: scoreTool(tool, query, category, capability),
     }))
     .filter(({ rank }) => rank > 0)
-    .sort((left, right) => right.rank - left.rank || right.tool.agentScore - left.tool.agentScore)
+    .sort(
+      (left, right) =>
+        right.tool.agentScore - left.tool.agentScore ||
+        right.rank - left.rank ||
+        right.tool.launchScore - left.tool.launchScore ||
+        left.tool.name.localeCompare(right.tool.name)
+    )
     .map(({ tool }) => tool)
   const total = rankedTools.length
   const totalPages = Math.max(1, Math.ceil(total / limit))
@@ -647,7 +653,7 @@ function scoreTool(tool: AgentTool, query: string, category: string, capability:
   }
 
   if (!query) {
-    return tool.agentScore
+    return 1
   }
 
   const queryTokens = tokenizeQuery(query)

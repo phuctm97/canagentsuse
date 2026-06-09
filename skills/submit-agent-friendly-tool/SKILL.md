@@ -50,7 +50,6 @@ Fill these fields from evidence:
 - `cliPackage`
 - `apiBaseUrl`
 - `mcpServer`
-- `agentScore`
 - `launchScore`
 - `categorySlugs`
 - `useCaseSlugs`
@@ -89,6 +88,6 @@ git diff --check
 
 - Do not add secrets, database credentials, Docker/Neon setup, generated build output, or unrelated refactors.
 - Do not invent evidence. Use `null`, `unknown`, or clear caution notes when evidence is missing.
-- Score conservatively from evidence, not marketing claims.
+- Do not set `agentScore`; it is computed automatically from evidence by the repo's scoring algorithm.
 - Add caution notes for money, production data, accounts, compliance, infrastructure, browser-only flows, brittle automation, or irreversible actions.
 - GitHub's prefilled PR composer requires the head branch to exist, so push the branch before opening the PR.

@@ -41,6 +41,30 @@ const mockInstallGuide = {
   },
   guardrails: ["Do not request database credentials."],
 }
+const mockScoreModel = [
+  {
+    key: "operability",
+    label: "Machine operability",
+    weight: 25,
+    signals: [{ slug: "api", label: "API", weight: 10 }],
+  },
+]
+const mockTools = [
+  mockTool("stripe", "Stripe", 96),
+  mockTool("revenuecat", "RevenueCat", 86),
+  mockTool("github", "GitHub", 82),
+]
+const mockCatalog = {
+  site: {
+    name: "Can Agents Use",
+    description: "Mock sorted catalog",
+    scoreModel: mockScoreModel,
+  },
+  tools: mockTools,
+  categories: [],
+  capabilities: [],
+  useCases: [],
+}
 const mockServer = await startMockServer()
 
 try {
@@ -69,6 +93,30 @@ try {
   )
   assertOutputIncludes(installGuideTextOutput, "Can Agents Use install guide", "install-guide")
   assertOutputIncludes(installGuideTextOutput, "get_agent_install_guide", "install-guide")
+  const catalogOutput = await run(
+    process.execPath,
+    [cli, "catalog", "--site", mockServer.url, "--json"],
+    packageRoot
+  )
+  assertJsonToolsSortedByScore(catalogOutput, ["tools"], "catalog --json")
+  const searchOutput = await run(
+    process.execPath,
+    [cli, "search", "billing", "--site", mockServer.url, "--json"],
+    packageRoot
+  )
+  assertJsonToolsSortedByScore(searchOutput, ["tools"], "search --json")
+  const searchTextOutput = await run(
+    process.execPath,
+    [cli, "search", "billing", "--site", mockServer.url],
+    packageRoot
+  )
+  assertOutputOrder(searchTextOutput, ["Stripe (stripe) - 96/100", "RevenueCat (revenuecat) - 86/100", "GitHub (github) - 82/100"], "search")
+  const scoreModelOutput = await run(
+    process.execPath,
+    [cli, "score-model", "--site", mockServer.url, "--json"],
+    packageRoot
+  )
+  assertJsonOutputPath(scoreModelOutput, [0, "key"], "operability", "score-model --json")
   await run(process.execPath, [cli, "skills", "list"], packageRoot)
   await run(process.execPath, [cli, "setup", "--all-agents", "--project", "--dry-run"], packageRoot)
   await run(process.execPath, [cli, "setup", "--cli", "--all-agents", "--project", "--dry-run"], packageRoot)
@@ -212,9 +260,15 @@ async function assertDirectory(path: string) {
   if (!info.isDirectory()) throw new Error(`Expected ${path} to be a directory`)
 }
 
-function readPath(value: unknown, keys: string[]) {
+function readPath(value: unknown, keys: Array<string | number>) {
   let current = value
   for (const key of keys) {
+    if (typeof key === "number") {
+      if (!Array.isArray(current)) return undefined
+      current = current[key]
+      continue
+    }
+
     if (!current || typeof current !== "object" || Array.isArray(current)) return undefined
     current = (current as Record<string, unknown>)[key]
   }
@@ -227,6 +281,29 @@ async function startMockServer(): Promise<{ server: Server; url: string }> {
 
     if (request.url?.startsWith("/api/agent/install")) {
       response.end(JSON.stringify(mockInstallGuide))
+      return
+    }
+
+    if (request.url?.startsWith("/api/agent/catalog")) {
+      response.end(JSON.stringify(mockCatalog))
+      return
+    }
+
+    if (request.url?.startsWith("/api/agent/search")) {
+      response.end(
+        JSON.stringify({
+          query: "billing",
+          category: "",
+          capability: "",
+          page: 1,
+          limit: 10,
+          count: mockTools.length,
+          total: mockTools.length,
+          totalPages: 1,
+          hasMore: false,
+          tools: mockTools,
+        })
+      )
       return
     }
 
@@ -268,9 +345,49 @@ function assertOutputIncludes(output: string, value: string, label: string) {
   }
 }
 
+function assertOutputOrder(output: string, values: string[], label: string) {
+  let previousIndex = -1
+
+  for (const value of values) {
+    const index = output.indexOf(value)
+
+    if (index === -1) {
+      throw new Error(`Expected ${label} output to include ${value}`)
+    }
+
+    if (index <= previousIndex) {
+      throw new Error(`Expected ${label} output to list ${values.join(", ")} in order`)
+    }
+
+    previousIndex = index
+  }
+}
+
+function assertJsonToolsSortedByScore(output: string, keys: string[], label: string) {
+  const json = JSON.parse(output) as unknown
+  const tools = readPath(json, keys)
+
+  if (!Array.isArray(tools)) {
+    throw new Error(`Expected ${label} JSON ${keys.join(".")} to be an array`)
+  }
+
+  for (let index = 1; index < tools.length; index += 1) {
+    const previousScore = readPath(tools[index - 1], ["agentScore"])
+    const currentScore = readPath(tools[index], ["agentScore"])
+
+    if (typeof previousScore !== "number" || typeof currentScore !== "number") {
+      throw new Error(`Expected ${label} tool scores to be numbers`)
+    }
+
+    if (previousScore < currentScore) {
+      throw new Error(`Expected ${label} tools to be sorted by descending agentScore`)
+    }
+  }
+}
+
 function assertJsonOutputPath(
   output: string,
-  keys: string[],
+  keys: Array<string | number>,
   expected: unknown,
   label: string
 ) {
@@ -279,5 +396,28 @@ function assertJsonOutputPath(
 
   if (value !== expected) {
     throw new Error(`Expected ${label} JSON ${keys.join(".")} to equal ${String(expected)}`)
+  }
+}
+
+function mockTool(slug: string, name: string, agentScore: number) {
+  return {
+    slug,
+    name,
+    url: `http://127.0.0.1/tools/${slug}`,
+    websiteUrl: `https://${slug}.example.com`,
+    tagline: `${name} tagline`,
+    shortDescription: `${name} short description`,
+    agentSummary: `${name} agent summary`,
+    bestFor: `${name} best for`,
+    cautionNotes: `${name} caution`,
+    pricingSummary: `${name} pricing`,
+    authModel: `${name} auth`,
+    accountCreation: `${name} account setup`,
+    browserSupport: `${name} browser support`,
+    agentScore,
+    agentTier: "Strong",
+    categories: [],
+    useCases: [],
+    capabilities: [],
   }
 }
