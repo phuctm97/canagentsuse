@@ -1,0 +1,89 @@
+{
+  "slug": "capgo",
+  "name": "Capgo",
+  "tagline": "Live updates, native builds, plugins, CLI, API, and MCP for Capacitor apps.",
+  "websiteUrl": "https://capgo.app",
+  "docsUrl": "https://capgo.app/docs/",
+  "githubUrl": "https://github.com/Cap-go/capgo",
+  "shortDescription": "Capgo helps Capacitor and Electron teams ship live web updates, manage channels and rollbacks, run native builds, and automate releases with CLI, API, and MCP access.",
+  "agentSummary": "Capgo is agent-friendly because it exposes a documented CLI package, REST API, and MCP server for managing apps, bundles, channels, organizations, update stats, logs, and cloud build requests. Agents should use scoped API keys and non-production channels before changing production update streams.",
+  "bestFor": "Automating Capacitor live updates, staged channel promotion, rollback workflows, release diagnostics, native build requests, and CI/CD release operations.",
+  "cautionNotes": "Capgo can deploy production app updates, change channel assignments, inspect device logs, and request native builds. Use scoped or expiring API keys, staging channels, compatibility checks, and explicit approval for production channel changes. Pricing depends on MAU, bandwidth, storage, build minutes, and prepaid credits. Live updates can ship web assets but native code, plugin changes, and capacitor.config.ts changes still require an app store release. Browser login, billing, MFA, and account-security flows may need manual handling.",
+  "pricingSummary": "Public pricing includes a 14-day free trial. Paid plans start at Solo ($12/month billed annually or $14 monthly) with MAU, bandwidth, storage, MCP, live-update, and build-minute limits; higher plans and credit-based overages are listed publicly.",
+  "authModel": "Hosted Capgo uses organization-scoped API keys in the x-api-key header, with RBAC roles, optional expiration, and secure hashed keys. The CLI login command stores an API key for CLI and MCP workflows.",
+  "accountCreation": "Self-serve registration is available from the Capgo website and console. Hosted CLI, API, and MCP automation require a Capgo account and API key.",
+  "browserSupport": "The Capgo web console supports account, app, channel, bundle, device, log, API key, and billing workflows, but core release automation is better handled through CLI, API, or MCP.",
+  "cliPackage": "@capgo/cli",
+  "apiBaseUrl": "https://api.capgo.app",
+  "mcpServer": "npx @capgo/cli mcp",
+  "submittedBy": "Martin donadieu",
+  "categorySlugs": [
+    "deployment-infra",
+    "automation-integrations",
+    "observability"
+  ],
+  "useCaseSlugs": [
+    "ship-app",
+    "manage-infra",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "The official @capgo/cli package documents init, login, doctor, app, bundle, build, channel, key, account, organization, and MCP commands for release automation.",
+      "evidenceUrl": "https://capgo.app/docs/cli/commands/"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "The public REST API manages Capgo resources including organizations, devices, channels, and bundles with x-api-key authentication.",
+      "evidenceUrl": "https://capgo.app/docs/public-api/"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "The official MCP server runs through @capgo/cli and exposes 21 tools for apps, bundles, channels, organizations, account diagnostics, cloud builds, and encryption.",
+      "evidenceUrl": "https://capgo.app/docs/cli/reference/mcp/"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "The web console documents app, channel, bundle, device, log, API key, organization, access-control, and billing surfaces for browser review and fallback operations.",
+      "evidenceUrl": "https://capgo.app/docs/webapp/organization-system/"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Capgo offers self-serve registration and API keys can be generated from the dashboard for hosted automation.",
+      "evidenceUrl": "https://capgo.app/docs/public-api/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pricing page lists plan prices, trial terms, included MAU, bandwidth, storage, MCP access, build minutes, and credit-based overages.",
+      "evidenceUrl": "https://capgo.app/pricing/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Documentation covers quick setup, CLI, public API, MCP, live update channels, CI/CD integration, monitoring, and plugin references.",
+      "evidenceUrl": "https://capgo.app/docs/"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "strong",
+      "detail": "Local development and self-hosted Capgo CLI configuration are documented, and channel-based release workflows support staging or test rollouts before production updates.",
+      "evidenceUrl": "https://capgo.app/docs/plugins/updater/local-dev/cli/"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "developer-tooling",
+    "githubStars": 196,
+    "packageDownloadsMonthly": 146627,
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://capgo.app/"
+  }
+}
