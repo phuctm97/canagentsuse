@@ -56,10 +56,11 @@ async function testSubmitToolTemplate() {
     "submit template asks users for launchSignals"
   )
   assert(
-    template.includes("`logoPath`: `/logos/tools/<slug>.svg`") &&
+    template.includes("`logoPath` (optional): `/logos/tools/<slug>.svg`") &&
       template.includes("packages/website/public/logos/tools/<slug>.svg") &&
-      template.includes("packages/website/public/logos/tools/stripe.svg"),
-    "submit template requires a slug-named SVG logo"
+      template.includes("packages/website/public/logos/tools/stripe.svg") &&
+      template.includes("If no logo is added, omit `logoPath`"),
+    "submit template documents optional slug-named SVG logos"
   )
   assert(
     template.includes("## Signal Honesty") &&

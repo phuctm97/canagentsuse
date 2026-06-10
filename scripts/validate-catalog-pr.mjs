@@ -196,11 +196,6 @@ function validateToolSourcePath(file) {
 function validateLogoPathField(file, tool, slug) {
   const expectedPath = `/logos/tools/${slug}.svg`
 
-  if (fileStatus(file).charAt(0) === "A" && tool.logoPath !== expectedPath) {
-    errors.push(`${file}: new tools must set logoPath to "${expectedPath}"`)
-    return
-  }
-
   if (tool.logoPath !== undefined && tool.logoPath !== null && tool.logoPath !== expectedPath) {
     errors.push(`${file}: logoPath must be "${expectedPath}" when present`)
   }
@@ -234,15 +229,23 @@ function validateToolLogoPairing(toolFiles, logoFiles) {
   const toolFile = toolFiles[0]
   const toolSlug = toolFile.split("/").at(-1).replace(/\.json$/, "")
   const expectedLogoFile = `packages/website/public/logos/tools/${toolSlug}.svg`
-  const addedTool = fileStatus(toolFile).charAt(0) === "A"
-
-  if (addedTool && !logoFiles.includes(expectedLogoFile)) {
-    errors.push(`${toolFile}: new tools must add matching logo file ${expectedLogoFile}`)
-  }
 
   for (const logoFile of logoFiles) {
     if (logoFile !== expectedLogoFile) {
       errors.push(`${logoFile}: logo filename must match the tool slug "${toolSlug}"`)
+    }
+  }
+
+  if (logoFiles.includes(expectedLogoFile)) {
+    try {
+      const tool = JSON.parse(readFileSync(toolFile, "utf8"))
+      const expectedLogoPath = `/logos/tools/${toolSlug}.svg`
+
+      if (tool.logoPath !== expectedLogoPath) {
+        errors.push(`${toolFile}: set logoPath to "${expectedLogoPath}" when adding ${expectedLogoFile}`)
+      }
+    } catch {
+      // validateToolSourcePath reports parse errors for the tool source file.
     }
   }
 }

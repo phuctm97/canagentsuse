@@ -553,8 +553,8 @@ The best contribution is a well-evidenced catalog record.
 
 1. Search first by name, slug, domain, GitHub repo, and package name. Update an existing record instead of adding a duplicate.
 2. Add or edit exactly one tool file in [`data/tools`](data/tools), for example `data/tools/s/stripe.json`.
-3. Add an SVG logo at `packages/website/public/logos/tools/<tool-slug>.svg`, using the exact stable slug as the filename. For example, Stripe uses `packages/website/public/logos/tools/stripe.svg`.
-4. Set `logoPath` in the tool JSON to `/logos/tools/<tool-slug>.svg`; for Stripe, use `"logoPath": "/logos/tools/stripe.svg"`.
+3. Optionally add a custom SVG logo at `packages/website/public/logos/tools/<tool-slug>.svg`, using the exact stable slug as the filename. For example, Stripe would use `packages/website/public/logos/tools/stripe.svg`.
+4. If adding a custom SVG logo, set `logoPath` in the tool JSON to `/logos/tools/<tool-slug>.svg`; for Stripe, use `"logoPath": "/logos/tools/stripe.svg"`. If no logo is added, omit `logoPath` so the website can fall back to Simple Icons, favicon, or initials.
 5. Add evidence URLs that match each claim: API docs for API claims, package docs or registry for CLI/MCP claims, pricing page for pricing claims.
 6. Add every `launchSignals` key from honest public evidence. Use exact public star/download counts when available, `null` for unavailable numeric signals, and conservative enum values rather than inflated traction.
 7. Include limitation notes for anything that affects money, production data, infrastructure, or users.

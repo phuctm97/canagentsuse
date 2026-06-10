@@ -3,4 +3,4 @@
 "canagentsuse": patch
 ---
 
-Require slug-named SVG logo assets in new tool submission guidance and support explicit local logo paths in the website.
+Document optional slug-named SVG logo assets for tool submissions and support explicit local logo paths in the website.

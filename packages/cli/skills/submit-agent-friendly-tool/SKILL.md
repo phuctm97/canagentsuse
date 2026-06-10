@@ -14,7 +14,7 @@ Use one of these paths:
 
 - Website PR flow: open `https://canagentsuse.com/submit`, fill tool name and website URL, then choose `Open GitHub PR template`.
 - Website agent flow: open `https://canagentsuse.com/submit`, fill the fields, then choose `Copy agent prompt`.
-- Direct GitHub flow: create a branch in `phuctm97/canagentsuse`, add or edit one source file in `data/tools/<first-letter>/<tool-slug>.json`, add the SVG logo at `packages/website/public/logos/tools/<tool-slug>.svg`, and open a PR with `.github/PULL_REQUEST_TEMPLATE/add-tool.md`.
+- Direct GitHub flow: create a branch in `phuctm97/canagentsuse`, add or edit one source file in `data/tools/<first-letter>/<tool-slug>.json`, optionally add a custom SVG logo at `packages/website/public/logos/tools/<tool-slug>.svg`, and open a PR with `.github/PULL_REQUEST_TEMPLATE/add-tool.md`.
 
 ## Direct Agent Workflow
 
@@ -23,8 +23,8 @@ Use one of these paths:
 3. Read `data/README.md`, `data/catalog.schema.json`, `data/taxonomy.json`, and nearby records in `data/tools/`.
 4. Search the catalog for the tool name, slug, website domain, GitHub repo, CLI package, and MCP package before adding a new record.
 5. Add or update exactly one tool source file in `data/tools/<first-letter>/<tool-slug>.json`. Do not edit `data/catalog.json`; it is generated.
-6. Add the SVG logo at `packages/website/public/logos/tools/<tool-slug>.svg`, using the exact stable slug as the filename.
-7. Set `logoPath` in the tool JSON to `/logos/tools/<tool-slug>.svg`. Example: Stripe uses `packages/website/public/logos/tools/stripe.svg` and `"logoPath": "/logos/tools/stripe.svg"`.
+6. Optionally add a custom SVG logo at `packages/website/public/logos/tools/<tool-slug>.svg`, using the exact stable slug as the filename.
+7. If adding a custom SVG logo, set `logoPath` in the tool JSON to `/logos/tools/<tool-slug>.svg`. Example: Stripe uses `packages/website/public/logos/tools/stripe.svg` and `"logoPath": "/logos/tools/stripe.svg"`. If no logo is added, omit `logoPath`.
 8. Keep the tool `slug` equal to the filename without `.json`.
 9. Prefer existing category, use-case, and capability slugs.
 10. Use official evidence URLs where possible, and make each evidence URL match the specific claim it supports.
@@ -43,7 +43,7 @@ Fill these fields from evidence:
 - `websiteUrl`
 - `docsUrl`
 - `githubUrl`
-- `logoPath`
+- `logoPath` (optional)
 - `shortDescription`
 - `agentSummary`
 - `bestFor`
@@ -86,14 +86,15 @@ Each capability must include:
 
 ## Tool Logo
 
-New tool PRs must include an SVG logo file. Name the file with the exact stable
-slug:
+Tool PRs may include an optional SVG logo file. When you add one, name the file
+with the exact stable slug:
 
 ```text
 packages/website/public/logos/tools/<tool-slug>.svg
 ```
 
-Set `logoPath` in the tool JSON to the matching public path:
+Set `logoPath` in the tool JSON to the matching public path only when the SVG
+is present:
 
 ```json
 "logoPath": "/logos/tools/<tool-slug>.svg"
@@ -110,7 +111,8 @@ packages/website/public/logos/tools/stripe.svg
 ```
 
 Use SVG only. Do not add PNG, JPG, WebP, or remote logo URLs for new tool
-submissions.
+submissions. If no logo is added, omit `logoPath`; the website falls back to a
+known Simple Icons logo, the tool website favicon, or a generated initials mark.
 
 ## Evidence To Research
 

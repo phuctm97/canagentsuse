@@ -27,15 +27,15 @@ Search existing records before adding a tool. Check the tool name, slug,
 website domain, GitHub repo, CLI package, and MCP package so you update an
 existing record instead of creating a duplicate.
 
-Update exactly one matching file in `data/tools/<first-letter>/<tool-slug>.json`
-and add an SVG logo for new tools at:
+Update exactly one matching file in `data/tools/<first-letter>/<tool-slug>.json`.
+If you have a custom SVG logo for the tool, add it at:
 
 ```text
 packages/website/public/logos/tools/<tool-slug>.svg
 ```
 
 The SVG filename must exactly match the stable tool slug. Add the matching
-public path to the tool JSON:
+public path to the tool JSON only when the SVG is present:
 
 ```json
 "logoPath": "/logos/tools/<tool-slug>.svg"
@@ -52,7 +52,9 @@ packages/website/public/logos/tools/stripe.svg
 ```
 
 Use SVG only. Do not add PNG, JPG, WebP, or remote logo URLs for new tool
-submissions.
+submissions. If no SVG logo is added, omit `logoPath`; the website falls back
+to a known Simple Icons logo, the tool website favicon, or a generated initials
+mark.
 
 Then run:
 
