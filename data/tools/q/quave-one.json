@@ -1,0 +1,87 @@
+{
+  "slug": "quave-one",
+  "name": "Quave ONE",
+  "tagline": "Deploy and manage cloud apps and databases by CLI, API, or MCP.",
+  "websiteUrl": "https://quave.one",
+  "docsUrl": "https://docs.quave.one",
+  "githubUrl": "https://github.com/quaveone",
+  "shortDescription": "A container PaaS that runs apps and databases on Quave-managed regions (Direct) or your own cloud account (Connect), with a CLI, REST API, and an official remote MCP server.",
+  "agentSummary": "Strong for agents that provision and operate cloud infrastructure: create and deploy app environments, set environment variables and secrets, scale containers, configure autoscaling and health checks, read logs and metrics, manage domains, regions, and databases, and inspect billing. Drive it through the official quaveone CLI, the REST public API, or the remote MCP server with scoped tokens.",
+  "bestFor": "Deploying and operating containerized apps and databases, autoscaling, and infrastructure automation across Quave-managed regions or your own cloud.",
+  "cautionNotes": "Quave ONE provisions real cloud infrastructure and incurs real costs; there is no isolated free test mode like a payment sandbox. Deleting apps, environments, or databases is destructive. The Connect plan requires a one-time setup fee and a minimum 12-month contract. Live production changes, billing, and region/provider setup still warrant human review.",
+  "pricingSummary": "Public usage-based pricing. Direct: $7.5 USD per zCloud Unit (0.5 vCPU + 0.5 GB RAM) per month in Quave regions, with monthly/annual savings plans. Connect: monthly platform license from $399/month plus your own cloud bill, with a setup fee and 12-month minimum contract.",
+  "authModel": "User tokens and environment-scoped tokens authenticate the CLI and REST API; the MCP server uses scoped authorization headers (quave:read, quave:read:secrets). Documented rate limits and a full audit log cover UI, API, and MCP actions.",
+  "accountCreation": "Self-serve signup. Unverified accounts can start immediately with some limits; verified accounts get full access.",
+  "browserSupport": "The app.quave.cloud web dashboard is usable by browser automation for setup and review gaps.",
+  "cliPackage": "quaveone",
+  "apiBaseUrl": "https://api.quave.cloud",
+  "mcpServer": "https://mcp.quave.cloud/",
+  "submittedBy": "Quave ONE team",
+  "categorySlugs": [
+    "deployment-infra"
+  ],
+  "useCaseSlugs": [
+    "manage-infra",
+    "ship-app",
+    "deploy-internal-tool"
+  ],
+  "capabilities": [
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Official remote MCP server at https://mcp.quave.cloud/ exposes infrastructure tools (deploy, scale, env vars, logs, metrics, alerts, credentials) over HTTP, authenticated with scoped tokens such as quave:read and quave:read:secrets.",
+      "evidenceUrl": "https://docs.quave.one/mcp"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST public API at https://api.quave.cloud (/api/public/v1) manages apps, app environments, builds, configuration, and CLI tokens with token-based auth.",
+      "evidenceUrl": "https://docs.quave.one/public-api/tokens-api"
+    },
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Official quaveone CLI (curl/Docker install plus a GitHub Action) deploys apps, sets env vars and secrets, creates environments, and configures scaling with user or environment tokens.",
+      "evidenceUrl": "https://docs.quave.one/cli"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Task-oriented documentation covering deploy, CLI, REST API, MCP, billing, networking, observability, regions, and security.",
+      "evidenceUrl": "https://docs.quave.one"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public pricing page documents Direct usage-based zCloud Unit rates per region and Connect platform license tiers starting from $399/month.",
+      "evidenceUrl": "https://docs.quave.one/billing/pricing"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup; unverified accounts work immediately with limits, full access after verification.",
+      "evidenceUrl": "https://docs.quave.one/verification"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "partial",
+      "detail": "The app.quave.cloud web dashboard is usable by browser automation for review and any setup steps not yet exposed via CLI, API, or MCP.",
+      "evidenceUrl": "https://app.quave.cloud"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "No isolated payment-style test mode. The CLI --save-only flag and a pending-change/apply workflow let agents stage changes before deploying, and an audit log records every UI, API, and MCP action.",
+      "evidenceUrl": "https://docs.quave.one/security/audit-log"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "growing-product",
+    "ecosystemImportance": "developer-tooling",
+    "githubStars": null,
+    "packageDownloadsMonthly": null,
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://github.com/quaveone/cli"
+  }
+}
