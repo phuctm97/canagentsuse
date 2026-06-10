@@ -30,7 +30,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           RELEASE_SHA: ${{ github.sha }}
         run: |
-          gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/main-validate.yml/runs" \
+          gh api --method GET "repos/${GITHUB_REPOSITORY}/actions/workflows/main-validate.yml/runs" \
             -f branch=main \
             -f event=push \
             -f status=completed \
