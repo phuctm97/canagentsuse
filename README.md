@@ -553,13 +553,15 @@ The best contribution is a well-evidenced catalog record.
 
 1. Search first by name, slug, domain, GitHub repo, and package name. Update an existing record instead of adding a duplicate.
 2. Add or edit exactly one tool file in [`data/tools`](data/tools), for example `data/tools/s/stripe.json`.
-3. Add evidence URLs that match each claim: API docs for API claims, package docs or registry for CLI/MCP claims, pricing page for pricing claims.
-4. Add every `launchSignals` key from honest public evidence. Use exact public star/download counts when available, `null` for unavailable numeric signals, and conservative enum values rather than inflated traction.
-5. Include limitation notes for anything that affects money, production data, infrastructure, or users.
-6. Run `bun run catalog:build`, `bun run catalog:format`, and `bun run catalog:audit`.
-7. Add one or more `.changeset/*.md` version plans when the change should release the website or CLI.
-8. Do not edit package files, lockfiles, changelogs, workflows, repo scripts, app code, agent skills, version bumps, or release workflow files manually. The manual Release workflow handles version commits from committed changesets.
-9. Open a pull request. The Catalog PR workflow rebuilds the generated catalog, reruns the formatter, audits metadata, and typechecks catalog consumers.
+3. Add an SVG logo at `packages/website/public/logos/tools/<tool-slug>.svg`, using the exact stable slug as the filename. For example, Stripe uses `packages/website/public/logos/tools/stripe.svg`.
+4. Set `logoPath` in the tool JSON to `/logos/tools/<tool-slug>.svg`; for Stripe, use `"logoPath": "/logos/tools/stripe.svg"`.
+5. Add evidence URLs that match each claim: API docs for API claims, package docs or registry for CLI/MCP claims, pricing page for pricing claims.
+6. Add every `launchSignals` key from honest public evidence. Use exact public star/download counts when available, `null` for unavailable numeric signals, and conservative enum values rather than inflated traction.
+7. Include limitation notes for anything that affects money, production data, infrastructure, or users.
+8. Run `bun run catalog:build`, `bun run catalog:format`, and `bun run catalog:audit`.
+9. Add one or more `.changeset/*.md` version plans when the change should release the website or CLI.
+10. Do not edit package files, lockfiles, changelogs, workflows, repo scripts, app code, agent skills, version bumps, or release workflow files manually. The manual Release workflow handles version commits from committed changesets.
+11. Open a pull request. The Catalog PR workflow rebuilds the generated catalog, reruns the formatter, audits metadata, and typechecks catalog consumers.
 
 If you are not ready to edit JSON, use the website submit flow to open a
 prefilled GitHub pull request or copy a ready-to-run agent prompt.

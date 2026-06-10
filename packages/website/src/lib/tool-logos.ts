@@ -3,6 +3,7 @@ type ToolLogoInput = {
   categorySlugs?: string[]
   docsUrl?: string | null
   githubUrl?: string | null
+  logoPath?: string | null
   slug: string
   websiteUrl: string
 }
@@ -361,6 +362,10 @@ const simpleIconSlugSet = new Set([
 ])
 
 export function getToolLogoUrl(tool: ToolLogoInput) {
+  if (isToolLogoPath(tool.logoPath)) {
+    return tool.logoPath
+  }
+
   const simpleIconSlug = getSimpleIconSlug(tool)
 
   if (simpleIconSlug) {
@@ -371,6 +376,10 @@ export function getToolLogoUrl(tool: ToolLogoInput) {
 }
 
 export function getToolLogoAuditUrl(tool: ToolLogoInput) {
+  if (isToolLogoPath(tool.logoPath)) {
+    return tool.logoPath
+  }
+
   const simpleIconSlug = getSimpleIconSlug(tool)
 
   if (simpleIconSlug) {
@@ -392,6 +401,10 @@ function getSimpleIconSlug(tool: ToolLogoInput) {
   const simpleIconSlug = simpleIconSlugs[tool.slug] ?? discoveredSimpleIconSlugs[tool.slug]
 
   return simpleIconSlug ?? null
+}
+
+function isToolLogoPath(value: string | null | undefined) {
+  return /^\/logos\/tools\/[a-z0-9]+(?:-[a-z0-9]+)*\.svg$/.test(value ?? "")
 }
 
 function getFaviconLogoUrl(tool: ToolLogoInput) {

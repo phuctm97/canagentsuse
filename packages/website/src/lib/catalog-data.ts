@@ -30,6 +30,7 @@ export type CatalogTool = {
   websiteUrl: string
   docsUrl?: string | null
   githubUrl?: string | null
+  logoPath?: string | null
   shortDescription: string
   agentSummary: string
   bestFor: string

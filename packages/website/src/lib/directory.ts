@@ -44,6 +44,7 @@ export type DirectoryTool = {
   websiteUrl: string
   docsUrl?: string | null
   githubUrl?: string | null
+  logoPath?: string | null
   shortDescription: string
   agentSummary: string
   bestFor: string
@@ -89,6 +90,7 @@ export type DirectoryListTool = {
   websiteUrl: string
   docsUrl?: string | null
   githubUrl?: string | null
+  logoPath?: string | null
   shortDescription: string
   pricingSummary: string
   authModel: string
@@ -127,6 +129,7 @@ export const getDirectoryData = cache(async (): Promise<DirectoryData> => {
       ...tool,
       docsUrl: tool.docsUrl ?? null,
       githubUrl: tool.githubUrl ?? null,
+      logoPath: tool.logoPath ?? null,
       cautionNotes: tool.cautionNotes ?? null,
       cliPackage: tool.cliPackage ?? null,
       apiBaseUrl: tool.apiBaseUrl ?? null,
@@ -200,6 +203,7 @@ function toDirectoryListTool(tool: DirectoryTool): DirectoryListTool {
     websiteUrl: tool.websiteUrl,
     docsUrl: tool.docsUrl,
     githubUrl: tool.githubUrl,
+    logoPath: tool.logoPath,
     shortDescription: tool.shortDescription,
     pricingSummary: tool.pricingSummary,
     authModel: tool.authModel,

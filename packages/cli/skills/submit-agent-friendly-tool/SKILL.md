@@ -14,7 +14,7 @@ Use one of these paths:
 
 - Website PR flow: open `https://canagentsuse.com/submit`, fill tool name and website URL, then choose `Open GitHub PR template`.
 - Website agent flow: open `https://canagentsuse.com/submit`, fill the fields, then choose `Copy agent prompt`.
-- Direct GitHub flow: create a branch in `phuctm97/canagentsuse`, add or edit one source file in `data/tools/<first-letter>/<tool-slug>.json`, and open a PR with `.github/PULL_REQUEST_TEMPLATE/add-tool.md`.
+- Direct GitHub flow: create a branch in `phuctm97/canagentsuse`, add or edit one source file in `data/tools/<first-letter>/<tool-slug>.json`, add the SVG logo at `packages/website/public/logos/tools/<tool-slug>.svg`, and open a PR with `.github/PULL_REQUEST_TEMPLATE/add-tool.md`.
 
 ## Direct Agent Workflow
 
@@ -23,13 +23,15 @@ Use one of these paths:
 3. Read `data/README.md`, `data/catalog.schema.json`, `data/taxonomy.json`, and nearby records in `data/tools/`.
 4. Search the catalog for the tool name, slug, website domain, GitHub repo, CLI package, and MCP package before adding a new record.
 5. Add or update exactly one tool source file in `data/tools/<first-letter>/<tool-slug>.json`. Do not edit `data/catalog.json`; it is generated.
-6. Keep the tool `slug` equal to the filename without `.json`.
-7. Prefer existing category, use-case, and capability slugs.
-8. Use official evidence URLs where possible, and make each evidence URL match the specific claim it supports.
-9. Fill every `launchSignals` key from current public evidence. Do not fake adoption, stars, downloads, maturity, or ecosystem importance.
-10. Add one or more `.changeset/*.md` version plans when this should release the website or CLI. Do not edit package versions, lockfiles, changelogs, release workflows, repo scripts, app code, or agent skills manually.
-11. Run validation.
-12. Commit, push the branch, and open a PR to `main`.
+6. Add the SVG logo at `packages/website/public/logos/tools/<tool-slug>.svg`, using the exact stable slug as the filename.
+7. Set `logoPath` in the tool JSON to `/logos/tools/<tool-slug>.svg`. Example: Stripe uses `packages/website/public/logos/tools/stripe.svg` and `"logoPath": "/logos/tools/stripe.svg"`.
+8. Keep the tool `slug` equal to the filename without `.json`.
+9. Prefer existing category, use-case, and capability slugs.
+10. Use official evidence URLs where possible, and make each evidence URL match the specific claim it supports.
+11. Fill every `launchSignals` key from current public evidence. Do not fake adoption, stars, downloads, maturity, or ecosystem importance.
+12. Add one or more `.changeset/*.md` version plans when this should release the website or CLI. Do not edit package versions, lockfiles, changelogs, release workflows, repo scripts, app code, or agent skills manually.
+13. Run validation.
+14. Commit, push the branch, and open a PR to `main`.
 
 ## Required Catalog Shape
 
@@ -41,6 +43,7 @@ Fill these fields from evidence:
 - `websiteUrl`
 - `docsUrl`
 - `githubUrl`
+- `logoPath`
 - `shortDescription`
 - `agentSummary`
 - `bestFor`
@@ -80,6 +83,34 @@ Each capability must include:
 - `supportLevel`: `native`, `strong`, `partial`, `manual`, or `unknown`
 - `detail`
 - `evidenceUrl`
+
+## Tool Logo
+
+New tool PRs must include an SVG logo file. Name the file with the exact stable
+slug:
+
+```text
+packages/website/public/logos/tools/<tool-slug>.svg
+```
+
+Set `logoPath` in the tool JSON to the matching public path:
+
+```json
+"logoPath": "/logos/tools/<tool-slug>.svg"
+```
+
+Example for `stripe`:
+
+```text
+packages/website/public/logos/tools/stripe.svg
+```
+
+```json
+"logoPath": "/logos/tools/stripe.svg"
+```
+
+Use SVG only. Do not add PNG, JPG, WebP, or remote logo URLs for new tool
+submissions.
 
 ## Evidence To Research
 

@@ -56,6 +56,12 @@ async function testSubmitToolTemplate() {
     "submit template asks users for launchSignals"
   )
   assert(
+    template.includes("`logoPath`: `/logos/tools/<slug>.svg`") &&
+      template.includes("packages/website/public/logos/tools/<slug>.svg") &&
+      template.includes("packages/website/public/logos/tools/stripe.svg"),
+    "submit template requires a slug-named SVG logo"
+  )
+  assert(
     template.includes("## Signal Honesty") &&
       template.includes("Do not fake or inflate"),
     "submit template requires honest launch signals"

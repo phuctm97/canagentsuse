@@ -1,3 +1,6 @@
+import { access } from "node:fs/promises"
+import { join } from "node:path"
+
 import {
   capabilities,
   categories,
@@ -39,6 +42,7 @@ for (const tool of tools) {
   checkUrl(tool, "websiteUrl", tool.websiteUrl, { required: true })
   checkUrl(tool, "docsUrl", tool.docsUrl)
   checkUrl(tool, "githubUrl", tool.githubUrl)
+  await checkLogoPath(tool)
   checkUrl(tool, "apiBaseUrl", tool.apiBaseUrl, { allowTemplate: true })
 
   for (const slug of tool.categorySlugs) {
@@ -217,5 +221,24 @@ function checkUrl(
     }
   } catch {
     errors.push(`${tool.slug}: ${field} is not a valid URL or supported command`)
+  }
+}
+
+async function checkLogoPath(tool: CatalogTool) {
+  if (!tool.logoPath) {
+    return
+  }
+
+  const expectedPath = `/logos/tools/${tool.slug}.svg`
+
+  if (tool.logoPath !== expectedPath) {
+    errors.push(`${tool.slug}: logoPath must be "${expectedPath}"`)
+    return
+  }
+
+  try {
+    await access(join(process.cwd(), "public", tool.logoPath))
+  } catch {
+    errors.push(`${tool.slug}: logoPath file is missing at packages/website/public${tool.logoPath}`)
   }
 }

@@ -37,6 +37,7 @@ const headRef = "HEAD"
 const errors = []
 const changedFiles = changedFilesFromBase(baseRef, headRef)
 const toolSourceChanges = []
+const logoAssetChanges = []
 const versionPlanChanges = []
 const packageChurnChanges = []
 const controlSurfaceChanges = []
@@ -66,16 +67,30 @@ for (const change of changedFiles) {
       toolSourceChanges.push(file)
       validateToolSourcePath(file)
     }
+
+    if (file.startsWith("packages/website/public/logos/tools/")) {
+      logoAssetChanges.push(file)
+      validateLogoAssetPath(file)
+    }
   }
 }
 
 const uniqueToolSourceChanges = [...new Set(toolSourceChanges)]
+const uniqueLogoAssetChanges = [...new Set(logoAssetChanges)]
 
 if (uniqueToolSourceChanges.length > 1) {
   errors.push(
     `Catalog PRs must add or update exactly one tool source file. Found: ${uniqueToolSourceChanges.join(", ")}`
   )
 }
+
+if (uniqueLogoAssetChanges.length > 1) {
+  errors.push(
+    `Catalog PRs must include at most one tool logo SVG. Found: ${uniqueLogoAssetChanges.join(", ")}`
+  )
+}
+
+validateToolLogoPairing(uniqueToolSourceChanges, uniqueLogoAssetChanges)
 
 if (toolSourceChanges.length > 0 && packageChurnChanges.length > 0) {
   errors.push(
@@ -102,6 +117,7 @@ console.log(
     {
       changedFiles: changedFiles.length,
       toolSourceFiles: uniqueToolSourceChanges.length,
+      toolLogoFiles: uniqueLogoAssetChanges.length,
       versionPlanFiles: [...new Set(versionPlanChanges)].length,
       packageChurnFiles: [...new Set(packageChurnChanges)].length,
       controlSurfaceFiles: [...new Set(controlSurfaceChanges)].length,
@@ -170,9 +186,64 @@ function validateToolSourcePath(file) {
       errors.push(`${file}: tool.slug must be "${slug}"`)
     }
 
+    validateLogoPathField(file, tool, slug)
     validateLaunchSignals(file, tool)
   } catch (error) {
     errors.push(`${file}: ${error instanceof Error ? error.message : String(error)}`)
+  }
+}
+
+function validateLogoPathField(file, tool, slug) {
+  const expectedPath = `/logos/tools/${slug}.svg`
+
+  if (fileStatus(file).charAt(0) === "A" && tool.logoPath !== expectedPath) {
+    errors.push(`${file}: new tools must set logoPath to "${expectedPath}"`)
+    return
+  }
+
+  if (tool.logoPath !== undefined && tool.logoPath !== null && tool.logoPath !== expectedPath) {
+    errors.push(`${file}: logoPath must be "${expectedPath}" when present`)
+  }
+}
+
+function validateLogoAssetPath(file) {
+  if (!file.endsWith(".svg")) {
+    errors.push(`${file}: tool logo files must be SVG`)
+    return
+  }
+
+  const parts = file.split("/")
+
+  if (parts.length !== 6) {
+    errors.push(`${file}: expected packages/website/public/logos/tools/<slug>.svg`)
+    return
+  }
+
+  const slug = parts[5].replace(/\.svg$/, "")
+
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+    errors.push(`${file}: logo filename slug must be lowercase kebab-case`)
+  }
+}
+
+function validateToolLogoPairing(toolFiles, logoFiles) {
+  if (toolFiles.length !== 1) {
+    return
+  }
+
+  const toolFile = toolFiles[0]
+  const toolSlug = toolFile.split("/").at(-1).replace(/\.json$/, "")
+  const expectedLogoFile = `packages/website/public/logos/tools/${toolSlug}.svg`
+  const addedTool = fileStatus(toolFile).charAt(0) === "A"
+
+  if (addedTool && !logoFiles.includes(expectedLogoFile)) {
+    errors.push(`${toolFile}: new tools must add matching logo file ${expectedLogoFile}`)
+  }
+
+  for (const logoFile of logoFiles) {
+    if (logoFile !== expectedLogoFile) {
+      errors.push(`${logoFile}: logo filename must match the tool slug "${toolSlug}"`)
+    }
   }
 }
 

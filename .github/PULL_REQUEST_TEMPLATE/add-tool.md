@@ -28,6 +28,7 @@ when the change should release the website or CLI.
 - `websiteUrl`:
 - `docsUrl`:
 - `githubUrl`:
+- `logoPath`: `/logos/tools/<slug>.svg`
 - `shortDescription`:
 - `agentSummary`:
 - `bestFor`:
@@ -63,6 +64,34 @@ For each capability, include support level (`native`, `strong`, `partial`, `manu
 - Docs quality:
 - Sandbox:
 
+## Tool Logo
+
+New tool PRs must include an SVG logo file. Name the file with the exact stable
+slug and put it here:
+
+```text
+packages/website/public/logos/tools/<slug>.svg
+```
+
+Then set the matching public path in the tool source JSON:
+
+```json
+"logoPath": "/logos/tools/<slug>.svg"
+```
+
+Example for `stripe`:
+
+```text
+packages/website/public/logos/tools/stripe.svg
+```
+
+```json
+"logoPath": "/logos/tools/stripe.svg"
+```
+
+Use SVG only. Do not add PNG, JPG, WebP, or remote logo URLs for new tool
+submissions.
+
 ## Signal Honesty
 
 Every `launchSignals` key must be present. Use exact public numbers for GitHub
@@ -90,6 +119,8 @@ Not provided
 
 - [ ] Searched for existing records by name, slug, domain, GitHub repo, and package name
 - [ ] Added or updated exactly one tool source file in `data/tools/<first-letter>/<slug>.json`
+- [ ] Added the SVG logo at `packages/website/public/logos/tools/<slug>.svg`
+- [ ] Set `logoPath` in the tool JSON to `/logos/tools/<slug>.svg`
 - [ ] Used a stable unique slug and existing category/use-case/capability slugs where possible
 - [ ] Filled required fields from `data/catalog.schema.json`
 - [ ] Added every `launchSignals` key from honest public adoption, ecosystem, package, GitHub, maturity, or distribution evidence

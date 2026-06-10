@@ -111,6 +111,12 @@
         "websiteUrl": { "$ref": "#/$defs/url" },
         "docsUrl": { "anyOf": [{ "$ref": "#/$defs/url" }, { "type": "null" }] },
         "githubUrl": { "anyOf": [{ "$ref": "#/$defs/url" }, { "type": "null" }] },
+        "logoPath": {
+          "anyOf": [
+            { "$ref": "#/$defs/toolLogoPath" },
+            { "type": "null" }
+          ]
+        },
         "shortDescription": { "type": "string", "minLength": 1 },
         "agentSummary": { "type": "string", "minLength": 1 },
         "bestFor": { "type": "string", "minLength": 1 },
@@ -205,6 +211,10 @@
     "url": {
       "type": "string",
       "pattern": "^https?://"
+    },
+    "toolLogoPath": {
+      "type": "string",
+      "pattern": "^/logos/tools/[a-z0-9]+(?:-[a-z0-9]+)*\\.svg$"
     }
   }
 }

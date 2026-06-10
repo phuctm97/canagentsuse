@@ -27,8 +27,34 @@ Search existing records before adding a tool. Check the tool name, slug,
 website domain, GitHub repo, CLI package, and MCP package so you update an
 existing record instead of creating a duplicate.
 
-Update exactly one matching file in `data/tools/<first-letter>/<tool-slug>.json`,
-then run:
+Update exactly one matching file in `data/tools/<first-letter>/<tool-slug>.json`
+and add an SVG logo for new tools at:
+
+```text
+packages/website/public/logos/tools/<tool-slug>.svg
+```
+
+The SVG filename must exactly match the stable tool slug. Add the matching
+public path to the tool JSON:
+
+```json
+"logoPath": "/logos/tools/<tool-slug>.svg"
+```
+
+For example, Stripe uses:
+
+```text
+packages/website/public/logos/tools/stripe.svg
+```
+
+```json
+"logoPath": "/logos/tools/stripe.svg"
+```
+
+Use SVG only. Do not add PNG, JPG, WebP, or remote logo URLs for new tool
+submissions.
+
+Then run:
 
 ```bash
 bun run catalog:build
