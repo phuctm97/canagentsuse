@@ -1,0 +1,85 @@
+{
+  "slug": "superblog",
+  "name": "Superblog",
+  "tagline": "SEO-focused hosted blogging platform with API and MCP access.",
+  "websiteUrl": "https://superblog.ai",
+  "docsUrl": "https://superblog.ai/docs",
+  "githubUrl": null,
+  "shortDescription": "A hosted blog CMS for companies that want fast pages, SEO automation, and AI-assisted content operations.",
+  "agentSummary": "Superblog is useful for agents that need to draft, publish, schedule, and manage blog posts, categories, tags, and internal-link suggestions through its documented API and remote HTTP MCP server. It is best treated as a production content system: use authenticated, scoped access and human review for public posts, SEO metadata, domains, and team settings.",
+  "bestFor": "Publishing and maintaining SEO-oriented company blogs from agent workflows.",
+  "cautionNotes": "Agents can publish or alter public-facing content, categories, tags, and schedules. Superblog's MCP access requires the SUPER plan, and production blog, domain, SEO, analytics, team, and billing settings should be reviewed by a human before broad automation.",
+  "pricingSummary": "Public pricing page advertises a 7-day free trial with no credit card, cancellation anytime, and a 30-day money-back policy; MCP docs state MCP requires the SUPER plan.",
+  "authModel": "Dashboard login is account-based; MCP is configured as an authenticated remote HTTP server at write.superblog.ai, and API access is documented through the Superblog API reference.",
+  "accountCreation": "Self-serve signup is available from the Superblog website with a 7-day trial and no credit card required.",
+  "browserSupport": "The Superblog dashboard and editor are web apps, so browser automation can help with review or setup gaps after login.",
+  "cliPackage": null,
+  "apiBaseUrl": "https://write.superblog.ai",
+  "mcpServer": "https://write.superblog.ai/api/mcp",
+  "submittedBy": "Not provided",
+  "launchSignals": {
+    "adoptionTier": "growing-product",
+    "ecosystemImportance": "specialized",
+    "githubStars": null,
+    "packageDownloadsMonthly": null,
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://superblog.ai"
+  },
+  "categorySlugs": [
+    "scraping-content"
+  ],
+  "useCaseSlugs": [
+    "publish-content"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "manual",
+      "detail": "No dedicated Superblog CLI package was found; the docs show adding the remote MCP server through an MCP-capable client such as Claude.",
+      "evidenceUrl": "https://superblog.ai/docs/mcp-intro"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Superblog documents an OpenAPI-compliant API reference and states dashboard actions are exposed as endpoints.",
+      "evidenceUrl": "https://superblog.ai/docs/api-introduction"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Official docs provide a remote HTTP MCP server endpoint for AI clients and list blog, post, category, tag, scheduling, and internal-link actions.",
+      "evidenceUrl": "https://superblog.ai/docs/mcp-intro"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Superblog exposes a web dashboard, post editor, and settings areas for browser-based operation after login.",
+      "evidenceUrl": "https://superblog.ai"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "The homepage and pricing page link to self-serve signup and advertise a 7-day trial with no credit card required.",
+      "evidenceUrl": "https://superblog.ai/pricing"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "partial",
+      "detail": "The public pricing page documents trial, cancellation, and refund terms, while MCP docs separately state the SUPER plan is required for MCP.",
+      "evidenceUrl": "https://superblog.ai/pricing"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs include setup articles for account creation, the dashboard, editor, API, MCP, and many operational FAQs.",
+      "evidenceUrl": "https://superblog.ai/docs"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "Superblog offers a no-credit-card trial for testing, but the public docs do not describe a separate sandbox, test mode, or local development mode.",
+      "evidenceUrl": "https://superblog.ai/pricing"
+    }
+  ]
+}
