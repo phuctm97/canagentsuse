@@ -1,5 +1,11 @@
 # @canagentsuse/website
 
+## 0.1.15
+
+### Patch Changes
+
+- e64794b: Move existing-tool update actions to tool detail pages and simplify the homepage token-savings comparison.
+
 ## 0.1.14
 
 ### Patch Changes
