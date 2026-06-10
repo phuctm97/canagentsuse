@@ -65,8 +65,12 @@ CANAGENTSUSE_SITE_URL=https://www.canagentsuse.com canagentsuse catalog --json
 ## Release
 
 The package is released by Changesets from the root `Release` GitHub Actions
-workflow. Add a changeset for `canagentsuse`, merge it to `main`, and the
-workflow versions the package, builds it, and publishes it to npm.
+workflow. Add a changeset for `canagentsuse`, merge it to `main`, then run the
+`Release` workflow manually from the GitHub Actions UI after the `Main Validate`
+workflow has passed for the latest `main` commit. The release preflight rejects
+runs when the latest completed main validation is missing, failed, or for a
+different commit. The workflow reads the committed changeset plan, versions the
+package, builds it, and publishes it to npm.
 
 ```bash
 bun run changeset

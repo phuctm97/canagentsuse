@@ -60,7 +60,7 @@ const websiteVersion = packageVersion("packages/website/package.json");
 const cliTagExists = canResolveCommit(`canagentsuse@${cliVersion}`);
 const hasUntaggedCliVersion = !cliTagExists;
 const cli = files.includes("packages/cli/package.json") || hasUntaggedCliVersion;
-const website = files.includes("packages/website/package.json") || hasUntaggedCliVersion;
+const website = files.includes("packages/website/package.json");
 const hasRelease = cli || website;
 const plan = {
   base,

@@ -509,15 +509,22 @@ Use these package names:
 | `canagentsuse` | Publishes the public npm CLI package. |
 | `@canagentsuse/website` | Versions the website package and deploys the website. |
 
-When a commit lands on `main` with `.changeset/*.md`, the `Release` workflow:
+Release is manual-only. Every commit to `main` runs the `Main Validate`
+workflow. After one or more version plans are committed to `main`, wait for the
+latest `Main Validate` run for that exact commit to pass. Then open the GitHub
+Actions tab, select the `Release` workflow, and run it from the GitHub UI. The
+release preflight rejects the run when the latest completed `Main Validate` run
+for `main` is missing, failed, or belongs to a different commit.
 
-1. Reads the changeset files and detects which packages need release.
-2. Runs `changeset version` to update package versions and changelogs.
-3. Syncs the CLI runtime version constant from `packages/cli/package.json`.
-4. Runs catalog, CLI, package, and website build checks.
-5. Publishes `canagentsuse` to npm if the CLI package is in the plan.
-6. Deploys `@canagentsuse/website` if the website package is in the plan.
-7. Pushes the version commit and tags back to `main`.
+1. Checks that the latest `Main Validate` run passed for the current `main` commit.
+2. Reads all changeset files and detects which packages need release.
+3. Runs `changeset version` to update package versions and changelogs.
+4. Syncs the CLI runtime version constant from `packages/cli/package.json`.
+5. Pushes the version commit back to `main`.
+6. Runs catalog, CLI, package, and website build checks on the versioned tree.
+7. Publishes `canagentsuse` to npm if the CLI package is in the plan.
+8. Deploys `@canagentsuse/website` if the website package is in the plan.
+9. Pushes package tags back to `main`.
 
 The CLI publish path is set up for npm Trusted Publishing through GitHub Actions
 OIDC, so no long-lived npm token is required when npm trusted publishing is
@@ -538,14 +545,15 @@ commit; a connected Vercel Git integration can deploy that commit normally.
 
 The best contribution is a well-evidenced catalog record.
 
-1. Add or edit one tool file in [`data/tools`](data/tools), for example `data/tools/s/stripe.json`.
-2. Add evidence URLs for important API, CLI, MCP, pricing, docs, sandbox, or account setup claims.
-3. Add `launchSignals` for public traction and importance.
-4. Include limitation notes for anything that affects money, production data, infrastructure, or users.
-5. Run `bun run catalog:build` to regenerate the local aggregate catalog.
-6. Run `bun run catalog:format` so source JSON uses the canonical two-space format.
-7. Run `bun run catalog:audit`.
-8. Open a pull request. The Catalog PR workflow rebuilds the generated catalog, reruns the formatter, audits metadata, and typechecks catalog consumers.
+1. Search first by name, slug, domain, GitHub repo, and package name. Update an existing record instead of adding a duplicate.
+2. Add or edit exactly one tool file in [`data/tools`](data/tools), for example `data/tools/s/stripe.json`.
+3. Add evidence URLs that match each claim: API docs for API claims, package docs or registry for CLI/MCP claims, pricing page for pricing claims.
+4. Add every `launchSignals` key from honest public evidence. Use exact public star/download counts when available, `null` for unavailable numeric signals, and conservative enum values rather than inflated traction.
+5. Include limitation notes for anything that affects money, production data, infrastructure, or users.
+6. Run `bun run catalog:build`, `bun run catalog:format`, and `bun run catalog:audit`.
+7. Add one or more `.changeset/*.md` version plans when the change should release the website or CLI.
+8. Do not edit package files, lockfiles, changelogs, workflows, repo scripts, app code, agent skills, version bumps, or release workflow files manually. The manual Release workflow handles version commits from committed changesets.
+9. Open a pull request. The Catalog PR workflow rebuilds the generated catalog, reruns the formatter, audits metadata, and typechecks catalog consumers.
 
 If you are not ready to edit JSON, use the website submit flow to open a
 prefilled GitHub pull request or copy a ready-to-run agent prompt.

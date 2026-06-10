@@ -56,6 +56,11 @@ async function testSubmitToolTemplate() {
     "submit template asks users for launchSignals"
   )
   assert(
+    template.includes("## Signal Honesty") &&
+      template.includes("Do not fake or inflate"),
+    "submit template requires honest launch signals"
+  )
+  assert(
     template.includes("`bun run catalog:build`"),
     "submit template asks users to build the catalog"
   )

@@ -2,28 +2,81 @@ name: Release
 run-name: Release gate for ${{ github.ref_name }} by @${{ github.actor }}
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
-    inputs:
-      reason:
-        description: Why are you running the release gate manually?
-        required: false
-        default: Manual release check
 
 permissions:
+  actions: read
   contents: write
   id-token: write
-  pull-requests: write
 
 concurrency:
   group: release-main
   cancel-in-progress: false
 
 jobs:
+  preflight:
+    name: Require Latest Main Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require release from main
+        run: |
+          if [ "$GITHUB_REF_NAME" != "main" ]; then
+            echo "Release must be triggered from the main branch, not ${GITHUB_REF_NAME}."
+            exit 1
+          fi
+
+      - name: Require latest successful main validation
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_SHA: ${{ github.sha }}
+        run: |
+          gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/main-validate.yml/runs" \
+            -f branch=main \
+            -f event=push \
+            -f status=completed \
+            -F per_page=1 > /tmp/main-validate-run.json
+
+          node <<'NODE'
+          const fs = require("node:fs")
+
+          const payload = JSON.parse(fs.readFileSync("/tmp/main-validate-run.json", "utf8"))
+          const run = payload.workflow_runs?.[0]
+          const lines = [
+            "## Release preflight",
+            "",
+            "| Field | Value |",
+            "| --- | --- |",
+            `| Release commit | \`${process.env.RELEASE_SHA}\` |`,
+          ]
+
+          if (!run) {
+            lines.push("| Main validation | missing |")
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${lines.join("\n")}\n`)
+            console.error("No completed Main Validate run exists for main. Wait for the main validation workflow to finish before releasing.")
+            process.exit(1)
+          }
+
+          lines.push(`| Latest validation commit | \`${run.head_sha}\` |`)
+          lines.push(`| Latest validation conclusion | ${run.conclusion || "unknown"} |`)
+          lines.push(`| Latest validation run | ${run.html_url} |`)
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${lines.join("\n")}\n`)
+
+          if (run.head_sha !== process.env.RELEASE_SHA) {
+            console.error(
+              `Latest completed Main Validate run is for ${run.head_sha}, but this release is for ${process.env.RELEASE_SHA}. Wait for validation on the current main commit before releasing.`
+            )
+            process.exit(1)
+          }
+
+          if (run.conclusion !== "success") {
+            console.error(`Latest Main Validate run for main concluded with ${run.conclusion}. Release rejected.`)
+            process.exit(1)
+          }
+          NODE
+
   validate:
     name: Validate
+    needs: preflight
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -96,14 +149,12 @@ jobs:
           HAS_PLAN: ${{ steps.plan.outputs.has_plan }}
           PACKAGES_JSON: ${{ steps.plan.outputs.packages }}
           CHANGESETS_JSON: ${{ steps.plan.outputs.changesets }}
-          MANUAL_REASON: ${{ inputs.reason }}
         run: |
           node <<'NODE'
           const fs = require("node:fs")
 
           const packages = JSON.parse(process.env.PACKAGES_JSON || "[]")
           const changesets = JSON.parse(process.env.CHANGESETS_JSON || "[]")
-          const manualReason = process.env.MANUAL_REASON || ""
           const lines = [
             "## Release plan",
             "",
@@ -117,10 +168,6 @@ jobs:
             `| Packages | ${packages.length ? packages.map((name) => `\`${name}\``).join(", ") : "none"} |`,
             `| Changesets | ${changesets.length ? changesets.map((name) => `\`${name}\``).join(", ") : "none"} |`,
           ]
-
-          if (manualReason) {
-            lines.push(`| Manual reason | ${manualReason.replaceAll("|", "\\|")} |`)
-          }
 
           fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${lines.join("\n")}\n`)
           NODE
