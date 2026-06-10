@@ -2,6 +2,7 @@ name: Main Validate
 run-name: "Validate main at ${{ github.sha }}"
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main

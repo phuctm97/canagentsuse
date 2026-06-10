@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  actions: read
+  actions: write
   contents: write
   id-token: write
 
@@ -32,7 +32,6 @@ jobs:
         run: |
           gh api --method GET "repos/${GITHUB_REPOSITORY}/actions/workflows/main-validate.yml/runs" \
             -f branch=main \
-            -f event=push \
             -f status=completed \
             -F per_page=1 > /tmp/main-validate-run.json
 
@@ -257,6 +256,12 @@ jobs:
           fi
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
           echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Dispatch post-release main validation
+        if: steps.version_commit.outputs.committed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run main-validate.yml --ref main
 
       - name: Summarize release result
         if: steps.plan.outputs.has_plan == 'true' || steps.versioned.outputs.has_release == 'true'
