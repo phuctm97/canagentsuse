@@ -1,0 +1,87 @@
+{
+  "slug": "mintlify",
+  "name": "Mintlify",
+  "tagline": "AI-native documentation, API reference, search, and MCP hosting.",
+  "websiteUrl": "https://www.mintlify.com",
+  "docsUrl": "https://www.mintlify.com/docs",
+  "githubUrl": "https://github.com/mintlify/docs",
+  "shortDescription": "Documentation platform with Git-backed docs, API references, preview deployments, analytics, AI assistants, workflows, CLI tooling, REST APIs, and generated MCP endpoints.",
+  "agentSummary": "Agents can use Mintlify through the mint CLI for local docs development and validation, the REST API for deployments, analytics, assistant calls, search, page content, and agent jobs, and generated MCP endpoints for searching hosted documentation. Production edits still need repository, dashboard, API key, billing, and content-review guardrails.",
+  "bestFor": "Developer documentation sites, API reference publishing, documentation search, docs analytics, and agent-readable docs surfaces.",
+  "cautionNotes": "Mintlify can publish production documentation, trigger deployments, expose assistant features, and use AI credits. Use preview deployments or local CLI validation before production, keep admin API keys server-side, review generated content before publishing, and require human approval for billing, authentication, or customer-facing documentation changes.",
+  "pricingSummary": "Public pricing includes a Starter plan and Enterprise plan; the pricing page lists feature tiers, credits, Developer API, analytics, and MCP server availability.",
+  "authModel": "Dashboard login plus organization-scoped API keys. Admin API keys begin with mint_ and are server-side secrets; assistant API keys begin with mint_dsc_ and are public frontend tokens.",
+  "accountCreation": "Self-serve dashboard signup is available from the Mintlify site; paid and enterprise features depend on the selected plan.",
+  "browserSupport": "Dashboard and web editor support documentation setup, edits, API keys, analytics, MCP server settings, and deployment review.",
+  "cliPackage": "mint",
+  "apiBaseUrl": "https://api.mintlify.com",
+  "mcpServer": "https://mintlify.com/docs/mcp",
+  "submittedBy": "Can Agents Use validation PR",
+  "categorySlugs": [
+    "project-workflows",
+    "automation-integrations"
+  ],
+  "useCaseSlugs": [
+    "publish-content",
+    "triage-work"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "The mint CLI supports local previews, login/logout, analytics, workflows, validation, builds, status, and configuration commands.",
+      "evidenceUrl": "https://www.mintlify.com/docs/cli/commands"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "The REST API supports deployments, preview deployments, agent jobs, assistant calls, documentation search, page content, feedback, analytics, and visitor metrics.",
+      "evidenceUrl": "https://www.mintlify.com/docs/api/introduction"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Mintlify generates hosted search MCP servers for documentation sites, including /mcp, discovery documents, resources, and read-only tool annotations.",
+      "evidenceUrl": "https://www.mintlify.com/docs/ai/model-context-protocol"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard and web editor flows are available for site setup, API keys, deployments, MCP server settings, analytics, and documentation edits.",
+      "evidenceUrl": "https://www.mintlify.com/docs"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Mintlify provides a self-serve dashboard signup and plan selection path; API access uses organization-scoped keys from the dashboard.",
+      "evidenceUrl": "https://www.mintlify.com/docs/api/introduction"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public pricing lists Starter and Enterprise plans plus features such as Developer API, analytics, agents, MCP server, and credits.",
+      "evidenceUrl": "https://www.mintlify.com/pricing"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "native",
+      "detail": "Official docs include a documentation index, CLI reference, API reference, MCP guide, llms.txt, and skill.md-related guidance.",
+      "evidenceUrl": "https://www.mintlify.com/docs"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "partial",
+      "detail": "Agents can use local preview/build commands and preview deployments before production publishing, but account-level resources and production docs still need review.",
+      "evidenceUrl": "https://www.mintlify.com/docs/cli/commands"
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "developer-tooling",
+    "maturity": "active",
+    "githubStars": null,
+    "packageDownloadsMonthly": null,
+    "distribution": "auto",
+    "evidenceUrl": "https://www.mintlify.com/docs"
+  }
+}

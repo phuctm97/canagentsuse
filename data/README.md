@@ -46,6 +46,10 @@ Every pull request runs the Catalog PR workflow. It reruns the formatter,
 checks that the generated catalog can be rebuilt from source, audits metadata,
 and typechecks the website code that reads the catalog.
 
+Catalog PRs may include related documentation, tests, or changesets when the
+submission changes public behavior. They still must not edit the generated
+`data/catalog.json` file.
+
 Markdown is better for long-form docs, and JSON Lines is useful for append-heavy
 logs or streaming datasets. This catalog is a bounded structured directory whose
 records need independent review, so split formatted JSON plus a generated read
