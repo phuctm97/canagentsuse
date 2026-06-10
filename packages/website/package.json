@@ -7,8 +7,8 @@
     "build": "node ../../scripts/build-catalog.mjs && next build",
     "start": "next start -p 60139",
     "typecheck": "node ../../scripts/build-catalog.mjs && tsc --noEmit -p tsconfig.json",
-    "test:agent-surfaces": "node ../../scripts/build-catalog.mjs && tsx scripts/test-agent-surfaces.ts",
-    "catalog:audit": "node ../../scripts/build-catalog.mjs && tsx scripts/audit-catalog-metadata.ts"
+    "test:agent-surfaces": "node ../../scripts/build-catalog.mjs && bun scripts/test-agent-surfaces.ts",
+    "catalog:audit": "node ../../scripts/build-catalog.mjs && bun scripts/audit-catalog-metadata.ts"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

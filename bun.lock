@@ -10,18 +10,19 @@
     },
     "packages/cli": {
       "name": "canagentsuse",
-      "version": "0.2.0",
+      "version": "0.2.7",
       "bin": {
         "canagentsuse": "./dist/index.js",
         "cau": "./dist/index.js",
       },
       "devDependencies": {
         "@types/node": "^25.9.2",
+        "typescript": "^5",
       },
     },
     "packages/website": {
       "name": "@canagentsuse/website",
-      "version": "0.1.1",
+      "version": "0.1.9",
       "dependencies": {
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
