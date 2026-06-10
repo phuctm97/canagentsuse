@@ -1,5 +1,11 @@
 # @canagentsuse/website
 
+## 0.1.12
+
+### Patch Changes
+
+- 568c6c6: Add main-branch validation gating for manual releases and strengthen agent-facing catalog PR rules for honest signals and version plans.
+
 ## 0.1.11
 
 ### Patch Changes
