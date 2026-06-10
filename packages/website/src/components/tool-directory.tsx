@@ -39,15 +39,27 @@ import {
   mcpInstallExample,
 } from "@/lib/agent-install"
 import {
+  formatExactTokenCount,
+  formatTokenCount,
+  tokenSavings,
+  tokenSavingsBenchmark,
+} from "@/lib/token-savings"
+import {
   buildSubmitToolAgentPrompt,
   buildSubmitToolPrUrl,
-  buildUpdateToolAgentPrompt,
-  buildUpdateToolPrUrl,
   emptySubmitToolInput,
 } from "@/lib/submit-tool"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import {
   Command,
   CommandDialog,
@@ -130,18 +142,6 @@ const toolsBatchSize = 10
 const maxCommandToolResults = 24
 const maxCommandCategoryResults = 10
 const heroCliInstallCommand = "npx canagentsuse@latest setup"
-const tokenDemoApiCall =
-  "curl -fsS 'https://canagentsuse.com/api/agent/search?q=billing&capability=api&limit=3'"
-const tokenDemoPrompt = [
-  "Use Can Agents Use before broad web search to save context.",
-  "",
-  "Task: Find billing tools with API support, sandbox or test mode, pricing clarity, and caution notes.",
-  "",
-  "First make this bounded catalog call:",
-  "https://canagentsuse.com/api/agent/search?q=billing&capability=api&limit=3",
-  "",
-  "Then inspect one candidate with /api/agent/tools/{slug}. Only open vendor docs if the structured record is missing evidence for the decision.",
-].join("\n")
 const githubRepoHref = "https://github.com/phuctm97/canagentsuse"
 const cursorMcpInstallHref =
   "cursor://anysphere.cursor-deeplink/mcp/install?name=canagentsuse&config=eyJjYW5hZ2VudHN1c2UiOnsidHlwZSI6Imh0dHAiLCJ1cmwiOiJodHRwczovL2NhbmFnZW50c3VzZS5jb20vYXBpL21jcCJ9fQ=="
@@ -165,8 +165,6 @@ const connectAgentPrompt = [
 ].join("\n")
 const submitToolPrUrl = buildSubmitToolPrUrl(emptySubmitToolInput)
 const submitToolAgentPrompt = buildSubmitToolAgentPrompt(emptySubmitToolInput)
-const updateToolPrUrl = buildUpdateToolPrUrl(emptySubmitToolInput)
-const updateToolAgentPrompt = buildUpdateToolAgentPrompt(emptySubmitToolInput)
 
 type ToolDirectoryProps = {
   tools: DirectoryListTool[]
@@ -180,9 +178,6 @@ type AgentAccessCopyTarget =
   | "skill"
   | "prompt"
   | "submit"
-  | "update"
-  | "demo-api"
-  | "demo-prompt"
   | "claude-code"
   | "cursor"
   | "codex"
@@ -195,9 +190,6 @@ const copyToastLabels: Record<AgentAccessCopyTarget, string> = {
   skill: "Install command",
   prompt: "Agent prompt",
   submit: "Submit prompt",
-  update: "Update prompt",
-  "demo-api": "Demo API call",
-  "demo-prompt": "Demo agent prompt",
   "claude-code": "Claude Code command",
   cursor: "Cursor command",
   codex: "Codex command",
@@ -272,24 +264,6 @@ export function ToolDirectory({
   const visibleTools = filteredTools.slice(0, visibleCount)
   const visibleEnd = Math.min(visibleCount, filteredTools.length)
   const hasMoreTools = visibleEnd < filteredTools.length
-  const tokenDemoTools = React.useMemo(() => {
-    const preferredSlugs = ["stripe", "paddle", "revenuecat"]
-    const bySlug = new Map(tools.map((tool) => [tool.slug, tool]))
-    const preferredTools = preferredSlugs
-      .map((slug) => bySlug.get(slug))
-      .filter((tool): tool is DirectoryListTool => Boolean(tool))
-
-    const demoTools =
-      preferredTools.length >= 3
-        ? preferredTools
-        : [
-            ...preferredTools,
-            ...tools.filter((tool) => !preferredSlugs.includes(tool.slug)),
-          ].slice(0, 3)
-
-    return [...demoTools].sort((left, right) => right.agentScore - left.agentScore)
-  }, [tools])
-
   const loadMoreTools = React.useCallback(() => {
     setVisibleCount((current) =>
       Math.min(current + toolsBatchSize, filteredTools.length)
@@ -493,42 +467,6 @@ export function ToolDirectory({
                       agentAccessCopy.status === "copied"
                         ? "Copied agent prompt"
                         : "Copy prompt for agent"}
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button size="sm" type="button" variant="secondary">
-                    Update
-                    <ChevronDownIcon data-icon="inline-end" aria-hidden="true" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-64">
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem
-                      onSelect={() => {
-                        window.open(updateToolPrUrl, "_blank", "noopener,noreferrer")
-                      }}
-                    >
-                      <GitPullRequestIcon />
-                      Open update PR template
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onSelect={() => {
-                        void copyAgentAccessText("update", updateToolAgentPrompt)
-                      }}
-                    >
-                      {agentAccessCopy?.target === "update" &&
-                      agentAccessCopy.status === "copied" ? (
-                        <CheckIcon />
-                      ) : (
-                        <CopyIcon />
-                      )}
-                      {agentAccessCopy?.target === "update" &&
-                      agentAccessCopy.status === "copied"
-                        ? "Copied update prompt"
-                        : "Copy update prompt for agent"}
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                 </DropdownMenuContent>
@@ -762,155 +700,87 @@ export function ToolDirectory({
         </div>
       </section>
 
-      <section className="border-b bg-background">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-4 py-7 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div className="max-w-3xl">
-              <h2 className="text-xl font-semibold">Search with less context</h2>
-              <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                Same task. Fewer pages in the agent context.
-              </p>
-            </div>
-            <Button
-              type="button"
-              size="sm"
-              onClick={() => copyAgentAccessText("demo-prompt", tokenDemoPrompt)}
-            >
-              {agentAccessCopy?.target === "demo-prompt" &&
-              agentAccessCopy.status === "copied" ? (
-                <CheckIcon data-icon="inline-start" aria-hidden="true" />
-              ) : (
-                <CopyIcon data-icon="inline-start" aria-hidden="true" />
-              )}
-              Copy prompt
-            </Button>
-          </div>
-
-          <div className="rounded-md border bg-muted/40 px-4 py-3">
-            <p className="text-sm">
-              Task: find billing tools with API, sandbox, pricing, and caution notes.
-            </p>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-2">
-            <div className="flex min-w-0 flex-col gap-4 rounded-md border bg-card p-4">
-              <div className="flex items-center justify-between gap-3">
-                <h3 className="text-base font-semibold">Normal search</h3>
-                <Badge variant="outline">Many pages</Badge>
-              </div>
-
-              <div className="grid grid-cols-3 gap-2">
-                {["Search", "Docs", "Pricing", "API docs", "Setup", "More docs"].map(
-                  (item) => (
-                    <div
-                      key={item}
-                      className="rounded-md border bg-muted/50 px-2 py-2 text-center text-xs font-medium text-muted-foreground"
-                    >
-                      {item}
-                    </div>
-                  )
-                )}
-              </div>
-
-              <Separator />
-
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center justify-between gap-3 text-sm">
-                  <span className="font-medium">Context pressure</span>
-                  <span className="text-muted-foreground">High</span>
-                </div>
-                <div className="grid h-2 grid-cols-5 gap-1">
-                  {["search", "docs", "pricing", "api", "setup"].map((item) => (
-                    <div key={item} className="rounded-full bg-muted-foreground" />
-                  ))}
+      <section className="border-b bg-muted/30">
+        <div className="mx-auto w-full max-w-7xl px-4 py-7 sm:px-6 lg:px-8">
+          <Card className="rounded-md [--card-spacing:--spacing(5)]">
+            <CardHeader className="border-b">
+              <div className="flex flex-col gap-3">
+                <Badge variant="secondary">
+                  <CheckCircle2Icon data-icon="inline-start" aria-hidden="true" />
+                  Measured benchmark
+                </Badge>
+                <div>
+                  <CardTitle className="text-xl">Search with less context</CardTitle>
+                  <CardDescription>
+                    Billing-tools task measured against normal search.
+                  </CardDescription>
                 </div>
               </div>
-            </div>
+              <CardAction>
+                <Badge variant="outline">
+                  {tokenSavings.percent}% fewer tokens
+                </Badge>
+              </CardAction>
+            </CardHeader>
+            <CardContent>
+              <div className="flex min-w-0 flex-col gap-3">
+                <div className="rounded-md bg-muted/60 px-3 py-2">
+                  <div className="text-xs font-medium text-muted-foreground">Query</div>
+                  <div className="mt-1 text-sm font-medium">
+                    {tokenSavingsBenchmark.query}
+                  </div>
+                </div>
 
-            <div className="flex min-w-0 flex-col gap-4 rounded-md border bg-card p-4">
-              <div className="flex items-center justify-between gap-3">
-                <h3 className="text-base font-semibold">Can Agents Use</h3>
-                <Badge variant="secondary">2 reads</Badge>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                {[
-                  { label: "Search JSON", value: "/api/agent/search" },
-                  { label: "Tool record", value: "/api/agent/tools/{slug}" },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="rounded-md border bg-muted/50 px-3 py-3"
-                  >
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-md border bg-background p-3">
                     <div className="text-xs font-medium text-muted-foreground">
-                      {item.label}
+                      {tokenSavingsBenchmark.normalSearch.label} output
                     </div>
-                    <div className="mt-1 truncate text-sm font-semibold">
-                      {item.value}
+                    <div className="mt-1 text-sm font-medium">
+                      {tokenSavingsBenchmark.normalSearch.output}
+                    </div>
+                    <div className="mt-3 text-lg font-semibold tabular-nums">
+                      {formatTokenCount(tokenSavingsBenchmark.normalSearch.tokens)}
                     </div>
                   </div>
-                ))}
-              </div>
 
-              <Separator />
-
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center justify-between gap-3 text-sm">
-                  <span className="font-medium">Context pressure</span>
-                  <span className="text-muted-foreground">Low</span>
-                </div>
-                <div className="grid h-2 grid-cols-5 gap-1">
-                  <div className="rounded-full bg-primary" />
-                  <div className="rounded-full bg-primary" />
-                  <div className="rounded-full bg-muted" />
-                  <div className="rounded-full bg-muted" />
-                  <div className="rounded-full bg-muted" />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-2 rounded-md bg-muted p-3">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="text-xs font-medium uppercase text-muted-foreground">
-                    First bounded call
+                  <div className="rounded-md border bg-background p-3">
+                    <div className="text-xs font-medium text-muted-foreground">
+                      {tokenSavingsBenchmark.canAgentsUse.label} output
+                    </div>
+                    <div className="mt-1 text-sm font-medium">
+                      {tokenSavingsBenchmark.canAgentsUse.output}
+                    </div>
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {tokenSavingsBenchmark.canAgentsUse.results.map((result) => (
+                        <Badge key={result} variant="outline">
+                          {result}
+                        </Badge>
+                      ))}
+                    </div>
+                    <div className="mt-3 text-lg font-semibold tabular-nums">
+                      {formatTokenCount(tokenSavingsBenchmark.canAgentsUse.tokens)}
+                    </div>
                   </div>
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    onClick={() => copyAgentAccessText("demo-api", tokenDemoApiCall)}
-                  >
-                    {agentAccessCopy?.target === "demo-api" &&
-                    agentAccessCopy.status === "copied" ? (
-                      <CheckIcon data-icon="inline-start" aria-hidden="true" />
-                    ) : (
-                      <CopyIcon data-icon="inline-start" aria-hidden="true" />
-                    )}
-                    Copy API
-                  </Button>
                 </div>
-                <pre className="max-w-full overflow-x-auto text-xs leading-6">
-                  <code className="block min-w-max">
-                    GET /api/agent/search?q=billing&amp;capability=api&amp;limit=3
-                  </code>
-                </pre>
+
+                <div
+                  className="h-2 overflow-hidden rounded-full bg-muted"
+                  aria-hidden="true"
+                >
+                  <div
+                    className="h-full rounded-full bg-primary"
+                    style={{ width: `${tokenSavings.percent}%` }}
+                  />
+                </div>
+                <div className="text-xs leading-5 text-muted-foreground">
+                  Saved {formatExactTokenCount(tokenSavings.tokens)} of{" "}
+                  {formatExactTokenCount(tokenSavingsBenchmark.normalSearch.tokens)}{" "}
+                  estimated tokens.
+                </div>
               </div>
-            </div>
-          </div>
-
-          <div className="overflow-hidden rounded-md border bg-card">
-            <div className="grid grid-cols-[minmax(0,1fr)_64px] gap-3 border-b bg-muted/50 px-3 py-2 text-xs font-medium uppercase text-muted-foreground sm:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_72px]">
-              <div>Top matches</div>
-              <div className="hidden sm:block">Signals</div>
-              <div className="text-right">Score</div>
-            </div>
-            {tokenDemoTools.map((tool) => (
-              <TokenDemoToolRow key={tool.slug} tool={tool} />
-            ))}
-          </div>
-
-          <p className="text-sm text-muted-foreground">
-            Start narrow. Open docs only when the record is missing evidence.
-          </p>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
@@ -1429,40 +1299,6 @@ function ToolRow({ tool, rank }: { tool: DirectoryListTool; rank: number }) {
   )
 }
 
-function TokenDemoToolRow({ tool }: { tool: DirectoryListTool }) {
-  const accessSignals = tool.capabilities
-    .filter((capability) => highSignalCapabilitySlugs.includes(capability.slug))
-    .slice(0, 3)
-
-  return (
-    <div className="grid grid-cols-[minmax(0,1fr)_64px] gap-3 border-b px-3 py-3 last:border-b-0 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_72px]">
-      <div className="flex min-w-0 items-center gap-2">
-        <ToolMark tool={tool} />
-        <div className="min-w-0">
-          <Link
-            href={`/tools/${tool.slug}`}
-            className="truncate text-sm font-semibold hover:underline"
-          >
-            {tool.name}
-          </Link>
-          <div className="truncate text-xs text-muted-foreground">
-            {tool.pricingSummary}
-          </div>
-        </div>
-      </div>
-      <div className="hidden flex-wrap items-center gap-1.5 sm:flex">
-        {accessSignals.map((capability) => (
-          <Badge key={capability.slug} variant="outline" className="rounded-sm">
-            {capability.name}
-          </Badge>
-        ))}
-      </div>
-      <div className="text-right text-base font-semibold tabular-nums">
-        {tool.agentScore}
-      </div>
-    </div>
-  )
-}
 
 function toolSearchValue(tool: DirectoryListTool) {
   return [

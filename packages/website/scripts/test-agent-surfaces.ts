@@ -20,6 +20,12 @@ import {
   buildUpdateToolPrBody,
   emptySubmitToolInput,
 } from "../src/lib/submit-tool"
+import {
+  formatExactTokenCount,
+  formatTokenCount,
+  tokenSavings,
+  tokenSavingsBenchmark,
+} from "../src/lib/token-savings"
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../../..")
 const rootSkillsDir = join(repoRoot, "skills")
@@ -37,8 +43,63 @@ async function main() {
   await testOpenApiSurface()
   await testSkillSurface()
   await testSubmitToolTemplate()
+  testTokenSavingsBenchmark()
 
   console.log("Agent surface tests passed.")
+}
+
+function testTokenSavingsBenchmark() {
+  assert(
+    tokenSavingsBenchmark.normalSearch.tokens >
+      tokenSavingsBenchmark.canAgentsUse.tokens,
+    "token benchmark saves context"
+  )
+  assert(
+    tokenSavings.tokens ===
+      tokenSavingsBenchmark.normalSearch.tokens -
+        tokenSavingsBenchmark.canAgentsUse.tokens,
+    "token savings is derived from measured inputs"
+  )
+  assert(
+    tokenSavings.tokens === 9766,
+    "token benchmark preserves measured saved tokens"
+  )
+  assert(
+    tokenSavings.percent === 42,
+    "token benchmark preserves measured percent"
+  )
+  assert(
+    formatTokenCount(tokenSavings.tokens) === "9.8K",
+    "token savings display is compact"
+  )
+  assert(
+    formatExactTokenCount(tokenSavings.tokens) === "9,766",
+    "token savings exact display is formatted"
+  )
+  assert(
+    tokenSavingsBenchmark.query === "billing API sandbox pricing caution notes",
+    "token benchmark preserves the displayed query"
+  )
+  assert(
+    tokenSavingsBenchmark.normalSearch.output.includes("Official pages") &&
+      tokenSavingsBenchmark.canAgentsUse.output.includes("Search JSON"),
+    "token benchmark preserves simple output comparison"
+  )
+  assert(
+    tokenSavingsBenchmark.canAgentsUse.results.join(", ") ===
+      "FOSSBilling, Stripe, Paddle",
+    "token benchmark preserves displayed Can Agents Use results"
+  )
+  assert(
+    tokenSavingsBenchmark.normalSearch.sources.length >= 3,
+    "token benchmark lists normal-search sources"
+  )
+  assert(
+    tokenSavingsBenchmark.canAgentsUse.sources.includes(
+      "/api/agent/search?q=billing&capability=api&limit=3"
+    ),
+    "token benchmark lists bounded search call"
+  )
 }
 
 async function testSubmitToolTemplate() {

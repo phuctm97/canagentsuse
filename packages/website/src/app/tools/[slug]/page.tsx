@@ -22,6 +22,9 @@ import { ToolLogo } from "@/components/tool-logo"
 import { tools } from "@/lib/catalog-data"
 import { getToolBySlug } from "@/lib/directory"
 import { SITE_ASSET_URL, SITE_NAME, SITE_URL } from "@/lib/site"
+import { buildUpdateToolAgentPrompt, buildUpdateToolPrUrl } from "@/lib/submit-tool"
+
+import { UpdateToolActions } from "./update-tool-actions"
 
 type ToolPageProps = {
   params: Promise<{ slug: string }>
@@ -117,6 +120,14 @@ export default async function ToolPage({ params }: ToolPageProps) {
       ratingCount: 1,
     },
   }
+  const updateToolInput = {
+    toolName: tool.slug,
+    websiteUrl: tool.websiteUrl,
+    submitter: "",
+    notes: `Existing slug: ${tool.slug}`,
+  }
+  const updateToolPrUrl = buildUpdateToolPrUrl(updateToolInput)
+  const updateToolAgentPrompt = buildUpdateToolAgentPrompt(updateToolInput)
 
   return (
     <main className="min-h-svh bg-background text-foreground">
@@ -136,20 +147,15 @@ export default async function ToolPage({ params }: ToolPageProps) {
             </Link>
           </Button>
           <div className="flex items-center gap-2">
-            <Button asChild variant="outline" size="sm">
-              <a href={`/api/agent/tools/${tool.slug}`}>
-                Agent JSON
-                <ExternalLinkIcon data-icon="inline-end" aria-hidden="true" />
-              </a>
-            </Button>
-            {tool.docsUrl ? (
-              <Button asChild variant="outline" size="sm">
-                <a href={tool.docsUrl} target="_blank" rel="noreferrer">
-                  Docs
-                  <ExternalLinkIcon data-icon="inline-end" aria-hidden="true" />
-                </a>
-              </Button>
-            ) : null}
+            <div className="flex items-center gap-2">
+              <span className="hidden text-sm text-muted-foreground sm:inline">
+                Outdated or incorrect details?
+              </span>
+              <UpdateToolActions
+                updateToolAgentPrompt={updateToolAgentPrompt}
+                updateToolPrUrl={updateToolPrUrl}
+              />
+            </div>
             <Button asChild size="sm">
               <a href={tool.websiteUrl} target="_blank" rel="noreferrer">
                 Visit {tool.name}
