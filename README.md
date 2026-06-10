@@ -12,14 +12,13 @@ the agent-facing interfaces.
 
 ## What Is In The Catalog
 
-| Metric | Count |
-| --- | ---: |
-| Tools | 1077 |
-| Categories | 102 |
-| Use cases | 15 |
-| Agent-readiness signals | 8 |
-| MCP-tagged tools | 22 |
-| Native MCP tools | 21 |
+The catalog is generated from [`data/tools`](data/tools) and
+[`data/taxonomy.json`](data/taxonomy.json), then exposed through the website,
+API, MCP endpoint, CLI, and LLM-friendly Markdown exports.
+
+For current catalog contents, use the live search at
+[canagentsuse.com](https://canagentsuse.com) or fetch
+[`/api/agent/catalog`](https://canagentsuse.com/api/agent/catalog).
 
 Every tool record is scored from evidence, not vibes. A good record answers:
 
