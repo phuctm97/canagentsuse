@@ -526,6 +526,13 @@ for `main` is missing, failed, or belongs to a different commit.
 8. Deploys `@canagentsuse/website` if the website package is in the plan.
 9. Pushes package tags back to `main`.
 
+GitHub release notes are written by the Release workflow instead of GitHub's
+default generated notes. The release feed should use one `What's Changed`
+section containing the CLI publish notice, website deploy notice, and every PR
+or direct commit in the release. Do not add an `Other Changes` section. Add a
+`New Contributors` section only for authors whose first merged PR is included
+in that release.
+
 The CLI publish path is set up for npm Trusted Publishing through GitHub Actions
 OIDC, so no long-lived npm token is required when npm trusted publishing is
 configured. An optional `NPM_TOKEN` secret is still supported as a fallback.

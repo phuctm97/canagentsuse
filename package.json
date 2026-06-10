@@ -29,6 +29,7 @@
     "release:cli:check": "bun run catalog:build && bun run catalog:audit && bun run cli:test && bun run cli:pack",
     "release:plan": "node scripts/release-plan.mjs",
     "release:detect-version": "node scripts/detect-version-release.mjs",
+    "release:notes": "node scripts/release-notes.mjs",
     "release:sync-cli-version": "node scripts/sync-cli-version.mjs",
     "changeset": "changeset",
     "changeset:status": "changeset status --verbose",

@@ -242,6 +242,18 @@ jobs:
         if: steps.versioned.outputs.has_release == 'true'
         run: git push origin --tags
 
+      - name: Write GitHub release notes
+        if: steps.versioned.outputs.cli == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: canagentsuse@${{ steps.versioned.outputs.cli_version }}
+          RELEASE_NOTES_PATH: /tmp/release-notes.md
+          CLI_RELEASE: ${{ steps.versioned.outputs.cli }}
+          CLI_VERSION: ${{ steps.versioned.outputs.cli_version }}
+          WEBSITE_RELEASE: ${{ steps.versioned.outputs.website }}
+          WEBSITE_VERSION: ${{ steps.versioned.outputs.website_version }}
+        run: bun run release:notes
+
       - name: Create GitHub release
         if: steps.versioned.outputs.cli == 'true'
         id: github_release
@@ -250,9 +262,10 @@ jobs:
         run: |
           tag="canagentsuse@${{ steps.versioned.outputs.cli_version }}"
           if gh release view "$tag" >/dev/null 2>&1; then
+            gh release edit "$tag" --notes-file /tmp/release-notes.md --latest
             url="$(gh release view "$tag" --json url --jq .url)"
           else
-            url="$(gh release create "$tag" --title "$tag" --generate-notes --latest)"
+            url="$(gh release create "$tag" --title "$tag" --notes-file /tmp/release-notes.md --latest)"
           fi
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
           echo "url=$url" >> "$GITHUB_OUTPUT"
