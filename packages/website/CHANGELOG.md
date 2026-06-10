@@ -1,5 +1,11 @@
 # @canagentsuse/website
 
+## 0.1.14
+
+### Patch Changes
+
+- 95d5e90: Split new-tool submission and existing-tool update contribution flows with separate PR templates, skills, and website actions.
+
 ## 0.1.13
 
 ### Patch Changes
