@@ -1,6 +1,6 @@
 {
   "name": "canagentsuse",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "CLI for finding APIs, CLIs, MCP servers, and browser tools that AI agents can actually use.",
   "type": "module",
   "bin": {

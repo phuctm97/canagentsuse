@@ -1,5 +1,11 @@
 # canagentsuse
 
+## 0.2.11
+
+### Patch Changes
+
+- f641fda: Document optional slug-named SVG logo assets for tool submissions and support explicit local logo paths in the website.
+
 ## 0.2.10
 
 ### Patch Changes
