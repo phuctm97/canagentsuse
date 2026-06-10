@@ -1,5 +1,13 @@
 # @canagentsuse/website
 
+## 0.1.11
+
+### Patch Changes
+
+- bd2b490: Add Mintlify to the catalog and clarify related-file expectations for catalog pull requests.
+- e0bf413: Add Quave ONE to the catalog: a container PaaS for apps and databases with an official remote MCP server, CLI, and REST public API.
+- fa4ccfa: Add Capgo to the agent-friendly tool catalog.
+
 ## 0.1.10
 
 ### Patch Changes

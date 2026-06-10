@@ -1,5 +1,11 @@
 # canagentsuse
 
+## 0.2.9
+
+### Patch Changes
+
+- e0bf413: Add Quave ONE to the catalog: a container PaaS for apps and databases with an official remote MCP server, CLI, and REST public API.
+
 ## 0.2.8
 
 ### Patch Changes
