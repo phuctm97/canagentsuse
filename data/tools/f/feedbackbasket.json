@@ -5,7 +5,7 @@
   "websiteUrl": "https://feedbackbasket.com",
   "docsUrl": "https://feedbackbasket.com/docs/cli",
   "githubUrl": "https://github.com/deifos/feedbackbasket-cli",
-  "shortDescription": "FeedbackBasket collects product feedback through an embeddable widget, enriches it with AI analysis, and exposes feedback workflows through a CLI, REST API, and MCP server.",
+  "shortDescription": "FeedbackBasket collects product feedback through an embeddable widget, enriches it with AI analysis, and exposes feedback workflows through a CLI, MCP server, and browser dashboard.",
   "agentSummary": "Agents can use the FeedbackBasket CLI or MCP server to inspect projects, triage feedback and bug reports, update statuses, retrieve widget embed code, and summarize user feedback from a terminal or IDE.",
   "bestFor": "Founder and product teams that want agents to collect, inspect, and triage website feedback and bug reports.",
   "cautionNotes": "Key limitations: Feedback can contain production user data, emails, screenshots, page context, browser details, and internal notes; use least-privilege project access and review writes such as status changes, replies, deletes, team changes, and billing actions. CLI tokens and MCP API keys must be kept out of source control. Pricing limits can pause new free-plan submissions after monthly limits.",
@@ -14,16 +14,16 @@
   "accountCreation": "Self-serve signup from the website with login required for dashboard, CLI, and MCP access.",
   "browserSupport": "Browser dashboard supports project setup, widget configuration, feedback triage, settings, billing, and API key management.",
   "cliPackage": "feedbackbasket-cli",
-  "apiBaseUrl": "https://feedbackbasket.com/api/v1",
+  "apiBaseUrl": null,
   "mcpServer": "feedbackbasket-mcp-server",
   "launchSignals": {
     "adoptionTier": "early-tool",
     "ecosystemImportance": "specialized",
     "githubStars": 0,
-    "packageDownloadsMonthly": null,
+    "packageDownloadsMonthly": 372,
     "maturity": "active",
     "distribution": "auto",
-    "evidenceUrl": "https://github.com/deifos/feedbackbasket-cli"
+    "evidenceUrl": "https://www.npmjs.com/package/feedbackbasket-cli"
   },
   "submittedBy": "vlad",
   "categorySlugs": [
@@ -44,9 +44,9 @@
     },
     {
       "slug": "api",
-      "supportLevel": "native",
-      "detail": "FeedbackBasket documents dedicated /api/v1 endpoints for CLI workflows, separate from MCP endpoints.",
-      "evidenceUrl": "https://feedbackbasket.com/docs/cli"
+      "supportLevel": "partial",
+      "detail": "The CLI uses FeedbackBasket service endpoints, but a public REST endpoint reference is not currently documented; agents should prefer the official CLI or MCP server for supported automation.",
+      "evidenceUrl": "https://github.com/deifos/feedbackbasket-cli"
     },
     {
       "slug": "mcp",
@@ -70,7 +70,7 @@
       "slug": "pricing-clarity",
       "supportLevel": "strong",
       "detail": "Public pricing lists free and Pro plan limits, including project counts, feedback limits, screenshots, team members, and MCP API key counts.",
-      "evidenceUrl": "https://feedbackbasket.com"
+      "evidenceUrl": "https://feedbackbasket.com/pricing"
     },
     {
       "slug": "docs-quality",
