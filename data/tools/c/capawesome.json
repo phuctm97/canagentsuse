@@ -1,0 +1,79 @@
+{
+  "slug": "capawesome",
+  "name": "Capawesome",
+  "tagline": "Cloud native builds, over-the-air live updates, and automated app store publishing for Capacitor, Ionic, and Cordova apps.",
+  "websiteUrl": "https://capawesome.io/",
+  "docsUrl": "https://capawesome.io/docs/cloud/",
+  "githubUrl": "https://github.com/capawesome-team/cli",
+  "shortDescription": "Capawesome (Capawesome Cloud) is a mobile delivery platform for Capacitor, Ionic, and Cordova apps that provides cloud-based native iOS and Android builds, over-the-air live updates with channels and rollbacks, and automated publishing to the Apple App Store (TestFlight) and Google Play, driven through a REST API, the @capawesome/cli, official Node and Python SDKs, and a web console.",
+  "agentSummary": "Agents can drive the full mobile release pipeline without a browser. The REST API at https://api.cloud.capawesome.io/v1 (Bearer token) and the @capawesome/cli — runnable via `npx @capawesome/cli` — create apps, trigger and poll native builds, upload and roll out live-update bundles across channels, and create app store deployments, with official @capawesome/cloud-node and Python SDKs wrapping the same API. Authentication uses a CAPAWESOME_TOKEN created in the Console. No Model Context Protocol server is published.",
+  "bestFor": "Automating Capacitor, Ionic, and Cordova release pipelines from CI or an agent: cloud native builds, over-the-air live updates with channels and rollbacks, and submissions to TestFlight and Google Play.",
+  "cautionNotes": "Capawesome Cloud is a paid platform with no permanent free tier, and actions consume build minutes and live-update bandwidth/MAU quota that count against billing, so cap usage in automation. Live-update bundles and app store submissions push code to real users' devices and production store listings, so gate releases behind channels, staged rollouts, and review. API tokens act with the creator's full account permissions and are revocable, so scope them per pipeline and keep them out of source control. The cloud backend is closed-source, so behavior can only be inspected through the public API and docs. No sandbox or test mode is documented. Adoption figures shown on the site (1,000+ teams, 3,000+ customers) are self-reported.",
+  "pricingSummary": "Self-serve with no permanent free tier. Full platform plans (Live Updates + Native Builds + App Store Publishing + Insider SDKs) run Starter $19/mo, Professional $49/mo, Team $149/mo, and Business $499/mo, plus a custom Enterprise tier; Live Updates-only plans start at $9/mo. Yearly billing includes two months free, all paid plans come with a 14-day free trial, and a free Open Source plan is available by application.",
+  "authModel": "API token (Bearer) created in the Console account settings and shown only once. The REST API uses an `Authorization: Bearer <token>` header and the CLI authenticates via `capawesome login --token`; docs use the CAPAWESOME_TOKEN environment variable. Tokens carry the creator's full account permissions and are revocable.",
+  "accountCreation": "Self-serve signup via the Console at console.cloud.capawesome.io. Paid plans include a 14-day free trial and a free Open Source plan is available by application; there is no permanent free tier, and whether a card is required to start the trial is not documented.",
+  "browserSupport": "Full web console for creating apps, triggering and monitoring native builds, publishing live-update bundles and channels, managing app store deployments, and issuing API tokens.",
+  "cliPackage": "@capawesome/cli",
+  "apiBaseUrl": "https://api.cloud.capawesome.io/v1",
+  "mcpServer": null,
+  "submittedBy": "robin@capawesome.io",
+  "categorySlugs": [
+    "deployment-infra"
+  ],
+  "useCaseSlugs": [
+    "ship-app"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Published `@capawesome/cli` (run with `npx @capawesome/cli`, no install required) authenticates with an API token and manages apps, native builds, live-update bundles and channels, and app store deployments — built for CI/CD and agent use.",
+      "evidenceUrl": "https://capawesome.io/docs/cloud/cli/"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Public, documented REST API at base https://api.cloud.capawesome.io/v1 using `Authorization: Bearer <token>`; it is the same API the CLI and the official @capawesome/cloud-node and Python SDKs are built on, covering apps, builds, live updates, and deployments.",
+      "evidenceUrl": "https://capawesome.io/docs/cloud/api/"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Full web console at console.cloud.capawesome.io to create apps, trigger and monitor native builds, publish live-update bundles and channels, manage app store deployments, and issue API tokens.",
+      "evidenceUrl": "https://capawesome.io/docs/cloud/"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup in the Console; paid plans include a 14-day free trial and a free Open Source plan is available by application. No permanent free tier; whether a card is required to start the trial is not documented.",
+      "evidenceUrl": "https://capawesome.io/pricing/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public pricing page lists platform plans ($19/$49/$149/$499 per month), Live Updates-only plans from $9/mo, Enterprise, yearly discounts, the 14-day trial, and a free Open Source plan.",
+      "evidenceUrl": "https://capawesome.io/pricing/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Comprehensive docs cover the CLI, REST API, Node/Python SDKs, API tokens, and all three products (Native Builds, Live Updates, App Store Publishing) with setup and CI/CD guides.",
+      "evidenceUrl": "https://capawesome.io/docs/cloud/"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "unknown",
+      "detail": "No dedicated sandbox, test mode, dry-run, or local mode is documented in the CLI or API docs; builds and releases run against the live account and its billing quota.",
+      "evidenceUrl": null
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "developer-tooling",
+    "githubStars": 3,
+    "packageDownloadsMonthly": 40150,
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://www.npmjs.com/package/@capawesome/cli"
+  }
+}
