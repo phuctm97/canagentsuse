@@ -11,14 +11,14 @@ import { SubmitToolForm } from "./submit-tool-form"
 export const metadata: Metadata = {
   title: "Submit an agent-friendly tool",
   description:
-    "Suggest a tool for Can Agents Use and include agent-readiness notes for API, CLI, MCP, docs, pricing, sandbox, browser, and account setup support.",
+    "Suggest a new tool or update an existing Can Agents Use catalog record with agent-readiness evidence for API, CLI, MCP, docs, pricing, sandbox, browser, and account setup support.",
   alternates: {
     canonical: `${SITE_URL}/submit`,
   },
   openGraph: {
     title: "Submit an agent-friendly tool",
     description:
-      "Suggest a tool for the Can Agents Use catalog with agent-readiness evidence.",
+      "Suggest a new tool or update an existing Can Agents Use catalog record with agent-readiness evidence.",
     url: `${SITE_URL}/submit`,
     images: [
       {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Submit an agent-friendly tool",
     description:
-      "Suggest a tool for the Can Agents Use catalog with agent-readiness evidence.",
+      "Suggest a new tool or update an existing Can Agents Use catalog record with agent-readiness evidence.",
     images: [`${SITE_ASSET_URL}/twitter-image`],
   },
 }

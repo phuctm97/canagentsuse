@@ -5,18 +5,15 @@
 - Stable slug:
 - Submitted by:
 
-## Change Type
+## Submission Type
 
 - [ ] Add a new tool
-- [ ] Update an existing tool
-- [ ] Change website, API, MCP, CLI, or skill behavior
-- [ ] Maintenance only
 
 ## Scope Rule
 
-Tool PRs should cover one catalog record. Search first by name, slug, domain,
-GitHub repo, and package name so you update existing records instead of adding
-duplicates. Do not edit generated, package, lockfile, changelog, workflow,
+New-tool PRs should cover one missing catalog record. Search first by name, slug,
+domain, GitHub repo, and package name so you update existing records instead of
+adding duplicates. Do not edit generated, package, lockfile, changelog, workflow,
 script, app-code, or agent-skill files. Add `.changeset/*.md` version plans
 when the change should release the website or CLI.
 
@@ -119,7 +116,7 @@ Not provided
 ## PR Checklist
 
 - [ ] Searched for existing records by name, slug, domain, GitHub repo, and package name
-- [ ] Added or updated exactly one tool source file in `data/tools/<first-letter>/<slug>.json`
+- [ ] Added exactly one new tool source file in `data/tools/<first-letter>/<slug>.json`
 - [ ] If adding a custom SVG logo, added it at `packages/website/public/logos/tools/<slug>.svg`
 - [ ] If adding a custom SVG logo, set `logoPath` in the tool JSON to `/logos/tools/<slug>.svg`
 - [ ] Used a stable unique slug and existing category/use-case/capability slugs where possible

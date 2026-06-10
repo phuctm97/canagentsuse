@@ -23,8 +23,8 @@ The project intentionally uses split JSON files instead of a hosted database:
 
 ## Editing A Tool
 
-Search existing records before adding a tool. Check the tool name, slug,
-website domain, GitHub repo, CLI package, and MCP package so you update an
+Search existing records before adding or updating a tool. Check the tool name,
+slug, website domain, GitHub repo, CLI package, and MCP package so you update an
 existing record instead of creating a duplicate.
 
 Update exactly one matching file in `data/tools/<first-letter>/<tool-slug>.json`.
@@ -84,6 +84,9 @@ package downloads when available, use `null` when a numeric signal is not
 available, use `unknown` only where the schema allows it, and choose the most
 conservative tier that the evidence supports. Do not fake or inflate launch
 signals to make a tool look stronger.
+
+New tool PRs should use `.github/PULL_REQUEST_TEMPLATE/add-tool.md`. Existing
+tool updates should use `.github/PULL_REQUEST_TEMPLATE/update-tool.md`.
 
 Every pull request runs the Catalog PR workflow. It reruns the formatter,
 checks that the generated catalog can be rebuilt from source, audits metadata,

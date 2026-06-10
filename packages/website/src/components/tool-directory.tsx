@@ -41,6 +41,8 @@ import {
 import {
   buildSubmitToolAgentPrompt,
   buildSubmitToolPrUrl,
+  buildUpdateToolAgentPrompt,
+  buildUpdateToolPrUrl,
   emptySubmitToolInput,
 } from "@/lib/submit-tool"
 import { cn } from "@/lib/utils"
@@ -163,6 +165,8 @@ const connectAgentPrompt = [
 ].join("\n")
 const submitToolPrUrl = buildSubmitToolPrUrl(emptySubmitToolInput)
 const submitToolAgentPrompt = buildSubmitToolAgentPrompt(emptySubmitToolInput)
+const updateToolPrUrl = buildUpdateToolPrUrl(emptySubmitToolInput)
+const updateToolAgentPrompt = buildUpdateToolAgentPrompt(emptySubmitToolInput)
 
 type ToolDirectoryProps = {
   tools: DirectoryListTool[]
@@ -176,6 +180,7 @@ type AgentAccessCopyTarget =
   | "skill"
   | "prompt"
   | "submit"
+  | "update"
   | "demo-api"
   | "demo-prompt"
   | "claude-code"
@@ -190,6 +195,7 @@ const copyToastLabels: Record<AgentAccessCopyTarget, string> = {
   skill: "Install command",
   prompt: "Agent prompt",
   submit: "Submit prompt",
+  update: "Update prompt",
   "demo-api": "Demo API call",
   "demo-prompt": "Demo agent prompt",
   "claude-code": "Claude Code command",
@@ -487,6 +493,42 @@ export function ToolDirectory({
                       agentAccessCopy.status === "copied"
                         ? "Copied agent prompt"
                         : "Copy prompt for agent"}
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button size="sm" type="button" variant="secondary">
+                    Update
+                    <ChevronDownIcon data-icon="inline-end" aria-hidden="true" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-64">
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem
+                      onSelect={() => {
+                        window.open(updateToolPrUrl, "_blank", "noopener,noreferrer")
+                      }}
+                    >
+                      <GitPullRequestIcon />
+                      Open update PR template
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onSelect={() => {
+                        void copyAgentAccessText("update", updateToolAgentPrompt)
+                      }}
+                    >
+                      {agentAccessCopy?.target === "update" &&
+                      agentAccessCopy.status === "copied" ? (
+                        <CheckIcon />
+                      ) : (
+                        <CopyIcon />
+                      )}
+                      {agentAccessCopy?.target === "update" &&
+                      agentAccessCopy.status === "copied"
+                        ? "Copied update prompt"
+                        : "Copy update prompt for agent"}
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                 </DropdownMenuContent>

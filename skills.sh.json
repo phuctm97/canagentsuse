@@ -19,8 +19,8 @@
     },
     {
       "title": "Contribute Tools",
-      "description": "Use this skill to submit new tools or improve catalog records with evidence and validation.",
-      "skills": ["submit-agent-friendly-tool"]
+      "description": "Use these skills to submit new tools or update existing catalog records with evidence and validation.",
+      "skills": ["submit-agent-friendly-tool", "update-agent-friendly-tool"]
     }
   ]
 }

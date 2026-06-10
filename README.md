@@ -238,7 +238,8 @@ npx skills add phuctm97/canagentsuse --skill find-mcp-tools
 | [`find-cli-tools`](skills/find-cli-tools/SKILL.md) | You need tools an agent can install and run from a terminal. |
 | [`find-browser-tools`](skills/find-browser-tools/SKILL.md) | You need products an agent can operate through browser automation. |
 | [`compare-agent-tools`](skills/compare-agent-tools/SKILL.md) | You need ranked alternatives, score tradeoffs, and evidence-backed recommendations. |
-| [`submit-agent-friendly-tool`](skills/submit-agent-friendly-tool/SKILL.md) | You want to add or improve a catalog record with a PR. |
+| [`submit-agent-friendly-tool`](skills/submit-agent-friendly-tool/SKILL.md) | You want to add a missing tool with a PR. |
+| [`update-agent-friendly-tool`](skills/update-agent-friendly-tool/SKILL.md) | You want to update an existing catalog tool with a PR. |
 
 Manual fallback for agents that read local skill folders:
 
@@ -418,7 +419,8 @@ quickly:
 - [`data/taxonomy.json`](data/taxonomy.json): canonical shared taxonomy.
 - [`skills/`](skills): skills.sh-discoverable skills.
 - [`skills.sh.json`](skills.sh.json): skills.sh metadata.
-- [`.github/PULL_REQUEST_TEMPLATE/add-tool.md`](.github/PULL_REQUEST_TEMPLATE/add-tool.md): contribution template.
+- [`.github/PULL_REQUEST_TEMPLATE/add-tool.md`](.github/PULL_REQUEST_TEMPLATE/add-tool.md): new-tool contribution template.
+- [`.github/PULL_REQUEST_TEMPLATE/update-tool.md`](.github/PULL_REQUEST_TEMPLATE/update-tool.md): existing-tool update template.
 
 ## Example Tool Shape
 
@@ -549,7 +551,9 @@ commit; a connected Vercel Git integration can deploy that commit normally.
 
 ## Contributing
 
-The best contribution is a well-evidenced catalog record.
+The best contribution is a well-evidenced catalog record. New tools and
+existing-tool updates both go through pull requests, but they use separate
+templates and skills.
 
 1. Search first by name, slug, domain, GitHub repo, and package name. Update an existing record instead of adding a duplicate.
 2. Add or edit exactly one tool file in [`data/tools`](data/tools), for example `data/tools/s/stripe.json`.
@@ -563,8 +567,9 @@ The best contribution is a well-evidenced catalog record.
 10. Do not edit package files, lockfiles, changelogs, workflows, repo scripts, app code, agent skills, version bumps, or release workflow files manually. The manual Release workflow handles version commits from committed changesets.
 11. Open a pull request. The Catalog PR workflow rebuilds the generated catalog, reruns the formatter, audits metadata, and typechecks catalog consumers.
 
-If you are not ready to edit JSON, use the website submit flow to open a
-prefilled GitHub pull request or copy a ready-to-run agent prompt.
+If you are not ready to edit JSON, use the website submit flow to choose
+`Submit new tool` or `Update existing tool`, then open a prefilled GitHub pull
+request or copy the matching ready-to-run agent prompt.
 
 ## Tech Stack
 

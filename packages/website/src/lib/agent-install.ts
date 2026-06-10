@@ -235,7 +235,8 @@ Use MCP or JSON directly when shell commands are unavailable.
 - \`find-cli-tools\`: command-line tools agents can install and run.
 - \`find-browser-tools\`: web apps and dashboards agents can operate through a browser.
 - \`compare-agent-tools\`: ranked comparisons and tradeoffs.
-- \`submit-agent-friendly-tool\`: add or improve a catalog record through a PR.
+- \`submit-agent-friendly-tool\`: add a missing catalog record through a PR.
+- \`update-agent-friendly-tool\`: update an existing catalog record through a PR.
 
 ## Workflow
 

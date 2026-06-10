@@ -6,6 +6,7 @@ import {
   CopyIcon,
   ExternalLinkIcon,
   GitPullRequestIcon,
+  PencilLineIcon,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -16,20 +17,24 @@ import {
   buildSubmitToolAgentPrompt,
   buildSubmitToolBranchName,
   buildSubmitToolPrUrl,
+  buildUpdateToolAgentPrompt,
+  buildUpdateToolBranchName,
+  buildUpdateToolPrUrl,
   emptySubmitToolInput,
   type SubmitToolInput,
 } from "@/lib/submit-tool"
 
+type SubmitAction = "submit-pr" | "submit-prompt" | "update-pr" | "update-prompt"
+
 export function SubmitToolForm() {
   const [form, setForm] = React.useState<SubmitToolInput>(emptySubmitToolInput)
   const [error, setError] = React.useState("")
-  const [copyStatus, setCopyStatus] = React.useState<"idle" | "copied" | "failed">(
-    "idle"
-  )
+  const [copyStatus, setCopyStatus] = React.useState<
+    "idle" | "submit-copied" | "update-copied" | "failed"
+  >("idle")
 
-  const isReady =
-    form.toolName.trim().length > 0 && form.websiteUrl.trim().length > 0
-  const agentPrompt = React.useMemo(() => buildSubmitToolAgentPrompt(form), [form])
+  const submitPrompt = React.useMemo(() => buildSubmitToolAgentPrompt(form), [form])
+  const updatePrompt = React.useMemo(() => buildUpdateToolAgentPrompt(form), [form])
 
   function updateField(field: keyof SubmitToolInput, value: string) {
     setForm((current) => ({ ...current, [field]: value }))
@@ -37,32 +42,64 @@ export function SubmitToolForm() {
     setCopyStatus("idle")
   }
 
-  function validateForm() {
-    if (isReady) {
+  function validateAction(action: SubmitAction) {
+    const hasTool = form.toolName.trim().length > 0
+    const hasWebsite = form.websiteUrl.trim().length > 0
+
+    if (action.startsWith("submit") && hasTool && hasWebsite) {
       return true
     }
 
-    setError("Tool name and website URL are required.")
+    if (action.startsWith("update") && hasTool) {
+      return true
+    }
+
+    setError(
+      action.startsWith("submit")
+        ? "Tool name and website URL are required to submit a new tool."
+        : "Existing tool name or slug is required to update a tool."
+    )
 
     return false
   }
 
-  function openPullRequestTemplate() {
-    if (!validateForm()) {
+  function openSubmitPullRequestTemplate() {
+    if (!validateAction("submit-pr")) {
       return
     }
 
     window.open(buildSubmitToolPrUrl(form), "_blank", "noopener,noreferrer")
   }
 
-  async function copyAgentPrompt() {
-    if (!validateForm()) {
+  function openUpdatePullRequestTemplate() {
+    if (!validateAction("update-pr")) {
+      return
+    }
+
+    window.open(buildUpdateToolPrUrl(form), "_blank", "noopener,noreferrer")
+  }
+
+  async function copySubmitAgentPrompt() {
+    if (!validateAction("submit-prompt")) {
       return
     }
 
     try {
-      await navigator.clipboard.writeText(agentPrompt)
-      setCopyStatus("copied")
+      await navigator.clipboard.writeText(submitPrompt)
+      setCopyStatus("submit-copied")
+    } catch {
+      setCopyStatus("failed")
+    }
+  }
+
+  async function copyUpdateAgentPrompt() {
+    if (!validateAction("update-prompt")) {
+      return
+    }
+
+    try {
+      await navigator.clipboard.writeText(updatePrompt)
+      setCopyStatus("update-copied")
     } catch {
       setCopyStatus("failed")
     }
@@ -76,12 +113,12 @@ export function SubmitToolForm() {
         </div>
       ) : null}
       <div className="grid gap-2">
-        <Label htmlFor="toolName">Tool name</Label>
+        <Label htmlFor="toolName">Tool name or slug</Label>
         <Input
           id="toolName"
           name="toolName"
           onChange={(event) => updateField("toolName", event.target.value)}
-          placeholder="Example: Stripe"
+          placeholder="Example: Stripe or stripe"
           value={form.toolName}
         />
       </div>
@@ -107,25 +144,36 @@ export function SubmitToolForm() {
         />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="notes">Agent-readiness notes</Label>
+        <Label htmlFor="notes">Evidence and notes</Label>
         <Textarea
           id="notes"
           name="notes"
           onChange={(event) => updateField("notes", event.target.value)}
-          placeholder="CLI, API, MCP, docs, pricing, account creation, browser support..."
+          placeholder="For new tools: API, CLI, MCP, docs, pricing, account setup. For updates: old value, new value, evidence URL, why it is more accurate."
           rows={6}
           value={form.notes}
         />
       </div>
       <div className="grid gap-3 rounded-md border bg-muted/25 p-4 sm:grid-cols-2">
         <div className="grid gap-2">
-          <Button type="button" onClick={openPullRequestTemplate}>
+          <Button type="button" onClick={openSubmitPullRequestTemplate}>
             <GitPullRequestIcon data-icon="inline-start" aria-hidden="true" />
-            Open GitHub PR template
+            Submit new tool
             <ExternalLinkIcon data-icon="inline-end" aria-hidden="true" />
           </Button>
+          <Button type="button" variant="outline" onClick={copySubmitAgentPrompt}>
+            {copyStatus === "submit-copied" ? (
+              <CheckIcon data-icon="inline-start" aria-hidden="true" />
+            ) : (
+              <CopyIcon data-icon="inline-start" aria-hidden="true" />
+            )}
+            {copyStatus === "submit-copied"
+              ? "Copied submit prompt"
+              : "Copy submit prompt"}
+          </Button>
           <p className="text-sm text-muted-foreground">
-            Opens a prefilled PR composer for branch{" "}
+            Uses <code className="rounded bg-background px-1 py-0.5 text-xs">add-tool.md</code>{" "}
+            and branch{" "}
             <code className="rounded bg-background px-1 py-0.5 text-xs">
               {buildSubmitToolBranchName(form.toolName)}
             </code>
@@ -133,34 +181,60 @@ export function SubmitToolForm() {
           </p>
         </div>
         <div className="grid gap-2">
-          <Button type="button" variant="outline" onClick={copyAgentPrompt}>
-            {copyStatus === "copied" ? (
+          <Button type="button" onClick={openUpdatePullRequestTemplate}>
+            <PencilLineIcon data-icon="inline-start" aria-hidden="true" />
+            Update existing tool
+            <ExternalLinkIcon data-icon="inline-end" aria-hidden="true" />
+          </Button>
+          <Button type="button" variant="outline" onClick={copyUpdateAgentPrompt}>
+            {copyStatus === "update-copied" ? (
               <CheckIcon data-icon="inline-start" aria-hidden="true" />
             ) : (
               <CopyIcon data-icon="inline-start" aria-hidden="true" />
             )}
-            {copyStatus === "copied" ? "Copied agent prompt" : "Copy agent prompt"}
+            {copyStatus === "update-copied"
+              ? "Copied update prompt"
+              : "Copy update prompt"}
           </Button>
           <p className="text-sm text-muted-foreground">
-            Copies a ready prompt for an agent to research, edit one tool source
-            file, run checks, and open the PR.
+            Uses{" "}
+            <code className="rounded bg-background px-1 py-0.5 text-xs">
+              update-tool.md
+            </code>{" "}
+            and branch{" "}
+            <code className="rounded bg-background px-1 py-0.5 text-xs">
+              {buildUpdateToolBranchName(form.toolName)}
+            </code>
+            .
           </p>
         </div>
       </div>
       {copyStatus === "failed" ? (
         <div className="rounded-md border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">
-          Clipboard access failed. Select and copy the prompt preview below.
+          Clipboard access failed. Select and copy one of the prompt previews below.
         </div>
       ) : null}
-      <div className="grid gap-2">
-        <Label htmlFor="agentPrompt">Agent prompt preview</Label>
-        <Textarea
-          id="agentPrompt"
-          readOnly
-          rows={8}
-          value={agentPrompt}
-          className="font-mono text-xs"
-        />
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-2">
+          <Label htmlFor="submitAgentPrompt">Submit prompt preview</Label>
+          <Textarea
+            id="submitAgentPrompt"
+            readOnly
+            rows={8}
+            value={submitPrompt}
+            className="font-mono text-xs"
+          />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="updateAgentPrompt">Update prompt preview</Label>
+          <Textarea
+            id="updateAgentPrompt"
+            readOnly
+            rows={8}
+            value={updatePrompt}
+            className="font-mono text-xs"
+          />
+        </div>
       </div>
     </form>
   )

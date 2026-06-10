@@ -11,7 +11,15 @@ import { GET as openApiGet } from "../src/app/openapi.json/route"
 import { GET as skillGet } from "../src/app/skill.md/route"
 import { canAgentsUseSkillMarkdown } from "../src/lib/agent-install"
 import { getDirectoryListData } from "../src/lib/directory"
-import { buildSubmitToolPrBody, emptySubmitToolInput } from "../src/lib/submit-tool"
+import {
+  buildSubmitToolAgentPrompt,
+  buildSubmitToolBranchName,
+  buildSubmitToolPrBody,
+  buildUpdateToolAgentPrompt,
+  buildUpdateToolBranchName,
+  buildUpdateToolPrBody,
+  emptySubmitToolInput,
+} from "../src/lib/submit-tool"
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../../..")
 const rootSkillsDir = join(repoRoot, "skills")
@@ -34,46 +42,95 @@ async function main() {
 }
 
 async function testSubmitToolTemplate() {
-  const template = await readFile(
+  const addTemplate = await readFile(
     join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/add-tool.md"),
+    "utf8"
+  )
+  const updateTemplate = await readFile(
+    join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/update-tool.md"),
     "utf8"
   )
 
   assert(
-    buildSubmitToolPrBody(emptySubmitToolInput) === template.trimEnd(),
+    buildSubmitToolPrBody(emptySubmitToolInput) === addTemplate.trimEnd(),
     "submit tool PR body matches GitHub add-tool template"
   )
   assert(
-    !template.includes("`agentScore` (0-100):"),
+    buildUpdateToolPrBody(emptySubmitToolInput) === updateTemplate.trimEnd(),
+    "update tool PR body matches GitHub update-tool template"
+  )
+  assert(
+    !addTemplate.includes("`agentScore` (0-100):") &&
+      !updateTemplate.includes("`agentScore` (0-100):"),
     "submit template does not ask users to enter agentScore"
   )
   assert(
-    !template.includes("`launchScore` (0+):"),
+    !addTemplate.includes("`launchScore` (0+):") &&
+      !updateTemplate.includes("`launchScore` (0+):"),
     "submit template does not ask users to enter launchScore"
   )
   assert(
-    template.includes("`launchSignals`:"),
+    addTemplate.includes("`launchSignals`:"),
     "submit template asks users for launchSignals"
   )
   assert(
-    template.includes("`logoPath` (optional): `/logos/tools/<slug>.svg`") &&
-      template.includes("packages/website/public/logos/tools/<slug>.svg") &&
-      template.includes("packages/website/public/logos/tools/stripe.svg") &&
-      template.includes("If no logo is added, omit `logoPath`"),
+    updateTemplate.includes("## Existing Tool") &&
+      updateTemplate.includes("- Existing slug:") &&
+      updateTemplate.includes("- Why this is more accurate:"),
+    "update template supports existing tool updates"
+  )
+  assert(
+    addTemplate.includes("`logoPath` (optional): `/logos/tools/<slug>.svg`") &&
+      addTemplate.includes("packages/website/public/logos/tools/<slug>.svg") &&
+      addTemplate.includes("packages/website/public/logos/tools/stripe.svg") &&
+      addTemplate.includes("If no logo is added, omit `logoPath`"),
     "submit template documents optional slug-named SVG logos"
   )
   assert(
-    template.includes("## Signal Honesty") &&
-      template.includes("Do not fake or inflate"),
+    addTemplate.includes("## Signal Honesty") &&
+      addTemplate.includes("Do not fake or inflate") &&
+      updateTemplate.includes("## Signal Honesty") &&
+      updateTemplate.includes("Do not fake or inflate"),
     "submit template requires honest launch signals"
   )
   assert(
-    template.includes("`bun run catalog:build`"),
-    "submit template asks users to build the catalog"
+    addTemplate.includes("`bun run catalog:build`") &&
+      updateTemplate.includes("`bun run catalog:build`"),
+    "submit and update templates ask users to build the catalog"
   )
   assert(
-    template.includes("`data/catalog.json`"),
-    "submit template warns users not to edit generated catalog"
+    addTemplate.includes("`data/catalog.json`") &&
+      updateTemplate.includes("`data/catalog.json`"),
+    "submit and update templates warn users not to edit generated catalog"
+  )
+
+  const updateInput = {
+    ...emptySubmitToolInput,
+    toolName: "stripe",
+    notes: "Refresh launch signals from public evidence.",
+  }
+  const submitPrompt = buildSubmitToolAgentPrompt(updateInput)
+  const updatePrompt = buildUpdateToolAgentPrompt(updateInput)
+
+  assert(
+    buildSubmitToolBranchName(updateInput.toolName) === "catalog/add-stripe",
+    "submit flow uses add branch prefix"
+  )
+
+  assert(
+    buildUpdateToolBranchName(updateInput.toolName) === "catalog/update-stripe",
+    "update flow uses update branch prefix"
+  )
+  assert(
+    submitPrompt.includes("using `.github/PULL_REQUEST_TEMPLATE/add-tool.md`") &&
+      !submitPrompt.includes("update-tool.md"),
+    "submit prompt uses add-tool template"
+  )
+  assert(
+    updatePrompt.includes("Please update an existing agent-friendly tool") &&
+      updatePrompt.includes("Do not add a duplicate tool record.") &&
+      updatePrompt.includes("using `.github/PULL_REQUEST_TEMPLATE/update-tool.md`"),
+    "update prompt preserves PR-only existing-record workflow"
   )
 }
 
