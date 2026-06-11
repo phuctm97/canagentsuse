@@ -1,5 +1,11 @@
 # @canagentsuse/website
 
+## 0.1.16
+
+### Patch Changes
+
+- 420be23: Add Capawesome to the agent-friendly tool catalog.
+
 ## 0.1.15
 
 ### Patch Changes
