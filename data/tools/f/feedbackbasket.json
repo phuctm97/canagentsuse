@@ -80,9 +80,9 @@
     },
     {
       "slug": "sandbox",
-      "supportLevel": "partial",
-      "detail": "The free plan supports trial usage before upgrading, and the CLI supports a base URL override for local development, but no dedicated hosted sandbox is documented.",
-      "evidenceUrl": "https://feedbackbasket.com"
+      "supportLevel": "unknown",
+      "detail": "No public documentation was found for a dedicated sandbox, test mode, dry-run mode, or local-mode workflow.",
+      "evidenceUrl": null
     }
   ]
 }
