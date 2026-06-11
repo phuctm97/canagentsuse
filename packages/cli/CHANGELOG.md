@@ -1,5 +1,11 @@
 # canagentsuse
 
+## 0.2.13
+
+### Patch Changes
+
+- 9285b58: Require new-tool submit prompts and skills to star the repository first.
+
 ## 0.2.12
 
 ### Patch Changes
