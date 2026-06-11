@@ -66,15 +66,21 @@
       "supportLevel": "strong",
       "detail": "Dashboard manages keys, credits, and usage; a browsable provider list at socialrouter.io/providers exposes copy-ready slugs.",
       "evidenceUrl": "https://www.socialrouter.io/providers"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "unknown",
+      "detail": "No sandbox, test mode, or dry-run is documented. Every extract/search call runs against live providers and is billed against the account's real paid credit balance, so an agent cannot rehearse a call for free.",
+      "evidenceUrl": null
     }
   ],
   "launchSignals": {
     "adoptionTier": "early-tool",
     "ecosystemImportance": "specialized",
-    "githubStars": null,
-    "packageDownloadsMonthly": 21,
+    "githubStars": 0,
+    "packageDownloadsMonthly": 184,
     "maturity": "active",
     "distribution": "auto",
-    "evidenceUrl": "https://docs.socialrouter.io/introduction"
+    "evidenceUrl": "https://www.npmjs.com/package/@socialrouter/mcp"
   }
 }
