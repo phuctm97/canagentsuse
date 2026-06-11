@@ -1,0 +1,86 @@
+{
+  "slug": "socialrouter",
+  "name": "SocialRouter",
+  "tagline": "One API to extract data from any social network, with automatic provider failover.",
+  "websiteUrl": "https://socialrouter.io",
+  "docsUrl": "https://docs.socialrouter.io",
+  "githubUrl": "https://github.com/socialrouter",
+  "logoPath": "/logos/tools/socialrouter.svg",
+  "shortDescription": "SocialRouter is a unified API for extracting profiles, posts, comments, reviews, jobs, and places from LinkedIn, Instagram, X, Reddit, Facebook, TikTok, YouTube, Pinterest, Bluesky, Snapchat, and Google Maps. One request with a provider slug returns a normalized response, and SocialRouter transparently fails over to a compatible provider on error.",
+  "agentSummary": "Agents extract social and web data through a single REST endpoint, an official npm SDK, CLI, or MCP server. The provider catalogue and per-record pricing are queryable before a call, and credits are pay-per-record so an agent can compare providers and pin the cheapest or fastest.",
+  "bestFor": "Extracting normalized social media and Google Maps data across many providers without integrating each scraping actor separately.",
+  "cautionNotes": "Key limitations: Extractions are billed per record returned against whichever provider succeeds, so an agent should set a sensible `limit` and watch credit balance before large jobs. Scraping social platforms may be subject to each platform's terms and regional data rules; review compliance before delegating bulk extraction. The Vercel function timeout caps long-running extractions at 300s, and the in-memory rate limiter is advisory. Verify provider availability and pricing via `GET /v1/providers` before automating.",
+  "pricingSummary": "Pay-as-you-go credits denominated in USD, charged per record returned. No subscriptions or minimums. Per-record price varies by provider, platform, and extraction type; the live price on `GET /v1/providers` is the price paid.",
+  "authModel": "Bearer API keys prefixed `sr_live_`, created in the dashboard and shown once. 60 requests/minute per key, with optional per-key credit limits. Listing providers is public; all other endpoints require auth.",
+  "accountCreation": "Self-serve signup at socialrouter.io; create API keys from the dashboard.",
+  "browserSupport": "Web dashboard handles signup, API key management, credit top-ups, and a browsable provider catalogue with copy-ready slugs.",
+  "cliPackage": "@socialrouter/cli",
+  "apiBaseUrl": "https://api.socialrouter.io",
+  "mcpServer": "npx -y @socialrouter/mcp",
+  "categorySlugs": [
+    "scraping-content",
+    "social-media"
+  ],
+  "useCaseSlugs": [
+    "extract-web-data"
+  ],
+  "capabilities": [
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "REST API with `POST /v1/extract`, `POST /v1/search`, provider catalogue, balance, and usage endpoints; Bearer auth and normalized responses.",
+      "evidenceUrl": "https://docs.socialrouter.io/api-reference/extract"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Official `@socialrouter/mcp` server exposes extract, search, list_providers, get_provider, get_extraction, get_balance, and get_usage tools for Claude Desktop, Claude Code, Cursor, and other MCP clients.",
+      "evidenceUrl": "https://docs.socialrouter.io/mcp/introduction"
+    },
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Official `@socialrouter/cli` npm package runs extractions, browses providers, and checks the account from the terminal; configured via the SOCIALROUTER_API_KEY env var.",
+      "evidenceUrl": "https://docs.socialrouter.io/cli/introduction"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Mintlify docs cover quickstart, authentication, concepts, an interactive API reference, and dedicated SDK, CLI, and MCP guides.",
+      "evidenceUrl": "https://docs.socialrouter.io/introduction"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Pay-per-record pricing is documented and queryable per provider via `GET /v1/providers`; the published rate is the rate charged with no hidden multipliers.",
+      "evidenceUrl": "https://docs.socialrouter.io/concepts/credits"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve signup, then create `sr_live_` API keys from the dashboard.",
+      "evidenceUrl": "https://socialrouter.io/auth/signup"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "Dashboard manages keys, credits, and usage; a browsable provider list at socialrouter.io/providers exposes copy-ready slugs.",
+      "evidenceUrl": "https://www.socialrouter.io/providers"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "unknown",
+      "detail": "No sandbox, test mode, or dry-run is documented. Every extract/search call runs against live providers and is billed against the account's real paid credit balance, so an agent cannot rehearse a call for free.",
+      "evidenceUrl": null
+    }
+  ],
+  "launchSignals": {
+    "adoptionTier": "early-tool",
+    "ecosystemImportance": "specialized",
+    "githubStars": 0,
+    "packageDownloadsMonthly": 184,
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://www.npmjs.com/package/@socialrouter/mcp"
+  }
+}
