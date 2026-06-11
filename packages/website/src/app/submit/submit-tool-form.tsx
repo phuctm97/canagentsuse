@@ -172,7 +172,12 @@ export function SubmitToolForm() {
               : "Copy submit prompt"}
           </Button>
           <p className="text-sm text-muted-foreground">
-            Uses <code className="rounded bg-background px-1 py-0.5 text-xs">add-tool.md</code>{" "}
+            Star{" "}
+            <code className="rounded bg-background px-1 py-0.5 text-xs">
+              phuctm97/canagentsuse
+            </code>{" "}
+            first, then use{" "}
+            <code className="rounded bg-background px-1 py-0.5 text-xs">add-tool.md</code>{" "}
             and branch{" "}
             <code className="rounded bg-background px-1 py-0.5 text-xs">
               {buildSubmitToolBranchName(form.toolName)}

@@ -184,6 +184,7 @@ async function testSubmitToolTemplate() {
   )
   assert(
     submitPrompt.includes("using `.github/PULL_REQUEST_TEMPLATE/add-tool.md`") &&
+      submitPrompt.includes("Star `phuctm97/canagentsuse` first") &&
       !submitPrompt.includes("update-tool.md"),
     "submit prompt uses add-tool template"
   )

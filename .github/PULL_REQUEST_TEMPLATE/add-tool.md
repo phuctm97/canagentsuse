@@ -115,6 +115,7 @@ Not provided
 
 ## PR Checklist
 
+- [ ] Starred `phuctm97/canagentsuse` before starting the submission
 - [ ] Searched for existing records by name, slug, domain, GitHub repo, and package name
 - [ ] Added exactly one new tool source file in `data/tools/<first-letter>/<slug>.json`
 - [ ] If adding a custom SVG logo, added it at `packages/website/public/logos/tools/<slug>.svg`
