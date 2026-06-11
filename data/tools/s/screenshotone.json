@@ -1,0 +1,87 @@
+{
+  "slug": "screenshotone",
+  "name": "ScreenshotOne",
+  "tagline": "Screenshot API for developers and agents.",
+  "websiteUrl": "https://screenshotone.com",
+  "docsUrl": "https://screenshotone.com/docs/",
+  "githubUrl": "https://github.com/screenshotone",
+  "logoPath": "/logos/tools/screenshotone.svg",
+  "shortDescription": "ScreenshotOne turns URLs, HTML, and Markdown into screenshots, PDFs, rendered HTML, and website metadata through a documented API.",
+  "agentSummary": "Agents can call ScreenshotOne directly, use the official CLI, use SDKs, or run the official MCP server to capture web pages for research, monitoring, QA, and visual evidence workflows.",
+  "bestFor": "Website screenshots, PDF rendering, visual monitoring, Open Graph images, competitor research, and agent workflows that need browser-rendered page evidence.",
+  "cautionNotes": "Key limitations: Rendering arbitrary websites can involve rate limits, target-site blocking, CAPTCHAs, proxy behavior, copyright, privacy, and compliance concerns. Store API keys securely, use signed URLs before sharing screenshot links publicly, and review website terms before automated capture.",
+  "pricingSummary": "Public pricing page with a free plan and paid monthly plans for higher screenshot volume.",
+  "authModel": "API key scoped to a ScreenshotOne organization; keys can be sent as access_key or X-Access-Key.",
+  "accountCreation": "Self-serve signup creates an organization and API keys in the dashboard.",
+  "browserSupport": "Dashboard and Playground support browser-based setup and previewing screenshot options before API use.",
+  "cliPackage": "screenshotone/cli",
+  "apiBaseUrl": "https://api.screenshotone.com",
+  "mcpServer": "https://github.com/screenshotone/mcp",
+  "launchSignals": {
+    "adoptionTier": "established-product",
+    "ecosystemImportance": "specialized",
+    "githubStars": null,
+    "packageDownloadsMonthly": null,
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://screenshotone.com/docs/"
+  },
+  "categorySlugs": [
+    "scraping-content",
+    "design-media"
+  ],
+  "useCaseSlugs": [
+    "extract-web-data",
+    "manage-media"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "native",
+      "detail": "Official CLI integrates ScreenshotOne into command-line workflows and is linked from the ScreenshotOne CLI integration page.",
+      "evidenceUrl": "https://screenshotone.com/integrations/cli/"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "Screenshot API supports GET and POST requests to /take over HTTPS with URL, HTML, and rendering options.",
+      "evidenceUrl": "https://screenshotone.com/docs/getting-started/"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Official MCP server lets LLM clients render website screenshots through ScreenshotOne.",
+      "evidenceUrl": "https://github.com/screenshotone/mcp"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "ScreenshotOne Playground lets users test and preview screenshot API options in the browser before integration.",
+      "evidenceUrl": "https://screenshotone.com/changelog/improved-playground-synchronized-all-options/"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Docs describe self-serve signup, dashboard access, and API key creation.",
+      "evidenceUrl": "https://screenshotone.com/docs/api-keys/"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public pricing page lists free and paid ScreenshotOne plans.",
+      "evidenceUrl": "https://screenshotone.com/pricing/"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Documentation covers getting started, API keys, request options, errors, SDK examples, webhooks, and related workflows.",
+      "evidenceUrl": "https://screenshotone.com/docs/"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "unknown",
+      "detail": "No dedicated sandbox, test mode, local mode, or dry run is documented; Playground, Postman, CLI, MCP, and API calls use the live ScreenshotOne account and API quota.",
+      "evidenceUrl": null
+    }
+  ]
+}
