@@ -15,8 +15,8 @@ For existing catalog records, use `update-agent-friendly-tool` instead.
 
 Use one of these paths:
 
-- Website PR flow: open `https://canagentsuse.com/submit`, fill tool name and website URL, then choose `Submit new tool`.
-- Website agent flow: open `https://canagentsuse.com/submit`, fill the fields, then choose `Copy submit prompt`.
+- Website PR flow: open `https://canagentsuse.com/`, use the homepage Submit menu or command search, then choose `Open new PR template` or `Open PR to submit tool`.
+- Website agent flow: open `https://canagentsuse.com/`, use the homepage Submit menu or command search, then choose `Copy prompt for agent` or `Copy submit tool prompt`.
 - Direct GitHub flow: create a branch in `phuctm97/canagentsuse`, add one source file in `data/tools/<first-letter>/<tool-slug>.json`, optionally add a custom SVG logo at `packages/website/public/logos/tools/<tool-slug>.svg`, and open a PR with `.github/PULL_REQUEST_TEMPLATE/add-tool.md`.
 
 ## Direct Agent Workflow

@@ -19,19 +19,44 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 type UpdateToolActionsProps = {
-  updateToolAgentPrompt: string
-  updateToolPrUrl: string
+  toolSlug: string
+  websiteUrl: string
 }
 
 export function UpdateToolActions({
-  updateToolAgentPrompt,
-  updateToolPrUrl,
+  toolSlug,
+  websiteUrl,
 }: UpdateToolActionsProps) {
   const [copied, setCopied] = React.useState(false)
 
+  async function buildUpdateActions() {
+    const { buildUpdateToolAgentPrompt, buildUpdateToolPrUrl } = await import(
+      "@/lib/submit-tool"
+    )
+    const input = {
+      toolName: toolSlug,
+      websiteUrl,
+      submitter: "",
+      notes: `Existing slug: ${toolSlug}`,
+    }
+
+    return {
+      prompt: buildUpdateToolAgentPrompt(input),
+      prUrl: buildUpdateToolPrUrl(input),
+    }
+  }
+
+  async function openUpdatePullRequestTemplate() {
+    const { prUrl } = await buildUpdateActions()
+
+    window.open(prUrl, "_blank", "noopener,noreferrer")
+  }
+
   async function copyUpdatePrompt() {
     try {
-      await navigator.clipboard.writeText(updateToolAgentPrompt)
+      const { prompt } = await buildUpdateActions()
+
+      await navigator.clipboard.writeText(prompt)
       setCopied(true)
       toast.success("Copied", {
         description: "Update prompt copied to clipboard.",
@@ -56,7 +81,7 @@ export function UpdateToolActions({
         <DropdownMenuGroup>
           <DropdownMenuItem
             onSelect={() => {
-              window.open(updateToolPrUrl, "_blank", "noopener,noreferrer")
+              void openUpdatePullRequestTemplate()
             }}
           >
             <GitPullRequestIcon />

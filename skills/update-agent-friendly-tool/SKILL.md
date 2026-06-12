@@ -15,8 +15,8 @@ For missing tools, use `submit-agent-friendly-tool` instead.
 
 Use one of these paths:
 
-- Website PR flow: open `https://canagentsuse.com/submit`, fill the existing tool name or slug, then choose `Update existing tool`.
-- Website agent flow: open `https://canagentsuse.com/submit`, fill the fields, then choose `Copy update prompt`.
+- Website PR flow: open the existing tool page on `https://canagentsuse.com/tools/<slug>`, then choose `Update existing tool`.
+- Website agent flow: open the existing tool page on `https://canagentsuse.com/tools/<slug>`, then choose `Copy update prompt`.
 - Direct GitHub flow: create a branch in `phuctm97/canagentsuse`, update one existing source file in `data/tools/<first-letter>/<tool-slug>.json`, optionally add or fix one custom SVG logo at `packages/website/public/logos/tools/<tool-slug>.svg`, and open a PR with `.github/PULL_REQUEST_TEMPLATE/update-tool.md`.
 
 ## Direct Agent Workflow

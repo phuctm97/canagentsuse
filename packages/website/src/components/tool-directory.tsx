@@ -5,7 +5,6 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import {
-  ArrowRightIcon,
   BadgeCheckIcon,
   BotIcon,
   BracesIcon,
@@ -372,11 +371,6 @@ export function ToolDirectory({
     )
   }, [])
 
-  const goToSubmit = React.useCallback(() => {
-    setCommandOpen(false)
-    router.push("/submit")
-  }, [router])
-
   const copyAgentAccessText = React.useCallback(
     async (target: AgentAccessCopyTarget, text: string) => {
       try {
@@ -395,6 +389,16 @@ export function ToolDirectory({
     []
   )
 
+  const openSubmitPullRequestTemplate = React.useCallback(() => {
+    setCommandOpen(false)
+    window.open(submitToolPrUrl, "_blank", "noopener,noreferrer")
+  }, [])
+
+  const copySubmitToolPrompt = React.useCallback(() => {
+    setCommandOpen(false)
+    void copyAgentAccessText("submit", submitToolAgentPrompt)
+  }, [copyAgentAccessText])
+
   return (
     <main className="min-h-svh bg-background text-foreground">
       <ToolCommandDialog
@@ -407,7 +411,8 @@ export function ToolDirectory({
         onOpenTool={openTool}
         onChooseCategory={chooseCategory}
         onChooseCapability={chooseCapability}
-        onSubmitTool={goToSubmit}
+        onCopySubmitToolPrompt={copySubmitToolPrompt}
+        onOpenSubmitToolPr={openSubmitPullRequestTemplate}
       />
 
       <section className="border-b bg-background">
@@ -998,7 +1003,8 @@ const ToolCommandDialog = React.memo(function ToolCommandDialog({
   onOpenTool,
   onChooseCategory,
   onChooseCapability,
-  onSubmitTool,
+  onCopySubmitToolPrompt,
+  onOpenSubmitToolPr,
 }: {
   open: boolean
   onOpenChange: (open: boolean) => void
@@ -1009,7 +1015,8 @@ const ToolCommandDialog = React.memo(function ToolCommandDialog({
   onOpenTool: (tool: DirectoryListTool) => void
   onChooseCategory: (slug: string) => void
   onChooseCapability: (slug: string) => void
-  onSubmitTool: () => void
+  onCopySubmitToolPrompt: () => void
+  onOpenSubmitToolPr: () => void
 }) {
   const [query, setQuery] = React.useState("")
   const deferredQuery = React.useDeferredValue(query)
@@ -1227,9 +1234,13 @@ const ToolCommandDialog = React.memo(function ToolCommandDialog({
           ) : null}
           <CommandSeparator />
           <CommandGroup heading="Actions">
-            <CommandItem value="submit-tool" onSelect={onSubmitTool}>
-              <ArrowRightIcon />
-              Submit a tool
+            <CommandItem value="copy-submit-tool-prompt" onSelect={onCopySubmitToolPrompt}>
+              <CopyIcon />
+              Copy submit tool prompt
+            </CommandItem>
+            <CommandItem value="open-pr-to-submit-tool" onSelect={onOpenSubmitToolPr}>
+              <GitPullRequestIcon />
+              Open PR to submit tool
             </CommandItem>
           </CommandGroup>
         </CommandList>

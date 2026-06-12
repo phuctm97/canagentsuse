@@ -1,6 +1,7 @@
 import { cache } from "react"
 
 import {
+  type CatalogTool,
   capabilities as catalogCapabilities,
   categories as catalogCategories,
   tools as catalogTools,
@@ -113,67 +114,34 @@ export type DirectoryListData = {
   isFallback: boolean
 }
 
+const categoryBySlug = new Map(
+  catalogCategories.map((category) => [category.slug, category])
+)
+const capabilityBySlug = new Map(
+  catalogCapabilities.map((capability) => [capability.slug, capability])
+)
+const useCaseBySlug = new Map(
+  catalogUseCases.map((useCase) => [useCase.slug, useCase])
+)
+const toolBySlug = new Map(catalogTools.map((tool) => [tool.slug, tool]))
+const sortedCategories = [...catalogCategories].sort(
+  (left, right) => left.sortOrder - right.sortOrder || left.name.localeCompare(right.name)
+)
+const sortedCapabilities = [...catalogCapabilities].sort(
+  (left, right) => left.sortOrder - right.sortOrder || left.name.localeCompare(right.name)
+)
+const sortedUseCases = [...catalogUseCases].sort((left, right) =>
+  left.name.localeCompare(right.name)
+)
+
 export const getDirectoryData = cache(async (): Promise<DirectoryData> => {
-  const categoryBySlug = new Map(
-    catalogCategories.map((category) => [category.slug, category])
-  )
-  const capabilityBySlug = new Map(
-    catalogCapabilities.map((capability) => [capability.slug, capability])
-  )
-  const useCaseBySlug = new Map(
-    catalogUseCases.map((useCase) => [useCase.slug, useCase])
-  )
-
-  const tools = catalogTools.map((tool) =>
-    withAgentScore({
-      ...tool,
-      docsUrl: tool.docsUrl ?? null,
-      githubUrl: tool.githubUrl ?? null,
-      logoPath: tool.logoPath ?? null,
-      cautionNotes: tool.cautionNotes ?? null,
-      cliPackage: tool.cliPackage ?? null,
-      apiBaseUrl: tool.apiBaseUrl ?? null,
-      mcpServer: tool.mcpServer ?? null,
-      isFeatured: Boolean(tool.isFeatured),
-      categories: tool.categorySlugs
-        .map((slug) => categoryBySlug.get(slug))
-        .filter((category): category is DirectoryCategory => Boolean(category)),
-      useCases: tool.useCaseSlugs
-        .map((slug) => useCaseBySlug.get(slug))
-        .filter((useCase): useCase is DirectoryUseCase => Boolean(useCase)),
-      capabilities: tool.capabilities
-        .map((capability) => {
-          const capabilityMeta = capabilityBySlug.get(capability.slug)
-
-          return {
-            slug: capability.slug,
-            name: capabilityMeta?.name ?? capability.slug,
-            group: capabilityMeta?.group ?? "Agent access",
-            supportLevel: capability.supportLevel,
-            detail: capability.detail,
-            evidenceUrl: capability.evidenceUrl ?? null,
-          }
-        })
-        .sort((left, right) => {
-          const leftOrder = capabilityBySlug.get(left.slug)?.sortOrder ?? 0
-          const rightOrder = capabilityBySlug.get(right.slug)?.sortOrder ?? 0
-
-          return leftOrder - rightOrder
-        }),
-    })
-  )
+  const tools = catalogTools.map(toDirectoryTool)
 
   return {
     tools: sortTools(tools),
-    categories: [...catalogCategories].sort(
-      (left, right) => left.sortOrder - right.sortOrder || left.name.localeCompare(right.name)
-    ),
-    capabilities: [...catalogCapabilities].sort(
-      (left, right) => left.sortOrder - right.sortOrder || left.name.localeCompare(right.name)
-    ),
-    useCases: [...catalogUseCases].sort((left, right) =>
-      left.name.localeCompare(right.name)
-    ),
+    categories: sortedCategories,
+    capabilities: sortedCapabilities,
+    useCases: sortedUseCases,
     isFallback: false,
   }
 })
@@ -190,10 +158,49 @@ export async function getDirectoryListData(): Promise<DirectoryListData> {
 }
 
 export const getToolBySlug = cache(async (slug: string) => {
-  const data = await getDirectoryData()
+  const tool = toolBySlug.get(slug)
 
-  return data.tools.find((tool) => tool.slug === slug) ?? null
+  return tool ? toDirectoryTool(tool) : null
 })
+
+function toDirectoryTool(tool: CatalogTool): DirectoryTool {
+  return withAgentScore({
+    ...tool,
+    docsUrl: tool.docsUrl ?? null,
+    githubUrl: tool.githubUrl ?? null,
+    logoPath: tool.logoPath ?? null,
+    cautionNotes: tool.cautionNotes ?? null,
+    cliPackage: tool.cliPackage ?? null,
+    apiBaseUrl: tool.apiBaseUrl ?? null,
+    mcpServer: tool.mcpServer ?? null,
+    isFeatured: Boolean(tool.isFeatured),
+    categories: tool.categorySlugs
+      .map((slug) => categoryBySlug.get(slug))
+      .filter((category): category is DirectoryCategory => Boolean(category)),
+    useCases: tool.useCaseSlugs
+      .map((slug) => useCaseBySlug.get(slug))
+      .filter((useCase): useCase is DirectoryUseCase => Boolean(useCase)),
+    capabilities: tool.capabilities
+      .map((capability) => {
+        const capabilityMeta = capabilityBySlug.get(capability.slug)
+
+        return {
+          slug: capability.slug,
+          name: capabilityMeta?.name ?? capability.slug,
+          group: capabilityMeta?.group ?? "Agent access",
+          supportLevel: capability.supportLevel,
+          detail: capability.detail,
+          evidenceUrl: capability.evidenceUrl ?? null,
+        }
+      })
+      .sort((left, right) => {
+        const leftOrder = capabilityBySlug.get(left.slug)?.sortOrder ?? 0
+        const rightOrder = capabilityBySlug.get(right.slug)?.sortOrder ?? 0
+
+        return leftOrder - rightOrder
+      }),
+  })
+}
 
 function toDirectoryListTool(tool: DirectoryTool): DirectoryListTool {
   return {

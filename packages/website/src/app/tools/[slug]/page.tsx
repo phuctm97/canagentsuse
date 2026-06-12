@@ -22,7 +22,6 @@ import { ToolLogo } from "@/components/tool-logo"
 import { tools } from "@/lib/catalog-data"
 import { getToolBySlug } from "@/lib/directory"
 import { SITE_ASSET_URL, SITE_NAME, SITE_URL } from "@/lib/site"
-import { buildUpdateToolAgentPrompt, buildUpdateToolPrUrl } from "@/lib/submit-tool"
 
 import { UpdateToolActions } from "./update-tool-actions"
 
@@ -120,15 +119,6 @@ export default async function ToolPage({ params }: ToolPageProps) {
       ratingCount: 1,
     },
   }
-  const updateToolInput = {
-    toolName: tool.slug,
-    websiteUrl: tool.websiteUrl,
-    submitter: "",
-    notes: `Existing slug: ${tool.slug}`,
-  }
-  const updateToolPrUrl = buildUpdateToolPrUrl(updateToolInput)
-  const updateToolAgentPrompt = buildUpdateToolAgentPrompt(updateToolInput)
-
   return (
     <main className="min-h-svh bg-background text-foreground">
       <script
@@ -152,8 +142,8 @@ export default async function ToolPage({ params }: ToolPageProps) {
                 Outdated or incorrect details?
               </span>
               <UpdateToolActions
-                updateToolAgentPrompt={updateToolAgentPrompt}
-                updateToolPrUrl={updateToolPrUrl}
+                toolSlug={tool.slug}
+                websiteUrl={tool.websiteUrl}
               />
             </div>
             <Button asChild size="sm">

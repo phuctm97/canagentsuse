@@ -14,12 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${SITE_URL}/submit`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.4,
-    },
-    {
       url: `${SITE_URL}/agents`,
       lastModified: now,
       changeFrequency: "weekly",

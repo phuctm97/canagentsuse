@@ -16,7 +16,7 @@ import {
   type LaunchScoreBreakdown,
   type LaunchSignals,
 } from "@/lib/launch-scoring"
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site"
+import { GITHUB_REPO_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site"
 
 export const agentInterfaceVersion = "2026-06-08"
 
@@ -262,7 +262,7 @@ export function catalogToMarkdown(catalog: AgentCatalog, options?: { full?: bool
       "## Core Pages",
       "",
       `- [Home](${SITE_URL}/): Human directory with command search.`,
-      `- [Submit](${SITE_URL}/submit): Suggest a new agent-friendly tool.`,
+      `- [GitHub](${GITHUB_REPO_URL}): Open a pull request to suggest a new agent-friendly tool.`,
       "",
       "## Optional",
       "",

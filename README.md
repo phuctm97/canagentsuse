@@ -567,9 +567,10 @@ templates and skills.
 10. Do not edit package files, lockfiles, changelogs, workflows, repo scripts, app code, agent skills, version bumps, or release workflow files manually. The manual Release workflow handles version commits from committed changesets.
 11. Open a pull request. The Catalog PR workflow rebuilds the generated catalog, reruns the formatter, audits metadata, and typechecks catalog consumers.
 
-If you are not ready to edit JSON, use the website submit flow to choose
-`Submit new tool` or `Update existing tool`, then open a prefilled GitHub pull
-request or copy the matching ready-to-run agent prompt.
+If you are not ready to edit JSON, use the homepage Submit menu or command
+search to open a new-tool PR template or copy a ready-to-run submit prompt.
+For existing tools, use the actions on the tool detail page to open an update
+PR template or copy the matching update prompt.
 
 ## Tech Stack
 
