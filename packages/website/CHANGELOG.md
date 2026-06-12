@@ -1,5 +1,12 @@
 # @canagentsuse/website
 
+## 0.1.18
+
+### Patch Changes
+
+- 7356f08: Add SocialRouter to the catalog — a unified API, SDK, CLI, and MCP server for extracting normalized data from social networks (LinkedIn, Instagram, X, Reddit, Facebook, TikTok, YouTube, Pinterest, Bluesky, Snapchat) and Google Maps, with automatic provider failover and pay-per-record pricing.
+- 24da850: Add FeedbackBasket to the agent-friendly tool catalog with CLI, MCP, pricing, browser, and onboarding evidence.
+
 ## 0.1.17
 
 ### Patch Changes
