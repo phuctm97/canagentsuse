@@ -1,5 +1,11 @@
 # @canagentsuse/website
 
+## 0.1.19
+
+### Patch Changes
+
+- 67887a6: Remove the standalone submit route, replace command-search submission with copy-prompt and open-PR actions, and speed up tool detail builds by resolving one catalog record at a time.
+
 ## 0.1.18
 
 ### Patch Changes
