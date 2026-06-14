@@ -77,9 +77,9 @@
     },
     {
       "slug": "sandbox",
-      "supportLevel": "partial",
-      "detail": "Superblog offers a no-credit-card trial for testing, but the public docs do not describe a separate sandbox, test mode, or local development mode.",
-      "evidenceUrl": "https://superblog.ai/pricing"
+      "supportLevel": "unknown",
+      "detail": "No public sandbox, test-mode, dry-run, or local-mode documentation was found.",
+      "evidenceUrl": null
     }
   ]
 }
