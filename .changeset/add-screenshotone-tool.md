@@ -1,6 +1,6 @@
 ---
 "@canagentsuse/website": patch
-"@canagentsuse/cli": patch
+"canagentsuse": patch
 ---
 
 Add ScreenshotOne to the agent-friendly tool catalog.
