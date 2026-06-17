@@ -1,5 +1,11 @@
 # @canagentsuse/website
 
+## 0.1.20
+
+### Patch Changes
+
+- 8396167: Add ScreenshotOne to the agent-friendly tool catalog.
+
 ## 0.1.19
 
 ### Patch Changes
