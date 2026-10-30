@@ -1,0 +1,86 @@
+{
+  "slug": "curlshot",
+  "name": "CurlShot",
+  "tagline": "Screenshot API with an MCP server for agents.",
+  "websiteUrl": "https://curlshot.com",
+  "docsUrl": "https://curlshot.com/docs",
+  "githubUrl": "https://github.com/SergiuPogor/curlshot-mcp",
+  "shortDescription": "CurlShot turns a URL, HTML, or Markdown into a PNG, JPEG, WebP, PDF, or scrolling MP4/WebM/GIF video through one HTTP request.",
+  "agentSummary": "Agents can call the CurlShot HTTP API directly, read the OpenAPI 3.1 description and llms.txt, or connect to the hosted MCP server (take_screenshot, list_devices) to capture web pages as visual evidence.",
+  "bestFor": "Website screenshots, full-page and device captures, HTML or Markdown to image/PDF, Open Graph cards, and agent workflows that need to see a rendered page.",
+  "cautionNotes": "Key limitations: pages behind a login need cookies or headers; private and local addresses are refused; banner and ad blocking works on most sites but not all; some sites block automated browsers. Keep the access key secret and use signed links when embedding screenshot URLs in public pages.",
+  "pricingSummary": "Public pricing page: free plan with 100 screenshots per month and no card; paid monthly plans from $19 for higher volume. Failed renders and cache hits are not counted.",
+  "authModel": "Access key sent as the access_key query parameter, an X-Access-Key header, or an Authorization: Bearer header; an optional secret key signs links for public embedding.",
+  "accountCreation": "Self-serve email signup creates an account and API keys in the dashboard; no card is needed for the free plan.",
+  "browserSupport": "The home page online tool takes a screenshot from a pasted URL without an account; the dashboard handles keys, usage, and billing.",
+  "cliPackage": null,
+  "apiBaseUrl": "https://curlshot.com/api/v1",
+  "mcpServer": "https://curlshot.com/api/mcp",
+  "launchSignals": {
+    "adoptionTier": "early-tool",
+    "ecosystemImportance": "specialized",
+    "githubStars": null,
+    "packageDownloadsMonthly": null,
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://curlshot.com/docs"
+  },
+  "categorySlugs": [
+    "scraping-content",
+    "design-media"
+  ],
+  "useCaseSlugs": [
+    "extract-web-data",
+    "manage-media"
+  ],
+  "capabilities": [
+    {
+      "slug": "cli",
+      "supportLevel": "partial",
+      "detail": "No dedicated CLI; every capture is a single cURL request, and the docs include cURL, Node.js, Python, PHP, Go, and Ruby examples.",
+      "evidenceUrl": "https://curlshot.com/docs/getting-started"
+    },
+    {
+      "slug": "api",
+      "supportLevel": "native",
+      "detail": "GET or POST /api/v1/screenshot with a URL, HTML, or Markdown; documented options, async jobs with signed webhooks, and bulk calls of up to 100 screenshots.",
+      "evidenceUrl": "https://curlshot.com/openapi.json"
+    },
+    {
+      "slug": "mcp",
+      "supportLevel": "native",
+      "detail": "Hosted streamable HTTP MCP server at https://curlshot.com/api/mcp with take_screenshot and list_devices tools.",
+      "evidenceUrl": "https://curlshot.com/tools/screenshot-tool-for-ai-agents"
+    },
+    {
+      "slug": "browser",
+      "supportLevel": "strong",
+      "detail": "The online tool on the home page captures a pasted URL in the browser without an account.",
+      "evidenceUrl": "https://curlshot.com"
+    },
+    {
+      "slug": "account-creation",
+      "supportLevel": "strong",
+      "detail": "Self-serve email signup with no card for the free plan; keys are created in the dashboard.",
+      "evidenceUrl": "https://curlshot.com/docs/authentication"
+    },
+    {
+      "slug": "pricing-clarity",
+      "supportLevel": "strong",
+      "detail": "Public pricing page lists plan quotas, rate limits, concurrency, and the rule that failed renders and cache hits are free; also available as Markdown.",
+      "evidenceUrl": "https://curlshot.com/pricing"
+    },
+    {
+      "slug": "docs-quality",
+      "supportLevel": "strong",
+      "detail": "Docs cover getting started, authentication, every option, errors, usage limits, webhooks, and bulk; each page has a Markdown twin plus llms.txt and an agent quick-reference page.",
+      "evidenceUrl": "https://curlshot.com/agent-md"
+    },
+    {
+      "slug": "sandbox",
+      "supportLevel": "unknown",
+      "detail": "No dedicated test mode is documented; the free plan and the no-account online tool can be used to try requests before production.",
+      "evidenceUrl": null
+    }
+  ]
+}
