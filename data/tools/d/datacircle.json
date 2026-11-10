@@ -1,0 +1,40 @@
+{
+  "slug": "datacircle",
+  "name": "Datacircle",
+  "tagline": "Find the best GTM APIs.",
+  "websiteUrl": "https://datacircle.dev",
+  "docsUrl": "https://datacircle.dev/docs",
+  "githubUrl": "https://github.com/waynehamadi/datacircle",
+  "shortDescription": "We benchmark all the GTM APIs and we put the results on our website. The API lists every API on the sheet, who is best for each, and every plan with its score.",
+  "agentSummary": "Agents can call the open API, add the MCP server, or read the SKILL.md file to find the best GTM API for a job and compare plans by price and score.",
+  "bestFor": "Choosing a GTM API: company, people and email data, enrichment, and the plans that cost the least per 1,000 calls.",
+  "cautionNotes": "Key limitations: read-only, at most 60 calls a minute from one address. Scores come from our own test calls and plan prices change, so check the provider before you buy.",
+  "pricingSummary": "Free and open, no key.",
+  "authModel": "None. No key, no account.",
+  "accountCreation": "No account needed.",
+  "browserSupport": "The full sheet is on datacircle.dev, with a page for each API plan.",
+  "cliPackage": null,
+  "apiBaseUrl": "https://api.datacircle.dev/v1",
+  "mcpServer": "https://api.datacircle.dev/mcp",
+  "launchSignals": {
+    "adoptionTier": "early-tool",
+    "ecosystemImportance": "niche",
+    "githubStars": null,
+    "packageDownloadsMonthly": null,
+    "maturity": "active",
+    "distribution": "auto",
+    "evidenceUrl": "https://datacircle.dev"
+  },
+  "categorySlugs": ["crm-sales", "analytics-product"],
+  "useCaseSlugs": ["analyze-product"],
+  "capabilities": [
+    {"slug": "cli", "supportLevel": "unknown", "detail": "No CLI.", "evidenceUrl": null},
+    {"slug": "api", "supportLevel": "native", "detail": "Open REST API with an OpenAPI spec: list APIs, see who is best for each, search every plan.", "evidenceUrl": "https://api.datacircle.dev/v1/openapi.json"},
+    {"slug": "mcp", "supportLevel": "native", "detail": "Open MCP server, no key, with the tools list_apis and search_plans.", "evidenceUrl": "https://datacircle.dev/docs/mcp"},
+    {"slug": "browser", "supportLevel": "strong", "detail": "The sheet and every plan's page are public on datacircle.dev.", "evidenceUrl": "https://datacircle.dev"},
+    {"slug": "account-creation", "supportLevel": "native", "detail": "No account or key is needed.", "evidenceUrl": "https://api.datacircle.dev/v1/openapi.json"},
+    {"slug": "pricing-clarity", "supportLevel": "native", "detail": "Free, with a limit of 60 calls a minute.", "evidenceUrl": "https://api.datacircle.dev/v1/openapi.json"},
+    {"slug": "docs-quality", "supportLevel": "strong", "detail": "Docs, an OpenAPI spec, a SKILL.md file and an llms.txt.", "evidenceUrl": "https://datacircle.dev/docs"},
+    {"slug": "sandbox", "supportLevel": "unknown", "detail": "No sandbox needed: every call is read-only.", "evidenceUrl": null}
+  ]
+}
